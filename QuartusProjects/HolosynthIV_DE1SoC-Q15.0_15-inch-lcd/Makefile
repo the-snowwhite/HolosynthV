@@ -72,7 +72,7 @@ default: help
 
 ################################################
 .PHONY: all
-all: preloader uboot dts dtb sd-fat
+all: dts dtb rbf
 
 ifeq ($(HAVE_QUARTUS),1)
 all: sof rbf
@@ -120,7 +120,7 @@ AR_REGEX += \
 	Makefile ip readme.txt ds5 \
 	altera_avalon* *.qpf *.qsf *.sdc *.v *.sv *.vhd *.qsys *.tcl *.stp \
 	*.sed quartus.ini *.sof *.rbf *.sopcinfo *.jdi output_files \
-	hps_isw_handoff */*.svd */synthesis/*.svd *.dts *.dtb *.xml \
+	hps_isw_handoff */*.svd */synthesis/*.svd *.dts *.dtb *.xml *.sh *.ipx\
 	$(SOFTWARE_DIR)
 
 AR_FILTER_OUT += %_tb.qsys
@@ -178,7 +178,7 @@ qsys_edit:
 SCRUB_CLEAN_FILES += $(wildcard .qsys_edit)
 
 ifeq ($(HAVE_QSYS),1)
-SCRUB_CLEAN_FILES += $(QSYS_QIP) $(QSYS_SOPCINFO) $(QSYS_BASE) 
+SCRUB_CLEAN_FILES += $(QSYS_QIP) $(QSYS_SOPCINFO) $(QSYS_BASE)
 endif
 
 #############
@@ -213,9 +213,9 @@ $(QUARTUS_PIN_ASSIGNMENTS_STAMP): $(QSYS_STAMP)
 	$(stamp_target)
 
 #######
-# we need to recursively call this makefile to 
+# we need to recursively call this makefile to
 # apply *_pin_assignments.tcl script because the
-# pin_assignment.tcl files may not exist yet 
+# pin_assignment.tcl files may not exist yet
 # when makefile was originally called
 
 ifeq ($(QUARTUS_ENABLE_PIN_ASSIGNMENTS_APPLY),1)
@@ -229,7 +229,7 @@ quartus_apply_tcl_pin_assignments: $(QUARTUS_TCL_PIN_ASSIGNMENTS_APPLY_TARGETS)
 .PHONY: $(QUARTUS_TCL_PIN_ASSIGNMENTS_APPLY_TARGETS)
 $(QUARTUS_TCL_PIN_ASSIGNMENTS_APPLY_TARGETS): quartus_apply_tcl-%: %
 	@$(ECHO) "Applying $<... to $(QUARTUS_QPF)..."
-	quartus_sh -t $< $(QUARTUS_QPF)
+	quartus_sta -t $< $(QUARTUS_QPF)
 
 endif # QUARTUS_ENABLE_PIN_ASSIGNMENTS_APPLY == 1
 ######
@@ -265,12 +265,15 @@ sof: $(QUARTUS_SOF)
 
 QUARTUS_RBF := $(patsubst %.sof,%.rbf,$(QUARTUS_SOF))
 #
-# This converts the sof into compressed, unencrypted 
-# raw binary format corresponding to MSEL value of 8 
-# in the FPGAMGRREGS_STAT register. If you read the 
+# This converts the sof into compressed, unencrypted
+# raw binary format corresponding to MSEL value of 8
+# in the FPGAMGRREGS_STAT register. If you read the
 # the whole register, it should be 0x50.
 #
 # CVSoC DevBoard SW1 MSEL should be set to up,down,up,down,up,up
+#
+# SoCKit: SW6 MSEL[4:0] should be set to 0 1 0 1 0
+#		FPP x32, Fast, compressed bitstream
 #
 
 ifeq ($(HAVE_QUARTUS),1)
@@ -302,8 +305,8 @@ endif
 
 ################################################
 # QSYS/Quartus Project Generation
-#  - we don't run this generation step automatically because 
-#    it will destroy any changes and/or customizations that 
+#  - we don't run this generation step automatically because
+#    it will destroy any changes and/or customizations that
 #    you've made to your qsys or your quartus project
 #
 QSYS_QSYS_GEN := $(firstword $(wildcard create_*_qsys.tcl))
@@ -322,9 +325,9 @@ endif
 .PHONY: qsys_generate_qsys
 ifneq ($(QSYS_QSYS_GEN),)
 
-# Note that this target has a strange & known issue 
+# Note that this target has a strange & known issue
 # that requires the Stratix V device family to be installed.
-# If the stratix V device family is not installed then the target 
+# If the stratix V device family is not installed then the target
 # will hang. This issue will hopefully be resolved in a future
 # version of quartus/qsys.
 
@@ -393,7 +396,7 @@ ifneq ($(wildcard ghrd_reset.tcl),)
 # use the already programmed fpga to reset the hps
 HPS_RESET_TARGETS := hps_cold_reset hps_warm_reset hps_debug_reset
 
-.PHONY: $(HPS_RESET_TARGETS) 
+.PHONY: $(HPS_RESET_TARGETS)
 $(HPS_RESET_TARGETS): hps_%_reset:
 	quartus_stp --script=ghrd_reset.tcl $(if $(BOARD_CABLE),--cable-name "$(BOARD_CABLE)") $(if $(BOARD_DEVICE_INDEX),--device-index "$(BOARD_DEVICE_INDEX)") --$*-reset
 endif
@@ -418,7 +421,7 @@ PRELOADER_DEPS += $(PRELOADER_ID)
 ifeq ($(HAVE_QUARTUS),1)
 PRELOADER_DEPS += $(QUARTUS_STAMP)
 
-$(PRELOADER_ID): $(QUARTUS_STAMP) 
+$(PRELOADER_ID): $(QUARTUS_STAMP)
 endif
 
 PRELOADER_STAMP := $(call get_stamp_target,preloader)
@@ -482,7 +485,7 @@ SCRUB_CLEAN_FILES += $(PRELOADER_DIR)
 # the preloader and uboot that build with this design
 
 # These targets assume you have a pre-imaged sd card
-# or an sd card *.img file 
+# or an sd card *.img file
 # An example sd image for the Altera SoC Development
 # Board can be found here:
 # <soceds_install>/embeddedsw/socfpga/prebuilt_images
@@ -528,7 +531,7 @@ sd-update-preloader-uboot: sd-update-preloader sd-update-uboot
 DTS.SOPC2DTS := sopc2dts
 
 DTS.BOARDINFO ?= $(QSYS_BASE)_board_info.xml
-DTS.CLOCKINFO ?= hps_clock_info.xml
+#DTS.CLOCKINFO ?= hps_clock_info.xml
 DTS.COMMON ?= hps_common_board_info.xml
 
 DTS.EXTRA_DEPS += $(DTS.BOARDINFO) $(DTS.COMMON)
@@ -581,15 +584,23 @@ SCRUB_CLEAN_FILES += $(DEVICE_TREE_SOURCE) $(DEVICE_TREE_BLOB)
 
 ################################################
 
+fpgadata := 0x2000000
+fpgaimage := /boot/socfpga.rbf
+loadaddr := 0x01000000
+bootimage :=/boot/zImage
+fdt_addr :=100
+fdtimage :=/boot/socfpga.dtb
 
 ################################################
 boot.script: Makefile
 	@$(RM) $@
 	@$(ECHO) "Generating $@"
-	@$(ECHO) "fatload mmc 0:1 \$$fpgadata $(QUARTUS_RBF);" >>$@
-	@$(ECHO) "fpga load 0 \$$fpgadata \$$filesize;" >>$@
-	@$(ECHO) "setenv fdtimage $(DEVICE_TREE_BLOB);" >>$@
-	@$(ECHO) "run bridge_enable_handoff;" >>$@
+	@$(ECHO) "setenv bootimage /boot/zImage;" >>$@
+	@$(ECHO) "setenv fdtimage /boot/socfpga.dtb;" >>$@
+	@$(ECHO) "setenv fpgaimage /boot/socfpga.rbf;" >>$@
+	@$(ECHO) 'setenv mmcload mmc rescan; ext4load mmc 0:2 ${fpgadata} ${fpgaimage}; ext4load mmc 0:2 ${loadaddr} ${bootimage}; ext4load mmc 0:2 ${fdt_addr} ${fdtimage};' >>$@
+	@$(ECHO) "setenv ethaddr 82:3a:f0:75:4b:99;" >>$@
+#	@$(ECHO) "run fpgaload;" >>$@
 	@$(ECHO) "run mmcload;" >>$@
 	@$(ECHO) "run mmcboot;" >>$@
 
@@ -597,19 +608,22 @@ ifeq ($(wildcard $(UBOOT_MKIMAGE)),)
 $(UBOOT_MKIMAGE): $(PRELOADER_STAMP)
 endif
 
-u-boot.scr: boot.script $(UBOOT_MKIMAGE)
+boot.scr: boot.script $(UBOOT_MKIMAGE)
 	$(UBOOT_MKIMAGE) -A arm -O linux -T script -C none -a 0 -e 0 -n "bootscript" -d $< $@
 
 SD_FAT_TGZ ?= sd_fat.tar.gz
-SD_FAT_TGZ_DEPS += u-boot.scr boot.script $(QUARTUS_RBF) $(DEVICE_TREE_BLOB)
+SD_FAT_TGZ_DEPS += boot.scr boot.script $(QUARTUS_RBF) $(DEVICE_TREE_BLOB)
 
 $(SD_FAT_TGZ): $(SD_FAT_TGZ_DEPS)
 	@$(RM) $@
 	@$(MKDIR) $(@D)
 	$(TAR) -czf $@ $^
 
-.PHONY: sd-fat
-sd-fat: $(SD_FAT_TGZ)
+HELP_TARGETS += sd-boot
+sd-boot.HELP := Create a tarball with the uboot script, dtb and rbf files
+
+.PHONY: sd-boot
+sd-boot: $(SD_FAT_TGZ)
 
 AR_FILES += $(SD_FAT_TGZ)
 
@@ -666,7 +680,7 @@ BATCH_DIR := $(if $(TMP),$(TMP)/)batch/$(AR_TIMESTAMP)
 $(patsubst %,batch-%,$(BATCH_TARGETS)): batch-%: $(AR_FILE)
 	@$(RM) $(BATCH_DIR)
 	@$(MKDIR) $(BATCH_DIR)
-	$(CP) $< $(BATCH_DIR) 
+	$(CP) $< $(BATCH_DIR)
 	$(CD) $(BATCH_DIR) && $(TAR) -xzf $(notdir $<) && $(CHMOD) -R 755 *
 	$(MAKE) -C $(BATCH_DIR) $*
 

@@ -251,23 +251,21 @@ wire		midi_txd;
 assign 	midi_rxd = SW[0] ? GPIO_1[27] : ~GPIO_1[27];
 assign	GPIO_1[29] = SW[0] ? midi_txd : ~midi_txd;
 
-assign {LCD_R,LCD_G,LCD_B} = {vid_r,vid_g,vid_b};
-assign LCD_DCLK 				= lcd_clk_60;
-assign LCD_HSD					= ~vid_h_sync;
-assign LCD_VSD					= ~vid_v_sync;
-assign LCD_DE					= vid_datavalid;
+assign {LCD_R,LCD_G,LCD_B}	= {vid_r,vid_g,vid_b};
+assign LCD_DCLK 			= lcd_clk_60;
+assign LCD_HSD				= ~vid_h_sync;
+assign LCD_VSD				= ~vid_v_sync;
+assign LCD_DE				= vid_datavalid;
 
-wire [6:0]	cpu_adr;
-wire			cpu_env_sel;
-wire			cpu_osc_sel;
-wire			cpu_m1_sel;
-wire			cpu_m2_sel;
-wire			cpu_com_sel;
+wire [9:0]		cpu_adr;
 wire			reg_read_write_act;
 wire 			cpu_write;
 wire			cpu_read;
 wire			cpu_chip_sel;
-wire [7:0]	data;
+wire [31:0]		cpu_data_out;
+wire [31:0]		cpu_data_in;
+wire 			synth_irq_n;
+assign synth_irq_n = 1'b1;
 
 //=======================================================
 //  Structural coding
@@ -399,24 +397,19 @@ soc_system u0 (
         .alt_vip_itc_0_clocked_video_vid_f           (),           							 //                .vid_f
         .alt_vip_itc_0_clocked_video_vid_h           (),           							 //                .vid_h
         .alt_vip_itc_0_clocked_video_vid_v           (),            		
-		  .synthreg_io_out_adr                       (cpu_adr),   //                    synthreg_io.out_adr
-        .synthreg_io_env_sel                       (cpu_env_sel),   //                               .env_sel
-        .synthreg_io_osc_sel                       (cpu_osc_sel),   //                               .osc_sel
-        .synthreg_io_m1_sel                        (cpu_m1_sel),    //                               .m1_sel
-        .synthreg_io_m2_sel                        (cpu_m2_sel),    //                               .m2_sel
-        .synthreg_io_com_sel                       (cpu_com_sel),   //                               .com_sel
-        .synthreg_io_waitreq                       (reg_read_write_act),   //          .waitreq
-//        .synthreg_io_waitreq                       (1'b0),   //                      .waitreq
-        .synthreg_io_data                          (data),       //                    .data
-        .synthreg_io_read_out                      (cpu_read),                      // .read_out
-        .synthreg_io_write_out                     (cpu_write),                     // .write_out
-        .synthreg_io_chip_sel                      (cpu_chip_sel)                   // .chip_sel
+        .synthreg_io_uio_dataout                   (cpu_data_out),                   //                    synthreg_io.uio_dataout
+        .synthreg_io_uio_address                   (cpu_adr),                   //                               .uio_address
+        .synthreg_io_uio_read                      (cpu_read),                      //                               .uio_read
+        .synthreg_io_uio_chipsel                   (cpu_chip_sel),                   //                               .uio_chipsel
+        .synthreg_io_uio_datain                    (cpu_data_in),                    //                               .uio_datain
+        .synthreg_io_uio_write                     (cpu_write),                     //                               .uio_write
+        .synthreg_io_uio_int_in_n                  (synth_irq_n)                     //                               .uio_int_in
     );
-//parameter VOICES = 32;
+parameter VOICES = 32;
 //parameter VOICES = 64;
-parameter VOICES = 4;
-//parameter V_OSC = 8;	// number of oscilators pr. voice.
-parameter V_OSC = 4;	// number of oscilators pr. voice.
+//parameter VOICES = 4;
+parameter V_OSC = 8;	// number of oscilators pr. voice.
+//parameter V_OSC = 4;	// number of oscilators pr. voice.
 
 parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
 parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
@@ -424,9 +417,12 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 	wire byteready;
 	wire [7:0] cur_status,midibyte_nr,midi_data_byte;
 
-	wire [7:0] LED;
-	assign LEDR[7:0] = LED;
 //	assign aud_mute = user_dipsw_fpga[2];
+
+/////// LED Display ////////
+	assign LEDR = voice_free[9:0];
+wire  [VOICES-1:0]	keys_on;
+wire  [VOICES-1:0]	voice_free;
 
 	wire ad_xck = AUD_XCK;  			// violet
 	wire ad_bclk = AUD_BCLK;			// orange
@@ -440,40 +436,38 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 	
 	reg [7:0]   delay_1;
 	wire 			iRST_n;
-	
+
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
-	.EXT_CLOCK_IN(CLOCK_50) ,   // input  CLOCK_50_sig
-	.reg_DLY0(iRST_n),
-	.MIDI_Rx_DAT( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-	.midi_txd ( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
+	.EXT_CLOCK_IN			(CLOCK_50) ,   // input  CLOCK_50_sig
+	.reg_DLY0				(iRST_n),
+	.MIDI_Rx_DAT			( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+	.midi_txd				( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
 //	.button( fpga_debounced_buttons[3:0] ),            //  Button[3:0]
-	.button( KEY ),            //  Button[3:0]
+	.button					( KEY ),            //  Button[3:0]
 //    .SW ( SW[17:0]),
 `ifdef _Synth
-	.AUD_ADCLRCK(AUD_ADCLRCK),      //  Audio CODEC ADC LR Clock
-	.AUD_DACLRCK(AUD_DACLRCK),      //  Audio CODEC DAC LR Clock
-	.AUD_ADCDAT (AUD_ADCDAT ),      //  Audio CODEC ADC Data
-	.AUD_DACDAT (AUD_DACDAT ),      //  Audio CODEC DAC Data
-	.AUD_BCLK   (AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
-	.AUD_XCK    (AUD_XCK    ),      //  Audio CODEC Chip Clock
+	.AUD_ADCLRCK			(AUD_ADCLRCK),      //  Audio CODEC ADC LR Clock
+	.AUD_DACLRCK			(AUD_DACLRCK),      //  Audio CODEC DAC LR Clock
+	.AUD_ADCDAT				(AUD_ADCDAT ),      //  Audio CODEC ADC Data
+	.AUD_DACDAT				(AUD_DACDAT ),      //  Audio CODEC DAC Data
+	.AUD_BCLK				(AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
+	.AUD_XCK					(AUD_XCK    ),      //  Audio CODEC Chip Clock
 `endif
-	.byteready			(byteready),	// output  byteready_sig
-	.cur_status			(cur_status),	// output [7:0] cur_status_sig
-	.midibyte_nr		(midibyte_nr),	// output [7:0] midi_bytes_sig
-	.midi_data_byte	(midi_data_byte), 		// output [7:0] databyte_sig
-	.data					(data),
-	.cpu_adr				(cpu_adr),
+	.byteready				(byteready),	// output  byteready_sig
+	.cur_status				(cur_status),	// output [7:0] cur_status_sig
+	.midibyte_nr			(midibyte_nr),	// output [7:0] midi_bytes_sig
+	.midi_data_byte		(midi_data_byte), 		// output [7:0] databyte_sig
 	.reg_read_write_act	(reg_read_write_act),
-	.cpu_env_sel		( cpu_env_sel ),
-	.cpu_osc_sel		( cpu_osc_sel ),
-	.cpu_m1_sel			( cpu_m1_sel ),
-	.cpu_m2_sel			( cpu_m2_sel ),
-	.cpu_com_sel		( cpu_com_sel ),
-	.cpu_read			(cpu_read),
-	.cpu_write			(cpu_write),
-	.cpu_chip_sel		(cpu_chip_sel),
-	.GLED					(),				//  LED [7:0]
-	.RLED					(LED) 			//  Red LED [4:1]
+	.keys_on					(keys_on),				//  LED [7:0]
+	.voice_free				(voice_free) , 			//  Red LED [4:1]
+	.io_clk					(CLOCK3_50) ,	// input  io_clk_sig
+	.io_reset_n				(hps_fpga_reset_n) ,	// input  io_reset_sig
+	.cpu_read				(cpu_read) ,	// input  cpu_read_sig
+	.cpu_write				(cpu_write) ,	// input  cpu_write_sig
+	.chipselect				(cpu_chip_sel) ,	// input  chipselect_sig
+	.address					(cpu_adr) ,	// input [9:0] address_sig
+	.writedata				(cpu_data_out) ,	// input [31:0] writedata_sig
+	.readdata				(cpu_data_in) 	// output [31:0] readdata_sig
 );
 
 always @(negedge KEY[3] or posedge CLOCK3_50) 

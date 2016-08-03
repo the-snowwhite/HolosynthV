@@ -31,6 +31,15 @@ set_module_property ANALYZE_HDL AUTO
 set_module_property REPORT_TO_TALKBACK false
 set_module_property ALLOW_GREYBOX_GENERATION false
 
+# 
+# module assignments
+# 
+set_module_assignment embeddedsw.dts.group hsv-socfpg
+set_module_assignment embeddedsw.dts.name hsvreg-io
+set_module_assignment embeddedsw.dts.params.address_width 10
+set_module_assignment embeddedsw.dts.params.data_width 8
+set_module_assignment embeddedsw.dts.vendor holotr
+
 
 # 
 # file sets

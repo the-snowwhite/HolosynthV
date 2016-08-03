@@ -11,45 +11,45 @@
 
 module synthesizer (
 // Clock
-	input						EXT_CLOCK_IN,				
+	input					EXT_CLOCK_IN,				
 // reset
-	output					reg_DLY0,
+	output				reg_DLY0,
 // MIDI uart
-	input						MIDI_Rx_DAT,		//	MIDI Data
-	output					midi_txd,
+	input					MIDI_Rx_DAT,		//	MIDI Data
+	output				midi_txd,
 
-	input		[4:1]			button,				//	Button[4:1]
+	input		[4:1]		button,				//	Button[4:1]
 
-//	output	[8:1]			GLED,				//	LED[4:1] 
-	output [VOICES-1:0]  keys_on,
-//	output	[18:1]		RLED,				//	LED[4:1] 
-	output [VOICES-1:0]	voice_free,
+	output	[8:1]		GLED,					//	LED[4:1] 
+	output	[18:1]	RLED,					//	LED[4:1] 
 
-	inout						AUD_ADCLRCK,		//	Audio CODEC ADC LR Clock
-	inout						AUD_DACLRCK,		//	Audio CODEC DAC LR Clock
-	input						AUD_ADCDAT,			//	Audio CODEC ADC Data
-	output					AUD_DACDAT,			//	Audio CODEC DAC Data
-	inout						AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
-	output					AUD_XCK,			//	Audio CODEC Chip Clock
+	inout					AUD_ADCLRCK,		//	Audio CODEC ADC LR Clock
+	inout					AUD_DACLRCK,		//	Audio CODEC DAC LR Clock
+	input					AUD_ADCDAT,			//	Audio CODEC ADC Data
+	output				AUD_DACDAT,			//	Audio CODEC DAC Data
+	inout					AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
+	output				AUD_XCK,				//	Audio CODEC Chip Clock
 	
-	output					byteready,			// output  byteready_sig
-	output[7:0]				midi_data_byte, 	// output [7:0] midi_data_byte_sig
-	output[7:0]				midibyte_nr,		// output [7:0] midibyte_nr_sig
-	output[7:0]				cur_status,			// output [7:0] cur_status_sig
-	output reg				reg_read_write_act,
-	input 					io_clk,
-	input						io_reset_n,
-	input						cpu_read,
-	input						cpu_write,
-	input						chipselect,
-	input [9:0]				address,
-	input [31:0]			writedata,
-	output reg [31:0]		readdata
+	output				byteready,	// output  byteready_sig
+	output[7:0]			midi_data_byte, 		// output [7:0] midi_data_byte_sig
+	output[7:0]			midibyte_nr,	// output [7:0] midibyte_nr_sig
+	output[7:0]			cur_status,	// output [7:0] cur_status_sig
+	output reg			reg_read_write_act,
+	inout [7:0]			data,
+	input [6:0] 		cpu_adr,
+	input					cpu_env_sel,
+	input					cpu_osc_sel,
+	input					cpu_m1_sel,
+	input					cpu_m2_sel,
+	input					cpu_com_sel,
+	input					cpu_read,
+	input					cpu_write,
+	input					cpu_chip_sel
 );
 
 parameter VOICES = 32;
-parameter V_OSC = 4;				// number of oscilators pr. voice.
-parameter O_ENVS = 2;				// number of envelope generators pr. oscilator.
+parameter V_OSC = 4;	// number of oscilators pr. voice.
+parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
 
 parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
@@ -60,59 +60,12 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 
 
 //-----		Registers		-----//
-// io:
 
-	reg 			write_delay;
-	reg 			reg_w_act;
-	reg [7:0] 		indata;
-	reg				cpu_env_sel;
-	reg				cpu_osc_sel;
-	reg				cpu_m1_sel;
-	reg				cpu_m2_sel;
-	reg				cpu_com_sel;
 
-	wire [7:0]		data;
-	wire w_act = (cpu_write | write_delay);
-	wire write_active = (cpu_write | reg_w_act);
-	wire io_reset = ~io_reset_n;
+/////// LED Display ////////
+assign GLED[8:1] = keys_on[((VOICES -1) & 7):0];
 
-//	assign data = (!cpui_read && write_active && !waitreq) ? indata : 8'bz;
-	assign data = (!cpu_read && write_active) ? indata : 8'bz;
-
-always @(posedge io_clk) begin
-	write_delay <= cpu_write;
-	reg_w_act <= w_act;
-end
-	
-always @(posedge io_clk) begin
-	if (io_reset)
-		readdata[7:0] <= 8'b0;
-	else if (read)
-		readdata[7:0] <= data;
-	else if	(write)
-		indata <= writedata[7:0];
-end
-
-always @(posedge io_clk or posedge io_reset) begin
-	if (io_reset)begin
-		cpu_env_sel <= 1'b0;
-		cpu_osc_sel <= 1'b0;
-		cpu_m1_sel <= 1'b0;
-		cpu_m2_sel <= 1'b0;
-		cpu_com_sel <= 1'b0;
-	end
-	else begin
-		case (address[9:7])
-			3'd0: begin cpu_env_sel <= 1'b1;cpu_osc_sel <= 1'b0;cpu_m1_sel <= 1'b0;cpu_m2_sel <= 1'b0;cpu_com_sel <= 1'b0;end
-			3'd1: begin cpu_env_sel <= 1'b0;cpu_osc_sel <= 1'b1;cpu_m1_sel <= 1'b0;cpu_m2_sel <= 1'b0;cpu_com_sel <= 1'b0;end
-			3'd2: begin cpu_env_sel <= 1'b0;cpu_osc_sel <= 1'b0;cpu_m1_sel <= 1'b1;cpu_m2_sel <= 1'b0;cpu_com_sel <= 1'b0;end
-			3'd3: begin cpu_env_sel <= 1'b0;cpu_osc_sel <= 1'b0;cpu_m1_sel <= 1'b0;cpu_m2_sel <= 1'b1;cpu_com_sel <= 1'b0;end
-			3'd5: begin cpu_env_sel <= 1'b0;cpu_osc_sel <= 1'b0;cpu_m1_sel <= 1'b0;cpu_m2_sel <= 1'b0;cpu_com_sel <= 1'b1;end
-			default: begin cpu_env_sel = 0; cpu_osc_sel = 0; cpu_m1_sel <= 0; cpu_m2_sel <= 0; cpu_com_sel <= 0; end
-		endcase
-	end
-end
-
+assign RLED[16:1] = voice_free[((VOICES - 1) & 15):0];
 
 	wire reg_reset_N = button[1] & audio_pll_locked;
 	wire data_reset_N = button[2] & sys_pll_locked;
@@ -134,6 +87,7 @@ end
 //	wire [7:0] cur_status,midibyte_nr,midi_data_byte;
 
 //---	Midi	Decoder ---//
+	wire [VOICES-1:0]  	keys_on;
 	wire dataready;
 	wire dec_sysex_data_patch_send;
 // note events
@@ -145,6 +99,7 @@ end
 // from midi_controller_unit
 	wire [13:0] 		pitch_val;
 // from env gen
+	wire [VOICES-1:0] 	voice_free;
 
 // inputs
 // outputs
@@ -179,7 +134,7 @@ end
 	wire			dec_read;
 	wire 			dec_write;
 	
-	wire [6:0]	adr = reg_read_write_act ? dec_adr : address[6:0];
+	wire [6:0]	adr = reg_read_write_act ? dec_adr : cpu_adr;
 	wire			env_sel = reg_read_write_act ? dec_env_sel : cpu_env_sel;
 	wire			osc_sel = reg_read_write_act ? dec_osc_sel : cpu_osc_sel;
 	wire			m1_sel = reg_read_write_act ? dec_m1_sel : cpu_m1_sel;
@@ -187,7 +142,7 @@ end
 	wire			com_sel = reg_read_write_act ? dec_com_sel : cpu_com_sel;
 	wire			read = reg_read_write_act ? dec_read : cpu_read;
 	wire			write = reg_read_write_act ? dec_write : cpu_write;
-	wire			sysex_data_patch_send = reg_read_write_act ? dec_sysex_data_patch_send : (chipselect & cpu_read);
+	wire			sysex_data_patch_send = reg_read_write_act ? dec_sysex_data_patch_send : (cpu_chip_sel & cpu_read);
 	
 	wire 			read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]
 				|| reg_dataready[3] || reg_dataready[4]);
