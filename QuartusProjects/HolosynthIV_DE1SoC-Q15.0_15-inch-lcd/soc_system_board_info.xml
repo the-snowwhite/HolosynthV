@@ -67,8 +67,20 @@ of the Linux kernel.  One typically executes sopc2dts as follows:
 <DTAppend name="clocks" type="phandle" parentlabel="hps_0_gmac1" val="emac1_clk"/>
 
 <DTAppend name="phy-addr" type="hex" parentlabel="hps_0_gmac1" val="0xffffffff"/>
-<DTAppend name="micrel-ksz9021rlrn-clk-skew" type="hex" parentlabel="hps_0_gmac1" val="0xa0e0"/>
-<DTAppend name="micrel-ksz9021rlrn-rx-skew" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="txd0-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="txd1-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="txd2-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="txd3-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="rxd0-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x1a4"/>
+<DTAppend name="rxd1-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x1a4"/>
+<DTAppend name="rxd2-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x1a4"/>
+<DTAppend name="rxd3-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x1a4"/>
+
+<DTAppend name="txen-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x0"/>
+<DTAppend name="txc-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x744"/>
+<DTAppend name="rxdv-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x1a4"/>
+<DTAppend name="rxc-skew-ps" type="hex" parentlabel="hps_0_gmac1" val="0x690"/>
+<DTAppend name="max-frame-size" type="hex" parentlabel="hps_0_gmac1" val="0x2328"/>
 
 <DTAppend name="status" type="string" parentlabel="hps_0_gmac0" val="disabled"/>
 <DTAppend name="status" type="string" parentlabel="hps_0_uart1" val="disabled"/>

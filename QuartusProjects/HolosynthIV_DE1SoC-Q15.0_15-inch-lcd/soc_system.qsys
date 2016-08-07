@@ -982,7 +982,7 @@
    kind="intr_capturer"
    version="100.99.98.97"
    enabled="1">
-  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="31" />
+  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="15" />
   <parameter name="NUM_INTR" value="32" />
  </module>
  <module
@@ -1166,7 +1166,7 @@
   <parameter name="gui_number_of_clocks" value="2" />
   <parameter name="gui_operation_mode" value="normal" />
   <parameter name="gui_output_clock_frequency0" value="150.0" />
-  <parameter name="gui_output_clock_frequency1" value="80.0" />
+  <parameter name="gui_output_clock_frequency1" value="72.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1256,7 +1256,7 @@
    enabled="1">
   <parameter name="id" value="-1395322110" />
  </module>
- <module name="uioreg_io_0" kind="uioreg_io" version="1.0" enabled="1">
+ <module name="uioreg_io_0" kind="uioreg_io" version="0" enabled="1">
   <parameter name="ADDRESS_WIDTH" value="10" />
   <parameter name="DATA_WIDTH" value="32" />
   <parameter name="IRQ_EN" value="1" />
@@ -1485,20 +1485,6 @@
    start="hps_0.f2h_irq0"
    end="uioreg_io_0.slv_irq">
   <parameter name="irqNumber" value="3" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.0"
-   start="hps_0.f2h_irq1"
-   end="alt_vip_vfr_vga.interrupt_sender">
-  <parameter name="irqNumber" value="0" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.0"
-   start="intr_capturer_0.interrupt_receiver"
-   end="alt_vip_vfr_vga.interrupt_sender">
-  <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
