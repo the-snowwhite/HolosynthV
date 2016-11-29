@@ -92,7 +92,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.0 218 linux 2016.08.03.00:13:22
+# ACDS 16.1 196 linux 2016.11.28.20:09:19
 
 # ----------------------------------------
 # Initialize variables
@@ -111,7 +111,7 @@ if ![info exists QSYS_SIMDIR] {
 }
 
 if ![info exists QUARTUS_INSTALL_DIR] { 
-  set QUARTUS_INSTALL_DIR "/home/mib/altera/16.0/quartus/"
+  set QUARTUS_INSTALL_DIR "/home/mib/intelFPGA/16.1/quartus/"
 }
 
 if ![info exists USER_DEFINED_COMPILE_OPTIONS] { 

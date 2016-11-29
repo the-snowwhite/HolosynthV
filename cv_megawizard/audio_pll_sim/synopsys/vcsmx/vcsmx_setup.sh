@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.0 218 linux 2016.08.03.00:13:22
+# ACDS 16.1 196 linux 2016.11.28.20:09:19
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,12 +101,12 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.0 218 linux 2016.08.03.00:13:22
+# ACDS 16.1 196 linux 2016.11.28.20:09:19
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="audio_pll"
 QSYS_SIMDIR="./../../"
-QUARTUS_INSTALL_DIR="/home/mib/altera/16.0/quartus/"
+QUARTUS_INSTALL_DIR="/home/mib/intelFPGA/16.1/quartus/"
 SKIP_FILE_COPY=0
 SKIP_DEV_COM=0
 SKIP_COM=0

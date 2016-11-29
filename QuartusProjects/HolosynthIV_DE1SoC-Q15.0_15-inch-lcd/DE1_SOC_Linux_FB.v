@@ -383,9 +383,9 @@ soc_system u0 (
 		  .led_pio_external_connection_export    (),        //    led_pio_external_connection.export
         .dipsw_pio_external_connection_export  ( SW ),  //  dipsw_pio_external_connection.export
         .button_pio_external_connection_export ( fpga_debounced_buttons ), // button_pio_external_connection.export
-        .hps_0_h2f_reset_reset_n               ( hps_fpga_reset_n ),                //                hps_0_h2f_reset.reset_n
+//        .reset_reset_n                         ( hps_fpga_reset_n ),                //                hps_0_h2f_reset.reset_n
 		  
-		  .clk_lcd_clk                               (lcd_clk_60),                               //                        clk_lcd.clk		  
+		  .lcd_clk_clk                                (lcd_clk_60),                               //                        clk_lcd.clk		  
 		  
 		  //itc
 		  .alt_vip_itc_0_clocked_video_vid_clk         (lcd_clk_60),         					 	 // alt_vip_itc_0_clocked_video.vid_clk

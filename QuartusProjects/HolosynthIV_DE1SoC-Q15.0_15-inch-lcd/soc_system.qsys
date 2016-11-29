@@ -22,7 +22,7 @@
          type = "boolean";
       }
    }
-   element alt_vip_vfr_vga
+   element alt_vip_vfr
    {
       datum _sortIndex
       {
@@ -35,11 +35,11 @@
          type = "boolean";
       }
    }
-   element alt_vip_vfr_vga.avalon_slave
+   element alt_vip_vfr.avalon_slave
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
@@ -121,6 +121,14 @@
          type = "String";
       }
    }
+   element fpga_only_master_0
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
    element hps_0
    {
       datum _sortIndex
@@ -140,6 +148,19 @@
       {
          value = "0";
          type = "String";
+      }
+   }
+   element hps_only_master
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element intr_capturer_0
@@ -223,32 +244,6 @@
       {
          value = "65600";
          type = "String";
-      }
-   }
-   element master_non_sec
-   {
-      datum _sortIndex
-      {
-         value = "8";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element master_secure
-   {
-      datum _sortIndex
-      {
-         value = "2";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element pll_stream
@@ -338,24 +333,24 @@
    type="conduit"
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
- <interface name="clk_lcd" internal="pll_stream.outclk1" type="clock" dir="start" />
  <interface
    name="dipsw_pio_external_connection"
    internal="dipsw_pio.external_connection"
    type="conduit"
    dir="end" />
- <interface
-   name="hps_0_h2f_reset"
-   internal="hps_0.h2f_reset"
-   type="reset"
-   dir="start" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
+ <interface name="lcd_clk" internal="pll_stream.outclk1" type="clock" dir="start" />
  <interface
    name="led_pio_external_connection"
    internal="led_pio.external_connection"
    type="conduit"
    dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface
+   name="pll_stream_locked"
+   internal="pll_stream.locked"
+   type="conduit"
+   dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="synthreg_io"
@@ -398,7 +393,7 @@
   <parameter name="V_FRONT_PORCH" value="17" />
   <parameter name="V_SYNC_LENGTH" value="10" />
  </module>
- <module name="alt_vip_vfr_vga" kind="alt_vip_vfr" version="14.0" enabled="1">
+ <module name="alt_vip_vfr" kind="alt_vip_vfr" version="14.0" enabled="1">
   <parameter name="AUTO_CLOCK_MASTER_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="150000000" />
   <parameter name="BITS_PER_PIXEL_PER_COLOR_PLANE" value="8" />
@@ -445,6 +440,20 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
+ </module>
+ <module
+   name="fpga_only_master_0"
+   kind="altera_jtag_avalon_master"
+   version="16.0"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="COMPONENT_CLOCK" value="0" />
+  <parameter name="FAST_VER" value="0" />
+  <parameter name="FIFO_DEPTHS" value="2" />
+  <parameter name="PLI_PORT" value="50000" />
+  <parameter name="USE_PLI" value="0" />
  </module>
  <module name="hps_0" kind="altera_hps" version="16.0" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -915,7 +924,7 @@
   <parameter name="dbg_trace_clk_div" value="0" />
   <parameter name="desired_can0_clk_mhz" value="100.0" />
   <parameter name="desired_can1_clk_mhz" value="100.0" />
-  <parameter name="desired_cfg_clk_mhz" value="100.0" />
+  <parameter name="desired_cfg_clk_mhz" value="123.333333" />
   <parameter name="desired_emac0_clk_mhz" value="250.0" />
   <parameter name="desired_emac1_clk_mhz" value="250.0" />
   <parameter name="desired_gpio_db_clk_hz" value="32000" />
@@ -923,7 +932,7 @@
   <parameter name="desired_l4_sp_clk_mhz" value="100.0" />
   <parameter name="desired_mpu_clk_mhz" value="800.0" />
   <parameter name="desired_nand_clk_mhz" value="12.5" />
-  <parameter name="desired_qspi_clk_mhz" value="400.0" />
+  <parameter name="desired_qspi_clk_mhz" value="370.0" />
   <parameter name="desired_sdmmc_clk_mhz" value="200.0" />
   <parameter name="desired_spi_m_clk_mhz" value="200.0" />
   <parameter name="desired_usb_mp_clk_mhz" value="200.0" />
@@ -978,6 +987,20 @@
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
  <module
+   name="hps_only_master"
+   kind="altera_jtag_avalon_master"
+   version="16.0"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="COMPONENT_CLOCK" value="0" />
+  <parameter name="FAST_VER" value="0" />
+  <parameter name="FIFO_DEPTHS" value="2" />
+  <parameter name="PLI_PORT" value="50000" />
+  <parameter name="USE_PLI" value="0" />
+ </module>
+ <module
    name="intr_capturer_0"
    kind="intr_capturer"
    version="100.99.98.97"
@@ -1017,34 +1040,6 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
- </module>
- <module
-   name="master_non_sec"
-   kind="altera_jtag_avalon_master"
-   version="16.0"
-   enabled="1">
-  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
-  <parameter name="COMPONENT_CLOCK" value="0" />
-  <parameter name="FAST_VER" value="0" />
-  <parameter name="FIFO_DEPTHS" value="2" />
-  <parameter name="PLI_PORT" value="50000" />
-  <parameter name="USE_PLI" value="0" />
- </module>
- <module
-   name="master_secure"
-   kind="altera_jtag_avalon_master"
-   version="16.0"
-   enabled="1">
-  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
-  <parameter name="COMPONENT_CLOCK" value="0" />
-  <parameter name="FAST_VER" value="0" />
-  <parameter name="FIFO_DEPTHS" value="2" />
-  <parameter name="PLI_PORT" value="50000" />
-  <parameter name="USE_PLI" value="0" />
  </module>
  <module name="pll_stream" kind="altera_pll" version="16.0" enabled="1">
   <parameter name="debug_print_output" value="false" />
@@ -1166,7 +1161,7 @@
   <parameter name="gui_number_of_clocks" value="2" />
   <parameter name="gui_operation_mode" value="normal" />
   <parameter name="gui_output_clock_frequency0" value="150.0" />
-  <parameter name="gui_output_clock_frequency1" value="72.0" />
+  <parameter name="gui_output_clock_frequency1" value="75.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1256,7 +1251,7 @@
    enabled="1">
   <parameter name="id" value="-1395322110" />
  </module>
- <module name="uioreg_io_0" kind="uioreg_io" version="0" enabled="1">
+ <module name="uioreg_io_0" kind="uioreg_io" version="1.1" enabled="1">
   <parameter name="ADDRESS_WIDTH" value="10" />
   <parameter name="DATA_WIDTH" value="32" />
   <parameter name="IRQ_EN" value="1" />
@@ -1264,7 +1259,7 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="alt_vip_vfr_vga.avalon_master"
+   start="alt_vip_vfr.avalon_master"
    end="hps_0.f2h_axi_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1283,7 +1278,7 @@
    kind="avalon"
    version="16.0"
    start="hps_0.h2f_lw_axi_master"
-   end="alt_vip_vfr_vga.avalon_slave">
+   end="alt_vip_vfr.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0100" />
   <parameter name="defaultConnection" value="false" />
@@ -1336,7 +1331,7 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
+   start="fpga_only_master_0.master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00020000" />
@@ -1345,8 +1340,8 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
-   end="alt_vip_vfr_vga.avalon_slave">
+   start="fpga_only_master_0.master"
+   end="alt_vip_vfr.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0100" />
   <parameter name="defaultConnection" value="false" />
@@ -1354,7 +1349,7 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
+   start="fpga_only_master_0.master"
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00030000" />
@@ -1363,7 +1358,7 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
+   start="fpga_only_master_0.master"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00010000" />
@@ -1372,7 +1367,7 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_secure.master"
+   start="hps_only_master.master"
    end="hps_0.f2h_axi_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1381,16 +1376,16 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
-   end="led_pio.s1">
+   start="fpga_only_master_0.master"
+   end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="baseAddress" value="0x000100c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
+   start="fpga_only_master_0.master"
    end="dipsw_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00010080" />
@@ -1399,28 +1394,41 @@
  <connection
    kind="avalon"
    version="16.0"
-   start="master_non_sec.master"
-   end="button_pio.s1">
+   start="fpga_only_master_0.master"
+   end="led_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000100c0" />
+  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.0"
+   start="fpga_only_master_0.master"
+   end="uioreg_io_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00040000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon_streaming"
    version="16.0"
-   start="alt_vip_vfr_vga.avalon_streaming_source"
+   start="alt_vip_vfr.avalon_streaming_source"
    end="alt_vip_itc_0.din" />
- <connection kind="clock" version="16.0" start="clk_0.clk" end="master_secure.clk" />
- <connection kind="clock" version="16.0" start="clk_0.clk" end="sysid_qsys.clk" />
- <connection kind="clock" version="16.0" start="clk_0.clk" end="led_pio.clk" />
  <connection
    kind="clock"
    version="16.0"
    start="clk_0.clk"
-   end="master_non_sec.clk" />
+   end="hps_only_master.clk" />
+ <connection kind="clock" version="16.0" start="clk_0.clk" end="sysid_qsys.clk" />
+ <connection kind="clock" version="16.0" start="clk_0.clk" end="led_pio.clk" />
  <connection kind="clock" version="16.0" start="clk_0.clk" end="dipsw_pio.clk" />
  <connection kind="clock" version="16.0" start="clk_0.clk" end="button_pio.clk" />
  <connection kind="clock" version="16.0" start="clk_0.clk" end="jtag_uart.clk" />
+ <connection
+   kind="clock"
+   version="16.0"
+   start="clk_0.clk"
+   end="fpga_only_master_0.clk" />
  <connection
    kind="clock"
    version="16.0"
@@ -1431,7 +1439,7 @@
    kind="clock"
    version="16.0"
    start="clk_0.clk"
-   end="alt_vip_vfr_vga.clock_master" />
+   end="alt_vip_vfr.clock_master" />
  <connection
    kind="clock"
    version="16.0"
@@ -1452,7 +1460,7 @@
    kind="clock"
    version="16.0"
    start="pll_stream.outclk0"
-   end="alt_vip_vfr_vga.clock_reset" />
+   end="alt_vip_vfr.clock_reset" />
  <connection
    kind="clock"
    version="16.0"
@@ -1518,22 +1526,22 @@
    kind="reset"
    version="16.0"
    start="clk_0.clk_reset"
-   end="master_secure.clk_reset" />
+   end="hps_only_master.clk_reset" />
  <connection
    kind="reset"
    version="16.0"
    start="clk_0.clk_reset"
-   end="master_non_sec.clk_reset" />
+   end="fpga_only_master_0.clk_reset" />
  <connection
    kind="reset"
    version="16.0"
    start="clk_0.clk_reset"
-   end="alt_vip_vfr_vga.clock_master_reset" />
+   end="alt_vip_vfr.clock_master_reset" />
  <connection
    kind="reset"
    version="16.0"
    start="clk_0.clk_reset"
-   end="alt_vip_vfr_vga.clock_reset_reset" />
+   end="alt_vip_vfr.clock_reset_reset" />
  <connection
    kind="reset"
    version="16.0"
