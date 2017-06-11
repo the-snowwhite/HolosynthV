@@ -1,12 +1,12 @@
 module midi_decoder(
-	input								reset_reg_N,
-	input								CLOCK_25,
+	input							reset_reg_N,
+	input							CLOCK_25,
 // from uart
-	input								byteready,
+	input							byteready,
 	input [7:0]						cur_status,
 	input [7:0]						midibyte_nr,
 	input [7:0]						midibyte,
-	input								midi_out_ready,
+	input							midi_out_ready,
 	output							midi_send_byte,
 	output reg [7:0]				midi_out_data,
 // inputs from synth engine	
@@ -28,18 +28,14 @@ module midi_decoder(
 	output reg [7:0]				octrl_data,
 	output reg [7:0]				prg_ch_data,
 // memory controller
-	output							write,
 	output reg						data_ready,
-	output							read,
 	output							read_write,
 	output reg						sysex_data_patch_send,
 	output [6:0]					adr,
-	inout	 [7:0]					data,
-	output							env_sel,
-	output							osc_sel,
-	output							m1_sel,
-	output							m2_sel,
-	output							com_sel,
+	inout  [7:0]					data,
+	output [6:0]				dec_sel_bus,
+//	output						read,
+//	output						write,
 // status data
 	output reg [V_WIDTH:0]		active_keys
 //	output reg						off_note_error
@@ -84,6 +80,10 @@ reg [V_WIDTH:0]cur_slot;
     reg [2:0]	bank_adr_s, bank_adr_l;
 	
 	wire [2:0] bank_adr;
+    
+    wire [5:0] dec_sel;
+    
+    assign dec_sel_bus = {write,read,dec_sel[5],dec_sel[3:0]};
 	
 	reg Educational_Use,sysex_data_bank_load,sysex_data_patch_load,sysex_ctrl_data,sysex_data_patch_send_end,auto_syx_cmd;
 
@@ -154,18 +154,13 @@ wire is_st_note_on=(
      (databyte==8'h7b)?1'b1:1'b0);
 
      address_decoder adr_dec_inst (
-         .CLOCK_25 ( CLOCK_25 ),
-         .reset_reg_N ( reset_reg_N ),
-         .data_ready ( data_ready ),
-         .bank_adr ( bank_adr ),
-
-         .read_write  ( read_write  ),
-			.write_dataenable ( write_dataenable ),
-         .env_sel ( env_sel ),
-         .osc_sel ( osc_sel ),
-         .m1_sel ( m1_sel ),
-         .m2_sel ( m2_sel ),
-         .com_sel ( com_sel )
+        .CLOCK_25 ( CLOCK_25 ),
+        .reset_reg_N ( reset_reg_N ),
+        .data_ready ( data_ready ),
+        .dec_addr ( bank_adr ),
+        .read_write  ( read_write  ),
+		.write_dataenable ( write_dataenable ),
+        .dec_sel ( dec_sel )
      );
 
 

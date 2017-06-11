@@ -163,7 +163,6 @@ module DE10_NANO_SOC_FB(
 	assign stm_hw_events    = {{15{1'b0}}, SW, fpga_led_internal, fpga_debounced_buttons};
 
 	wire [9:0]	cpu_adr;
-	wire		reg_read_write_act;
 	wire 		cpu_write;
 	wire		cpu_read;
 	wire		cpu_chip_sel;
@@ -387,10 +386,6 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
  	assign GPIO_1[15] =	AUD_XCK;
 
 
-
-	wire byteready;
-	wire [7:0] cur_status,midibyte_nr,midi_data_byte;
-
 //	assign aud_mute = user_dipsw_fpga[2];
 
 /////// LED Display ////////
@@ -427,11 +422,6 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
 	.AUD_BCLK				(AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
 	.AUD_XCK				(AUD_XCK    ),      //  Audio CODEC Chip Clock
 `endif
-	.byteready				(byteready),	// output  byteready_sig
-	.cur_status				(cur_status),	// output [7:0] cur_status_sig
-	.midibyte_nr			(midibyte_nr),	// output [7:0] midi_bytes_sig
-	.midi_data_byte			(midi_data_byte), 		// output [7:0] databyte_sig
-	.reg_read_write_act		(reg_read_write_act),
 	.keys_on				(keys_on),				//  LED [7:0]
 	.voice_free				(voice_free) , 			//  Red LED [4:1]
 	.io_clk					(FPGA_CLK3_50) ,	// input  io_clk_sig
