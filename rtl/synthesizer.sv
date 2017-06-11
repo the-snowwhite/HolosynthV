@@ -253,30 +253,12 @@ sys_pll	sys_disp_pll_inst	(
 
 //---				---//
 
-MIDI_UART MIDI_UART_inst (
-	.reset_reg_N		(reset_reg_n),		// input  reset_sig
-	.CLOCK_25			(CLOCK_25),		// input  reset sig
-	.midi_rxd			(midi_rxd),		// input  midi serial data in
-	.byteready			(byteready),	// output  byteready_sig
-//	.sys_real			(sys_real),		// realtime sysex msg arrived
-//	.sys_real_dat		(sys_real_dat),	// [7:0] realtime sysex msg midi_data_byte
-	.cur_status			(cur_status),	// output [7:0] cur_status_sig
-	.midibyte_nr		(midibyte_nr),	// output [7:0] midibyte_nr_sig
-	.midibyte			(midi_data_byte), 		// output [7:0] midi_data_byte_sig
-	.midi_out_ready	(midi_out_ready),// output midi out buffer ready
-	.midi_send_byte	(midi_send_byte),
-	.midi_out_data		(midi_out_data),// input midi_out_data_sig
-	.midi_txd			(midi_txd)		// output midi serial data output
-);
-
-midi_decoder #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) midi_decoder_inst(
+synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
 	.reset_reg_N(reset_reg_n) ,		// input  reset_reg_N_sig
 	.CLOCK_25(CLOCK_25) ,				// input  CLOCK_25_sig
-	.byteready(byteready) ,				// input  byteready_sig
-	.cur_status(cur_status) ,			// input [7:0] cur_status_sig
-	.midibyte_nr(midibyte_nr) ,		// input [7:0] midibyte_nr_sig
-	.midibyte(midi_data_byte) ,		// input [7:0] midibyte_sig
+	.midi_rxd(midi_rxd) ,				// input  byteready_sig
+	.midi_txd(midi_txd) ,			// input [7:0] cur_status_sig
 	.voice_free(voice_free) ,			// input [VOICES-1:0] voice_free_sig
 	.midi_ch(midi_ch) ,				// input [3:0] midi_ch_sig
 
@@ -297,10 +279,6 @@ midi_decoder #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) midi_decoder_inst(
 	.sysex_data_patch_send (dec_sysex_data_patch_send),
 	.adr(dec_adr) ,								// output [6:0] adr_sig
 	.data (data) ,							// inout [7:0] data_sig
-
-	.midi_out_ready (midi_out_ready),// input
-	.midi_send_byte (midi_send_byte),// input
-	.midi_out_data (midi_out_data),	// output
 	.dec_sel_bus( dec_sel_bus) ,					// output  env_sel_sig
 	.active_keys(active_keys)			// output [V_WIDTH:0] active_keys_sig
 );
@@ -309,7 +287,7 @@ midi_decoder #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) midi_decoder_inst(
 rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 	.CLOCK_25			( CLOCK_25 ),
 	.reset_data_N		( reset_data_n ),
-// from midi_decoder
+// from synth_controller
 	.ictrl			( octrl ),
 	.ictrl_data		( octrl_data ),
 	.pitch_cmd		( pitch_cmd ),

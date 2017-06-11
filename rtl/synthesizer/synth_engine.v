@@ -7,7 +7,7 @@ module synth_engine (
 	output					AUD_DACDAT,
 	output					AUD_DACLRCK,
 	output					AUD_BCLK,
-// from midi_decoder
+// from synth_controller
 // note events
 	input [VOICES-1:0]	keys_on,
 	input						note_on,
@@ -30,7 +30,7 @@ module synth_engine (
 	input [13:0]			pitch_val,
 // from env gen
 	output [VOICES-1:0]	voice_free
-	);	
+	);
 
 
 parameter VOICES	= 8;
@@ -73,7 +73,7 @@ wire [V_ENVS-1:0] osc_accum_zero;
 wire						reg_note_on;
 wire [V_WIDTH-1:0]	reg_cur_key_adr;
 wire [7:0]				reg_cur_key_val;
-wire [7:0]				reg_cur_vel_on;	
+wire [7:0]				reg_cur_vel_on;
 wire [VOICES-1:0]		reg_keys_on;
 
 note_key_vel_sync #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) key_sync_inst
@@ -143,7 +143,7 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
 	.com_sel( com_sel ),         // ObjectKind=Sheet Entry|PrimaryId=pitch_control.v-com_sel
 	.osc_pitch_val( osc_pitch_val )// ObjectKind=Sheet Entry|PrimaryId=pitch_control.v-osc_pitch_val[23..0]
 );
-		
+
 osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) osc_inst // ObjectKind=Sheet Symbol|PrimaryId=U_osc
 (
 	.reset_reg_N( reset_reg_N ),		// ObjectKind=Sheet Entry|PrimaryId=osc.v-reset_reg_N
@@ -202,7 +202,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
 	.lsound_out( lsound_out ),         // ObjectKind=Sheet Entry|PrimaryId=mixer.v-rsound_out[23..0]
 	.rsound_out( rsound_out )          // ObjectKind=Sheet Entry|PrimaryId=mixer.v-rsound_out[23..0]
 );
-	
+
 env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH)) env_gen_indexed_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_env_gen_indexed
 (
 	.reset_reg_N( reset_reg_N ),		// ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-reset_reg_N

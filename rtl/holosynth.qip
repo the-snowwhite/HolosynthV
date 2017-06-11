@@ -26,7 +26,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer.sv
 
 # synth:
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/rt_controllers.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_decoder.v
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_controller.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/address_decoder.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/div_module.v
