@@ -31,7 +31,7 @@ module synthesizer (
 	output					AUD_DACDAT,			//	Audio CODEC DAC Data
 	inout					AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
 	output					AUD_XCK,			//	Audio CODEC Chip Clock
-	
+
 	input 					io_clk,
 	input					io_reset_n,
 	input					cpu_read,
@@ -60,13 +60,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 	reg 			write_delay;
 	reg 			reg_w_act;
 	reg [7:0] 		indata;
-//	wire	    	cpu_env_sel;
-//	wire			cpu_osc_sel;
-//	wire			cpu_m1_sel;
-//	wire			cpu_m2_sel;
-//	wire			cpu_com_sel;
     wire [5:0]      cpu_sel;
-
  	wire [7:0]		data;
 	wire w_act = (cpu_write | write_delay);
 	wire write_active = (cpu_write | reg_w_act);
@@ -78,15 +72,42 @@ always @(posedge io_clk) begin
 	write_delay <= cpu_write;
 	reg_w_act <= w_act;
 end
-	
+
 always @(posedge io_clk) begin
 	if (io_reset)
 		readdata[7:0] <= 8'b0;
 	else if (read)
-		readdata[7:0] <= data;
+		readdata[7:0] <= (com_sel && adr == 2) ? out_data : data;
 	else if	(write)
 		indata <= writedata[7:0];
 end
+
+
+	reg [7:0] midi_ch;
+	reg [7:0] out_data;
+
+ /** @brief write data
+*/
+    always@(negedge reset_reg_n or negedge write)begin
+        if(!reset_reg_n) begin
+            midi_ch <= 8'h00;
+        end else begin
+            if(com_sel) begin
+                if(adr == 2) midi_ch <= data;
+            end
+        end
+    end
+
+ /** @brief read data
+*/
+	always @(posedge read) begin
+		if(com_sel) begin
+            if(adr == 2) out_data <= midi_ch;
+        end
+	end
+
+
+
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -98,17 +119,15 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
 	wire reg_reset_N = button[1] & audio_pll_locked;
 	wire data_reset_N = button[2] & sys_pll_locked;
-//	wire reg_reset_N = button[1];
-//	wire data_reset_N = button[2];
-	wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;	
-	
+	wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;
+
 	wire reset_reg_n = reg_DLY2;
 	wire reset_data_n = data_DLY1;
 
 //---	Midi	---//
 // inputs
-	
-	wire midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)			
+
+	wire midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 //outputs
 	wire midi_out_ready,midi_send_byte;
 	wire [7:0] midi_out_data;
@@ -134,10 +153,6 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	wire[7:0] octrl,octrl_data,prg_ch_data;
 	wire [V_WIDTH:0]	active_keys;
 	wire 	off_note_error;
-	wire sys_real;
-	wire [7:0] sys_real_dat;
-
-	wire [3:0] midi_ch_sig = 0;
 
 	wire ictrl_cmd;
 	wire [7:0]ictrl, ictrl_data;
@@ -147,19 +162,12 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	wire CLOCK_25;
 	wire OSC_CLK;
 	wire sys_pll_locked, audio_pll_locked;
-	
+
 	wire [63:0] lvoice_out;
 	wire [63:0] rvoice_out;
-		
+
 //---	Midi	Controllers unit ---//
 	wire [6:0]	dec_adr;
-//	wire			dec_env_sel;
-//	wire			dec_osc_sel;
-//	wire			dec_m1_sel;
-//	wire			dec_m2_sel;
-//	wire			dec_com_sel;
-//	wire			dec_read;
-//	wire 			dec_write;
 	wire [6:0]	adr;
 	wire		env_sel	;
 	wire		osc_sel;
@@ -169,7 +177,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	wire		read;
 	wire		write;
 	wire		sysex_data_patch_send;
-    
+
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
 	.clk(CLOCK_25) ,	// input  in_select_sig
@@ -179,40 +187,14 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 	.dec_addr(dec_adr) ,	// input [addr_width-1:0] dec_addr_sig
 	.cpu_addr(address) ,	// input [addr_width-1:0] cpu_addr_sig
 	.cpu_sel({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
-//	.dec_sel({dec_write,dec_read,dec_com_sel,dec_m2_sel,dec_m1_sel,dec_osc_sel,dec_env_sel}) ,	// input [num_lines-1:0] dec_sel_sig
 	.dec_sel(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
 	.syx_out (sysex_data_patch_send),
 	.addr_out(adr) ,	// output [addr_width-1:0] addr_out_sig
 	.sel_out({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
 );
-/*	
-	wire [6:0]	adr = reg_read_write_act ? dec_adr : address[6:0];
-	wire			env_sel = reg_read_write_act ? dec_env_sel : cpu_env_sel;
-	wire			osc_sel = reg_read_write_act ? dec_osc_sel : cpu_osc_sel;
-	wire			m1_sel = reg_read_write_act ? dec_m1_sel : cpu_m1_sel;
-	wire			m2_sel = reg_read_write_act ? dec_m2_sel : cpu_m2_sel;
-	wire			com_sel = reg_read_write_act ? dec_com_sel : cpu_com_sel;
-	wire			read = reg_read_write_act ? dec_read : cpu_read;
-	wire			write = reg_read_write_act ? dec_write : cpu_write;
-	wire			sysex_data_patch_send = reg_read_write_act ? dec_sysex_data_patch_send : (chipselect & cpu_read);
-	
-	wire 			read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]
-				|| reg_dataready[3] || reg_dataready[4]);
-	
-	reg reg_dataready[4:0];
-	
-	always @(posedge CLOCK_25) begin
-		reg_read_write_act <= read_write_act;
-		reg_dataready[0] <= dataready;
-		reg_dataready[1] <= reg_dataready[0];
-		reg_dataready[2] <= reg_dataready[1];
-		reg_dataready[3] <= reg_dataready[2];
-		reg_dataready[4] <= reg_dataready[3];
-	end
-*/	
-	
 
-////////////	Init Reset sig Gen	////////////	
+
+////////////	Init Reset sig Gen	////////////
 // system reset  //
 
 reset_delay	reset_reg_delay_inst  (
@@ -232,10 +214,10 @@ reset_delay	reset_data_delay_inst  (
 );
 	//  PLL
 //reg CLOCK_25;
-//always@(posedge EXT_CLOCK_IN) begin	
+//always@(posedge EXT_CLOCK_IN) begin
 //		CLOCK_25 <= ~CLOCK_25; 	end
-		
-sys_pll	sys_disp_pll_inst	(	
+
+sys_pll	sys_disp_pll_inst	(
 `ifdef _CycloneV
 	.refclk		( EXT_CLOCK_IN ),
 	.outclk_0	( CLOCK_25 ),
@@ -266,7 +248,7 @@ sys_pll	sys_disp_pll_inst	(
 		.c1	( AUD_XCK ) // 16.927083 Mhz
 //		.c1	( ) // 16.927083 Mhz
 	`endif
-	);	
+	);
 
 
 //---				---//
@@ -276,8 +258,8 @@ MIDI_UART MIDI_UART_inst (
 	.CLOCK_25			(CLOCK_25),		// input  reset sig
 	.midi_rxd			(midi_rxd),		// input  midi serial data in
 	.byteready			(byteready),	// output  byteready_sig
-	.sys_real			(sys_real),		// realtime sysex msg arrived
-	.sys_real_dat		(sys_real_dat),	// [7:0] realtime sysex msg midi_data_byte
+//	.sys_real			(sys_real),		// realtime sysex msg arrived
+//	.sys_real_dat		(sys_real_dat),	// [7:0] realtime sysex msg midi_data_byte
 	.cur_status			(cur_status),	// output [7:0] cur_status_sig
 	.midibyte_nr		(midibyte_nr),	// output [7:0] midibyte_nr_sig
 	.midibyte			(midi_data_byte), 		// output [7:0] midi_data_byte_sig
@@ -296,7 +278,7 @@ midi_decoder #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) midi_decoder_inst(
 	.midibyte_nr(midibyte_nr) ,		// input [7:0] midibyte_nr_sig
 	.midibyte(midi_data_byte) ,		// input [7:0] midibyte_sig
 	.voice_free(voice_free) ,			// input [VOICES-1:0] voice_free_sig
-	.midi_ch(midi_ch_sig) ,				// input [3:0] midi_ch_sig
+	.midi_ch(midi_ch) ,				// input [3:0] midi_ch_sig
 
 	.note_on(note_on) ,					// output  note_on_sig
 	.keys_on(keys_on) ,					// output [VOICES-1:0] keys_on_sig
@@ -323,34 +305,33 @@ midi_decoder #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) midi_decoder_inst(
 	.active_keys(active_keys)			// output [V_WIDTH:0] active_keys_sig
 );
 
-	
-midi_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) midi_controllers_inst(
+
+rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 	.CLOCK_25			( CLOCK_25 ),
 	.reset_data_N		( reset_data_n ),
 // from midi_decoder
-	.ictrl			( octrl ), 
-	.ictrl_data		( octrl_data ), 
+	.ictrl			( octrl ),
+	.ictrl_data		( octrl_data ),
 	.pitch_cmd		( pitch_cmd ),
-// outputs	
+// outputs
 	.pitch_val		( pitch_val )
 );
 
-	//////////// Sound Generation /////////////	
+	//////////// Sound Generation /////////////
 
 	assign	AUD_ADCLRCK	=	AUD_DACLRCK;
-					
+
 // 2CH Audio Sound output -- Audio Generater //
-synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(		        
-// AUDIO CODEC //		
+synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
+// AUDIO CODEC //
 	.OSC_CLK( OSC_CLK ),				// input
-		.AUDIO_CLK( AUD_XCK ),				// input
-//	.AUDIO_CLK( AUD_XCK ),					// output
+	.AUDIO_CLK( AUD_XCK ),				// input
 	.reset_reg_N(reset_reg_n) ,			// input  reset_sig
 	.reset_data_N		( reset_data_n ),
 	.AUD_BCLK ( AUD_BCLK ),				// output
 	.AUD_DACDAT( AUD_DACDAT ),			// output
-	.AUD_DACLRCK( AUD_DACLRCK ),			// output																
-	// KEY //		
+	.AUD_DACLRCK( AUD_DACLRCK ),			// output
+	// KEY //
 	// -- Sound Control -- //
 	//	to pitch control //
 	.note_on(note_on) ,					// input  note_on_sig
@@ -372,7 +353,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
 	.m1_sel(m1_sel) ,				// input  m1_sel_sig
 	.m2_sel(m2_sel) ,				// input  m2_sel_sig
 	.com_sel(com_sel), 			// input  com_sel_sig
-// from env gen // 
+// from env gen //
 	.voice_free( voice_free )	//output from envgen
 );
 `endif

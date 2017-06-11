@@ -4,8 +4,8 @@ module MIDI_UART(
 // receiver
 	input					midi_rxd,
 	output	reg		byteready,
-	output	reg		sys_real,
-	output	reg[7:0]	sys_real_dat,
+//	output	reg		sys_real,
+//	output	reg[7:0]	sys_real_dat,
 	output	reg[7:0]	cur_status,
 	output	reg[7:0]	midibyte_nr,
 	output	reg[7:0]	midibyte,
@@ -117,27 +117,21 @@ end
     always @(negedge midi_clk or negedge reset_reg_N) begin
         if(!reset_reg_N) byteready <= 0;
         else begin
-            if ( (byte_end && (sys_real == 1'b0)) || out_cnt == 19) byteready <= 1;
-            else byteready <= 0;
+//            if ( (byte_end && (sys_real == 1'b0)) || out_cnt == 19) byteready <= 1;
+            byteready <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
         end
     end
 
 // DataByte counter -- Status byte logger //
     always @(negedge startbit_d or negedge reset_reg_N)begin
-        if(!reset_reg_N)begin midibyte_nr <= 0; cur_status <= 0;sys_real_dat <= 0;end
+        if(!reset_reg_N)begin midibyte_nr <= 0; cur_status <= 0;end
         else begin
-            if(samplebyte[7:4] == 4'hf && samplebyte[3:0] & 4'h8)begin
-                sys_real_dat <= samplebyte;
-                sys_real <= 1'b1;
+//            if((samplebyte & 8'h80) && (samplebyte != 8'hf7))begin
+            if(samplebyte & 8'h80)begin
+                midibyte_nr <= 0;
+                cur_status <= samplebyte;
             end
-            else begin
-                sys_real <= 1'b0;
-                if((samplebyte & 8'h80) && (samplebyte != 8'hf7))begin
-                    midibyte_nr <= 0;
-                    cur_status <= samplebyte;
-                end
-                else midibyte_nr <= midibyte_nr+1'b1;
-            end
+            else midibyte_nr <= midibyte_nr+1'b1;
         end
     end
 	

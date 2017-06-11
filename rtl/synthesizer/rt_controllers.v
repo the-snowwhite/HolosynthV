@@ -1,4 +1,4 @@
-module midi_controllers (
+module rt_controllers (
 	input					reset_data_N,
 	input					CLOCK_25,
 //@name from midi_decoder

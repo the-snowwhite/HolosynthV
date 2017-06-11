@@ -34,11 +34,8 @@ module midi_decoder(
 	output [6:0]					adr,
 	inout  [7:0]					data,
 	output [6:0]				dec_sel_bus,
-//	output						read,
-//	output						write,
 // status data
 	output reg [V_WIDTH:0]		active_keys
-//	output reg						off_note_error
 
 );
 
@@ -75,8 +72,6 @@ reg [V_WIDTH:0]cur_slot;
     reg [7:0]vel_off;
     reg [7:0]cur_note;
     reg [V_WIDTH-1:0]slot_off;
-//    reg off_note_error_flag;
-
     reg [2:0]	bank_adr_s, bank_adr_l;
 	
 	wire [2:0] bank_adr;
@@ -101,10 +96,7 @@ reg [V_WIDTH:0]cur_slot;
 	
 	assign midi_send_byte = (midi_send_byte_req[1] && ~midi_send_byte_req[2]) ? 1'b1 : 1'b0;
 	
-//	assign data = (~sysex_data_patch_send && !read ) ? data_out : 8'bz;
 	assign data = write_dataenable ? data_out : 8'bz;
-	
-//	wire data_out_enable = ( sysex_data_patch_load || sysex_data_bank_load || sysex_ctrl_data);
 	
 	wire write_dataenable;
 	
@@ -216,7 +208,6 @@ wire is_st_note_on=(
     always @(negedge reset_reg_N or negedge byteready_r) begin
         if (!reset_reg_N) begin // init values 
             active_keys <= 0;
-//            off_note_error <= 1'b0;
             cur_key_val <= 8'hff;
             cur_vel_on <= 0;
             cur_vel_off <= 0;
@@ -231,8 +222,6 @@ wire is_st_note_on=(
             cur_note<=0;
             cur_slot<=0;
             active_keys<=0;
-//            off_note_error<=1'b0;
-//            off_note_error_flag<=0;
         end
         else begin
             note_on <= 1'b0;
@@ -281,15 +270,12 @@ wire is_st_note_on=(
                         slot_off <= 0;
                         cur_note <= 0;
                         active_keys <= 0;
-//                        off_note_error <= 1'b0;
                     end
                 end 
 			end	
 			else if (is_st_note_off) begin// Note off omni
                 if(is_data_byte)begin
-//                    for(i2=0,note_found=0;i2<VOICES;i2=i2+1)begin
                     for(i2=0;i2<VOICES;i2=i2+1)begin
-//                        off_note_error_flag <= 1'b1;
                         if(databyte==key_val[i2])begin
                             active_keys <= active_keys-1'b1;
                             slot_off<=i2;
@@ -297,15 +283,10 @@ wire is_st_note_on=(
                             cur_key_adr <= i2;
                             cur_key_val <= 8'hff;
                             key_val[i2] <= 8'hff;
-//                            note_found = 1;
                         end
-//                        if(note_found == 1) off_note_error_flag <= 1'b0;
                     end
                 end 
 				else if(is_velocity )begin
-//                    if(off_note_error_flag)begin
-//                        off_note_error <= 1'b1;
-//                    end
 					if(key_val[slot_off] == 8'hff)begin
 						cur_vel_off<=databyte;
 						off_slot[VOICES-1]<=slot_off;
