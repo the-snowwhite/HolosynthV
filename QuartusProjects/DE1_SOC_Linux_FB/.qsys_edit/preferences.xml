@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <preferences>
- <debug showDebugMenu="1" showDebugLogEntries="1" />
- <systemtable filter="Default">
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
   <columns>
    <connections preferredWidth="287" />
    <irq preferredWidth="63" />
-   <inputclock preferredWidth="208" />
-   <name preferredWidth="178" />
-   <export preferredWidth="225" />
   </columns>
  </systemtable>
- <clocktable>
-  <columns>
-   <clockname preferredWidth="448" />
-   <clocksource preferredWidth="448" />
-   <frequency preferredWidth="435" />
-  </columns>
- </clocktable>
- <library
-   expandedCategories="Library/University Program/Audio &amp; Video,Project,Library/University Program,Library/University Program/Audio &amp; Video/Video,Library/DSP,Library/DSP/Video and Image Processing,Library" />
- <window width="1796" height="1086" x="1944" y="0" />
- <hdlexample language="VERILOG" />
+ <library expandedCategories="Project,Library" />
+ <window width="1100" height="800" x="1920" y="0" />
+ <generation block_symbol_file="0" />
 </preferences>
