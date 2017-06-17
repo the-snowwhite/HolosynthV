@@ -97,16 +97,16 @@ module DE10_NANO_SOC_FB(
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
-	wire  hps_fpga_reset_n;
-	wire [1:0] fpga_debounced_buttons;
+	wire        hps_fpga_reset_n;
+	wire [1:0]  fpga_debounced_buttons;
 	wire [7:0]  fpga_led_internal;
 	wire [2:0]  hps_reset_req;
 	wire        hps_cold_reset;
 	wire        hps_warm_reset;
 	wire        hps_debug_reset;
 	wire [27:0] stm_hw_events;
-	wire 		  fpga_clk_50;
-	wire               clk_75;
+	wire 		fpga_clk_50;
+	wire        clk_75;
 
 	wire [7:0]         vid_r,vid_g,vid_b;
 	wire               vid_v_sync ;
@@ -170,6 +170,13 @@ module DE10_NANO_SOC_FB(
 	wire [31:0]	cpu_data_in;
 	wire 		synth_irq_n;
 	assign 		synth_irq_n = 1'b1;
+	wire [2:0]	socmidi_addr;
+	wire 		socmidi_write;
+	wire		socmidi_read;
+	wire		socmidi_chip_sel;
+	wire [7:0]	socmidi_data_out;
+	wire [7:0]	socmidi_data_in;
+	wire 		socmidi_irq_n;
 
 //=======================================================
 //  Structural coding
@@ -206,6 +213,13 @@ soc_system u0 (
 	.synthreg_io_uio_datain                    (cpu_data_in),                    //                               .uio_datain
 	.synthreg_io_uio_write                     (cpu_write),                     //                               .uio_write
 	.synthreg_io_uio_int_in_n                  (synth_irq_n),                     //                               .uio_int_in
+    .socmidi_io_socmidi_dataout                (socmidi_data_out),                //                     socmidi_io.socmidi_dataout
+    .socmidi_io_socmidi_address                (socmidi_addr),                //                               .socmidi_address
+    .socmidi_io_socmidi_read                   (socmidi_read),                   //                               .socmidi_read
+    .socmidi_io_socmidi_chipsel                (socmidi_chip_sel),                //                               .socmidi_chipsel
+    .socmidi_io_socmidi_datain                 (socmidi_data_in),                 //                               .socmidi_datain
+    .socmidi_io_socmidi_write                  (socmidi_write),                  //                               .socmidi_write
+    .socmidi_io_socmidi_int_in                 (socmidi_irq_n),                 //                               .socmidi_int_in
 	.lcd_clk_clk                               (clk_75),                               //                        lcd_clk.clk
 	.pll_stream_locked_export                  (),                   //              pll_stream_locked.export
 	//HPS ddr3
@@ -431,7 +445,14 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
 	.chipselect				(cpu_chip_sel) ,	// input  chipselect_sig
 	.address				(cpu_adr) ,	// input [9:0] address_sig
 	.writedata				(cpu_data_out) ,	// input [31:0] writedata_sig
-	.readdata				(cpu_data_in) 	// output [31:0] readdata_sig
+	.readdata				(cpu_data_in), 	// output [31:0] readdata_sig
+	.socmidi_read			(socmidi_read) ,	// input  cpu_read_sig
+	.socmidi_write			(socmidi_write) ,	// input  cpu_write_sig
+	.socmidi_cs				(socmidi_chip_sel) ,	// input  chipselect_sig
+	.socmidi_addr			(socmidi_addr) ,	// input [9:0] address_sig
+	.socmidi_data_out		(socmidi_data_out) ,	// input [31:0] writedata_sig
+	.socmidi_data_in		(socmidi_data_in), 	// output [31:0] readdata_sig
+    .switch4                (SW[3])
 );
 
 /*

@@ -39,7 +39,14 @@ module synthesizer (
 	input					chipselect,
 	input [9:0]				address,
 	input [31:0]			writedata,
-	output reg [31:0]		readdata
+	output reg [31:0]		readdata,
+	input					socmidi_read,
+	input					socmidi_write,
+	input					socmidi_cs,
+	input [2:0]				socmidi_addr,
+	input [7:0]			    socmidi_data_out,
+	output reg [7:0]		socmidi_data_in,
+    input                   switch4
 );
 
 parameter VOICES = 32;
@@ -61,12 +68,12 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 	reg 			reg_w_act;
 	reg [7:0] 		indata;
     wire [5:0]      cpu_sel;
- 	wire [7:0]		data;
+ 	wire [7:0]		synth_data;
 	wire w_act = (cpu_write | write_delay);
 	wire write_active = (cpu_write | reg_w_act);
 	wire io_reset = ~io_reset_n;
 
-	assign data = (!cpu_read && write_active) ? indata : 8'bz;
+	assign synth_data = (!cpu_read && write_active) ? indata : 8'bz;
 
 always @(posedge io_clk) begin
 	write_delay <= cpu_write;
@@ -77,7 +84,7 @@ always @(posedge io_clk) begin
 	if (io_reset)
 		readdata[7:0] <= 8'b0;
 	else if (read)
-		readdata[7:0] <= (com_sel && adr == 2) ? out_data : data;
+		readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
 	else if	(write)
 		indata <= writedata[7:0];
 end
@@ -93,7 +100,7 @@ end
             midi_ch <= 8'h00;
         end else begin
             if(com_sel) begin
-                if(adr == 2) midi_ch <= data;
+                if(adr == 2) midi_ch <= synth_data;
             end
         end
     end
@@ -105,8 +112,6 @@ end
             if(adr == 2) out_data <= midi_ch;
         end
 	end
-
-
 
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
@@ -167,8 +172,9 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	wire [63:0] rvoice_out;
 
 //---	Midi	Controllers unit ---//
-	wire [6:0]	dec_adr;
+	wire [6:0]	dec_addr;
 	wire [6:0]	adr;
+	wire [6:0]	dec_sel_bus;
 	wire		env_sel	;
 	wire		osc_sel;
 	wire		m1_sel;
@@ -184,7 +190,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 	.dataready(dataready) ,	// input  in_select_sig
 	.dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
 	.cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
-	.dec_addr(dec_adr) ,	// input [addr_width-1:0] dec_addr_sig
+	.dec_addr(dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
 	.cpu_addr(address) ,	// input [addr_width-1:0] cpu_addr_sig
 	.cpu_sel({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
 	.dec_sel(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
@@ -213,9 +219,6 @@ reset_delay	reset_data_delay_inst  (
 	.oRST_2(data_DLY2)
 );
 	//  PLL
-//reg CLOCK_25;
-//always@(posedge EXT_CLOCK_IN) begin
-//		CLOCK_25 <= ~CLOCK_25; 	end
 
 sys_pll	sys_disp_pll_inst	(
 `ifdef _CycloneV
@@ -255,12 +258,16 @@ sys_pll	sys_disp_pll_inst	(
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
-	.reset_reg_N(reset_reg_n) ,		// input  reset_reg_N_sig
-	.CLOCK_25(CLOCK_25) ,				// input  CLOCK_25_sig
-	.midi_rxd(midi_rxd) ,				// input  byteready_sig
-	.midi_txd(midi_txd) ,			// input [7:0] cur_status_sig
-	.voice_free(voice_free) ,			// input [VOICES-1:0] voice_free_sig
-	.midi_ch(midi_ch) ,				// input [3:0] midi_ch_sig
+	.reset_reg_N(reset_reg_n) ,		        // input  reset_reg_N_sig
+	.CLOCK_25(CLOCK_25) ,				    // input  CLOCK_25_sig
+	.socmidi_addr(socmidi_addr) ,			// input  byteready_sig
+	.socmidi_data_out(socmidi_data_out) ,	// input  byteready_sig
+//	.cpu_com_sel(com_sel) ,				    // input  byteready_sig
+	.socmidi_write(socmidi_write) ,			// input  byteready_sig
+	.midi_rxd(midi_rxd) ,				    // input  byteready_sig
+	.midi_txd(midi_txd) ,			        // input [7:0] cur_status_sig
+	.voice_free(voice_free) ,			    // input [VOICES-1:0] voice_free_sig
+	.midi_ch(midi_ch) ,				        // input [3:0] midi_ch_sig
 
 	.note_on(note_on) ,					// output  note_on_sig
 	.keys_on(keys_on) ,					// output [VOICES-1:0] keys_on_sig
@@ -273,14 +280,15 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 	.octrl_data(octrl_data) ,			// output [7:0] octrl_data_sig
 	.prg_ch_cmd(prg_ch_cmd) ,			// output  prg_ch_cmd_sig
 	.prg_ch_data(prg_ch_data) ,		// output [7:0] prg_ch_data_sig
-// controller data bus
+// controller synth_data bus
 	.data_ready(dataready) ,						// output  write_sig
 	.read_write (dec_read_write),
 	.sysex_data_patch_send (dec_sysex_data_patch_send),
-	.adr(dec_adr) ,								// output [6:0] adr_sig
-	.data (data) ,							// inout [7:0] data_sig
+	.dec_addr(dec_addr) ,								// output [6:0] adr_sig
+	.synth_data (synth_data) ,							// inout [7:0] data_sig
 	.dec_sel_bus( dec_sel_bus) ,					// output  env_sel_sig
-	.active_keys(active_keys)			// output [V_WIDTH:0] active_keys_sig
+	.active_keys(active_keys) ,			// output [V_WIDTH:0] active_keys_sig
+    .switch4(switch4)
 );
 
 
@@ -322,10 +330,10 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
 	.pitch_val ( pitch_val ),
 // controller data bus
 	.write(write) ,				// input  write_sig
-	.read (read), 					// input read data signal
+	.read (read), 					// input read synth_data signal
 	.sysex_data_patch_send (sysex_data_patch_send), // input
 	.adr(adr) ,						// input [6:0] adr_sig
-	.data (data) ,					// bi-dir [7:0] data_sig
+	.data (synth_data) ,					// bi-dir [7:0] data_sig
 	.env_sel(env_sel) ,			// input  env_sel_sig
 	.osc_sel(osc_sel) ,			// input  osc_sel_sig
 	.m1_sel(m1_sel) ,				// input  m1_sel_sig

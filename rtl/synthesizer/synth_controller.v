@@ -1,6 +1,11 @@
 module synth_controller(
     input                       reset_reg_N,
     input                       CLOCK_25,
+// cpu:
+    input [2:0]                 socmidi_addr,
+    input [7:0]                 socmidi_data_out,
+//    input                       cpu_com_sel,
+    input                       socmidi_write,
 // uart:
     input                       midi_rxd,
     output                      midi_txd,
@@ -10,11 +15,11 @@ module synth_controller(
 // outputs to synth_engine
     output [VOICES-1:0]         keys_on,
 // note events
-    output reg                  note_on,
-    output reg [V_WIDTH-1:0]    cur_key_adr,
-    output reg [7:0]            cur_key_val,
-    output reg [7:0]            cur_vel_on,
-    output reg [7:0]            cur_vel_off,
+    output                      note_on,
+    output  [V_WIDTH-1:0]       cur_key_adr,
+    output  [7:0]               cur_key_val,
+    output  [7:0]               cur_vel_on,
+    output  [7:0]               cur_vel_off,
 // controller data
 //    output reg                   octrl_cmd,
     output reg                  prg_ch_cmd,
@@ -22,320 +27,239 @@ module synth_controller(
     output reg [7:0]            octrl,
     output reg [7:0]            octrl_data,
     output reg [7:0]            prg_ch_data,
-// memory controller
-    output reg                  data_ready,
+//synth memory controller
+    output                      data_ready,
     output                      read_write,
-    output reg                  sysex_data_patch_send,
-    output [6:0]                adr,
-    inout  [7:0]                data,
+    output                      sysex_data_patch_send,
+    output [6:0]                dec_addr,
+    inout  [7:0]                synth_data,
     output [6:0]                dec_sel_bus,
 // status data
-    output reg [V_WIDTH:0]      active_keys
-
+    output [V_WIDTH:0]          active_keys,
+    input                       switch4
 );
 
 parameter VOICES = 8;
 parameter V_WIDTH = 3;
 
-// ----- Pack / Unpack macros   ---- //
-
-`define PACK_BIT_ARRAY(PK_LEN,PK_SRC,PK_DEST) generate genvar pk_idx; for(pk_idx=0;pk_idx<(PK_LEN);pk_idx = pk_idx+1)begin : pack_bit_array assign keys_on[pk_idx] = key_on[pk_idx]; end endgenerate
- // -----        End Macros Def     ---- //
- `PACK_BIT_ARRAY(VOICES,key_on,keys_on)
-
-// -----        End Macros     ---- //
-
-    reg   key_on[VOICES-1:0];
-
-    reg   [7:0]key_val[VOICES-1:0];
 
 //////////////key1 & key2 Assign///////////
-    reg [3:0] cur_midi_ch;
-    reg byteready_r, byteready_r_dly[2:0],is_data_byte_r, syx_cmd, syx_cmd_r[1:0];
-    reg [7:0]cur_status_r;
-    reg [7:0]midi_bytes,addr_cnt;
-    reg signed[7:0]databyte;
-    reg voice_free_r[VOICES-1:0];
-    reg reg_voice_free [VOICES-1:0];
-    reg [V_WIDTH:0]cur_slot;
-
-    reg [V_WIDTH-1:0]first_free_voice;
-    reg [V_WIDTH-1:0]first_on;
-    reg [V_WIDTH-1:0] on_slot[VOICES-1:0];
-    reg [V_WIDTH-1:0] off_slot[VOICES-1:0];
-    reg free_voice_found;
-    reg [7:0]vel_off;
-    reg [7:0]cur_note;
-    reg [V_WIDTH-1:0]slot_off;
-    reg [2:0]    bank_adr_s, bank_adr_l;
-
-    wire [2:0] bank_adr;
+    wire [3:0] cur_midi_ch;
+    wire [7:0] midi_bytes;
+    wire signed [7:0] seq_databyte;
 
     wire [5:0] dec_sel;
 
     assign dec_sel_bus = {write,read,dec_sel[5],dec_sel[3:0]};
 
-    reg Educational_Use,sysex_data_bank_load,sysex_data_patch_load,sysex_ctrl_data,sysex_data_patch_send_end,auto_syx_cmd;
-
-    assign bank_adr = (sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
-
-    reg [7:0 ]     data_out, adr_s;
-
-    reg [6:0]     adr_l;
-
-    reg midi_send_byte_req[3];
-
     reg [3:0]    midi_cha_num, sysex_type;
 
-    assign adr = (sysex_data_patch_send) ? adr_s : adr_l;
-
-    assign midi_send_byte = (midi_send_byte_req[1] && ~midi_send_byte_req[2]) ? 1'b1 : 1'b0;
-
-    assign data = write_dataenable ? data_out : 8'bz;
-
-    wire write_dataenable;
-
-    assign write = (read_write && ~sysex_data_patch_send) ? 1'b1 : 1'b0;
-    assign read = (read_write && sysex_data_patch_send) ? 1'b1 : 1'b0;
-
-    integer free_voices_found;
- //   integer note_found;
-    integer i0;
-    integer i1;
-    integer i2;
-    integer i3;
-    integer i4;
-    integer i5;
-    integer i6;
-    integer i7;
-    integer i8;
+    assign  write = (read_write && ~sysex_data_patch_send) ? 1'b1 : 1'b0;
+    assign  read = (read_write && sysex_data_patch_send) ? 1'b1 : 1'b0;
 
 //  uart:
+    wire       byteready_u;
+    wire [7:0] cur_status_u;
+    wire [7:0] midibyte_nr_u;
+    wire [7:0] midi_in_data_u;
+// cpu_port
+    wire       byteready_c;
+    wire [7:0] cur_status_c;
+    wire [7:0] midibyte_nr_c;
+    wire [7:0] midi_in_data_c;
+    wire       midi_out_ready;
+    wire       midi_send_byte;
+    wire [7:0] midi_out_data;
+    wire [2:0] bank_adr;
+//  midi_in_mux:
     wire       byteready;
     wire [7:0] cur_status;
     wire [7:0] midibyte_nr;
     wire [7:0] midi_in_data;
-    wire       midi_out_ready;
-    wire       midi_send_byte;
-    reg  [7:0] midi_out_data;
-
-
+//  address_decoder
+    wire    write_dataenable;
+// midi_status
+    wire is_cur_midi_ch;
+    wire is_st_note_on;
+    wire is_st_note_off;
+    wire is_st_ctrl;
+    wire is_st_prg_change;
+    wire is_st_pitch;
+    wire is_st_sysex;
+// seq_trigger
+    wire is_data_byte;
+    wire is_velocity;  
+    wire seq_trigger;  
+    
+    
 MIDI_UART MIDI_UART_inst (
-    .reset_reg_N        (reset_reg_N),        // input  reset_sig
-    .CLOCK_25            (CLOCK_25),        // input  reset sig
-    .midi_rxd            (midi_rxd),        // input  midi serial data in
-    .byteready            (byteready),    // output  byteready_sig
-    .cur_status            (cur_status),    // output [7:0] cur_status_sig
-    .midibyte_nr        (midibyte_nr),    // output [7:0] midibyte_nr_sig
-    .midibyte            (midi_in_data),         // output [7:0] midi_data_byte_sig
-    .midi_out_ready     (midi_out_ready),// output midi out buffer ready
-    .midi_send_byte     (midi_send_byte),
-    .midi_out_data        (midi_out_data),// input midi_out_data_sig
-    .midi_txd            (midi_txd)        // output midi serial data output
+    .reset_reg_N        (reset_reg_N),      // input  reset_sig
+    .CLOCK_25           (CLOCK_25),         // input  reset sig
+    .midi_rxd           (midi_rxd),         // input  midi serial data in
+    .midi_txd           (midi_txd),         // output midi serial data output
+
+    .byteready          (byteready_u),      // output  byteready_sig
+    .cur_status         (cur_status_u),     // output [7:0] cur_status_sig
+    .midibyte_nr        (midibyte_nr_u),    // output [7:0] midibyte_nr_sig
+    .midi_in_data       (midi_in_data_u),   // output [7:0] midi_data_byte_sig
+    
+    .midi_out_ready     (midi_out_ready),   // output midi out buffer ready
+    .midi_send_byte     (midi_send_byte),   // input midi_send_byte_sig
+    .midi_out_data      (midi_out_data)     // input midi_out_data_sig
+);
+
+cpu_port cpu_port_inst
+(
+	.reset_reg_N(reset_reg_N) ,	        // input  reset_reg_N_sig
+	.CLOCK_25(CLOCK_25) ,	            // input  CLOCK_25_sig
+	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
+	.socmidi_data_out(socmidi_data_out) ,	// input [7:0] cpu_data_sig
+//	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
+	.socmidi_write(socmidi_write) ,	    // input  cpu_write_sig
+
+	.byteready(byteready_c) ,	        // output  byteready_sig
+	.cur_status(cur_status_c) ,	        // output [7:0] cur_status_sig
+	.midibyte_nr(midibyte_nr_c) ,	    // output [7:0] midibyte_nr_sig
+	.midi_in_data(midi_in_data_c) 	    // output [7:0] midibyte_sig
+);
+
+ 
+midi_in_mux midi_in_mux_inst
+(    .reset_reg_N        (reset_reg_N),      // input  reset_sig
+    .CLOCK_25           (CLOCK_25),         // input  reset sig
+
+	.sel(switch4) ,	// input  sel_sig
+
+	.byteready_u(byteready_u) ,	// input  byteready_u_sig
+	.cur_status_u(cur_status_u) ,	// input [7:0] cur_status_u_sig
+	.midibyte_nr_u(midibyte_nr_u) ,	// input [7:0] midibyte_nr_u_sig
+	.midi_in_data_u(midi_in_data_u) ,	// input [7:0] midi_in_data_u_sig
+
+	.byteready_c(byteready_c) ,	// input  byteready_c_sig
+	.cur_status_c(cur_status_c) ,	// input [7:0] cur_status_c_sig
+	.midibyte_nr_c(midibyte_nr_c) ,	// input [7:0] midibyte_nr_c_sig
+	.midi_in_data_c(midi_in_data_c) ,	// input [7:0] midi_in_data_c_sig
+
+	.byteready(byteready) ,	// output  byteready_sig
+	.cur_status(cur_status) ,	// output [7:0] cur_status_sig
+	.midibyte_nr(midibyte_nr) ,	// output [7:0] midibyte_nr_sig
+	.midi_in_data(midi_in_data) 	// output [7:0] midi_in_data_sig
 );
 
 
-wire is_cur_midi_ch=(
-    (cur_status_r[3:0]==cur_midi_ch)?1'b1:1'b0);
-
-wire is_st_note_on=(
-    (cur_status_r[7:4]==4'h9)?1'b1:1'b0);
-
-    wire is_st_note_off=(
-        (cur_status_r[7:4]==4'h8)?1'b1:1'b0);
-
-    wire is_st_ctrl=(
-        (cur_status_r[7:4]==4'hb)?1'b1:1'b0);
-
-    wire is_st_prg_change=(
-        (cur_status_r[7:4]==4'hc)?1'b1:1'b0);
-
-    wire is_st_pitch=(
-        (cur_status_r[7:4]==4'he)?1'b1:1'b0);
-
-    wire is_st_sysex=(
-        (cur_status_r[7:4]==4'hf)?1'b1:1'b0);
-
-    wire is_data_byte=(
-     (midi_bytes[0]==1'b1)?1'b1:1'b0);
-
-    wire is_velocity=(
-     (midi_bytes[0]==1'b0 && midi_bytes != 8'h0)?1'b1:1'b0);
-
-     wire is_allnotesoff=(
-     (databyte==8'h7b)?1'b1:1'b0);
-
-     address_decoder adr_dec_inst (
-        .CLOCK_25 ( CLOCK_25 ),
-        .reset_reg_N ( reset_reg_N ),
-        .data_ready ( data_ready ),
-        .dec_addr ( bank_adr ),
-        .read_write  ( read_write  ),
-        .write_dataenable ( write_dataenable ),
-        .dec_sel ( dec_sel )
-     );
+address_decoder adr_dec_inst (
+    .CLOCK_25 ( CLOCK_25 ),
+    .reset_reg_N ( reset_reg_N ),
+    .data_ready ( data_ready ),
+    .bank_adr ( bank_adr ),
+    .out_data ( midi_out_data ),
+    .read_write  ( read_write  ),
+    .data_out ( synth_data ),
+    .dec_sel ( dec_sel ),
+    .write_dataenable ( write_dataenable )
+);
 
 
-    always @(posedge CLOCK_25)begin
-       for(i0=0; i0 < VOICES ; i0=i0+1) begin
-                reg_voice_free[i0] <= voice_free[i0];
-           voice_free_r[i0] <= reg_voice_free[i0];
-        end
-    end
+midi_status midi_statusinst
+(
+	.cur_status(cur_status) ,	// input [6:0] cur_status_sig
+	.cur_midi_ch(cur_midi_ch) ,	// input [7:0] cur_midi_ch_sig
+	.is_cur_midi_ch(is_cur_midi_ch) ,	// output  is_cur_midi_ch_sig
+	.is_st_note_on(is_st_note_on) ,	// output  is_st_note_on_sig
+	.is_st_note_off(is_st_note_off) ,	// output  is_st_note_off_sig
+	.is_st_ctrl(is_st_ctrl) ,	// output  is_st_ctrl_sig
+	.is_st_prg_change(is_st_prg_change) ,	// output  is_st_prg_change_sig
+	.is_st_pitch(is_st_pitch) ,	// output  is_st_pitch_sig
+	.is_st_sysex(is_st_sysex) 	// output  is_st_sysex_sig
+);
 
-    always @(posedge CLOCK_25)begin
-        syx_cmd_r[0] <= syx_cmd;
-        syx_cmd_r[1] <= syx_cmd_r[0];
-        data_ready   <= (syx_cmd_r[0] & ~syx_cmd_r[1]) | ((sysex_data_patch_send | auto_syx_cmd) & (byteready_r_dly[1] & ~byteready_r_dly[2]));
-    end
 
-    always @(negedge reset_reg_N or posedge CLOCK_25)begin
-        if (!reset_reg_N) begin
-        end
-        else begin
-            is_data_byte_r <= is_data_byte;
-            cur_midi_ch <= midi_ch;
-            byteready_r <= (is_cur_midi_ch | is_st_sysex) ? (byteready | midi_send_byte) : 1'b0 ;
-            byteready_r_dly[0] <= byteready_r;
-            byteready_r_dly[1] <= byteready_r_dly[0];
-            byteready_r_dly[2] <= byteready_r_dly[1];
-            cur_status_r <= cur_status;
-            midi_bytes <= (is_cur_midi_ch | is_st_sysex) ? midibyte_nr : 8'h00;
-            databyte <= (is_cur_midi_ch | is_st_sysex) ? midi_in_data : 8'h00;
-            midi_send_byte_req[0] <= ( sysex_data_patch_send && byteready_r ) ? 1'b1 : 1'b0;
-            midi_send_byte_req[1] <= midi_send_byte_req[0];
-            midi_send_byte_req[2] <= midi_send_byte_req[1];
-       end
-    end
+note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
+(
+	.CLOCK_25(CLOCK_25) ,	// input  CLOCK_25_sig
+	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
+	.voice_free(voice_free) ,	// input [VOICES-1:0] voice_free_sig
+	.is_data_byte(is_data_byte) ,	// input  is_data_byte_sig
+	.is_velocity(is_velocity) ,	// input  is_velocity_sig
+	.is_st_note_on(is_st_note_on) ,	// input  is_st_note_on_sig
+	.is_st_note_off(is_st_note_off) ,	// input  is_st_note_off_sig
+	.is_st_ctrl(is_st_ctrl) ,	// input  is_st_ctrl_sig
+	.byteready(byteready) ,	// input  byteready_sig
+	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
 
-    always @(negedge reset_reg_N or posedge is_data_byte_r)begin
-        if (!reset_reg_N) begin
-            free_voice_found = 1'b1;
-            first_free_voice = 0;
-        end
-        else begin
-            for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
-                free_voice_found = 1'b0;
-                if(voice_free_r[i3])begin
-                    free_voices_found = free_voices_found +1;
-                    first_free_voice = i3;
-                end
-                if (free_voices_found > 0) free_voice_found = 1'b1;
-            end
-        end
-    end
+	.active_keys(active_keys) ,	// output [V_WIDTH:0] active_keys_sig
+	.note_on(note_on) ,	// output  note_on_sig
+	.cur_key_adr(cur_key_adr) ,	// output [V_WIDTH-1:0] cur_key_adr_sig
+	.cur_key_val(cur_key_val) ,	// output [7:0] cur_key_val_sig
+	.cur_vel_on(cur_vel_on) ,	// output [7:0] cur_vel_on_sig
+	.cur_vel_off(cur_vel_off) ,	// output [7:0] cur_vel_off_sig
+	.keys_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
+);
 
-    always @(negedge reset_reg_N or negedge byteready_r) begin
+seq_trigger seq_trigger_inst
+(
+	.CLOCK_25(CLOCK_25) ,	// input  CLOCK_25_sig
+	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
+	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
+	.midibyte_nr(midibyte_nr) ,	// input [7:0] midibyte_nr_sig
+	.is_cur_midi_ch(is_cur_midi_ch) ,	// input  is_cur_midi_ch_sig
+	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
+	.midi_in_data(midi_in_data) ,	// input [7:0] midi_in_data_sig
+	.syx_cmd(syx_cmd) ,	// input  syx_cmd_sig
+	.sysex_data_patch_send(sysex_data_patch_send) ,	// input  sysex_data_patch_send_sig
+	.auto_syx_cmd(auto_syx_cmd) ,	// input  auto_syx_cmd_sig
+	.byteready(byteready) ,	// input  byteready_sig
+	.cur_midi_ch(cur_midi_ch) ,	// output [3:0] cur_midi_ch_sig
+	.midi_bytes(midi_bytes) ,	// output [7:0] midi_bytes_sig
+	.midi_send_byte(midi_send_byte) ,	// output  midi_send_byte_sig
+	.data_ready(data_ready) ,	// output  data_ready_sig
+	.seq_databyte(seq_databyte) ,	// output [7:0] seq_databyte_sig
+	.is_data_byte(is_data_byte) ,	// output  data_ready_sig
+	.is_velocity(is_velocity) ,	// output  data_ready_sig
+	.seq_trigger(seq_trigger) 	// output  seq_trigger_sig
+);
+
+sysex_func sysex_func_inst
+(
+	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
+    .write_dataenable ( write_dataenable ),
+	.synth_data(synth_data) ,	// input [7:0] data_sig
+	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
+	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
+	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
+	.midi_bytes(midi_bytes) ,	// input [7:0] midi_bytes_sig
+	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
+	.seq_trigger(seq_trigger) ,	// input  seq_trigger_sig
+	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
+	.sysex_data_patch_send(sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
+	.auto_syx_cmd(auto_syx_cmd) ,	// output  auto_syx_cmd_sig
+	.midi_out_data(midi_out_data) ,	// output [7:0] midi_out_data_sig
+	.bank_adr(bank_adr) ,	// output [2:0] bank_adr_sig
+	.dec_addr(dec_addr) 	// output [6:0] dec_addr_sig
+);
+
+
+    always @(negedge reset_reg_N or negedge seq_trigger) begin
         if (!reset_reg_N) begin // init values
-            active_keys <= 0;
-            cur_key_val <= 8'hff;
-            cur_vel_on <= 0;
-            cur_vel_off <= 0;
-           for(i5=0;i5<VOICES-1;i5=i5+1)begin
-                key_on[i5] <= 1'b0;
-                cur_key_adr <= i5;
-                key_val[i5] <= 8'hff;
-                on_slot[i5] <= 0;
-                off_slot[i5] <= 0;
-            end
-            slot_off<=0;
-            cur_note<=0;
-            cur_slot<=0;
-            active_keys<=0;
+            pitch_cmd <= 1'b0;
         end
         else begin
-            note_on <= 1'b0;
-            if(is_st_note_on)begin // Note on omni
+            pitch_cmd <= 1'b0;
+            if(is_st_pitch)begin // Control Change omni
                 if(is_data_byte)begin
-                    if(active_keys >= VOICES) begin
-                        active_keys <= active_keys-1'b1;
-                        key_on[on_slot[0]]<=1'b0;
-                        cur_key_adr <= on_slot[0];
-                        cur_key_val <=8'hff;
-                        key_val[on_slot[0]]<=8'hff;
-                        slot_off<=on_slot[0];
-                        cur_slot<=on_slot[0];
-                    end
-                    else if(free_voice_found  == 1'b0)begin
-                        cur_slot <= off_slot[active_keys];
-                    end
-                    else begin
-                        cur_slot<=first_free_voice;
-                    end
-                    for(i6=VOICES-1;i6>0;i6=i6-1)begin
-                        on_slot[i6-1]<=on_slot[i6];
-                    end
-                    cur_note<=databyte;
+                    octrl<=seq_databyte;
+                    pitch_cmd<=1'b1;
                 end
                 else if(is_velocity)begin
-                    active_keys <= active_keys+1'b1;
-                    key_on[cur_slot]<=1'b1;
-                    cur_key_adr <= cur_slot;
-                    cur_key_val <= cur_note;
-                    cur_vel_on <= databyte;
-                    note_on <= 1'b1;
-                    key_val[cur_slot]<=cur_note;
-                    on_slot[VOICES-1] <= cur_slot;
-                end
-            end
-             else if(is_st_ctrl)begin // Control Change omni
-                if(is_data_byte)begin
-                    if(is_allnotesoff)begin
-                        for(i4=0;i4<VOICES;i4=i4+1)begin
-                            key_on[i4]<=1'b0;
-                            cur_key_adr <= i4;
-                            key_val[i4]<=8'hff;
-                            cur_key_val<=8'hff;
-                        end
-                        slot_off <= 0;
-                        cur_note <= 0;
-                        active_keys <= 0;
-                    end
-                end
-            end
-            else if (is_st_note_off) begin// Note off omni
-                if(is_data_byte)begin
-                    for(i2=0;i2<VOICES;i2=i2+1)begin
-                        if(databyte==key_val[i2])begin
-                            active_keys <= active_keys-1'b1;
-                            slot_off<=i2;
-                            key_on[i2]<=1'b0;
-                            cur_key_adr <= i2;
-                            cur_key_val <= 8'hff;
-                            key_val[i2] <= 8'hff;
-                        end
-                    end
-                end
-                else if(is_velocity )begin
-                    if(key_val[slot_off] == 8'hff)begin
-                        cur_vel_off<=databyte;
-                        off_slot[VOICES-1]<=slot_off;
-                        for(i7=VOICES-1;i7>0;i7=i7-1)begin
-                            if(i7>active_keys)begin
-                                off_slot[i7-1] <= off_slot[i7];
-                            end
-                        end
-                    end
-                    if(active_keys == 0)begin
-                        for(i8=0;i8<VOICES;i8=i8+1)begin
-                            key_on[i8]<=1'b0;
-                            cur_key_adr <= i8;
-                            cur_key_val <= 8'hff;
-                            cur_vel_on <= 8'd0;
-                            cur_vel_off <= 8'd0;
-                            key_val[i8] <= 8'hff;
-                        end
-                        cur_note <= 8'd0;
-                        slot_off <= 0;
-                        cur_slot <= 0;
-                    end
+                    octrl_data<=seq_databyte;
+                    pitch_cmd<=1'b0;
                 end
             end
         end
     end
 
-
-    always @(negedge reset_reg_N or negedge byteready_r) begin
+    
+    always @(negedge reset_reg_N or negedge seq_trigger) begin
         if (!reset_reg_N) begin // init values
             prg_ch_cmd <=1'b0;
         end
@@ -344,112 +268,12 @@ wire is_st_note_on=(
             if(is_st_prg_change)begin // Control Change omni
                     prg_ch_cmd <= 1'b1;
                 if(is_data_byte)begin
-                    prg_ch_data<=databyte;
+                    prg_ch_data<=seq_databyte;
                     prg_ch_cmd <= 1'b0;
                 end
             end
         end
     end
 
-
-    always @(negedge reset_reg_N or negedge byteready_r) begin
-        if (!reset_reg_N) begin // init values
-            syx_cmd <= 1'b0; sysex_data_patch_send <= 1'b0; sysex_data_bank_load <= 1'b0;
-            sysex_data_patch_load <= 1'b0; sysex_ctrl_data <= 1'b0; auto_syx_cmd <= 1'b0;
-        end
-        else if (!byteready_r)begin
-            if (sysex_data_patch_send_end && addr_cnt == (16*14+4)) begin  sysex_data_patch_send <= 1'b0; end
-            syx_cmd <= 1'b0;
-            if(is_st_sysex)begin // Sysex
-                if (midi_bytes == 8'd1) begin
-                    Educational_Use <= (databyte == 8'h7D) ? 1'b1 : 1'b0;
-                end
-                else if (Educational_Use) begin
-                    if (midi_bytes == 8'd2)begin // sysex_type <= databyte[7:4]; midi_cha_num <= databyte[3:0]; end
-                        if (databyte[3:0] == midi_ch) begin
-                            case (databyte[7:4])
-                                4'h1 : sysex_ctrl_data <= 1'b1;
-                                4'h2 : sysex_data_bank_load <= 1'b1;
-                                4'h3 : sysex_data_patch_send <= 1'b1;
-                                4'h7 : begin sysex_data_patch_load <= 1'b1; bank_adr_l <= 3'b0; adr_l <= 7'b0; auto_syx_cmd <= 1'b1; end // data_out <= databyte; end
-                            endcase
-                        end
-                    end
-                    if(sysex_data_patch_load) begin
-                        if(databyte != 8'hf7)begin
-                            data_out  <= databyte;
-                            if (midi_bytes >= 8'd4 && midi_bytes < 16*4+8'd3) begin adr_l <= adr_l + 7'b1; end // data_out <= databyte; end
-                            if (midi_bytes == (16*4 + 8'd3))begin bank_adr_l <= 1; adr_l <= 7'b0; end //  data_out <= databyte; end
-                            else if (midi_bytes >= (16*4 + 8'd3) && midi_bytes < (16*8 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // data_out <= databyte; end
-                            if (midi_bytes == (16*8 + 8'd3))begin bank_adr_l <= 2; adr_l <= 7'b0; end // data_out <= databyte; end
-                            else if (midi_bytes >= (16*8 + 8'd3) && midi_bytes < (16*12 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // data_out <= databyte; end
-                            if (midi_bytes == (16*12 + 8'd3))begin bank_adr_l <= 5; adr_l <= 7'b0; end // data_out <= databyte; end
-                            else if (midi_bytes >= (16*12 + 8'd3) && midi_bytes < (16*14 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // data_out <= databyte; end
-                        end
-                        else begin sysex_data_patch_load <= 1'b0; auto_syx_cmd <= 1'b0; end
-                    end
-                    if(sysex_data_bank_load) begin
-                        if(databyte != 8'hf7)begin
-                            data_out <= databyte;
-                            if (midi_bytes == 8'd3)begin adr_l <= 7'b0; bank_adr_l  <= databyte[2:0]; auto_syx_cmd <= 1'b1; end
-                            if (midi_bytes >= 8'd5 )begin adr_l <= adr_l + 7'b1; end
-                        end
-                        else begin sysex_data_bank_load <= 1'b0; auto_syx_cmd <= 1'b0; end
-                    end
-                    if(sysex_ctrl_data) begin
-                        case (midi_bytes)
-                            8'd3:bank_adr_l  <= databyte[2:0];
-                            8'd4:adr_l  <= databyte[6:0];
-                            8'd5:data_out  <= databyte;
-                            8'd6:if (midi_bytes == 6 && databyte == 8'hf7)begin syx_cmd <= 1'b1; sysex_ctrl_data <= 1'b0; end
-                            default:;
-                        endcase
-                    end
-                end
-            end
-        end
-    end
-
-    always @(negedge reset_reg_N or negedge midi_out_ready ) begin
-        if (!reset_reg_N) begin
-            addr_cnt <= 8'b0; sysex_data_patch_send_end <= 1'b0;
-        end
-        else if (!midi_out_ready) begin
-            if (sysex_data_patch_send) begin
-                addr_cnt <= addr_cnt+8'h01; sysex_data_patch_send_end <= 1'b0;
-                if (addr_cnt == 8'b0) begin    midi_out_data <= 8'hF0;    adr_s <= 8'b0; end
-                else if(addr_cnt == 8'd1) midi_out_data <= 8'h7D;
-                else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,midi_ch}; adr_s <= 8'h0; bank_adr_s <= 3'h0; end
-                else if(addr_cnt >= 8'd3 && addr_cnt < (16*14+3))begin
-                    adr_s <= adr_s + 1'b1;    midi_out_data <= data;
-                    if (addr_cnt == (16*4+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h1; end
-                    if (addr_cnt == (16*8+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h2; end
-                    if (addr_cnt == (16*12+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h5; end
-                end
-                else if (addr_cnt == (16*14+3)) begin midi_out_data <= 8'hF7; sysex_data_patch_send_end <= 1'b1; end
-            end
-            else if (addr_cnt == (16*14+4)) begin midi_out_data <= 8'hFF; sysex_data_patch_send_end <= 1'b0; addr_cnt <= 8'b0; end
-        end
-    end
-
-
-    always @(negedge reset_reg_N or negedge byteready_r) begin
-        if (!reset_reg_N) begin // init values
-            pitch_cmd <= 1'b0;
-        end
-        else begin
-            pitch_cmd <= 1'b0;
-            if(is_st_pitch)begin // Control Change omni
-                if(is_data_byte)begin
-                    octrl<=databyte;
-                    pitch_cmd<=1'b1;
-                end
-                else if(is_velocity)begin
-                    octrl_data<=databyte;
-                    pitch_cmd<=1'b0;
-                end
-            end
-        end
-    end
 
 endmodule

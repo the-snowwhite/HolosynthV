@@ -259,6 +259,30 @@
          type = "boolean";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element socmidi_0
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element socmidi_0.slave
+   {
+      datum baseAddress
+      {
+         value = "327680";
+         type = "String";
+      }
+   }
    element sysid_qsys
    {
       datum _sortIndex
@@ -357,6 +381,7 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <interface name="socmidi_io" internal="socmidi_0.pins" type="conduit" dir="end" />
  <interface
    name="synthreg_io"
    internal="uioreg_io_0.pins"
@@ -1248,6 +1273,11 @@
   <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
   <parameter name="gui_use_locked" value="true" />
  </module>
+ <module name="socmidi_0" kind="socmidi" version="1.0" enabled="1">
+  <parameter name="ADDRESS_WIDTH" value="3" />
+  <parameter name="DATA_WIDTH" value="8" />
+  <parameter name="IRQ_EN" value="0" />
+ </module>
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
@@ -1335,6 +1365,15 @@
  <connection
    kind="avalon"
    version="17.0"
+   start="hps_0.h2f_lw_axi_master"
+   end="socmidi_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.0"
    start="fpga_only_master_0.master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1414,6 +1453,15 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
+   kind="avalon"
+   version="17.0"
+   start="fpga_only_master_0.master"
+   end="socmidi_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
    kind="avalon_streaming"
    version="17.0"
    start="alt_vip_vfr.avalon_streaming_source"
@@ -1439,6 +1487,7 @@
    start="clk_0.clk"
    end="intr_capturer_0.clock" />
  <connection kind="clock" version="17.0" start="clk_0.clk" end="uioreg_io_0.clock" />
+ <connection kind="clock" version="17.0" start="clk_0.clk" end="socmidi_0.clock" />
  <connection
    kind="clock"
    version="17.0"
@@ -1497,6 +1546,13 @@
    start="hps_0.f2h_irq0"
    end="uioreg_io_0.slv_irq">
   <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="17.0"
+   start="hps_0.f2h_irq0"
+   end="socmidi_0.slv_irq">
+  <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
@@ -1586,6 +1642,11 @@
    version="17.0"
    start="clk_0.clk_reset"
    end="uioreg_io_0.reset" />
+ <connection
+   kind="reset"
+   version="17.0"
+   start="clk_0.clk_reset"
+   end="socmidi_0.reset" />
  <connection
    kind="reset"
    version="17.0"
@@ -1711,6 +1772,16 @@
    version="17.0"
    start="hps_only_master.master_reset"
    end="uioreg_io_0.reset" />
+ <connection
+   kind="reset"
+   version="17.0"
+   start="fpga_only_master_0.master_reset"
+   end="socmidi_0.reset" />
+ <connection
+   kind="reset"
+   version="17.0"
+   start="hps_only_master.master_reset"
+   end="socmidi_0.reset" />
  <connection
    kind="reset"
    version="17.0"
