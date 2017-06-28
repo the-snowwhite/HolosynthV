@@ -47,6 +47,9 @@ set_output_delay -min -clock clk_vga -1.519 [get_ports VGA_B*]
 set_output_delay -max -clock clk_vga 0.215 [get_ports VGA_BLANK]
 set_output_delay -min -clock clk_vga -1.485 [get_ports VGA_BLANK]
 
+create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|oAUD_BCLK} -period 354.000 -waveform { 0.000 177.000 } [get_pins {synthesizer_inst|audio_pll_inst|audio_pll_inst|altera_pll_i|outclk_wire[1]~CLKENA0|outclk}]
+create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXENVS} -period 22.000 -waveform { 0.000 11.000 } [get_pins {synthesizer_inst|audio_pll_inst|audio_pll_inst|altera_pll_i|outclk_wire[0]~CLKENA0|outclk}]
+create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXOSC} -period 44.000 -waveform { 0.000 22.000 } 
 
 
 # tsu/th constraints
