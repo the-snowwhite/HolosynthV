@@ -184,7 +184,8 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.is_st_note_on(is_st_note_on) ,	// input  is_st_note_on_sig
 	.is_st_note_off(is_st_note_off) ,	// input  is_st_note_off_sig
 	.is_st_ctrl(is_st_ctrl) ,	// input  is_st_ctrl_sig
-	.byteready(byteready) ,	// input  byteready_sig
+//	.byteready(byteready) ,	// input  byteready_sig
+	.byteready(seq_trigger) ,	// input  byteready_sig
 	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
 
 	.active_keys(active_keys) ,	// output [V_WIDTH:0] active_keys_sig

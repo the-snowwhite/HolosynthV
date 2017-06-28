@@ -49,10 +49,11 @@ parameter V_WIDTH = 3;
     reg   [7:0]key_val[VOICES-1:0];
 
     reg voice_free_r[VOICES-1:0];
-    reg reg_voice_free [VOICES-1:0];
+//    reg reg_voice_free [VOICES-1:0];
     reg [V_WIDTH:0]cur_slot;
 
     reg [V_WIDTH-1:0]first_free_voice;
+    reg free_voice_found_r;
 //    reg [V_WIDTH-1:0]first_on;
     reg [V_WIDTH-1:0] on_slot[VOICES-1:0];
     reg [V_WIDTH-1:0] off_slot[VOICES-1:0];
@@ -66,12 +67,16 @@ parameter V_WIDTH = 3;
 
 
     always @(posedge CLOCK_25)begin
-       for(i0=0; i0 < VOICES ; i0=i0+1) begin
-                reg_voice_free[i0] <= voice_free[i0];
-           voice_free_r[i0] <= reg_voice_free[i0];
+        for(i0=0; i0 < VOICES ; i0=i0+1) begin
+//            reg_voice_free[i0] <= voice_free[i0];
+            voice_free_r[i0] <= voice_free[i0];
+            free_voice_found_r <= free_voice_found;
+//            voice_free_r[i0] <= reg_voice_free[i0];
         end
     end
 
+//    assign free_voice_found = (free_voices_found > 0) ? 1'b1: 1'b0;
+    
     always @(negedge reset_reg_N or posedge is_data_byte)begin
         if (!reset_reg_N) begin
             free_voice_found = 1'b1;
@@ -106,7 +111,7 @@ parameter V_WIDTH = 3;
             slot_off<=0;
             cur_note<=0;
             cur_slot<=0;
-            active_keys<=0;
+//            active_keys<=0;
             note_on <= 1'b0;
         end
         else begin
@@ -122,7 +127,7 @@ parameter V_WIDTH = 3;
                         slot_off<=on_slot[0];
                         cur_slot<=on_slot[0];
                     end
-                    else if(free_voice_found  == 1'b0)begin
+                    else if(free_voice_found_r  == 1'b0)begin
                         cur_slot <= off_slot[active_keys];
                     end
                     else begin
