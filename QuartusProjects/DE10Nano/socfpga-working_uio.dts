@@ -201,6 +201,16 @@
 				address_width = <0xe>;
 				data_width = <0x20>;
 			};
+
+			socmidi_0: socmidi@0x50000 {
+                compatible = "holotr,socmidi-1.0";
+                reg = <0x50000 0x10000>;
+                interrupt-parent = <0x3>;
+                interrupts = <0 44 4>;
+                address_width = <3>;
+                data_width = <8>;
+            }; //end interfaces@0x100050000 (socmidi_0)
+
 		};
 
 		intc@0xfffed000 {

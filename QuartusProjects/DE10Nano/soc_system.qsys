@@ -287,6 +287,22 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element socmidi_0
    {
       datum _sortIndex
@@ -1630,6 +1646,13 @@
    start="hps_0.f2h_irq0"
    end="uioreg_io_0.slv_irq">
   <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="17.0"
+   start="hps_0.f2h_irq0"
+   end="socmidi_0.slv_irq">
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection kind="interrupt" version="17.0" start="ILC.irq" end="jtag_uart.irq">
   <parameter name="irqNumber" value="2" />
