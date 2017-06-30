@@ -28,6 +28,7 @@ parameter V_WIDTH = 3;
  //   integer note_found;
     integer i0;
     integer i1;
+    integer i22;
     integer i2;
     integer i3;
     integer i4;
@@ -139,14 +140,28 @@ parameter V_WIDTH = 3;
                     cur_note<=databyte;
                 end
                 else if(is_velocity)begin
-                    active_keys <= active_keys+1'b1;
-                    key_on[cur_slot]<=1'b1;
-                    cur_key_adr <= cur_slot;
-                    cur_key_val <= cur_note;
-                    cur_vel_on <= databyte;
-                    note_on <= 1'b1;
-                    key_val[cur_slot]<=cur_note;
-                    on_slot[VOICES-1] <= cur_slot;
+                    if(databyte == 0)begin
+                        for(i22=0;i22<VOICES;i22=i22+1)begin
+                            if(cur_note==key_val[i22])begin
+                                active_keys <= active_keys-1'b1;
+                                slot_off<=i22;
+                                key_on[i22]<=1'b0;
+                                cur_key_adr <= i22;
+                                cur_key_val <= 8'hff;
+                                key_val[i22] <= 8'hff;
+                            end
+                        end
+                    end
+                    else begin
+                        active_keys <= active_keys+1'b1;
+                        key_on[cur_slot]<=1'b1;
+                        cur_key_adr <= cur_slot;
+                        cur_key_val <= cur_note;
+                        cur_vel_on <= databyte;
+                        note_on <= 1'b1;
+                        key_val[cur_slot]<=cur_note;
+                        on_slot[VOICES-1] <= cur_slot;
+                    end
                 end
             end
              else if(is_st_ctrl)begin // Control Change omni
