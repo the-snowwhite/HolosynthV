@@ -38,7 +38,7 @@ reg						r_note_on;
 
 	always @(negedge n_xxxx_zero)begin
 		if(!n_xxxx_zero)begin
-			r_note_on			<= note_on_r[1];
+			r_note_on			<= (r_note_on == 1'b1) ? 1'b0 : note_on_r[1];
 			reg_cur_key_adr	<= cur_key_adr_r[1];
 			reg_cur_key_val	<= cur_key_val_r[1];
 			reg_cur_vel_on		<= cur_vel_on_r[1];

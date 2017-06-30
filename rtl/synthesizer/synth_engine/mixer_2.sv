@@ -108,7 +108,7 @@ parameter output_volume_scaling = 37;
 	endgenerate
 	
 	
-	assign data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr >= 1) || m1_sel || m2_sel)) ? data_out : 8'bz;
+	assign data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
 	
 	wire signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l;
 	wire signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_r;

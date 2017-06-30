@@ -1,6 +1,7 @@
 #-------------------- Common Holosynth Sources --------------------------#
 set_global_assignment -name SYSTEMVERILOG_FILE ../../Verilog_functions/utils.sv
 
+set_global_assignment -name IPX_FILE soc_system.ipx
 set_global_assignment -name SEARCH_PATH "../../cv-megawizard/audio_pll"
 set_global_assignment -name SEARCH_PATH "../../cv-megawizard/sys_pll"
 set_global_assignment -name SEARCH_PATH ../../cv-megawizard
@@ -21,12 +22,17 @@ set_global_assignment -name QIP_FILE ../../megawizard_common/pitchdiv.qip
 set_global_assignment -name QIP_FILE ../../megawizard_common/constmaprom2.qip
 set_global_assignment -name QIP_FILE ../../megawizard_common/blockram512x16bits_2clklatency.qip
 
+# generic functions:
+set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_decoder.sv
+
+
 # Synth topfile
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer.sv
 
 # synth:
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_controllers.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_decoder.v
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/rt_controllers.v
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_controller.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/address_decoder.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/div_module.v
@@ -34,6 +40,12 @@ set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/st_r
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/timing_gen.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/synth_clk_gen.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_status.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/note_stack.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/seq_trigger.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/sysex_func.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/cpu_port.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_in_mux.sv
 
 # Synth cores:
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_uart.v

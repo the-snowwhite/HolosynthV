@@ -1,7 +1,7 @@
-module midi_controllers (
+module rt_controllers (
 	input					reset_data_N,
 	input					CLOCK_25,
-//@name from midi_decoder
+//@name from synth_controller
 	input	[7:0]			ictrl,
 	input	[7:0]			ictrl_data,
 	input					pitch_cmd,
