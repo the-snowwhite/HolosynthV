@@ -932,7 +932,8 @@ set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
 set_global_assignment -name SAVE_DISK_SPACE OFF
 set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS OFF
-set_global_assignment -name NUM_PARALLEL_PROCESSORS 1
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 8
+set_global_assignment -name VERILOG_MACRO "ALTERA_FIFO=1"
 set_global_assignment -name IGNORE_PARTITIONS ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING ON
@@ -963,8 +964,11 @@ set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
 
 
 
-set_global_assignment -name VERILOG_FILE ../../cv_ip/debounce/debounce.v
+set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SDC_FILE DE1_SOC_Linux_FB.out.sdc
+set_global_assignment -name VERILOG_FILE ../../cv_ip/debounce/debounce.v
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
 set_global_assignment -name VERILOG_FILE DE1_SOC_Linux_FB.v
 set_global_assignment -name QIP_FILE ../../rtl/holosynth.qip
@@ -973,8 +977,5 @@ set_global_assignment -name SIGNALTAP_FILE output_files/resetprb.stp
 set_global_assignment -name CDF_FILE output_files/Chain1.cdf
 set_global_assignment -name SIGNALTAP_FILE output_files/patch_name.stp
 set_global_assignment -name CDF_FILE Chain1.cdf
-set_global_assignment -name OPTIMIZATION_MODE BALANCED
 set_global_assignment -name SIGNALTAP_FILE stp2.stp
 set_global_assignment -name SIGNALTAP_FILE stp1.stp
-set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

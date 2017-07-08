@@ -30,8 +30,18 @@ module synthesizer (
 	input					AUD_ADCDAT,			//	Audio CODEC ADC Data
 	output					AUD_DACDAT,			//	Audio CODEC DAC Data
 	inout					AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
-	output					AUD_XCK,			//	Audio CODEC Chip Clock
-
+	output					AUDIO_CLK,			//	CPU Audio CODEC Chip Clock
+	output					AUD_XCK,			//	ADAU-1966 Audio CODEC Chip Clock
+`ifdef _32BitAudio
+    output  [31:0]          lsound_out,
+    output  [31:0]          rsound_out,
+`elsif _24BitAudio
+    output  [23:0]          lsound_out,
+    output  [23:0]          rsound_out,
+`else
+    output  [15:0]          lsound_out,
+    output  [15:0]          rsound_out,
+`endif
 	input 					io_clk,
 	input					io_reset_n,
 	input					cpu_read,
@@ -237,18 +247,18 @@ sys_pll	sys_disp_pll_inst	(
 	`ifdef _271MhzOscs
 		audio_271_pll	audio_pll_inst ( //  271.052632 MHz
 	`else
-		audio_pll	audio_pll_inst ( // 180.555556 Mhz
+		audio_pll	audio_pll_inst ( // 90.416666 Mhz
 	`endif
 	`ifdef _CycloneV
 		.refclk		( EXT_CLOCK_IN ),
-		.outclk_0	( OSC_CLK ),  // 180.555556 Mhz  Mhz
-		.outclk_1	( AUD_XCK ), // 16.927083 Mhz
+		.outclk_0	( OSC_CLK ),    // 90.416666 Mhz  Mhz
+		.outclk_1	( AUDIO_CLK ),  // 33.906250 Mhz
+		.outclk_2	( AUD_XCK ),    // 16.953125 Mhz
 		.locked		(audio_pll_locked)    //  locked.export
-//		.outclk_1	( ) // 16.927083 Mhz
 	`else
 		.inclk0		( EXT_CLOCK_IN ),
 		.c0	( OSC_CLK ),  // 180.555556 Mhz --> 270 Mhz
-		.c1	( AUD_XCK ) // 16.927083 Mhz
+		.c1	( AUDIO_CLK ) // 16.927083 Mhz
 //		.c1	( ) // 16.927083 Mhz
 	`endif
 	);
@@ -311,12 +321,14 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
 	.OSC_CLK( OSC_CLK ),				// input
-	.AUDIO_CLK( AUD_XCK ),				// input
+	.AUD_XCK( AUD_XCK ),				// input
 	.reset_reg_N(reset_reg_n) ,			// input  reset_sig
 	.reset_data_N		( reset_data_n ),
 	.AUD_BCLK ( AUD_BCLK ),				// output
 	.AUD_DACDAT( AUD_DACDAT ),			// output
 	.AUD_DACLRCK( AUD_DACLRCK ),			// output
+	.lsound_out (lsound_out ),      //  Audio Raw Dat
+	.rsound_out (rsound_out ),      //  Audio Raw Data
 	// KEY //
 	// -- Sound Control -- //
 	//	to pitch control //

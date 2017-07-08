@@ -1,36 +1,46 @@
 module synth_engine (
-	input						OSC_CLK,
-	input						AUDIO_CLK,
+    input                   OSC_CLK,
+    input                   AUD_XCK,
 //	output					AUDIO_CLK,
-	input						reset_reg_N,
-	input						reset_data_N,
-	output					AUD_DACDAT,
-	output					AUD_DACLRCK,
-	output					AUD_BCLK,
+    input                   reset_reg_N,
+    input                   reset_data_N,
+    output                  AUD_DACDAT,
+    output                  AUD_DACLRCK,
+    output                  AUD_BCLK,
+`ifdef _32BitAudio
+    output  [31:0]          lsound_out,
+    output  [31:0]          rsound_out,
+`elsif _24BitAudio
+    output  [23:0]          lsound_out,
+    output  [23:0]          rsound_out,
+`else
+    output  [15:0]          lsound_out,
+    output  [15:0]          rsound_out,
+`endif
 // from synth_controller
 // note events
-	input [VOICES-1:0]	keys_on,
-	input						note_on,
-	input [V_WIDTH-1:0]	cur_key_adr,
-	input [7:0]				cur_key_val,
-	input [7:0]				cur_vel_on,
-	input [7:0]				cur_vel_off,
+    input   [VOICES-1:0]    keys_on,
+    input                   note_on,
+    input   [V_WIDTH-1:0]   cur_key_adr,
+    input   [7:0]           cur_key_val,
+    input   [7:0]           cur_vel_on,
+    input   [7:0]           cur_vel_off,
 // midi data events
-	input						write,
-	input						read,
-	input						sysex_data_patch_send,
-	input [6:0]				adr,
-	inout [7:0]				data,
-	input						env_sel,
-	input						osc_sel,
-	input						m1_sel,
-	input						m2_sel,
-	input						com_sel,
+    input                   write,
+    input                   read,
+    input                   sysex_data_patch_send,
+    input   [6:0]           adr,
+    inout   [7:0]           data,
+    input                   env_sel,
+    input                   osc_sel,
+    input                   m1_sel,
+    input                   m2_sel,
+    input                   com_sel,
 // from midi_controller_unit
-	input [13:0]			pitch_val,
+    input   [13:0]          pitch_val,
 // from env gen
-	output [VOICES-1:0]	voice_free
-	);
+    output  [VOICES-1:0]    voice_free
+);
 
 
 parameter VOICES	= 8;
@@ -59,13 +69,6 @@ wire          pitch_cmd;           // ObjectKind=Net|PrimaryId=pitch_cmd
 wire [7:0]  midibyte;               // ObjectKind=Net|PrimaryId=midibyte
 wire [7:0]  midibyte_nr;            // ObjectKind=Net|PrimaryId=midibyte_nr
 wire [10:0] modulation;                 // ObjectKind=Net|PrimaryId=modulation
-`ifdef _24BitAudio
-wire [23:0] lsound_out;                 // ObjectKind=Net|PrimaryId=NetU1_rsound_out[23..0]
-wire [23:0] rsound_out;                 // ObjectKind=Net|PrimaryId=NetU1_rsound_out[23..0]
-`else
-wire [15:0] lsound_out;                 // ObjectKind=Net|PrimaryId=NetU1_rsound_out[23..0]
-wire [15:0] rsound_out;                 // ObjectKind=Net|PrimaryId=NetU1_rsound_out[23..0]
-`endif
 wire [16:0] sine_lut_out;                 // ObjectKind=Net|PrimaryId=sine_lut_out
 wire [23:0] osc_pitch_val;      // ObjectKind=Net|PrimaryId=osc_pitch_val
 
@@ -97,7 +100,7 @@ synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))synth_clk_gen_inst
  (
 	.reset_reg_N( reset_reg_N ),	// input
 	.OSC_CLK( OSC_CLK ),  			// input
-	.AUDIO_CLK( AUDIO_CLK ),      // input
+	.AUDIO_CLK( AUD_XCK ),      // input
 	.sCLK_XVXENVS( sCLK_XVXENVS ),// output
 	.sCLK_XVXOSC( sCLK_XVXOSC ),	// output
 	.AUD_DACLRCK( AUD_DACLRCK ) ,			// output  AUD_DACLRCK_sig

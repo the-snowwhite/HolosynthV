@@ -127,7 +127,9 @@ begin
 	A_PATH_CTRL	:	LUT_DATA	<=	16'h08F8;
 	D_PATH_CTRL	:	LUT_DATA	<=	16'h0A06;
 	POWER_ON	:	LUT_DATA	<=	16'h0C00;
-`ifdef _24BitAudio
+`ifdef _32BitAudio
+	SET_FORMAT	:	LUT_DATA	<=	16'h0E0E; // I2S, 32-bit
+`elsif _24BitAudio
 	SET_FORMAT	:	LUT_DATA	<=	16'h0E0A; // I2S, 24-bit
 `else
 //	SET_FORMAT	:	LUT_DATA	<=	16'h0E01; // Left justified, 16-bit

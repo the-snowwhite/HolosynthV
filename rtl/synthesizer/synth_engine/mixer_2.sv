@@ -23,7 +23,10 @@ module mixer_2 (
 // osc
 	output reg signed [10:0]		modulation,
 // sound data out
-`ifdef	_24BitAudio
+`ifdef	_32BitAudio
+	output signed [31:0]				lsound_out, // 32-bits
+	output signed [31:0]				rsound_out  // 32-bits
+`elsif	_24BitAudio
 	output signed [23:0]				lsound_out, // 24-bits
 	output signed [23:0]				rsound_out  // 24-bits
 `else
@@ -46,7 +49,11 @@ parameter vo_x_offset = x_offset;
 
 //parameter output_volume_scaling = 35 + (V_WIDTH / 2) + O_WIDTH;
 //parameter output_volume_scaling = 35 + (V_WIDTH / 2);
-parameter output_volume_scaling = 37;
+`ifdef	_24BitAudio
+	parameter output_volume_scaling = 29; // 24-bits
+`else
+	parameter output_volume_scaling = 37; // 16-bits
+`endif 
 
    reg  signed [7:0]osc_lvl[V_OSC-1:0];      // osc_lvl  osc_buf[2]
    reg  signed [7:0]osc_mod[V_OSC-1:0];      // osc_mod    osc_buf[3]

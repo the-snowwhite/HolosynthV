@@ -6,6 +6,7 @@
 // Synthesizer
 `define _CycloneV
 `define _Synth
+`define _24BitAudio
 
 module DE10_NANO_SOC_FB(
 
@@ -178,6 +179,14 @@ module DE10_NANO_SOC_FB(
 	wire [7:0]	socmidi_data_in;
 	wire 		socmidi_irq_n;
 
+	wire        AUD_BCLK;
+	wire        AUD_DACDAT;
+	wire        AUD_DACLRCK;
+	wire        AUDIO_CLK;
+	wire        AUD_XCK;
+    wire [31:0] lsound_out;
+    wire [31:0] rsound_out;
+
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -220,8 +229,22 @@ soc_system u0 (
     .socmidi_io_socmidi_datain                 (socmidi_data_in),                 //                               .socmidi_datain
     .socmidi_io_socmidi_write                  (socmidi_write),                  //                               .socmidi_write
     .socmidi_io_socmidi_int_in                 (socmidi_irq_n),                 //                               .socmidi_int_in
+    .audio_pll_locked_export                   (),
+    .clock_bridge_44_out_clk_cl                (),                    //          clock_bridge_44_out_clk.clk
+    .clock_bridge_48_out_clk_cl                (),                    //          clock_bridge_48_out_clk.clk
+	.hsynth_clkctrl_api_0_conduit_clk_sel_48_44     (), // out  hsynth_clkctrl_api_0_conduit.clk_sel_48_44
+    .hsynth_clkctrl_api_0_conduit_master_slave_mode (), // out  .master_slave_mode
+	.hsynth_clkctrl_api_0_conduit_bclk              (), // out  .bclk
+	.hsynth_clkctrl_api_0_conduit_capture_lrclk     (), // out   .capture_lrclk
+	.hsynth_clkctrl_api_0_ext_bclk                  (AUD_BCLK), // in    hsynth_clkctrl_api_0_ext.bclk
+	.hsynth_clkctrl_api_0_ext_capture_lrclk         (AUD_DACLRCK), // in   .capture_lrclk
+	.hsynth_clkctrl_api_0_mclk_clk                  (), // out   hsynth_clkctrl_api_0_mclk.clk
+	.hsynth_output_apb_0_capture_fifo_data          ({rsound_out[31:0],lsound_out[31:0]}), // in    hsynth_output_apb_0_capture_fifo.data
+	.hsynth_output_apb_0_capture_fifo_full          (), /// out  .full
+	.hsynth_output_apb_0_capture_fifo_empty         (), //// out  .empty
+	.hsynth_output_apb_0_dma_control_enable_capture (), // out   hsynth_output_apb_0_dma_control.enable_capture
 	.lcd_clk_clk                               (clk_75),                               //                        lcd_clk.clk
-	.pll_stream_locked_export                  (),                   //              pll_stream_locked.export
+	.pll_stream_locked_export                  (),      // out   pll_stream_locked.export
 	//HPS ddr3
 	.memory_mem_a                          ( HPS_DDR3_ADDR),                       //                memory.mem_a
 	.memory_mem_ba                         ( HPS_DDR3_BA),                         //                .mem_ba
@@ -385,19 +408,10 @@ parameter V_OSC = 8;	// number of oscilators pr. voice.
 parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
 parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
-	wire             AUD_ADCDAT;
-	wire             AUD_ADCLRCK;
-	wire             AUD_BCLK;
-	wire             AUD_DACDAT;
-	wire             AUD_DACLRCK;
-	wire             AUD_XCK;
-
- 	assign GPIO_1[10] =	AUD_ADCDAT;
-	assign GPIO_1[11] =	AUD_ADCLRCK;
- 	assign GPIO_1[12] =	AUD_BCLK;
- 	assign GPIO_1[13] =	AUD_DACDAT;
-	assign GPIO_1[14] =	AUD_DACLRCK;
- 	assign GPIO_1[15] =	AUD_XCK;
+ 	assign GPIO_1[9] =	AUD_XCK;        // violet
+ 	assign GPIO_1[7] =	AUD_BCLK;       // orange
+	assign GPIO_1[5] =	AUD_DACLRCK;    // green
+ 	assign GPIO_1[3] =	AUD_DACDAT;     // white
 
 
 //	assign aud_mute = user_dipsw_fpga[2];
@@ -406,16 +420,6 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 	assign LED[7:1] = ~voice_free[6:0];
 	wire  [VOICES-1:0]	keys_on;
 	wire  [VOICES-1:0]	voice_free;
-
-	wire ad_xck = AUD_XCK;  			// violet
-	wire ad_bclk = AUD_BCLK;			// orange
-	wire ad_daclrck = AUD_DACLRCK;	// green
-	wire ad_dacdat = AUD_DACDAT;	// white
-
-	assign GPIO_1[9] = ad_xck;
-	assign GPIO_1[7] = ad_bclk;
-	assign GPIO_1[5] = ad_daclrck;
-	assign GPIO_1[3] = ad_dacdat;
 
 	reg [7:0]   delay_1;
 	wire 			iRST_n;
@@ -429,12 +433,15 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
 	.button					( KEY ),            //  Button[3:0]
 //    .SW ( SW[17:0]),
 `ifdef _Synth
-	.AUD_ADCLRCK			(AUD_ADCLRCK),      //  Audio CODEC ADC LR Clock
+	.AUD_ADCLRCK			( ),                //  Audio CODEC ADC LR Clock
 	.AUD_DACLRCK			(AUD_DACLRCK),      //  Audio CODEC DAC LR Clock
-	.AUD_ADCDAT				(AUD_ADCDAT ),      //  Audio CODEC ADC Data
+	.AUD_ADCDAT				( ),                //  Audio CODEC ADC Data
 	.AUD_DACDAT				(AUD_DACDAT ),      //  Audio CODEC DAC Data
 	.AUD_BCLK				(AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
-	.AUD_XCK				(AUD_XCK    ),      //  Audio CODEC Chip Clock
+	.AUDIO_CLK				(AUDIO_CLK  ),      //  Audio CODEC Chip Clock
+	.AUD_XCK				(AUD_XCK  ),      //  Audio CODEC Chip Clock
+	.lsound_out				(lsound_out[31:8] ),      //  Audio Raw Data Low
+	.rsound_out				(rsound_out[31:8] ),      //  Audio Raw Data high
 `endif
 	.keys_on				(keys_on),				//  LED [7:0]
 	.voice_free				(voice_free) , 			//  Red LED [4:1]

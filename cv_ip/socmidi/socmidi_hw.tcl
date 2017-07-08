@@ -23,7 +23,7 @@ set_module_property NAME socmidi
 set_module_property VERSION 1.0
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
-set_module_property GROUP Interfaces
+set_module_property GROUP "Interface Protocols/Audio & Video"
 set_module_property AUTHOR "Michael Brown"
 set_module_property ICON_PATH machinekiticon.png
 set_module_property DISPLAY_NAME socmidi

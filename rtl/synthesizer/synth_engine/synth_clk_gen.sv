@@ -1,7 +1,7 @@
 module synth_clk_gen (
 input 		reset_reg_N,
-input 		OSC_CLK,  		//  180.555556 MHz
-input 		AUDIO_CLK,		//  16.964286  MHz
+input 		OSC_CLK,  		//  90.4166666 MHz
+input 		AUDIO_CLK,		//  33.906250  MHz
 //output reg 	AUDIO_CLK,		//  16.964286  MHz
 output reg  AUD_DACLRCK,
 output reg  sCLK_XVXOSC,
@@ -20,15 +20,17 @@ parameter   AUDIO_REF_CLK         =   16953125;   //  16.953125   MHz <<<--- use
 
 //parameter   OSC_CLK_RATE       =   135625000;  //  135.625000 MHz <<-- use for slow
 //parameter   OSC_CLK_RATE       =   180833333;  //  180.833333 MHz <<-- use for fast 
-parameter   OSC_CLK_RATE       =   90416666;  //  90.4166665 MHz <<-- use for fast 
-//parameter   OSC_CLK_RATE       =   45208333;  //  45.208333 MHz <<-- use for fast 
-parameter   AUDIO_REF_CLK         =   16953125;   //  16.953125   MHz <<<--- use for slow
+parameter   OSC_CLK_RATE    =   90416666;  //  90.4166665 MHz <<-- use for fast 
+parameter   AUDIO_REF_CLK   =   16953125;   //  16.953125   MHz <<<--- use for slow
+//parameter   AUDIO_REF_CLK   =   33906250;   //  16.953125   MHz <<<--- use for slow
 `endif
 parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING; //44100;      //  44.1      KHz
-`ifdef _24BitAudio
+`ifdef _32BitAudio
+	parameter DATA_WIDTH 	= 32;
+`elsif _24BitAudio
 	parameter DATA_WIDTH 	= 24;
 `else
-	parameter   DATA_WIDTH	= 16;         //  16      Bits
+	parameter DATA_WIDTH	= 16;         //  16      Bits
 `endif
 parameter   CHANNEL_NUM     =   2;          //  Dual Channel
 
