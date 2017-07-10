@@ -1,60 +1,109 @@
-#************************************************************
-# THIS IS A WIZARD-GENERATED FILE.
-#
-# Version 13.0.0 Build 156 04/24/2013 Service Pack 0.dp1 SJ Full Version
-#
-#************************************************************
+## Generated SDC file "DE1_SOC_Linux_FB.out.sdc"
 
-# Copyright (C) 1991-2013 Altera Corporation
-# Your use of Altera Corporation's design tools, logic functions
-# and other software and tools, and its AMPP partner logic
-# functions, and any output files from any of the foregoing
-# (including device programming or simulation files), and any
-# associated documentation or information are expressly subject
-# to the terms and conditions of the Altera Program License
-# Subscription Agreement, Altera MegaCore Function License
-# Agreement, or other applicable license agreement, including,
-# without limitation, that your use is for the sole purpose of
-# programming logic devices manufactured by Altera and sold by
-# Altera or its authorized distributors.  Please refer to the
-# applicable agreement for further details.
+## Copyright (C) 2017  Intel Corporation. All rights reserved.
+## Your use of Intel Corporation's design tools, logic functions
+## and other software and tools, and its AMPP partner logic
+## functions, and any output files from any of the foregoing
+## (including device programming or simulation files), and any
+## associated documentation or information are expressly subject
+## to the terms and conditions of the Intel Program License
+## Subscription Agreement, the Intel Quartus Prime License Agreement,
+## the Intel MegaCore Function License Agreement, or other
+## applicable license agreement, including, without limitation,
+## that your use is for the sole purpose of programming logic
+## devices manufactured by Intel and sold by Intel or its
+## authorized distributors.  Please refer to the applicable
+## agreement for further details.
 
 
+## VENDOR  "Altera"
+## PROGRAM "Quartus Prime"
+## VERSION "Version 17.0.1 Build 598 06/07/2017 SJ Standard Edition"
 
-# Clock constraints
+## DATE    "Mon Jul  3 17:55:52 2017"
 
-create_clock -name "clock_50_0" -period 20.000ns [get_ports {CLOCK_50}]
-create_clock -name "clock_50_1" -period 20.000ns [get_ports {CLOCK2_50}]
-create_clock -name "clock_50_2" -period 20.000ns [get_ports {CLOCK3_50}]
-create_clock -name "clock_50_3" -period 20.000ns [get_ports {CLOCK4_50}]
-
-
-# Automatically constrain PLL and other generated clocks
-derive_pll_clocks -create_base_clocks
-
-# Automatically calculate clock uncertainty to jitter and other effects.
-derive_clock_uncertainty
+##
+## DEVICE  "5CSEMA5F31C6"
+##
 
 
-create_clock -name "VGA_CLK" -period "75.0 MHz" [get_ports {VGA_CLK}]
+#**************************************************************
+# Time Information
+#**************************************************************
 
-set_output_delay -max -clock clk_vga 0.220 [get_ports VGA_R*]
-set_output_delay -min -clock clk_vga -1.506 [get_ports VGA_R*]
-set_output_delay -max -clock clk_vga 0.212 [get_ports VGA_G*]
-set_output_delay -min -clock clk_vga -1.519 [get_ports VGA_G*]
-set_output_delay -max -clock clk_vga 0.264 [get_ports VGA_B*]
-set_output_delay -min -clock clk_vga -1.519 [get_ports VGA_B*]
-set_output_delay -max -clock clk_vga 0.215 [get_ports VGA_BLANK]
-set_output_delay -min -clock clk_vga -1.485 [get_ports VGA_BLANK]
-
-create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|oAUD_BCLK} -period 354.000 -waveform { 0.000 177.000 } [get_pins {synthesizer_inst|audio_pll_inst|audio_pll_inst|altera_pll_i|outclk_wire[1]~CLKENA0|outclk}]
-create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXENVS} -period 22.000 -waveform { 0.000 11.000 } [get_pins {synthesizer_inst|audio_pll_inst|audio_pll_inst|altera_pll_i|outclk_wire[0]~CLKENA0|outclk}]
-create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXOSC} -period 44.000 -waveform { 0.000 22.000 } 
+set_time_format -unit ns -decimal_places 3
 
 
-# tsu/th constraints
 
-# tco constraints
+#**************************************************************
+# Create Clock
+#**************************************************************
 
-# tpd constraints
+create_clock -name {clock_50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK_50}]
+create_clock -name {clock2_50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK2_50}]
+
+
+#**************************************************************
+# Create Generated Clock
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Clock Latency
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Clock Uncertainty
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Input Delay
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Output Delay
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Clock Groups
+#**************************************************************
+
+
+
+#**************************************************************
+# Set False Path
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Multicycle Path
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Maximum Delay
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Minimum Delay
+#**************************************************************
+
+
+
+#**************************************************************
+# Set Input Transition
+#**************************************************************
 

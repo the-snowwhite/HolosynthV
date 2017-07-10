@@ -1,28 +1,28 @@
 module synth_clk_gen (
 input 		reset_reg_N,
 input 		OSC_CLK,  		//  90.4166666 MHz
-input 		AUDIO_CLK,		//  33.906250  MHz
+//input 		AUDIO_CLK,		//  33.906250  MHz
 //output reg 	AUDIO_CLK,		//  16.964286  MHz
-output reg  AUD_DACLRCK,
+//output reg  AUD_DACLRCK,
 output reg  sCLK_XVXOSC,
-output reg  sCLK_XVXENVS,
-output reg  oAUD_BCLK
+output reg  sCLK_XVXENVS
+//output reg  oAUD_BCLK
 );
 parameter   VOICES 			= 8;
 parameter   V_OSC 			= 4; // oscs per Voice
 parameter   V_ENVS 			= 2*V_OSC;
-parameter 	SYNTH_CHANNELS = 1;
-parameter 	OVERSAMPLING	= 384;
+parameter 	SYNTH_CHANNELS  = 1;
+parameter 	OVERSAMPLING	= 768;
 `ifdef _271MhzOscs
 parameter   OSC_CLK_RATE       =   271250000;  //  271.250000 MHz
-parameter   AUDIO_REF_CLK         =   16953125;   //  16.953125   MHz <<<--- use for 271 
+//parameter   AUDIO_REF_CLK         =   16953125;   //  16.953125   MHz <<<--- use for 271 
 `else
 
 //parameter   OSC_CLK_RATE       =   135625000;  //  135.625000 MHz <<-- use for slow
 //parameter   OSC_CLK_RATE       =   180833333;  //  180.833333 MHz <<-- use for fast 
 parameter   OSC_CLK_RATE    =   90416666;  //  90.4166665 MHz <<-- use for fast 
-parameter   AUDIO_REF_CLK   =   16953125;   //  16.953125   MHz <<<--- use for slow
-//parameter   AUDIO_REF_CLK   =   33906250;   //  16.953125   MHz <<<--- use for slow
+//parameter   AUDIO_REF_CLK   =   16953125;   //  16.953125   MHz <<<--- use for slow
+parameter   AUDIO_REF_CLK   =   33906250;   //  16.953125   MHz <<<--- use for slow
 `endif
 parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING; //44100;      //  44.1      KHz
 `ifdef _32BitAudio
@@ -37,19 +37,19 @@ parameter   CHANNEL_NUM     =   2;          //  Dual Channel
 parameter XVOSC_DIV = OSC_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*2)-1);
 parameter XVXENVS_DIV = OSC_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*2)-1);
 parameter LRCK_DIV = AUDIO_REF_CLK/((SAMPLE_RATE*2)-1);
-parameter BCK_DIV_FAC = AUDIO_REF_CLK/((SAMPLE_RATE*DATA_WIDTH*CHANNEL_NUM*4)-1);
+//parameter BCK_DIV_FAC = AUDIO_REF_CLK/((SAMPLE_RATE*DATA_WIDTH*CHANNEL_NUM*4)-1);
 //parameter AUCK_DIV_FAC = OSC_CLK_RATE/((AUDIO_REF_CLK*2)-1);
 parameter XVXOSC_WIDTH = utils::clogb2(XVOSC_DIV);
 parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV);
 parameter LRCK_WIDTH = utils::clogb2(LRCK_DIV);
-parameter BCK_DIV_WIDTH = utils::clogb2(BCK_DIV_FAC);
+//parameter BCK_DIV_WIDTH = utils::clogb2(BCK_DIV_FAC);
 
 //  Internal Registers and Wires
 reg     [XVXOSC_WIDTH:0]	sCLK_XVXOSC_DIV;
 reg     [XVXENVS_WIDTH:0]	sCLK_XVXENVS_DIV;
 //reg     [8:0]	AUCK_DIV;
-reg     [LRCK_WIDTH:0]	AUD_DACLRCK_DIV;
-reg     [BCK_DIV_WIDTH:0]	BCK_DIV;
+//reg     [LRCK_WIDTH:0]	AUD_DACLRCK_DIV;
+//reg     [BCK_DIV_WIDTH:0]	BCK_DIV;
 
 
 ////////////////////////////////////
@@ -61,8 +61,6 @@ begin
         sCLK_XVXENVS_DIV    <=  0;
         sCLK_XVXOSC <=  0;
         sCLK_XVXENVS    <=  0;
-//        AUCK_DIV    <=  0;
-//        AUDIO_CLK    <=  0;
     end
     else
     begin
@@ -93,36 +91,36 @@ begin
 */	end 
 end 
 //////////////////////////////////////////////////
-always@(posedge AUDIO_CLK or negedge reset_reg_N)
-begin
-    if(!reset_reg_N)
-    begin
-        AUD_DACLRCK_DIV	<=  0;
-        AUD_DACLRCK     <=  0;
-        BCK_DIV     <=  0;
-        oAUD_BCLK    <=  0;
-    end
-    else
-    begin
-////////////    AUD_LRCK Generator  //////////////
-        //  LRCK 1X
-        if(AUD_DACLRCK_DIV >= LRCK_DIV )
-        begin
-            AUD_DACLRCK_DIV <=  1;
-            AUD_DACLRCK <=  ~AUD_DACLRCK;
-        end
-        else
-        AUD_DACLRCK_DIV     <=  AUD_DACLRCK_DIV+1'b1;
- /////////// AUD_BCLK Generator   //////////////
-       //  AUD_BCLK
-        if(BCK_DIV >= BCK_DIV_FAC )
-        begin
-            BCK_DIV     <=  1;
-            oAUD_BCLK    <=  ~oAUD_BCLK;
-        end
-        else
-        BCK_DIV     <=  BCK_DIV+1'b1;
-    end
-end
+//always@(posedge AUDIO_CLK or negedge reset_reg_N)
+//begin
+//    if(!reset_reg_N)
+//    begin
+//        AUD_DACLRCK_DIV	<=  0;
+//        AUD_DACLRCK     <=  0;
+//        BCK_DIV     <=  0;
+//        oAUD_BCLK    <=  0;
+//    end
+//    else
+//    begin
+//////////////    AUD_LRCK Generator  //////////////
+//        //  LRCK 1X
+//        if(AUD_DACLRCK_DIV >= LRCK_DIV )
+//        begin
+//            AUD_DACLRCK_DIV <=  1;
+//            AUD_DACLRCK <=  ~AUD_DACLRCK;
+//        end
+//        else
+//        AUD_DACLRCK_DIV     <=  AUD_DACLRCK_DIV+1'b1;
+// /////////// AUD_BCLK Generator   //////////////
+//       //  AUD_BCLK
+//        if(BCK_DIV >= BCK_DIV_FAC )
+//        begin
+//            BCK_DIV     <=  1;
+//            oAUD_BCLK    <=  ~oAUD_BCLK;
+//        end
+//        else
+//        BCK_DIV     <=  BCK_DIV+1'b1;
+//    end
+//end
 
 endmodule

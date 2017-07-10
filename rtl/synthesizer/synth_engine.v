@@ -1,12 +1,12 @@
 module synth_engine (
     input                   OSC_CLK,
-    input                   AUD_XCK,
+//    input                   AUD_XCK,
 //	output					AUDIO_CLK,
     input                   reset_reg_N,
     input                   reset_data_N,
-    output                  AUD_DACDAT,
-    output                  AUD_DACLRCK,
-    output                  AUD_BCLK,
+//    output                  AUD_DACDAT,
+//    output                  AUD_DACLRCK,
+//    output                  AUD_BCLK,
 `ifdef _32BitAudio
     output  [31:0]          lsound_out,
     output  [31:0]          rsound_out,
@@ -100,22 +100,22 @@ synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))synth_clk_gen_inst
  (
 	.reset_reg_N( reset_reg_N ),	// input
 	.OSC_CLK( OSC_CLK ),  			// input
-	.AUDIO_CLK( AUD_XCK ),      // input
+//	.AUDIO_CLK( AUD_XCK ),      // input
 	.sCLK_XVXENVS( sCLK_XVXENVS ),// output
-	.sCLK_XVXOSC( sCLK_XVXOSC ),	// output
-	.AUD_DACLRCK( AUD_DACLRCK ) ,			// output  AUD_DACLRCK_sig
-	.oAUD_BCLK( AUD_BCLK ) 			// output  oAUD_BCLK_sig
+	.sCLK_XVXOSC( sCLK_XVXOSC )	// output
+//	.AUD_DACLRCK( AUD_DACLRCK ) ,			// output  AUD_DACLRCK_sig
+//	.oAUD_BCLK( AUD_BCLK ) 			// output  oAUD_BCLK_sig
 );
 
-audio_i2s_driver U_audio_i2s_driver                         // ObjectKind=Sheet Symbol|PrimaryId=U_audio_i2s_driver
-(
-	.reset_reg_N( reset_reg_N ),	// ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-reset_reg_N
-	.iAUD_BCLK( AUD_BCLK ),			// ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_BCLK
-	.iAUD_DACLRCK( AUD_DACLRCK ),                         // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_DACLRCK
-	.i_lsound_out( lsound_out ),           // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-rsound_out[23..0]
-	.i_rsound_out( rsound_out ),           // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-rsound_out[23..0]
-	.oAUD_DACDAT( AUD_DACDAT ) // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_DACDAT
-);
+//audio_i2s_driver U_audio_i2s_driver                         // ObjectKind=Sheet Symbol|PrimaryId=U_audio_i2s_driver
+//(
+//	.reset_reg_N( reset_reg_N ),	// ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-reset_reg_N
+//	.iAUD_BCLK( AUD_BCLK ),			// ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_BCLK
+//	.iAUD_DACLRCK( AUD_DACLRCK ),                         // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_DACLRCK
+//	.i_lsound_out( lsound_out ),           // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-rsound_out[23..0]
+//	.i_rsound_out( rsound_out ),           // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-rsound_out[23..0]
+//	.oAUD_DACDAT( AUD_DACDAT ) // ObjectKind=Sheet Entry|PrimaryId=audio_i2s_driver.v-oAUD_DACDAT
+//);
 
 timing_gen #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))timing_gen_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_timing_gen
 (

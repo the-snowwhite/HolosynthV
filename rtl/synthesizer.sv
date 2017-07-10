@@ -13,7 +13,7 @@ module synthesizer (
 // Clock
 	input					EXT_CLOCK_IN,
 // reset
-	output					reg_DLY0,
+	input					reset_n,
 // MIDI uart
 	input					MIDI_Rx_DAT,		//	MIDI Data
 	output					midi_txd,
@@ -25,13 +25,13 @@ module synthesizer (
 //	output	[18:1]		    RLED,				//	LED[4:1]
 	output [VOICES-1:0]	    voice_free,
 
-	inout					AUD_ADCLRCK,		//	Audio CODEC ADC LR Clock
-	inout					AUD_DACLRCK,		//	Audio CODEC DAC LR Clock
-	input					AUD_ADCDAT,			//	Audio CODEC ADC Data
-	output					AUD_DACDAT,			//	Audio CODEC DAC Data
-	inout					AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
-	output					AUDIO_CLK,			//	CPU Audio CODEC Chip Clock
-	output					AUD_XCK,			//	ADAU-1966 Audio CODEC Chip Clock
+//	inout					AUD_ADCLRCK,		//	Audio CODEC ADC LR Clock
+//	inout					AUD_DACLRCK,		//	Audio CODEC DAC LR Clock
+//	input					AUD_ADCDAT,			//	Audio CODEC ADC Data
+//	output					AUD_DACDAT,			//	Audio CODEC DAC Data
+//	inout					AUD_BCLK,			//	Audio CODEC Bit-Stream Clock
+//	input					AUDIO_CLK,			//	CPU Audio CODEC Chip Clock
+	input					OSC_CLK,			//	ADAU-1966 Audio CODEC Chip Clock
 `ifdef _32BitAudio
     output  [31:0]          lsound_out,
     output  [31:0]          rsound_out,
@@ -132,7 +132,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	.sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );
 
-	wire reg_reset_N = button[1] & audio_pll_locked;
+	wire reg_reset_N = button[1] & reset_n;
 	wire data_reset_N = button[2] & sys_pll_locked;
 	wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;
 
@@ -175,7 +175,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 	wire HC_LCD_CLK, HC_VGA_CLOCK;
 
 	wire CLOCK_25;
-	wire OSC_CLK;
+//	wire OSC_CLK;
 	wire sys_pll_locked, audio_pll_locked;
 
 	wire [63:0] lvoice_out;
@@ -244,24 +244,24 @@ sys_pll	sys_disp_pll_inst	(
 	// Sound clk gen //
 `ifdef _Synth
 	//	AUDIO SOUND
-	`ifdef _271MhzOscs
-		audio_271_pll	audio_pll_inst ( //  271.052632 MHz
-	`else
-		audio_pll	audio_pll_inst ( // 90.416666 Mhz
-	`endif
-	`ifdef _CycloneV
-		.refclk		( EXT_CLOCK_IN ),
-		.outclk_0	( OSC_CLK ),    // 90.416666 Mhz  Mhz
-		.outclk_1	( AUDIO_CLK ),  // 33.906250 Mhz
-		.outclk_2	( AUD_XCK ),    // 16.953125 Mhz
-		.locked		(audio_pll_locked)    //  locked.export
-	`else
-		.inclk0		( EXT_CLOCK_IN ),
-		.c0	( OSC_CLK ),  // 180.555556 Mhz --> 270 Mhz
-		.c1	( AUDIO_CLK ) // 16.927083 Mhz
-//		.c1	( ) // 16.927083 Mhz
-	`endif
-	);
+//	`ifdef _271MhzOscs
+//		audio_271_pll	audio_pll_inst ( //  271.052632 MHz
+//	`else
+//		audio_pll	audio_pll_inst ( // 90.416666 Mhz
+//	`endif
+//	`ifdef _CycloneV
+//		.refclk		( EXT_CLOCK_IN ),
+//		.outclk_0	( OSC_CLK ),    // 90.416666 Mhz  Mhz
+//		.outclk_1	( AUDIO_CLK ),  // 33.906250 Mhz
+//		.outclk_2	( AUD_XCK ),    // 16.953125 Mhz
+//		.locked		(audio_pll_locked)    //  locked.export
+//	`else
+//		.inclk0		( EXT_CLOCK_IN ),
+//		.c0	( OSC_CLK ),  // 180.555556 Mhz --> 270 Mhz
+//		.c1	( AUDIO_CLK ) // 16.927083 Mhz
+////		.c1	( ) // 16.927083 Mhz
+//	`endif
+//	);
 
 
 //---				---//
@@ -315,18 +315,18 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 
 	//////////// Sound Generation /////////////
 
-	assign	AUD_ADCLRCK	=	AUD_DACLRCK;
+//	assign	AUD_ADCLRCK	=	AUD_DACLRCK;
 
 // 2CH Audio Sound output -- Audio Generater //
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
 	.OSC_CLK( OSC_CLK ),				// input
-	.AUD_XCK( AUD_XCK ),				// input
+//	.AUD_XCK( AUD_XCK ),				// input
 	.reset_reg_N(reset_reg_n) ,			// input  reset_sig
 	.reset_data_N		( reset_data_n ),
-	.AUD_BCLK ( AUD_BCLK ),				// output
-	.AUD_DACDAT( AUD_DACDAT ),			// output
-	.AUD_DACLRCK( AUD_DACLRCK ),			// output
+//	.AUD_BCLK ( AUD_BCLK ),				// output
+//	.AUD_DACDAT( AUD_DACDAT ),			// output
+//	.AUD_DACLRCK( AUD_DACLRCK ),			// output
 	.lsound_out (lsound_out ),      //  Audio Raw Dat
 	.rsound_out (rsound_out ),      //  Audio Raw Data
 	// KEY //

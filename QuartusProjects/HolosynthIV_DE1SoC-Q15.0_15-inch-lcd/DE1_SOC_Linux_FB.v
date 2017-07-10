@@ -37,6 +37,7 @@
 // Synthesizer
 `define _CycloneV
 `define _Synth
+`define _32BitAudio
 
 module DE1_SOC_Linux_FB(
 
@@ -217,7 +218,7 @@ module DE1_SOC_Linux_FB(
 // internal wires and registers declaration
 wire  [3:0]  fpga_debounced_buttons;
 //wire  [3:0]  fpga_led_internal;
-wire         hps_fpga_reset_n;
+wire         hps_0_h2f_reset_reset_n;
 
 wire               clk_65;
 wire [7:0]         vid_r,vid_g,vid_b;
@@ -251,8 +252,16 @@ wire		midi_txd;
 assign 	midi_rxd = SW[0] ? GPIO_1[27] : ~GPIO_1[27];
 assign	GPIO_1[29] = SW[0] ? midi_txd : ~midi_txd;
 
+// Display
+assign   VGA_BLANK_N          =     1'b1;
+assign   VGA_SYNC_N           =     1'b0;
+assign   VGA_CLK              =     lcd_clk_75;
+assign  {VGA_B,VGA_G,VGA_R}   =     {vid_b,vid_g,vid_r};
+assign   VGA_VS               =     vid_v_sync;
+assign   VGA_HS               =     vid_h_sync;
+
 assign {LCD_R,LCD_G,LCD_B}	= {vid_r,vid_g,vid_b};
-assign LCD_DCLK 			= lcd_clk_60;
+assign LCD_DCLK 			= lcd_clk_75;
 assign LCD_HSD				= ~vid_h_sync;
 assign LCD_VSD				= ~vid_v_sync;
 assign LCD_DE				= vid_datavalid;
@@ -273,21 +282,29 @@ assign LCD_DE				= vid_datavalid;
 	wire [7:0]	socmidi_data_in;
 	wire 		socmidi_irq_n;
     assign socmidi_irq_n = 1'b1;
+// sound dma
+    wire            AUDIO_CLK;
+    wire            OSC_CLK;
+    wire    [31:0]  lsound_out;
+    wire    [31:0]  rsound_out;
+	wire    [63:0]	i2s_output_apb_0_playback_fifo_data;
+	wire			i2s_playback_fifo_ack;
+	wire			i2s_output_apb_0_playback_fifo_empty;
+	wire			i2s_playback_enable;
+	wire	[63:0]	i2s_output_apb_0_capture_fifo_data;
+	wire			i2s_output_apb_0_capture_fifo_full;
+	wire			i2s_capture_enable;
+	wire			i2s_clkctrl_apb_0_conduit_bclk;
+	wire			i2s_clk;
 
 //=======================================================
 //  Structural coding
 //=======================================================
-assign   VGA_BLANK_N          =     1'b1;
-assign   VGA_SYNC_N           =     1'b0;
-assign   VGA_CLK              =     lcd_clk_60;
-assign  {VGA_B,VGA_G,VGA_R}   =     {vid_b,vid_g,vid_r};
-assign   VGA_VS               =     vid_v_sync;
-assign   VGA_HS               =     vid_h_sync;
 
 // Debounce logic to clean out glitches within 1ms
 debounce debounce_inst (
   .clk                                  (CLOCK3_50),
-  .reset_n                              (hps_fpga_reset_n),
+  .reset_n                              (hps_0_h2f_reset_reset_n),
   .data_in                              (KEY),
   .data_out                             (fpga_debounced_buttons)
 );
@@ -299,11 +316,13 @@ debounce debounce_inst (
 assign HEX0 = 7'b1000000;
 assign HEX1 = 7'b1111001;
 
-wire lcd_clk_60;
+wire lcd_clk_75;
+
+//assign hps_0_h2f_reset_reset_n= 1'b1;
 
 soc_system u0 (
     .clk_clk                               ( CLOCK_50),                          	 //             clk.clk
-    .reset_reset_n                         ( hps_fpga_reset_n),                      //           reset.reset_n
+    .reset_reset_n                         ( hps_0_h2f_reset_reset_n),                      //           reset.reset_n
     .memory_mem_a                          ( HPS_DDR3_ADDR),                          //          memory.mem_a
     .memory_mem_ba                         ( HPS_DDR3_BA),                         //                .mem_ba
     .memory_mem_ck                         ( HPS_DDR3_CK_P),                         //                .mem_ck
@@ -390,12 +409,12 @@ soc_system u0 (
 	.led_pio_external_connection_export    (),        //    led_pio_external_connection.export
     .dipsw_pio_external_connection_export  ( SW ),  //  dipsw_pio_external_connection.export
     .button_pio_external_connection_export ( fpga_debounced_buttons ), // button_pio_external_connection.export
-    .hps_0_h2f_reset_reset_n               ( hps_fpga_reset_n ),                //                hps_0_h2f_reset.reset_n
+    .hps_0_h2f_reset_reset_n               (hps_0_h2f_reset_reset_n ),                //                hps_0_h2f_reset.reset_n
 
-	.lcd_clk_clk                                (lcd_clk_60),                               //                        clk_lcd.clk
+	.lcd_clk_clk                                (lcd_clk_75),                               //                        clk_lcd.clk
 
 	//itc
-	.alt_vip_itc_0_clocked_video_vid_clk         (lcd_clk_60),         					 	 // alt_vip_itc_0_clocked_video.vid_clk
+	.alt_vip_itc_0_clocked_video_vid_clk         (lcd_clk_75),         					 	 // alt_vip_itc_0_clocked_video.vid_clk
     .alt_vip_itc_0_clocked_video_vid_data        ({vid_r,vid_g,vid_b}),        		 //                .vid_data
     .alt_vip_itc_0_clocked_video_underflow       (),                           		 //                .underflow
     .alt_vip_itc_0_clocked_video_vid_datavalid   (vid_datavalid),                   //                .vid_datavalid
@@ -417,8 +436,71 @@ soc_system u0 (
     .socmidi_io_socmidi_chipsel                (socmidi_chip_sel),                //                               .socmidi_chipsel
     .socmidi_io_socmidi_datain                 (socmidi_data_in),                 //                               .socmidi_datain
     .socmidi_io_socmidi_write                  (socmidi_write),                  //                               .socmidi_write
-    .socmidi_io_socmidi_int_in                 (socmidi_irq_n)                 //                               .socmidi_int_in
+    .socmidi_io_socmidi_int_in                 (socmidi_irq_n),                 //                               .socmidi_int_in
+	.pll_stream_locked_export                            (),
+	.pll_audio_locked_export                             (),
+	.audio_clk_clk                                       (AUDIO_CLK),
+	.osc_clk_clk                                         (OSC_CLK),
+	.hsynth_clkctrl_api_0_conduit_aud_daclrclk           (),
+	.hsynth_clkctrl_api_0_conduit_aud_bclk               (),
+	.hsynth_clkctrl_api_0_conduit_bclk                   (),
+	.hsynth_clkctrl_api_0_conduit_aud_adclrclk           (),
+	.hsynth_clkctrl_api_0_mclk_clk                       (),
+	.hsynth_clkctrl_api_0_mclk_i2s_clk                   (),
+	.hsynth_output_apb_0_capture_fifo_data               ({rsound_out[31:0],lsound_out[31:0]}),
+	.hsynth_output_apb_0_capture_fifo_write              (),
+	.hsynth_output_apb_0_capture_fifo_full               (),
+	.hsynth_output_apb_0_capture_fifo_i2s_capture_enable (),
+	.hsynth_output_apb_0_capture_fifo_empty              (),
+	.i2s_clkctrl_api_0_conduit_aud_daclrclk              (AUD_DACLRCK),
+	.i2s_clkctrl_api_0_conduit_aud_bclk                  (AUD_BCLK),
+	.i2s_clkctrl_api_0_conduit_bclk                      (i2s_clkctrl_apb_0_conduit_bclk),
+	.i2s_clkctrl_api_0_conduit_aud_adclrclk              (AUD_ADCLRCK),
+	.i2s_clkctrl_api_0_mclk_clk                          (AUD_XCK),
+	.i2s_clkctrl_api_0_mclk_i2s_clk                      (i2s_clk),
+	.i2s_output_apb_0_capture_fifo_data                  (i2s_output_apb_0_capture_fifo_data),
+	.i2s_output_apb_0_capture_fifo_write                 (i2s_capture_fifo_write),
+	.i2s_output_apb_0_capture_fifo_full                  (i2s_output_apb_0_capture_fifo_full),
+	.i2s_output_apb_0_capture_fifo_i2s_capture_enable    (i2s_capture_enable),
+	.i2s_output_apb_0_capture_fifo_empty                 (),
+	.i2s_output_apb_0_playback_fifo_ack                  (i2s_playback_fifo_ack),
+	.i2s_output_apb_0_playback_fifo_i2s_playback_enable  (i2s_playback_enable),
+	.i2s_output_apb_0_playback_fifo_empty                (i2s_output_apb_0_playback_fifo_empty),
+	.i2s_output_apb_0_playback_fifo_full                 (),
+	.i2s_output_apb_0_playback_fifo_data                 (i2s_output_apb_0_playback_fifo_data)
     );
+// sound dma
+
+	i2s_shift_out i2s_shift_out(
+		.reset_n							(hps_0_h2f_reset_reset_n),
+		.clk								(i2s_clk),
+
+		.fifo_right_data					(i2s_output_apb_0_playback_fifo_data[63:32]),
+		.fifo_left_data						(i2s_output_apb_0_playback_fifo_data[31:0]),
+		.fifo_ready							(~i2s_output_apb_0_playback_fifo_empty),
+		.fifo_ack							(i2s_playback_fifo_ack),
+
+		.enable								(i2s_playback_enable),
+		.bclk								(i2s_clkctrl_apb_0_conduit_bclk),
+		.lrclk								(AUD_DACLRCK),
+		.data_out							(AUD_DACDAT)
+	);
+
+	i2s_shift_in i2s_shift_in(
+		.reset_n							(hps_0_h2f_reset_reset_n),
+		.clk								(i2s_clk),
+
+		.fifo_right_data					(i2s_output_apb_0_capture_fifo_data[63:32]),
+		.fifo_left_data						(i2s_output_apb_0_capture_fifo_data[31:0]),
+		.fifo_ready							(~i2s_output_apb_0_capture_fifo_full),
+		.fifo_write							(i2s_capture_fifo_write),
+
+		.enable								(i2s_capture_enable),
+		.bclk								(i2s_clkctrl_apb_0_conduit_bclk),
+		.lrclk								(AUD_ADCLRCK),
+		.data_in							(AUD_ADCDAT)
+	);
+    
 parameter VOICES = 32;
 //parameter VOICES = 64;
 //parameter VOICES = 4;
@@ -450,24 +532,28 @@ wire  [VOICES-1:0]	voice_free;
 
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
 	.EXT_CLOCK_IN			(CLOCK_50) ,   // input  CLOCK_50_sig
-	.reg_DLY0				(iRST_n),
+	.reset_n				(hps_0_h2f_reset_reset_n),
 	.MIDI_Rx_DAT			( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
 	.midi_txd				( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
 //	.button( fpga_debounced_buttons[3:0] ),            //  Button[3:0]
 	.button					( KEY ),            //  Button[3:0]
 //    .SW ( SW[17:0]),
 `ifdef _Synth
-	.AUD_ADCLRCK			(AUD_ADCLRCK),      //  Audio CODEC ADC LR Clock
-	.AUD_DACLRCK			(AUD_DACLRCK),      //  Audio CODEC DAC LR Clock
-	.AUD_ADCDAT				(AUD_ADCDAT ),      //  Audio CODEC ADC Data
-	.AUD_DACDAT				(AUD_DACDAT ),      //  Audio CODEC DAC Data
-	.AUD_BCLK				(AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
-	.AUD_XCK				(AUD_XCK    ),      //  Audio CODEC Chip Clock
+//	.AUD_ADCLRCK			(AUD_ADCLRCK),      //  Audio CODEC ADC LR Clock
+//	.AUD_DACLRCK			(AUD_DACLRCK),      //  Audio CODEC DAC LR Clock
+//	.AUD_ADCDAT				(AUD_ADCDAT ),      //  Audio CODEC ADC Data
+//	.AUD_DACDAT				(AUD_DACDAT ),      //  Audio CODEC DAC Data
+//	.AUD_BCLK				(AUD_BCLK   ),      //  Audio CODEC Bit-Stream Clock
+//	.AUD_XCK				(AUD_XCK    ),      //  Audio CODEC Chip Clock
+//	.AUDIO_CLK				(AUDIO_CLK  ),      //  Audio CODEC Chip Clock
+	.OSC_CLK				(OSC_CLK  ),      //  Audio CODEC Chip Clock
+	.lsound_out				(lsound_out),      //  Audio Raw Data Low
+	.rsound_out				(rsound_out),      //  Audio Raw Data high
 `endif
 	.keys_on				(keys_on),				//  LED [7:0]
 	.voice_free				(voice_free) , 			//  Red LED [4:1]
 	.io_clk					(CLOCK3_50) ,	// input  io_clk_sig
-	.io_reset_n				(hps_fpga_reset_n) ,	// input  io_reset_sig
+	.io_reset_n				(hps_0_h2f_reset_reset_n) ,	// input  io_reset_sig
 	.cpu_read				(cpu_read) ,	// input  cpu_read_sig
 	.cpu_write				(cpu_write) ,	// input  cpu_write_sig
 	.chipselect				(cpu_chip_sel) ,	// input  chipselect_sig

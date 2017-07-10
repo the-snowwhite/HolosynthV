@@ -375,6 +375,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element socmidi_0
    {
       datum _sortIndex
@@ -517,11 +525,7 @@
    internal="hsynth_clkctrl_api_0.conduit"
    type="conduit"
    dir="end" />
- <interface
-   name="hsynth_clkctrl_api_0_ext"
-   internal="hsynth_clkctrl_api_0.ext"
-   type="conduit"
-   dir="end" />
+ <interface name="hsynth_clkctrl_api_0_ext" internal="hsynth_clkctrl_api_0.ext" />
  <interface
    name="hsynth_clkctrl_api_0_mclk"
    internal="hsynth_clkctrl_api_0.mclk"
@@ -2009,17 +2013,6 @@
    version="17.0"
    start="hps_0.f2h_dma_req0"
    end="hsynth_output_apb_0.capture_dma">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="17.0"
-   start="hsynth_output_apb_0.fifo_ctrl"
-   end="hsynth_clkctrl_api_0.fifo_ctrl">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
