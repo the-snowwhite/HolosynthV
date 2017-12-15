@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 17.0 595 linux 2017.06.10.00:46:28
+# ACDS 17.1 590 linux 2017.12.06.23:59:06
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -94,12 +94,12 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 17.0 595 linux 2017.06.10.00:46:28
+# ACDS 17.1 590 linux 2017.12.06.23:59:06
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="sys_pll"
 QSYS_SIMDIR="./../../"
-QUARTUS_INSTALL_DIR="/home/mib/intelFPGA/17.0/quartus/"
+QUARTUS_INSTALL_DIR="/home/mib/intelFPGA/17.1/quartus/"
 SKIP_FILE_COPY=0
 SKIP_SIM=0
 USER_DEFINED_ELAB_OPTIONS=""

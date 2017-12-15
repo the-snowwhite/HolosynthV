@@ -47,12 +47,12 @@ module i2s_clkctrl_apb (
 		clk_44 : clk_48;
 
 /*
- * Example: Input clock is 24.5760MHz
+ * Example: Input clock is 24.5760MHz  (48000)
  * mclk_divisor = 0 (divide by (0+1)*2=2) => mclk = 12.288MHz
  * bclk_divisor = 3 (divide by (3+1)*2=8) => bclk = 3.072MHz
  * lrclk_divisor = 15 (divide by (15*16+15+1)*2=512) => lrclk = 0.048MHz
  *
- * Example: Input clock is 33.8688MHz
+ * Example: Input clock is 33.8688MHz   (44100)
  * mclk_divisor = 0 (divide by (0+1)*2=2) => mclk = 16.9344MHz
  * bclk_divisor = 5 (divide by (5+1)*2=12) => bclk = 2.8224MHz
  * lrclk_divisor = 23 (divide by (23*16+15+1)*2=768 => lrclk = 0.0441MHz
