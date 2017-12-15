@@ -957,6 +957,8 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
 set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name VERILOG_MACRO "ALTERA_FIFO=1"
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 8
 set_global_assignment -name SDC_FILE DE1_SOC_Linux_FB.sdc
 set_global_assignment -name VERILOG_FILE DE1_SOC_Linux_FB.v
 set_global_assignment -name VERILOG_FILE ip/debounce/debounce.v

@@ -1,0 +1,28 @@
+
+        sound {
+	        compatible = "holotr,socsynth";
+			dmalink-controller = <&dmalink>;
+        };
+
+	dmalink: dmalink@0 {
+		#sound-dai-cells = <1>;
+		compatible = "holotr,dmalink";
+		reg = <0xff200000 0x20>, <0xff200020 0x20>;
+		clocks = <&clk44>, <&clk48>;
+		clock-names = "clk44", "clk48";
+		dmas = <&pdma 0>, <&pdma 1>;
+		dma-names = "tx", "rx";
+	
+        sound {
+	        compatible = "opencores,de1soc-wm8731-audio";
+		i2s-controller = <&i2s>;
+        
+	i2s: i2s@0 {
+		#sound-dai-cells = <1>;
+		compatible = "opencores,i2s";
+		reg = <0xff200000 0x20>, <0xff200020 0x20>;
+		clocks = <&clk44>, <&clk48>;
+		clock-names = "clk44", "clk48";
+		dmas = <&pdma 0>, <&pdma 1>;
+		dma-names = "tx", "rx";
+	};

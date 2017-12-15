@@ -82,3 +82,4 @@ output_files/
 soc_system/
 software/
 stamp/
+.qsys_edit/

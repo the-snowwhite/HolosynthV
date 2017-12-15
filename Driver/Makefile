@@ -1,6 +1,8 @@
-snd-socmidi-objs := socmidi.o
-#obj-m += socmidi.o
-obj-m += snd-socmidi.o
+snd-soc-socsynth-objs := socsynth.o
+obj-m += snd-soc-socsynth.o
+
+snd-soc-hsynth-soc-pcm-midi-objs := hsynth-soc-pcm-midi.o
+obj-m += snd-soc-hsynth-soc-pcm-midi.o
 
 KERNEL_SRC_DIR="/home/mib/Development/HolosynthV-Image-gen/arm-linux-4.9.33-gnueabifh-kernel/linux-4.9.33"
 #KERNEL_SRC_DIR="/home/mib/Development/HolosynthV-Image-gen/arm-linux-4.1.22-gnueabifh-kernel/linux"
