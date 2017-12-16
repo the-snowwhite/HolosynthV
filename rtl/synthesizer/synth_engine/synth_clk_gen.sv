@@ -44,14 +44,25 @@ reg     [XVXENVS_WIDTH:0]	sCLK_XVXENVS_DIV;
 reg     trig_dly;
 reg     trig_rising;
 reg     run;
+reg     [1:0] xxxx_zero_dly;
 ////////////////////////////////////
 
 //wire stop_n = ((run == 1'b0) || (reset_reg_N == 1'b0)) ? 1'b0 : 1'b1;
 
+always @(posedge OSC_CLK or negedge reset_reg_N) begin
+    if (!reset_reg_N) begin
+        xxxx_zero_dly <= 2'b00;
+    end
+    else begin
+        xxxx_zero_dly[0] <= xxxx_zero;
+        xxxx_zero_dly[1] <= xxxx_zero_dly[0];
+    end
+end
+
 always @(negedge OSC_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
-        trig_dly <= 0;
-        trig_rising <= 0;
+        trig_dly <= 1'b0;
+        trig_rising <= 1'b0;
     end
     else begin
         trig_dly <= trig;
@@ -59,14 +70,14 @@ always @(negedge OSC_CLK or negedge reset_reg_N) begin
     end
 end
 
-always @( posedge trig_rising or posedge xxxx_zero or negedge reset_reg_N) begin
+always @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         run <= 0;
     end
     else if(trig_rising) begin
         run <= 1'b1;
     end
-    else if (xxxx_zero) begin
+    else if (xxxx_zero_dly[1]) begin
         run <= 1'b0;
     end
     else begin
@@ -74,30 +85,32 @@ always @( posedge trig_rising or posedge xxxx_zero or negedge reset_reg_N) begin
     end
 end
 
-always@(negedge OSC_CLK )
+always@(negedge OSC_CLK)
 begin
-    if(!run) begin
-        sCLK_XVXOSC_DIV     <=  0;
-        sCLK_XVXENVS_DIV    <=  0;
-        sCLK_XVXOSC         <=  0;
-        sCLK_XVXENVS        <=  0;
-    end
-    else begin
-        if(sCLK_XVXOSC_DIV >= XVOSC_DIV)
-        begin
-            sCLK_XVXOSC_DIV     <=  1;
-            sCLK_XVXOSC         <=  ~sCLK_XVXOSC;
+    if (!OSC_CLK) begin
+        if(!run) begin
+            sCLK_XVXOSC_DIV     <=  0;
+            sCLK_XVXENVS_DIV    <=  0;
+            sCLK_XVXOSC         <=  1'b0;
+            sCLK_XVXENVS        <=  1'b0;
         end
-        else
-            sCLK_XVXOSC_DIV     <=  sCLK_XVXOSC_DIV+1'b1;
+        else begin
+            if(sCLK_XVXOSC_DIV >= XVOSC_DIV)
+            begin
+                sCLK_XVXOSC_DIV     <=  1;
+                sCLK_XVXOSC         <=  ~sCLK_XVXOSC;
+            end
+            else
+                sCLK_XVXOSC_DIV     <=  sCLK_XVXOSC_DIV+1'b1;
 
-        if(sCLK_XVXENVS_DIV >= XVXENVS_DIV)
-        begin
-            sCLK_XVXENVS_DIV    <=  1;
-            sCLK_XVXENVS        <=  ~sCLK_XVXENVS;
+            if(sCLK_XVXENVS_DIV >= XVXENVS_DIV)
+            begin
+                sCLK_XVXENVS_DIV    <=  1;
+                sCLK_XVXENVS        <=  ~sCLK_XVXENVS;
+            end
+            else
+                sCLK_XVXENVS_DIV    <=  sCLK_XVXENVS_DIV+1'b1;
         end
-        else
-            sCLK_XVXENVS_DIV    <=  sCLK_XVXENVS_DIV+1'b1;
     end
 end
 //////////////////////////////////////////////////
