@@ -971,12 +971,9 @@ set_global_assignment -name VERILOG_FILE ../../cv_ip/i2s/i2s_shift_out.v
 set_global_assignment -name VERILOG_FILE ../../cv_ip/i2s/i2s_shift_in.v
 set_global_assignment -name QIP_FILE ../../cv_ip/i2s/playback_fifo.qip
 set_global_assignment -name QIP_FILE ../../cv_ip/i2s/capture_fifo.qip
-set_global_assignment -name VERILOG_FILE ../../cv_ip/debounce/debounce.v
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
 set_global_assignment -name SYSTEMVERILOG_FILE DE1_SOC_Linux_FB.sv
 set_global_assignment -name QIP_FILE ../../rtl/holosynth.qip
-set_global_assignment -name QIP_FILE ../../cv_megawizard/sys_pll.qip
-set_global_assignment -name QIP_FILE ../../cv_megawizard/audio_pll.qip
 set_global_assignment -name SIGNALTAP_FILE midiin.stp
 set_global_assignment -name SIGNALTAP_FILE output_files/resetprb.stp
 set_global_assignment -name CDF_FILE output_files/Chain1.cdf

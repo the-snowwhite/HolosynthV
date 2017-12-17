@@ -43,7 +43,7 @@ module synthesizer (
     input					cpu_read,
     input					cpu_write,
     input					chipselect,
-    input [9:0]				address,
+    input [10:0]            address,
     input [31:0]			writedata,
     output reg [31:0]		readdata,
     input					socmidi_read,
@@ -70,11 +70,11 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 //-----		Registers		-----//
 // io:
 
-    reg 			write_delay;
-    reg 			reg_w_act;
-    reg [7:0] 		indata;
-    wire [5:0]      cpu_sel;
-    wire [7:0]		synth_data;
+    reg                 write_delay;
+    reg                 reg_w_act;
+    reg signed [7:0]    indata;
+    wire [5:0]          cpu_sel;
+    wire signed [7:0]   synth_data;
     wire w_act = (cpu_write | write_delay);
     wire write_active = (cpu_write | reg_w_act);
     wire io_reset = ~io_reset_n;
@@ -87,12 +87,19 @@ always @(posedge io_clk) begin
 end
 
 always @(posedge io_clk) begin
-    if (io_reset)
-        readdata[7:0] <= 8'b0;
-    else if (read)
-        readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
-    else if	(write)
-        indata <= writedata[7:0];
+    if (io_reset) begin
+        readdata <= 32'b0;
+    end
+    else if (read) begin
+        if(address == 10'h300) begin readdata <= rsound_out; end
+        else if(address == 10'h304) begin readdata <= lsound_out; end
+        else begin
+            readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+        end
+    end
+    else if	(write) begin
+        indata <= signed'(writedata[7:0]);
+    end
 end
 
 

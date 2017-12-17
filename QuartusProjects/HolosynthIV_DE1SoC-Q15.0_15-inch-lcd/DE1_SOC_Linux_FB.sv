@@ -216,18 +216,18 @@ module DE1_SOC_Linux_FB(
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
-// internal wires and registers declaration
-wire  [3:0]  fpga_debounced_buttons;
-wire         hps_0_h2f_reset_reset_n;
+// internal logics and registers declaration
+logic  [3:0]  fpga_debounced_buttons;
+logic         hps_0_h2f_reset_reset_n;
 
-wire        clk_65;
+logic        clk_65;
 wire [7:0]  vid_r,vid_g,vid_b;
 wire        vid_v_sync ;
 wire        vid_h_sync ;
 wire        vid_datavalid;
 //////////// GPIO - 10" LCD  //////////
-wire        midi_rxd;
-wire        midi_txd;
+logic        midi_rxd;
+logic        midi_txd;
 
 assign  midi_rxd    = SW[0] ? GPIO_1[27]    : ~GPIO_1[27];
 assign  GPIO_1[29]  = SW[0] ? midi_txd      : ~midi_txd;
@@ -246,37 +246,37 @@ assign LCD_HSD              = ~vid_h_sync;
 assign LCD_VSD              = ~vid_v_sync;
 assign LCD_DE               = vid_datavalid;
 
-    wire [9:0]      cpu_adr;
-    wire            cpu_write;
-    wire            cpu_read;
-    wire            cpu_chip_sel;
-    wire [31:0]     cpu_data_out;
-    wire [31:0]     cpu_data_in;
-    wire            synth_irq_n;
-    wire [2:0]      socmidi_addr;
-    wire            socmidi_write;
-    wire            socmidi_read;
-    wire            socmidi_chip_sel;
-    wire [7:0]      socmidi_data_out;
-    wire [7:0]      socmidi_data_in;
-    wire            socmidi_irq_n;
+    logic [10:0]     cpu_adr;
+    logic            cpu_write;
+    logic            cpu_read;
+    logic            cpu_chip_sel;
+    logic [31:0]     cpu_data_out;
+    logic [31:0]     cpu_data_in;
+    logic            synth_irq_n;
+    logic [2:0]      socmidi_addr;
+    logic            socmidi_write;
+    logic            socmidi_read;
+    logic            socmidi_chip_sel;
+    logic [7:0]      socmidi_data_out;
+    logic [7:0]      socmidi_data_in;
+    logic            socmidi_irq_n;
     assign socmidi_irq_n = 1'b1;
     assign synth_irq_n = 1'b1;
 // sound dma
-    wire            AUDIO_CLK;
-    wire            OSC_CLK;
-    wire    [31:0]  lsound_out;
-    wire    [31:0]  rsound_out;
-    wire            xxxx_zero;
-    wire    [63:0]  i2s_output_apb_0_playback_fifo_data;
-    wire            i2s_playback_fifo_ack;
-    wire            i2s_output_apb_0_playback_fifo_empty;
-    wire            i2s_playback_enable;
-    wire    [63:0]  i2s_output_apb_0_capture_fifo_data;
-    wire            i2s_output_apb_0_capture_fifo_full;
-    wire            i2s_capture_enable;
-    wire            i2s_clkctrl_apb_0_conduit_bclk;
-    wire            i2s_clk;
+    logic            AUDIO_CLK;
+    logic            OSC_CLK;
+    logic    [31:0]  lsound_out;
+    logic    [31:0]  rsound_out;
+    logic            xxxx_zero;
+    logic    [63:0]  i2s_output_apb_0_playback_fifo_data;
+    logic            i2s_playback_fifo_ack;
+    logic            i2s_output_apb_0_playback_fifo_empty;
+    logic            i2s_playback_enable;
+    logic    [63:0]  i2s_output_apb_0_capture_fifo_data;
+    logic            i2s_output_apb_0_capture_fifo_full;
+    logic            i2s_capture_enable;
+    logic            i2s_clkctrl_apb_0_conduit_bclk;
+    logic            i2s_clk;
 
 //=======================================================
 //  Structural coding
@@ -297,7 +297,7 @@ defparam debounce_inst.TIMEOUT_WIDTH    = 16;     // ceil(log2(TIMEOUT))
 assign HEX[0] = 7'b1000000;
 assign HEX[1] = 7'b1111001;
 
-wire lcd_clk_75;
+logic lcd_clk_75;
 
 //assign hps_0_h2f_reset_reset_n= 1'b1;
 
@@ -495,8 +495,8 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
 /////// LED Display ////////
     assign LEDR = voice_free[9:0];
-    wire  [VOICES-1:0]	keys_on;
-    wire  [VOICES-1:0]	voice_free;
+    logic  [VOICES-1:0]	keys_on;
+    logic  [VOICES-1:0]	voice_free;
 
     wire ad_xck = AUD_XCK;  			// violet
     wire ad_bclk = AUD_BCLK;			// orange
@@ -509,9 +509,9 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
     assign GPIO_1[3] = ad_dacdat;
 
     reg [7:0]  delay_1;
-    wire       iRST_n;
+    logic       iRST_n;
 
-//    wire trig = AUD_DACLRCK;
+//    logic trig = AUD_DACLRCK;
 
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .EXT_CLOCK_IN			(CLOCK_50) ,   // input  CLOCK_50_sig
