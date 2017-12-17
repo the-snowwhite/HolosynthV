@@ -1,5 +1,5 @@
 module note_stack (
-    input                       CLOCK_25,
+    input                       CLOCK_50,
     input                       reset_reg_N,
     input   [VOICES-1:0]        voice_free,
     input                       is_data_byte,
@@ -18,7 +18,7 @@ module note_stack (
     output reg [7:0]            cur_vel_off,
 // outputs to synth_engine
     output [VOICES-1:0]         keys_on
-    
+
 );
 
 parameter VOICES = 8;
@@ -67,17 +67,15 @@ parameter V_WIDTH = 3;
 
 
 
-    always @(posedge CLOCK_25)begin
+    always @(posedge CLOCK_50)begin
         for(i0=0; i0 < VOICES ; i0=i0+1) begin
-//            reg_voice_free[i0] <= voice_free[i0];
             voice_free_r[i0] <= voice_free[i0];
             free_voice_found_r <= free_voice_found;
-//            voice_free_r[i0] <= reg_voice_free[i0];
         end
     end
 
 //    assign free_voice_found = (free_voices_found > 0) ? 1'b1: 1'b0;
-    
+
     always @(negedge reset_reg_N or posedge is_data_byte)begin
         if (!reset_reg_N) begin
             free_voice_found = 1'b1;

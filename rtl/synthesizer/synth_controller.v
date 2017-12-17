@@ -1,10 +1,9 @@
 module synth_controller(
     input                       reset_reg_N,
-    input                       CLOCK_25,
+    input                       CLOCK_50,
 // cpu:
     input [2:0]                 socmidi_addr,
     input [7:0]                 socmidi_data_out,
-//    input                       cpu_com_sel,
     input                       socmidi_write,
 // uart:
     input                       midi_rxd,
@@ -88,13 +87,13 @@ parameter V_WIDTH = 3;
     wire is_st_sysex;
 // seq_trigger
     wire is_data_byte;
-    wire is_velocity;  
-    wire seq_trigger;  
-    
-    
+    wire is_velocity;
+    wire seq_trigger;
+
+
 MIDI_UART MIDI_UART_inst (
-    .reset_reg_N        (reset_reg_N),      // input  reset_sig
-    .CLOCK_25           (CLOCK_25),         // input  reset sig
+    .reset_reg_N        (reset_reg_N),
+    .CLOCK_50           (CLOCK_50),
     .midi_rxd           (midi_rxd),         // input  midi serial data in
     .midi_txd           (midi_txd),         // output midi serial data output
 
@@ -102,7 +101,7 @@ MIDI_UART MIDI_UART_inst (
     .cur_status         (cur_status_u),     // output [7:0] cur_status_sig
     .midibyte_nr        (midibyte_nr_u),    // output [7:0] midibyte_nr_sig
     .midi_in_data       (midi_in_data_u),   // output [7:0] midi_data_byte_sig
-    
+
     .midi_out_ready     (midi_out_ready),   // output midi out buffer ready
     .midi_send_byte     (midi_send_byte),   // input midi_send_byte_sig
     .midi_out_data      (midi_out_data)     // input midi_out_data_sig
@@ -110,8 +109,8 @@ MIDI_UART MIDI_UART_inst (
 
 cpu_port cpu_port_inst
 (
-	.reset_reg_N(reset_reg_N) ,	        // input  reset_reg_N_sig
-	.CLOCK_25(CLOCK_25) ,	            // input  CLOCK_25_sig
+	.reset_reg_N(reset_reg_N) ,
+	.CLOCK_50(CLOCK_50) ,
 	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
 	.socmidi_data_out(socmidi_data_out) ,	// input [7:0] cpu_data_sig
 //	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
@@ -123,10 +122,10 @@ cpu_port cpu_port_inst
 	.midi_in_data(midi_in_data_c) 	    // output [7:0] midibyte_sig
 );
 
- 
+
 midi_in_mux midi_in_mux_inst
-(    .reset_reg_N        (reset_reg_N),      // input  reset_sig
-    .CLOCK_25           (CLOCK_25),         // input  reset sig
+(    .reset_reg_N        (reset_reg_N),
+    .CLOCK_50           (CLOCK_50),
 
 	.sel(switch4) ,	// input  sel_sig
 
@@ -148,7 +147,7 @@ midi_in_mux midi_in_mux_inst
 
 
 address_decoder adr_dec_inst (
-    .CLOCK_25 ( CLOCK_25 ),
+    .CLOCK_50 ( CLOCK_50 ),
     .reset_reg_N ( reset_reg_N ),
     .data_ready ( data_ready ),
     .bank_adr ( bank_adr ),
@@ -176,7 +175,7 @@ midi_status midi_statusinst
 
 note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 (
-	.CLOCK_25(CLOCK_25) ,	// input  CLOCK_25_sig
+	.CLOCK_50(CLOCK_50) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.voice_free(voice_free) ,	// input [VOICES-1:0] voice_free_sig
 	.is_data_byte(is_data_byte) ,	// input  is_data_byte_sig
@@ -199,7 +198,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 
 seq_trigger seq_trigger_inst
 (
-	.CLOCK_25(CLOCK_25) ,	// input  CLOCK_25_sig
+	.CLOCK_50(CLOCK_50) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
 	.midibyte_nr(midibyte_nr) ,	// input [7:0] midibyte_nr_sig
@@ -259,7 +258,7 @@ sysex_func sysex_func_inst
         end
     end
 
-    
+
     always @(negedge reset_reg_N or negedge seq_trigger) begin
         if (!reset_reg_N) begin // init values
             prg_ch_cmd <=1'b0;

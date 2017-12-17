@@ -421,13 +421,6 @@ soc_system u0 (
     .pll_stream_locked_export                            (),
     .pll_audio_locked_export                             (),
     .audio_clk_clk                                       (AUDIO_CLK),
-//	.osc_clk_clk                                         (OSC_CLK),
-//	.hsynth_clkctrl_api_0_conduit_aud_daclrclk           (),
-//	.hsynth_clkctrl_api_0_conduit_aud_bclk               (),
-//	.hsynth_clkctrl_api_0_conduit_bclk                   (),
-//	.hsynth_clkctrl_api_0_conduit_aud_adclrclk           (),
-//	.hsynth_clkctrl_api_0_mclk_clk                       (),
-//	.hsynth_clkctrl_api_0_mclk_i2s_clk                   (),
     .hsynth_output_apb_0_capture_fifo_data               ({rsound_out[31:0],lsound_out[31:0]}),
     .hsynth_output_apb_0_capture_fifo_write              (xxxx_zero),
     .hsynth_output_apb_0_capture_fifo_full               (),
@@ -491,8 +484,6 @@ parameter V_OSC = 8;	// number of oscilators pr. voice.
 parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
 parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
-//	assign aud_mute = user_dipsw_fpga[2];
-
 /////// LED Display ////////
     assign LEDR = voice_free[9:0];
     logic  [VOICES-1:0]	keys_on;
@@ -511,38 +502,36 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
     reg [7:0]  delay_1;
     logic       iRST_n;
 
-//    logic trig = AUD_DACLRCK;
-
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
-    .EXT_CLOCK_IN			(CLOCK_50) ,   // input  CLOCK_50_sig
-    .OSC_CLK				(AUDIO_CLK  ),      //  Audio CODEC Chip Clock
-    .reset_n				(hps_0_h2f_reset_reset_n),
-    .trig                   (AUD_DACLRCK),
-    .MIDI_Rx_DAT			( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-    .midi_txd				( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
-    .button					( KEY ),            //  Button[3:0]
+    .CLOCK_50           (CLOCK_50) ,
+    .OSC_CLK            (AUDIO_CLK  ),      //  Audio CODEC Chip Clock
+    .reset_n            (hps_0_h2f_reset_reset_n),
+    .trig               (AUD_DACLRCK),
+    .MIDI_Rx_DAT        ( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+    .midi_txd           ( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
+    .button             ( KEY ),            //  Button[3:0]
 `ifdef _Synth
-    .lsound_out				(lsound_out),      //  Audio Raw Data Low
-    .rsound_out				(rsound_out),      //  Audio Raw Data high
-    .xxxx_zero            (xxxx_zero),		// output  cycle complete signag
+    .lsound_out         (lsound_out),      //  Audio Raw Data Low
+    .rsound_out         (rsound_out),      //  Audio Raw Data high
+    .xxxx_zero          (xxxx_zero),		// output  cycle complete signag
 `endif
-    .keys_on				(keys_on),				//  LED [7:0]
-    .voice_free				(voice_free) , 			//  Red LED [4:1]
-    .io_clk					(CLOCK3_50) ,	// input  io_clk_sig
-    .io_reset_n				(hps_0_h2f_reset_reset_n) ,	// input  io_reset_sig
-    .cpu_read				(cpu_read) ,	// input  cpu_read_sig
-    .cpu_write				(cpu_write) ,	// input  cpu_write_sig
-    .chipselect				(cpu_chip_sel) ,	// input  chipselect_sig
-    .address				(cpu_adr) ,	// input [9:0] address_sig
-    .writedata				(cpu_data_out) ,	// input [31:0] writedata_sig
-    .readdata				(cpu_data_in), 	// output [31:0] readdata_sig
-    .socmidi_read			(socmidi_read) ,	// input  cpu_read_sig
-    .socmidi_write			(socmidi_write) ,	// input  cpu_write_sig
-    .socmidi_cs				(socmidi_chip_sel) ,	// input  chipselect_sig
-    .socmidi_addr			(socmidi_addr) ,	// input [9:0] address_sig
-    .socmidi_data_out		(socmidi_data_out) ,	// input [31:0] writedata_sig
-    .socmidi_data_in		(socmidi_data_in), 	// output [31:0] readdata_sig
-    .switch4                (SW[3])
+    .keys_on            (keys_on),				//  LED [7:0]
+    .voice_free         (voice_free) , 			//  Red LED [4:1]
+    .io_clk             (CLOCK3_50) ,	// input  io_clk_sig
+    .io_reset_n         (hps_0_h2f_reset_reset_n) ,	// input  io_reset_sig
+    .cpu_read           (cpu_read) ,	// input  cpu_read_sig
+    .cpu_write          (cpu_write) ,	// input  cpu_write_sig
+    .chipselect         (cpu_chip_sel) ,	// input  chipselect_sig
+    .address            (cpu_adr) ,	// input [9:0] address_sig
+    .writedata          (cpu_data_out) ,	// input [31:0] writedata_sig
+    .readdata           (cpu_data_in), 	// output [31:0] readdata_sig
+    .socmidi_read       (socmidi_read) ,	// input  cpu_read_sig
+    .socmidi_write      (socmidi_write) ,	// input  cpu_write_sig
+    .socmidi_cs         (socmidi_chip_sel) ,	// input  chipselect_sig
+    .socmidi_addr       (socmidi_addr) ,	// input [9:0] address_sig
+    .socmidi_data_out   (socmidi_data_out) ,	// input [31:0] writedata_sig
+    .socmidi_data_in    (socmidi_data_in), 	// output [31:0] readdata_sig
+    .switch4            (SW[3])
 );
 
 always @(negedge KEY[3] or posedge CLOCK3_50)

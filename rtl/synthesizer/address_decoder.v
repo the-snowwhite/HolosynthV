@@ -1,11 +1,11 @@
 module address_decoder (
-    input               CLOCK_25,
+    input               CLOCK_50,
     input               reset_reg_N,
     input               data_ready,
     input   [2:0]       bank_adr,
     input   [7:0]       out_data,
     output  reg         read_write ,
-	output  [7:0]       data_out, 
+	output  [7:0]       data_out,
     output  [5:0]       dec_sel,
     output reg          write_dataenable
 );
@@ -15,7 +15,7 @@ module address_decoder (
 
     assign data_out = write_dataenable ? out_data : 8'bz;
 
-    always @(posedge CLOCK_25)begin
+    always @(posedge CLOCK_50)begin
         syx_bank_adr_r <= bank_adr;
         syx_data_rdy_r[0] <= data_ready;
         syx_data_rdy_r[1] <= syx_data_rdy_r[0];
@@ -24,7 +24,7 @@ module address_decoder (
         read_write  <= syx_data_rdy_r[2];
         write_dataenable  <= syx_data_rdy_r[3] || syx_data_rdy_r[2];
     end
- 
+
     addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder2_inst
     (
         .clk(syx_data_rdy_r[1]) ,	// input  clk_sig

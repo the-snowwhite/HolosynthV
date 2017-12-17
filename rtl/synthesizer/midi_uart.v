@@ -1,9 +1,9 @@
 module MIDI_UART(
 	input               reset_reg_N,
-	input               CLOCK_25,
+	input               CLOCK_50,
 // receiver
 	input               midi_rxd,
-// data out    
+// data out
 	output	reg         byteready,
 	output	reg[7:0]    cur_status,
 	output	reg[7:0]    midibyte_nr,
@@ -17,18 +17,18 @@ module MIDI_UART(
     reg midi_dat;
 	reg [1:0]md;
 	wire md_ok = (midi_rxd && md[0] && md[1]) ? 1'b1 : 1'b0;
-	
+
  // -------------- Midi receiver  ------------- //
-    always @(posedge CLOCK_25)begin
+    always @(posedge CLOCK_50)begin
         md[0] <= midi_rxd;
 		md[1] <= md[0];
 		midi_dat <= md_ok;
-   end 
-	
+   end
+
  // comment out for debug
     reg startbit_d;
     reg [4:0]revcnt;
-    reg [7:0] counter;
+    reg [8:0] counter;
     reg midi_clk;
     reg reset_mod_cnt;
 
@@ -37,29 +37,29 @@ module MIDI_UART(
     reg carry;
 	reg [2:0]reset_cnt;
     reg [7:0]samplebyte, out_buff;
-	
+
 	reg [4:0] out_cnt;
-	
+
 	reg transmit;
     wire byte_end = (revcnt[4:0]==18)? 1'b1 : 1'b0;
 
     reg[7:0]	cur_status_r;
 
-    always @(negedge reset_reg_N or posedge CLOCK_25)begin //! divide clock by 200
+    always @(negedge reset_reg_N or posedge CLOCK_50)begin //! divide clock by 200
         if(!reset_reg_N)begin counter <= 8'h00; carry <=1'b0; end
-        else if (CLOCK_25)
+        else if (CLOCK_50)
             if(reset_mod_cnt)begin carry <= 1'b0; counter <= 8'h00;end
-            else if(counter == 8'd200)begin carry <= 1'b1; counter <= 8'h00;end
+            else if(counter == 9'd400)begin carry <= 1'b1; counter <= 8'h00;end
             else begin counter <= counter + 8'h1;carry <= 1'b0;end
     end
-    always @(negedge reset_reg_N or posedge CLOCK_25)begin//! divide by 2 more so we get 62500 hz midi clock
+    always @(negedge reset_reg_N or posedge CLOCK_50)begin//! divide by 2 more so we get 62500 hz midi clock
         if(!reset_reg_N) midi_clk <= 1'b0;
         else if (reset_mod_cnt) midi_clk <= 1'b0;
         else if(carry)midi_clk <= ~(midi_clk);
     end
 
 
-always @(posedge CLOCK_25 or negedge reset_reg_N)begin
+always @(posedge CLOCK_50 or negedge reset_reg_N)begin
     if (!reset_reg_N)begin startbit_d <= 0; cur_status <= 0; end
     else begin
         cur_status <= cur_status_r;
@@ -72,7 +72,7 @@ always @(posedge CLOCK_25 or negedge reset_reg_N)begin
 end
 
 // Clk gen reset circuit /////
-always @(negedge CLOCK_25 or negedge reset_reg_N)begin
+always @(negedge CLOCK_50 or negedge reset_reg_N)begin
     if(!reset_reg_N)begin reset_cnt <= 0;reset_mod_cnt <= 0;end
     else begin
         if (!startbit_d)
@@ -135,7 +135,7 @@ end
             else midibyte_nr <= midibyte_nr+1'b1;
         end
     end
-	
+
 // -------------- Midi transmitter ----------- //
     always @(posedge midi_clk or negedge reset_reg_N)begin
         if(!reset_reg_N) begin out_cnt <= 0; midi_out_ready <= 1'b1; end
@@ -152,12 +152,12 @@ end
 			end
         end
     end
-	
+
 	always @(posedge midi_send_byte or posedge midi_out_ready) begin
 		if(midi_send_byte)begin
 			transmit <= 1'b1;
 		end
 		else if (midi_out_ready) transmit <= 1'b0;
 	end
-	
+
 endmodule

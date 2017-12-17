@@ -11,7 +11,7 @@
 
 module synthesizer (
 // Clock
-    input					EXT_CLOCK_IN,
+    input					CLOCK_50,
     input					OSC_CLK,			//
 // reset
     input					reset_n,
@@ -136,7 +136,8 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 );
 
     wire reg_reset_N = button[1] & reset_n;
-    wire data_reset_N = button[2] & sys_pll_locked;
+//    wire data_reset_N = button[2] & sys_pll_locked;
+    wire data_reset_N = button[2];
     wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;
 
     wire reset_reg_n = reg_DLY2;
@@ -177,8 +178,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
     wire HC_LCD_CLK, HC_VGA_CLOCK;
 
-    wire CLOCK_25;
-    wire sys_pll_locked, audio_pll_locked;
+//    wire sys_pll_locked, audio_pll_locked;
 
     wire [63:0] lvoice_out;
     wire [63:0] rvoice_out;
@@ -198,7 +198,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
-    .clk(CLOCK_25) ,	// input  in_select_sig
+    .clk(CLOCK_50) ,	// input  in_select_sig
     .dataready(dataready) ,	// input  in_select_sig
     .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
@@ -216,7 +216,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 // system reset  //
 
 reset_delay	reset_reg_delay_inst  (
-    .iCLK(EXT_CLOCK_IN),
+    .iCLK(CLOCK_50),
     .reset_reg_N(reg_reset_N),
     .oRST_0(reg_DLY0),
     .oRST_1(reg_DLY1),
@@ -224,7 +224,7 @@ reset_delay	reset_reg_delay_inst  (
 );
 
 reset_delay	reset_data_delay_inst  (
-    .iCLK(EXT_CLOCK_IN),
+    .iCLK(CLOCK_50),
     .reset_reg_N(data_reset_N),
     .oRST_0(data_DLY0),
     .oRST_1(data_DLY1),
@@ -232,64 +232,64 @@ reset_delay	reset_data_delay_inst  (
 );
     //  PLL
 
-sys_pll	sys_disp_pll_inst	(
-`ifdef _CycloneV
-    .refclk		( EXT_CLOCK_IN ),
-    .outclk_0	( CLOCK_25 ),
-    .locked		(sys_pll_locked)    //  locked.export
-`else
-    .inclk0		( EXT_CLOCK_IN ),
-    .c0			( CLOCK_25 )
-`endif
-);
+// sys_pll	sys_disp_pll_inst	(
+// `ifdef _CycloneV
+//     .refclk		( EXT_CLOCK_IN ),
+//     .outclk_0	( CLOCK_50 ),
+//     .locked		(sys_pll_locked)    //  locked.export
+// `else
+//     .inclk0		( EXT_CLOCK_IN ),
+//     .c0			( CLOCK_50 )
+// `endif
+// );
 
     // Sound clk gen //
 `ifdef _Synth
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
-    .reset_reg_N(reset_data_n) ,		        // input  reset_reg_N_sig
-    .CLOCK_25(CLOCK_25) ,				    // input  CLOCK_25_sig
-    .socmidi_addr(socmidi_addr) ,			// input  byteready_sig
-    .socmidi_data_out(socmidi_data_out) ,	// input  byteready_sig
-    .socmidi_write(socmidi_write) ,			// input  byteready_sig
-    .midi_rxd(midi_rxd) ,				    // input  byteready_sig
-    .midi_txd(midi_txd) ,			        // input [7:0] cur_status_sig
-    .voice_free(voice_free) ,			    // input [VOICES-1:0] voice_free_sig
-    .midi_ch(midi_ch) ,				        // input [3:0] midi_ch_sig
+    .reset_reg_N(reset_data_n) ,
+    .CLOCK_50(CLOCK_50) ,
+    .socmidi_addr(socmidi_addr) ,
+    .socmidi_data_out(socmidi_data_out) ,
+    .socmidi_write(socmidi_write) ,
+    .midi_rxd(midi_rxd) ,
+    .midi_txd(midi_txd) ,
+    .voice_free(voice_free) ,
+    .midi_ch(midi_ch) ,
 
-    .note_on(note_on) ,					// output  note_on_sig
-    .keys_on(keys_on) ,					// output [VOICES-1:0] keys_on_sig
-    .cur_key_adr(cur_key_adr) ,		// output [V_WIDTH-1:0] cur_key_adr_sig
-    .cur_key_val(cur_key_val) ,		// output [7:0] cur_key_val_sig
-    .cur_vel_on(cur_vel_on) ,			// output [7:0] cur_vel_on_sig
-    .cur_vel_off(cur_vel_off) ,		// output [7:0] cur_vel_off_sig
-    .pitch_cmd(pitch_cmd) ,				// output  pitch_cmd_sig
-    .octrl(octrl) ,						// output [7:0] octrl_sig
-    .octrl_data(octrl_data) ,			// output [7:0] octrl_data_sig
-    .prg_ch_cmd(prg_ch_cmd) ,			// output  prg_ch_cmd_sig
-    .prg_ch_data(prg_ch_data) ,		// output [7:0] prg_ch_data_sig
+    .note_on(note_on) ,
+    .keys_on(keys_on) ,
+    .cur_key_adr(cur_key_adr) ,
+    .cur_key_val(cur_key_val) ,
+    .cur_vel_on(cur_vel_on) ,
+    .cur_vel_off(cur_vel_off) ,
+    .pitch_cmd(pitch_cmd) ,
+    .octrl(octrl) ,
+    .octrl_data(octrl_data) ,
+    .prg_ch_cmd(prg_ch_cmd) ,
+    .prg_ch_data(prg_ch_data) ,
 // controller synth_data bus
-    .data_ready(dataready) ,						// output  write_sig
+    .data_ready(dataready) ,
     .read_write (dec_read_write),
     .sysex_data_patch_send (dec_sysex_data_patch_send),
-    .dec_addr(dec_addr) ,								// output [6:0] adr_sig
-    .synth_data (synth_data) ,							// inout [7:0] data_sig
-    .dec_sel_bus( dec_sel_bus) ,					// output  env_sel_sig
-    .active_keys(active_keys) ,			// output [V_WIDTH:0] active_keys_sig
+    .dec_addr(dec_addr) ,
+    .synth_data (synth_data) ,
+    .dec_sel_bus( dec_sel_bus) ,
+    .active_keys(active_keys) ,
     .switch4(switch4)
 );
 
 
 rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
-    .CLOCK_25			( CLOCK_25 ),
-    .reset_data_N		( reset_data_n ),
+    .CLOCK_50       ( CLOCK_50 ),
+    .reset_data_N   ( reset_data_n ),
 // from synth_controller
-    .ictrl			( octrl ),
-    .ictrl_data		( octrl_data ),
-    .pitch_cmd		( pitch_cmd ),
+    .ictrl          ( octrl ),
+    .ictrl_data     ( octrl_data ),
+    .pitch_cmd      ( pitch_cmd ),
 // outputs
-    .pitch_val		( pitch_val )
+    .pitch_val      ( pitch_val )
 );
 
     //////////// Sound Generation /////////////

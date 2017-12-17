@@ -1,11 +1,11 @@
 module rt_controllers (
-	input					reset_data_N,
-	input					CLOCK_25,
+    input               reset_data_N,
+    input               CLOCK_50,
 //@name from synth_controller
-	input	[7:0]			ictrl,
-	input	[7:0]			ictrl_data,
-	input					pitch_cmd,
-	output reg [13:0]	pitch_val
+    input       [7:0]   ictrl,
+    input       [7:0]   ictrl_data,
+    input               pitch_cmd,
+    output reg  [13:0]  pitch_val
 );
 
 parameter VOICES = 8;// Set in toplevel
@@ -20,7 +20,7 @@ parameter B_WIDTH = O_WIDTH+3;
     reg [6:0]pitch_lsb;
 
 
-    always @(posedge CLOCK_25)begin
+    always @(posedge CLOCK_50)begin
         pitch_cmd_r <= pitch_cmd;
     end
 
