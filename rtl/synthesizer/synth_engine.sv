@@ -139,7 +139,7 @@ osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O
     .adr( adr ),                 // ObjectKind=Sheet Entry|PrimaryId=osc.v-adr[6..0]
     .data( data ),               // ObjectKind=Sheet Entry|PrimaryId=osc.v-data[7..0]
     .osc_sel( osc_sel ),         // ObjectKind=Sheet Entry|PrimaryId=osc.v-osc_sel
-    .sine_lut_out( sine_lut_out )        // ObjectKind=Sheet Entry|PrimaryId=osc.v-sine_lut_out[16..0]
+    .sine_lut_out( sine_lut_out )
 );
 
 velocity velocity_inst
@@ -165,7 +165,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .xxxx_zero( xxxx_zero ),
     .level_mul( level_mul_vel ),  // ObjectKind=Sheet Entry|PrimaryId=mixer.v-level_mul[7..0]
 //	.level_mul( level_mul ),  // ObjectKind=Sheet Entry|PrimaryId=mixer.v-level_mul[7..0]
-    .sine_lut_out( sine_lut_out ),        // ObjectKind=Sheet Entry|PrimaryId=mixer.v-sine_lut_out[16..0]
+    .sine_lut_out( sine_lut_out ),
     .modulation( modulation ),
     .write( write ),             // ObjectKind=Sheet Entry|PrimaryId=mixer.v-write
     .read ( read ),

@@ -50,10 +50,10 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_in_mux
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_uart.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/reset_delay.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/nco_ram.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/osc.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc.sv
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/pitch_control.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/note_key_vel_sync.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/sine_lookup.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/sine_lookup.sv
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/constmap2.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/nco2.v
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/velocity.v
