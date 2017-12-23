@@ -26,12 +26,12 @@ parameter OE_WIDTH = 1;
 parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 parameter ox_offset = (V_OSC * VOICES ) - 1;
 
-    logic [10:0]tablelookup;
-    logic signed [10:0]phase_acc;
-    logic signed [10:0] mod;
+    wire [10:0]tablelookup;
+    wire signed [10:0]phase_acc;
+    wire signed [10:0] mod;
 
-    logic [O_WIDTH-1:0] ox;
-    logic [V_WIDTH-1:0] vx;
+    wire [O_WIDTH-1:0] ox;
+    wire [V_WIDTH-1:0] vx;
     assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
     assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
@@ -40,7 +40,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1;
 
     reg [7:0] data_out;
 
-    logic [V_OSC-1:0] osc_adr_data;
+    wire [V_OSC-1:0] osc_adr_data;
 
     generate
         genvar osc3;

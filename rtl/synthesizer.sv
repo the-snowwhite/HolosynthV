@@ -11,10 +11,9 @@
 
 module synthesizer (
 // Clock
-    input					CLOCK_50,
-    input					OSC_CLK,			//
+    input                   CLOCK_50,
 // reset
-    input					reset_n,
+    input                   reset_n,
     input                   trig,
 // MIDI uart
     input					MIDI_Rx_DAT,		//	MIDI Data
@@ -38,12 +37,11 @@ module synthesizer (
     output  [15:0]          rsound_out,
 `endif
     output		            xxxx_zero,
-    input 					io_clk,
     input					io_reset_n,
     input					cpu_read,
     input					cpu_write,
     input					chipselect,
-    input [10:0]            address,
+    input [9:0]             address,
     input [31:0]			writedata,
     output reg [31:0]		readdata,
     input					socmidi_read,
@@ -75,27 +73,30 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
     reg signed [7:0]    indata;
     wire [5:0]          cpu_sel;
     wire signed [7:0]   synth_data;
-    wire w_act = (cpu_write | write_delay);
-    wire write_active = (cpu_write | reg_w_act);
-    wire io_reset = ~io_reset_n;
+    wire w_act;
+    wire write_active;
+    wire io_reset;
+    assign w_act = (cpu_write | write_delay);
+    assign write_active = (cpu_write | reg_w_act);
+    assign io_reset = ~io_reset_n;
 
     assign synth_data = (!cpu_read && write_active) ? indata : 8'bz;
 
-always @(posedge io_clk) begin
+always @(posedge CLOCK_50) begin
     write_delay <= cpu_write;
     reg_w_act <= w_act;
 end
 
-always @(posedge io_clk) begin
+always @(posedge CLOCK_50) begin
     if (io_reset) begin
-        readdata <= 32'b0;
+        readdata[7:0] <= 8'b0;
     end
     else if (read) begin
-        if(address == 10'h300) begin readdata <= rsound_out; end
-        else if(address == 10'h304) begin readdata <= lsound_out; end
-        else begin
+//        if(address == 10'h300) begin readdata <= rsound_out; end
+//        else if(address == 10'h304) begin readdata <= lsound_out; end
+//        else begin
             readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
-        end
+//        end
     end
     else if	(write) begin
         indata <= signed'(writedata[7:0]);
@@ -129,24 +130,30 @@ end
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
-    .clk(io_clk) ,	// input  clk_sig
+    .clk(CLOCK_50) ,	// input  clk_sig
     .reset(io_reset) ,	// input  reset_sig
     .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );
 
-    wire reg_reset_N = button[1] & reset_n;
 //    wire data_reset_N = button[2] & sys_pll_locked;
-    wire data_reset_N = button[2];
+    wire reg_reset_N;
+    wire data_reset_N;
     wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;
 
-    wire reset_reg_n = reg_DLY2;
-    wire reset_data_n = data_DLY1;
+    wire reset_reg_n;
+    wire reset_data_n;
+
+    assign reg_reset_N = button[1] & reset_n;
+    assign data_reset_N = button[2];
+
+    assign reset_reg_n = reg_DLY2;
+    assign reset_data_n = data_DLY1;
 
 //---	Midi	---//
 // inputs
-
-    wire midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
+    wire midi_rxd;
+    assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 //outputs
     wire midi_out_ready,midi_send_byte;
     wire [7:0] midi_out_data;
@@ -177,8 +184,6 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     wire [7:0]ictrl, ictrl_data;
 
     wire HC_LCD_CLK, HC_VGA_CLOCK;
-
-//    wire sys_pll_locked, audio_pll_locked;
 
     wire [63:0] lvoice_out;
     wire [63:0] rvoice_out;
@@ -230,18 +235,6 @@ reset_delay	reset_data_delay_inst  (
     .oRST_1(data_DLY1),
     .oRST_2(data_DLY2)
 );
-    //  PLL
-
-// sys_pll	sys_disp_pll_inst	(
-// `ifdef _CycloneV
-//     .refclk		( EXT_CLOCK_IN ),
-//     .outclk_0	( CLOCK_50 ),
-//     .locked		(sys_pll_locked)    //  locked.export
-// `else
-//     .inclk0		( EXT_CLOCK_IN ),
-//     .c0			( CLOCK_50 )
-// `endif
-// );
 
     // Sound clk gen //
 `ifdef _Synth
@@ -269,7 +262,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .octrl_data(octrl_data) ,
     .prg_ch_cmd(prg_ch_cmd) ,
     .prg_ch_data(prg_ch_data) ,
-// controller synth_data bus
+// controller data bus
     .data_ready(dataready) ,
     .read_write (dec_read_write),
     .sysex_data_patch_send (dec_sysex_data_patch_send),
@@ -299,7 +292,7 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 // 2CH Audio Sound output -- Audio Generater //
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
-    .OSC_CLK( OSC_CLK ),				// input
+    .CLOCK_50( CLOCK_50 ),				// input
     .reset_reg_N(reset_reg_n) ,			// input  reset_sig
     .reset_data_N( reset_data_n ),
     .trig(trig),

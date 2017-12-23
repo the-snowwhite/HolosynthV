@@ -63,7 +63,8 @@ parameter V_WIDTH = 3;
     reg [7:0]cur_note;
     reg [V_WIDTH-1:0]slot_off;
 
-    wire is_allnotesoff    =   ((databyte==8'h7b)?1'b1:1'b0);
+    wire is_allnotesoff;
+    assign is_allnotesoff    =   ((databyte==8'h7b)?1'b1:1'b0);
 
 
 

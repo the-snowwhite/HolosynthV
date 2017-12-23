@@ -39,15 +39,15 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clock_50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK_50}]
-create_clock -name {clock2_50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK2_50}]
+create_clock -name {clock-50}  -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK_50}]
+create_clock -name {clock2-50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK2_50}]
 
 
 #**************************************************************
 # Create Generated Clock
 #**************************************************************
 
-
+derive_pll_clocks
 
 #**************************************************************
 # Set Clock Latency
@@ -65,13 +65,17 @@ create_clock -name {clock2_50} -period 20.000 -waveform { 0.000 10.000 } [get_po
 # Set Input Delay
 #**************************************************************
 
+#set_input_delay -clock CLOCK_50 -max 3 [all_inputs]
 
+#set_input_delay -clock CLOCK_50 -min 2 [all_inputs]
 
 #**************************************************************
 # Set Output Delay
 #**************************************************************
 
+#set_output_delay -clock CLOCK_50 -max 3 [all_inputs]
 
+#set_output_delay -clock CLOCK_50 -min 2 [all_inputs]
 
 #**************************************************************
 # Set Clock Groups

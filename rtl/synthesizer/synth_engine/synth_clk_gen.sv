@@ -1,9 +1,9 @@
 module synth_clk_gen (
     input       reset_reg_N,
-    input       OSC_CLK,  		//  90.4166666 MHz  //90.625000 MHz
+    input       AUDIO_CLK,  		//  90.4166666 MHz  //90.625000 MHz
     input       trig,
-    output reg  sCLK_XVXOSC,
-    output reg  sCLK_XVXENVS,
+    output      sCLK_XVXOSC,
+    output      sCLK_XVXENVS,
     output reg  [V_WIDTH+E_WIDTH-1:0]xxxx,  // index counter
     output reg  xxxx_zero
 );
@@ -16,11 +16,11 @@ parameter   V_ENVS          = 2*V_OSC;
 parameter   SYNTH_CHANNELS  = 1;
 parameter   OVERSAMPLING    = 384;
 `ifdef _180MhzOscs
-parameter   OSC_CLK_RATE    = 180612244;  //  270.833333 MHz
-parameter   AUDIO_REF_CLK   =  16934400;   //  16.953125   MHz <<<--- use for 271
+parameter   AUDIO_CLK_RATE    = 180714285;  //  180.714285 MHz
+parameter   AUDIO_REF_CLK   =  16941964;   //  16.953125   MHz <<<--- use for 271
 `else
 
-parameter   OSC_CLK_RATE    =   90416666;  //  90.4166665 MHz <<-- use for fast
+parameter   AUDIO_CLK_RATE    =   90416666;  //  90.4166665 MHz <<-- use for fast
 parameter   AUDIO_REF_CLK   =   16934400;   //  16.953125   MHz <<<--- use for slow
 `endif
 parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING; //44100;      //  44.1      KHz
@@ -33,23 +33,23 @@ parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING; //44100;      //  
 `endif
 parameter   CHANNEL_NUM     =   2;          //  Dual Channel
 
-parameter XVOSC_DIV = 1 + (OSC_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*4)-1));
-parameter XVXENVS_DIV = 1 + (OSC_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*4)-1));
+parameter XVOSC_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*4)-1);
+parameter XVXENVS_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*4)-1);
 parameter XVXOSC_WIDTH = utils::clogb2(XVOSC_DIV);
 parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV);
 
 //  Internal Registers and Wires
 reg     [XVXOSC_WIDTH:0]	sCLK_XVXOSC_DIV;
 reg     [XVXENVS_WIDTH:0]	sCLK_XVXENVS_DIV;
-reg     trig_dly;
-reg     trig_rising;
-reg     run;
+wire     trig_dly;
+wire     trig_rising;
+wire     run;
 reg     [1:0] xxxx_zero_dly;
 ////////////////////////////////////
 
 //wire stop_n = ((run == 1'b0) || (reset_reg_N == 1'b0)) ? 1'b0 : 1'b1;
 
-always @(posedge OSC_CLK or negedge reset_reg_N) begin
+always @(posedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         xxxx_zero_dly <= 2'b00;
     end
@@ -59,7 +59,7 @@ always @(posedge OSC_CLK or negedge reset_reg_N) begin
     end
 end
 
-always @(negedge OSC_CLK or negedge reset_reg_N) begin
+always @(negedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         trig_dly <= 1'b0;
         trig_rising <= 1'b0;
@@ -85,9 +85,9 @@ always @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N
     end
 end
 
-always@(negedge OSC_CLK)
+always@(negedge AUDIO_CLK)
 begin
-    if (!OSC_CLK) begin
+    if (!AUDIO_CLK) begin
         if(!run) begin
             sCLK_XVXOSC_DIV     <=  0;
             sCLK_XVXENVS_DIV    <=  0;

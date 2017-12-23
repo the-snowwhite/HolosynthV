@@ -50,7 +50,7 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
     reg signed [63:0] reg_voice_sound_sum_l;
     reg signed [63:0] reg_voice_sound_sum_r;
 
-    logic signed [63:0] lsound_out_full, rsound_out_full;
+    wire signed [63:0] lsound_out_full, rsound_out_full;
     assign lsound_out_full = reg_voice_sound_sum_l * m_vol;
     assign rsound_out_full = reg_voice_sound_sum_r * m_vol;
 
@@ -76,8 +76,8 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
 *
 */
 
-    logic signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l;
-    logic signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_r;
+    wire signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l;
+    wire signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_r;
 
     assign sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l = reg_sine_level_mul_osc_lvl_m_vol_data * reg_voice_vol_env_lvl * (127 - osc_pan[ox_dly[1]]);
     assign sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_r = reg_sine_level_mul_osc_lvl_m_vol_data * reg_voice_vol_env_lvl * osc_pan[ox_dly[1]];

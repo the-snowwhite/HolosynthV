@@ -22,7 +22,7 @@ module midi_ctrl_data (
 );
 parameter V_OSC		= 4; // oscs per Voice
 
-    logic [V_OSC-1:0] osc_adr_data;
+    wire [V_OSC-1:0] osc_adr_data;
     reg signed [7:0] data_out;
 
     generate

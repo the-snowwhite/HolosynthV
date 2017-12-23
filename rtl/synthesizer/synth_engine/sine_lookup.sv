@@ -8,7 +8,7 @@ module sine_lookup(
 // appears like a 2048x10bits LUT even if it uses a 512x10bits internally
 // 3 clock latency
 
-logic  [15:0] LUT_output;
+wire  [15:0] LUT_output;
 
 blockram512x16bits_2clklatency my_DDS_sine_LUT(        // the LUT must contain only the first quarter of the sine wave
     .clock(clk),

@@ -1,6 +1,6 @@
 module mixer_2 (
 // Inputs -- //
-    input                       sCLK_XVXENVS,  // clk
+    input                        sCLK_XVXENVS,  // clk
     input                       sCLK_XVXOSC,  // clk
     input                       reset_data_N,        // reset
     input [V_WIDTH+E_WIDTH-1:0] xxxx,
@@ -45,16 +45,16 @@ parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
 
 parameter x_offset = (V_OSC * VOICES ) - 2;
 
-logic  signed   [7:0]   osc_lvl        [V_OSC-1:0];
-logic  signed   [7:0]   osc_mod        [V_OSC-1:0];
-logic  signed   [7:0]   osc_feedb      [V_OSC-1:0];
-logic  signed   [7:0]   osc_pan        [V_OSC-1:0];
-logic  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
-logic  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
-logic  signed   [7:0]   m_vol;
-logic  signed   [7:0]   mat_buf1       [15:0][V_OSC-1:0];
-logic  signed   [7:0]   mat_buf2       [15:0][V_OSC-1:0];
-logic           [7:0]   patch_name     [15:0];
+wire  signed   [7:0]   osc_lvl        [V_OSC-1:0];
+wire  signed   [7:0]   osc_mod        [V_OSC-1:0];
+wire  signed   [7:0]   osc_feedb      [V_OSC-1:0];
+wire  signed   [7:0]   osc_pan        [V_OSC-1:0];
+wire  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
+wire  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
+wire  signed   [7:0]   m_vol;
+wire  signed   [7:0]   mat_buf1       [15:0][V_OSC-1:0];
+wire  signed   [7:0]   mat_buf2       [15:0][V_OSC-1:0];
+wire           [7:0]   patch_name     [15:0];
 
  midi_ctrl_data #(.V_OSC(V_OSC))midi_ctrl_data_inst
 (
@@ -126,8 +126,8 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
     reg[V_OSC+2:0] sh_voice_reg;
     reg[V_ENVS:0] sh_osc_reg;
 
-    logic [O_WIDTH-1:0]  ox;
-    logic [V_WIDTH-1:0]  vx;
+    wire [O_WIDTH-1:0]  ox;
+    wire [V_WIDTH-1:0]  vx;
     assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
     assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
     reg [E_WIDTH-1:0] sh_v_counter;

@@ -87,14 +87,6 @@
          type = "boolean";
       }
    }
-   element clock_bridge_0
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-   }
    element dipsw_pio
    {
       datum _sortIndex
@@ -175,7 +167,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -294,7 +286,7 @@
          type = "String";
       }
    }
-   element pll_audio
+   element pll_bitclk
    {
       datum _sortIndex
       {
@@ -520,11 +512,6 @@
    type="conduit"
    dir="end" />
  <interface
-   name="audio_clk"
-   internal="clock_bridge_0.out_clk"
-   type="clock"
-   dir="start" />
- <interface
    name="button_pio_external_connection"
    internal="button_pio.external_connection"
    type="conduit"
@@ -553,6 +540,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="i2s_clkctrl_api_0_i2s_clk"
+   internal="i2s_clkctrl_api_0.i2s_clk"
+   type="clock"
+   dir="start" />
+ <interface
    name="i2s_clkctrl_api_0_mclk"
    internal="i2s_clkctrl_api_0.mclk"
    type="clock"
@@ -560,11 +552,6 @@
  <interface
    name="i2s_output_apb_0_capture_fifo"
    internal="i2s_output_apb_0.capture_fifo"
-   type="conduit"
-   dir="end" />
- <interface
-   name="i2s_output_apb_0_dma_control"
-   internal="i2s_output_apb_0.dma_control"
    type="conduit"
    dir="end" />
  <interface
@@ -660,15 +647,6 @@
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module
-   name="clock_bridge_0"
-   kind="altera_clock_bridge"
-   version="17.1"
-   enabled="1">
-  <parameter name="DERIVED_CLOCK_RATE" value="180612244" />
-  <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
-  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
  <module name="dipsw_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -1298,7 +1276,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="pll_audio" kind="altera_pll" version="17.1" enabled="1">
+ <module name="pll_bitclk" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEMA5F31C6" />
@@ -1415,10 +1393,10 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="3" />
+  <parameter name="gui_number_of_clocks" value="2" />
   <parameter name="gui_operation_mode" value="direct" />
-  <parameter name="gui_output_clock_frequency0" value="180.612244" />
-  <parameter name="gui_output_clock_frequency1" value="24.313186" />
+  <parameter name="gui_output_clock_frequency0" value="24.576" />
+  <parameter name="gui_output_clock_frequency1" value="33.8688" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1955,7 +1933,12 @@
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_stream.refclk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_audio.refclk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_bitclk.outclk0"
+   end="i2s_clkctrl_api_0.clk_48" />
  <connection
    kind="clock"
    version="17.1"
@@ -1964,22 +1947,12 @@
  <connection
    kind="clock"
    version="17.1"
-   start="pll_audio.outclk0"
-   end="clock_bridge_0.in_clk" />
- <connection
-   kind="clock"
-   version="17.1"
    start="pll_stream.outclk0"
    end="alt_vip_itc_0.is_clk_rst" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_audio.outclk1"
-   end="i2s_clkctrl_api_0.clk_48" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="pll_audio.outclk2"
+   start="pll_bitclk.outclk1"
    end="i2s_clkctrl_api_0.clk_44" />
  <connection
    kind="conduit"
@@ -2156,7 +2129,7 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2191,6 +2164,36 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
+   end="alt_vip_vfr.clock_master_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_vfr.clock_master_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="alt_vip_vfr.clock_reset_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_vfr.clock_reset_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="alt_vip_itc_0.is_clk_rst_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_itc_0.is_clk_rst_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
    end="button_pio.reset" />
  <connection
    kind="reset"
@@ -2281,12 +2284,12 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2297,6 +2300,16 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="hsynth_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="pll_stream.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="pll_stream.reset" />
  <connection
    kind="reset"
    version="17.1"

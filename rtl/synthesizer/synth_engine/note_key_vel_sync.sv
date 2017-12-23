@@ -1,6 +1,6 @@
 module note_key_vel_sync(
 input                       xxxx_zero,
-input                       OSC_CLK,
+input                       AUDIO_CLK,
 input                       note_on,
 input       [V_WIDTH-1:0]   cur_key_adr,
 input       [7:0]           cur_key_val,
@@ -22,7 +22,7 @@ reg [7:0]           cur_key_val_r[1:0];
 reg [7:0]           cur_vel_on_r[1:0];
 reg [VOICES-1:0]    keys_on_r[1:0];
 reg                 r_note_on;
-    always @(posedge OSC_CLK)begin
+    always @(posedge AUDIO_CLK)begin
             note_on_r[0]        <= note_on;
             note_on_r[1]        <= note_on_r[0];
             cur_key_adr_r[0]    <= cur_key_adr;
