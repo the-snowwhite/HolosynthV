@@ -511,6 +511,7 @@
    internal="alt_vip_itc_0.clocked_video"
    type="conduit"
    dir="end" />
+ <interface name="audio" internal="pll_bitclk.outclk0" type="clock" dir="start" />
  <interface
    name="button_pio_external_connection"
    internal="button_pio.external_connection"
@@ -1282,7 +1283,7 @@
   <parameter name="device" value="5CSEMA5F31C6" />
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_active_clk" value="false" />
-  <parameter name="gui_actual_output_clock_frequency0" value="270.833333 MHz" />
+  <parameter name="gui_actual_output_clock_frequency0" value="98.333333 MHz" />
   <parameter name="gui_actual_output_clock_frequency1" value="0 MHz" />
   <parameter name="gui_actual_output_clock_frequency10" value="0 MHz" />
   <parameter name="gui_actual_output_clock_frequency11" value="0 MHz" />
@@ -1393,10 +1394,10 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="2" />
+  <parameter name="gui_number_of_clocks" value="3" />
   <parameter name="gui_operation_mode" value="direct" />
-  <parameter name="gui_output_clock_frequency0" value="24.576" />
-  <parameter name="gui_output_clock_frequency1" value="33.8688" />
+  <parameter name="gui_output_clock_frequency0" value="98.333" />
+  <parameter name="gui_output_clock_frequency1" value="24.563" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1405,8 +1406,8 @@
   <parameter name="gui_output_clock_frequency15" value="100.0" />
   <parameter name="gui_output_clock_frequency16" value="100.0" />
   <parameter name="gui_output_clock_frequency17" value="100.0" />
-  <parameter name="gui_output_clock_frequency2" value="34.169884" />
-  <parameter name="gui_output_clock_frequency3" value="100.0" />
+  <parameter name="gui_output_clock_frequency2" value="33.908" />
+  <parameter name="gui_output_clock_frequency3" value="33.908" />
   <parameter name="gui_output_clock_frequency4" value="100.0" />
   <parameter name="gui_output_clock_frequency5" value="100.0" />
   <parameter name="gui_output_clock_frequency6" value="100.0" />
@@ -1937,11 +1938,6 @@
  <connection
    kind="clock"
    version="17.1"
-   start="pll_bitclk.outclk0"
-   end="i2s_clkctrl_api_0.clk_48" />
- <connection
-   kind="clock"
-   version="17.1"
    start="pll_stream.outclk0"
    end="alt_vip_vfr.clock_reset" />
  <connection
@@ -1953,6 +1949,11 @@
    kind="clock"
    version="17.1"
    start="pll_bitclk.outclk1"
+   end="i2s_clkctrl_api_0.clk_48" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_bitclk.outclk2"
    end="i2s_clkctrl_api_0.clk_44" />
  <connection
    kind="conduit"

@@ -163,7 +163,7 @@ parameter V_WIDTH = 3;
                     end
                 end
             end
-             else if(is_st_ctrl)begin // Control Change omni
+            else if(is_st_ctrl)begin // Control Change omni
                 if(is_data_byte)begin
                     if(is_allnotesoff)begin
                         for(i4=0;i4<VOICES;i4=i4+1)begin

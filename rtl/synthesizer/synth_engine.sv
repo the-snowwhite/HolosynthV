@@ -1,5 +1,6 @@
 module synth_engine (
     input                   CLOCK_50,
+    input                   AUDIO_CLK,
     input                   reset_reg_N,
     input                   reset_data_N,
     input                   trig,
@@ -40,43 +41,43 @@ module synth_engine (
 );
 
 
-parameter VOICES	= 8;
-parameter V_OSC		= 4;				// number of oscilators pr. voice.
-parameter O_ENVS	= 2;				// number of envelope generators pr. oscilator.
-parameter V_ENVS	= O_ENVS * V_OSC;	// number of envelope generators  pr. voice.
+parameter VOICES    = 32;                   // = 32
+parameter V_OSC     = 8;                    // = 8 number of oscilators pr. voice.
+parameter O_ENVS    = 2;                    // = 2 number of envelope generators pr. oscilator.
+parameter V_ENVS    = O_ENVS * V_OSC;       // = 16 number of envelope generators  pr. voice.
 
-parameter V_WIDTH = utils::clogb2(VOICES);
-parameter O_WIDTH = utils::clogb2(V_OSC);
-parameter OE_WIDTH	= 1;
-parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
+parameter V_WIDTH   = utils::clogb2(VOICES);// = 5
+parameter O_WIDTH   = utils::clogb2(V_OSC); // = 3
+parameter OE_WIDTH  = 1;                    // = 1
+parameter E_WIDTH   = O_WIDTH + OE_WIDTH;   // = 4
 
 //-----		Wires		-----//
-wire		sCLK_XVXENVS;
-wire		sCLK_XVXOSC;
+wire                        sCLK_XVXENVS;
+wire                        sCLK_XVXOSC;
 wire [V_WIDTH+E_WIDTH-1:0]  xxxx;
-wire [7:0]  level_mul;
-wire [7:0]	level_mul_vel;
+wire signed [7:0]           level_mul;
+wire signed [7:0]           level_mul_vel;
 
-wire        byteready;
-wire [7:0]  cur_status;             // ObjectKind=Net|PrimaryId=cur_status
-wire [7:0]  octrl;               // ObjectKind=Net|PrimaryId=ictrl
-wire [7:0]  octrl_data;          // ObjectKind=Net|PrimaryId=ictrl_data
-wire        pitch_cmd;           // ObjectKind=Net|PrimaryId=pitch_cmd
-wire [7:0]  midibyte;               // ObjectKind=Net|PrimaryId=midibyte
-wire [7:0]  midibyte_nr;            // ObjectKind=Net|PrimaryId=midibyte_nr
-wire signed [10:0] modulation;
-wire [16:0] sine_lut_out;                 // ObjectKind=Net|PrimaryId=sine_lut_out
-wire [23:0] osc_pitch_val;      // ObjectKind=Net|PrimaryId=osc_pitch_val
+wire                        byteready;
+wire [7:0]                  cur_status;
+wire [7:0]                  octrl;
+wire [7:0]                  octrl_data;
+wire                        pitch_cmd;
+wire [7:0]                  midibyte;
+wire [7:0]                  midibyte_nr;
+wire signed [10:0]          modulation;
+wire [16:0]                 sine_lut_out;
+wire [23:0]                 osc_pitch_val;
 
-wire [V_ENVS-1:0]  osc_accum_zero;
-wire                 reg_note_on;
-wire [V_WIDTH-1:0] reg_cur_key_adr;
-wire [7:0]         reg_cur_key_val;
-wire [7:0]         reg_cur_vel_on;
-wire [VOICES-1:0]  reg_keys_on;
-wire AUDIO_CLK;
-wire audio_pll_locked, reset_clk_n;
+wire [V_ENVS-1:0]           osc_accum_zero;
+wire                        reg_note_on;
+wire [V_WIDTH-1:0]          reg_cur_key_adr;
+wire [7:0]                  reg_cur_key_val;
+wire [7:0]                  reg_cur_vel_on;
+wire [VOICES-1:0]           reg_keys_on;
+//wire                        audio_pll_locked, reset_clk_n;
 //  PLL
+/*
 assign reset_clk_n = (audio_pll_locked && reset_reg_N) ? 1'b1 : 1'b0;
 audio_pll	audio_pll_inst	(
     .refclk		( CLOCK_50 ),
@@ -84,10 +85,10 @@ audio_pll	audio_pll_inst	(
     .outclk_0	( AUDIO_CLK ),
     .locked		( audio_pll_locked )    //  locked.export
 );
-
+*/
 synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
-    .reset_reg_N    ( reset_clk_n ),    // input
+    .reset_reg_N    ( reset_reg_N ),    // input
     .AUDIO_CLK      ( AUDIO_CLK ),      // input
     .trig           ( trig ),           // input
     .sCLK_XVXENVS   ( sCLK_XVXENVS ),   // output
@@ -173,7 +174,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .sCLK_XVXOSC( sCLK_XVXOSC ),
     .xxxx( xxxx ),
     .xxxx_zero( xxxx_zero ),
-    .level_mul( level_mul_vel ),
+    .level_mul_vel( level_mul_vel ),
     .sine_lut_out( sine_lut_out ),
     .modulation( modulation ),
     .write( write ),

@@ -6,7 +6,7 @@ module mixer_2 (
     input [V_WIDTH+E_WIDTH-1:0] xxxx,
     input                       xxxx_zero,
 //  env gen
-    input signed [7:0]          level_mul,    // envgen output
+    input signed [7:0]          level_mul_vel,    // envgen output
     input signed [16:0]         sine_lut_out, // sine
 
     inout signed [7:0]          data,
@@ -34,10 +34,10 @@ module mixer_2 (
 `endif
 );
 
-parameter VOICES	= 8;
-parameter V_OSC		= 4; // oscs per Voice
+parameter VOICES	= 32;
+parameter V_OSC		= 8; // oscs per Voice
 parameter O_ENVS	= 2; // envs per Oscilator
-parameter V_ENVS	= V_OSC * O_ENVS; // envs per Voice
+parameter V_ENVS	= V_OSC * O_ENVS; // = 16 number of envelope generators  pr. voice.
 parameter V_WIDTH = utils::clogb2(VOICES);
 parameter O_WIDTH = utils::clogb2(V_OSC);
 parameter OE_WIDTH	= 1;
@@ -94,7 +94,7 @@ mod_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.
     .osc_feedb_in( osc_feedb_in ),  // input
     .mat_buf1( mat_buf1 ),          // input
     .mat_buf2( mat_buf2 ),          // input
-    .level_mul( level_mul ),        // input
+    .level_mul_vel( level_mul_vel ),        // input
     .sine_lut_out( sine_lut_out ),  // input
     .modulation( modulation )       // output
 );
@@ -108,7 +108,7 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
     .sh_osc_reg( sh_osc_reg ),      // input
     .m_vol( m_vol ),                // input
     .osc_lvl( osc_lvl ),            // input
-    .level_mul( level_mul ),        // input
+    .level_mul_vel( level_mul_vel ),        // input
     .osc_pan( osc_pan ),            // input
     .sine_lut_out( sine_lut_out ),  // output
     .lsound_out( lsound_out ),      // output
@@ -137,10 +137,10 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
         if (xxxx_zero) begin sh_v_counter <= 0;sh_o_counter <= 0; end
         else begin sh_v_counter <= sh_v_counter + 1; sh_o_counter <= sh_o_counter + 1; end
 
-        if(sh_v_counter == 0 ) begin sh_voice_reg <= (sh_voice_reg << 1)+ 1; end
+        if(sh_v_counter == 0 ) begin sh_voice_reg <= (sh_voice_reg << 1) | 1; end
         else begin sh_voice_reg <= sh_voice_reg << 1; end
 
-        if(sh_o_counter == 0 ) begin sh_osc_reg <= (sh_osc_reg << 1)+ 1; end
+        if(sh_o_counter == 0 ) begin sh_osc_reg <= (sh_osc_reg << 1) | 1; end
         else begin sh_osc_reg <= sh_osc_reg << 1; end
     end
 

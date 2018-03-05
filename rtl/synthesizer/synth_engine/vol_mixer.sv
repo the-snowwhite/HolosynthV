@@ -6,7 +6,7 @@ module vol_mixer (
     input   [V_ENVS:0]              sh_osc_reg,
     input   signed  [7:0]           m_vol,
     input   signed  [7:0]           osc_lvl     [V_OSC-1:0],
-    input   signed  [7:0]           level_mul,
+    input   signed  [7:0]           level_mul_vel,
     input   signed  [7:0]           osc_pan     [V_OSC-1:0],
     input   signed  [16:0]          sine_lut_out,
 // sound data out
@@ -45,7 +45,7 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
     reg signed [7:0] reg_voice_vol_env_lvl;
     reg signed [63:0] reg_osc_data_sum_l;
     reg signed [63:0] reg_osc_data_sum_r;
-    reg signed [63:0] reg_sine_level_mul_data;
+    reg signed [63:0] reg_sine_level_mul_vel_data;
     reg signed [63:0] reg_sine_level_mul_osc_lvl_m_vol_data;
     reg signed [63:0] reg_voice_sound_sum_l;
     reg signed [63:0] reg_voice_sound_sum_r;
@@ -67,7 +67,7 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
     end
 
     always @(posedge sCLK_XVXENVS) begin
-        if(sh_voice_reg[2]) begin reg_voice_vol_env_lvl <= level_mul; end
+        if(sh_voice_reg[2]) begin reg_voice_vol_env_lvl <= level_mul_vel; end
     end
 
 
@@ -84,14 +84,14 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
 
     always @(posedge sCLK_XVXENVS )begin : main_mix_summing
         if (sh_osc_reg[1])begin
-            reg_sine_level_mul_data <= (level_mul * sine_lut_out);
+            reg_sine_level_mul_vel_data <= (level_mul_vel * sine_lut_out);
         end
 
-        if (sh_osc_reg[2])begin
-            reg_sine_level_mul_osc_lvl_m_vol_data <= reg_sine_level_mul_data * osc_lvl[ox_dly[1]];
+        if (sh_osc_reg[0])begin
+            reg_sine_level_mul_osc_lvl_m_vol_data <= reg_sine_level_mul_vel_data * osc_lvl[ox_dly[1]];
         end
 
-        if(sh_osc_reg[3])begin
+        if(sh_osc_reg[1])begin
             reg_osc_data_sum_l <= reg_osc_data_sum_l + sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l;
             reg_osc_data_sum_r <= reg_osc_data_sum_r + sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_r;
         end

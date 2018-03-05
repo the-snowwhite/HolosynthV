@@ -12,19 +12,17 @@
 module synthesizer (
 // Clock
     input                   CLOCK_50,
+    input                   AUDIO_CLK,
 // reset
     input                   reset_n,
     input                   trig,
 // MIDI uart
-    input					MIDI_Rx_DAT,		//	MIDI Data
-    output					midi_txd,
+    input                   MIDI_Rx_DAT,
+    output                  midi_txd,
 
-    input		[4:1]		button,				//	Button[4:1]
-
-//	output	[8:1]			GLED,				//	LED[4:1]
+    input   [4:1]           button,
     output [VOICES-1:0]     keys_on,
-//	output	[18:1]		    RLED,				//	LED[4:1]
-    output [VOICES-1:0]	    voice_free,
+    output [VOICES-1:0]     voice_free,
 
 `ifdef _32BitAudio
     output  [31:0]          lsound_out,
@@ -292,37 +290,38 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 // 2CH Audio Sound output -- Audio Generater //
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
-    .CLOCK_50( CLOCK_50 ),				// input
-    .reset_reg_N(reset_reg_n) ,			// input  reset_sig
-    .reset_data_N( reset_data_n ),
+    .CLOCK_50       ( CLOCK_50 ),                       // input
+    .AUDIO_CLK      ( AUDIO_CLK ),                     // input
+    .reset_reg_N    ( reset_reg_n ) ,                   // input  reset_sig
+    .reset_data_N   ( reset_data_n ),
     .trig(trig),
-    .lsound_out (lsound_out ),      //  Audio Raw Dat
-    .rsound_out (rsound_out ),      //  Audio Raw Data
-    .xxxx_zero(xxxx_zero) ,		// output  cycle complete signag
+    .lsound_out     ( lsound_out ),                     //  Audio Raw Dat
+    .rsound_out     ( rsound_out ),                     //  Audio Raw Data
+    .xxxx_zero      ( xxxx_zero) ,                      // output  cycle complete signag
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //
-    .note_on(note_on) ,					// input  note_on_sig
-    .keys_on(keys_on) ,					// input [VOICES-1:0] keys_on_sig
-    .cur_key_adr(cur_key_adr) ,		// input [V_WIDTH-1:0] cur_key_adr_sig
-    .cur_key_val(cur_key_val) ,		// input [7:0] cur_key_val_sig
-    .cur_vel_on(cur_vel_on) ,			// input [7:0] cur_vel_on_sig
-    .cur_vel_off(cur_vel_off) ,		// input [7:0] cur_vel_off_sig
+    .note_on        ( note_on ) ,                       // input  note_on_sig
+    .keys_on        ( keys_on ) ,                       // input [VOICES-1:0] keys_on_sig
+    .cur_key_adr    ( cur_key_adr ) ,                   // input [V_WIDTH-1:0] cur_key_adr_sig
+    .cur_key_val    ( cur_key_val ) ,                   // input [7:0] cur_key_val_sig
+    .cur_vel_on     ( cur_vel_on ) ,                    // input [7:0] cur_vel_on_sig
+    .cur_vel_off    ( cur_vel_off ) ,                   // input [7:0] cur_vel_off_sig
 // from midi_controller_unit
-    .pitch_val ( pitch_val ),
+    .pitch_val      ( pitch_val ),
 // controller data bus
-    .write(write) ,				// input  write_sig
-    .read (read), 					// input read synth_data signal
-    .sysex_data_patch_send (sysex_data_patch_send), // input
-    .adr(adr) ,						// input [6:0] adr_sig
-    .data (synth_data) ,					// bi-dir [7:0] data_sig
-    .env_sel(env_sel) ,			// input  env_sel_sig
-    .osc_sel(osc_sel) ,			// input  osc_sel_sig
-    .m1_sel(m1_sel) ,				// input  m1_sel_sig
-    .m2_sel(m2_sel) ,				// input  m2_sel_sig
-    .com_sel(com_sel), 			// input  com_sel_sig
+    .write                  ( write) ,                  // input  write_sig
+    .read                   ( read),                    // input read synth_data signal
+    .sysex_data_patch_send  ( sysex_data_patch_send),   // input
+    .adr                    ( adr) ,                    // input [6:0] adr_sig
+    .data                   ( synth_data ) ,
+    .env_sel                ( env_sel ) ,
+    .osc_sel                ( osc_sel ) ,
+    .m1_sel                 ( m1_sel ) ,
+    .m2_sel                 ( m2_sel ) ,
+    .com_sel                ( com_sel ),
 // from env gen //
-    .voice_free( voice_free )	//output from envgen
+    .voice_free             ( voice_free )              //output from envgen
 );
 `endif
 

@@ -1,11 +1,11 @@
 module synth_clk_gen (
-    input       reset_reg_N,
-    input       AUDIO_CLK,  		//  90.4166666 MHz  //90.625000 MHz
-    input       trig,
-    output      sCLK_XVXOSC,
-    output      sCLK_XVXENVS,
-    output reg  [V_WIDTH+E_WIDTH-1:0]xxxx,  // index counter
-    output reg  xxxx_zero
+    input   reset_reg_N,
+    input   AUDIO_CLK,  		//  90.4166666 MHz  //90.625000 MHz
+    input   trig,
+    output  sCLK_XVXOSC,
+    output  sCLK_XVXENVS,
+    output  [V_WIDTH+E_WIDTH-1:0]xxxx,  // index counter
+    output  xxxx_zero
 );
 parameter   VOICES 			= 8;
 parameter   V_OSC           = 4; // oscs per Voice
@@ -41,15 +41,15 @@ parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV);
 //  Internal Registers and Wires
 reg     [XVXOSC_WIDTH:0]	sCLK_XVXOSC_DIV;
 reg     [XVXENVS_WIDTH:0]	sCLK_XVXENVS_DIV;
-wire     trig_dly;
-wire     trig_rising;
-wire     run;
+reg     trig_dly;
+reg     trig_rising;
+reg     run;
 reg     [1:0] xxxx_zero_dly;
 ////////////////////////////////////
 
 //wire stop_n = ((run == 1'b0) || (reset_reg_N == 1'b0)) ? 1'b0 : 1'b1;
 
-always @(posedge AUDIO_CLK or negedge reset_reg_N) begin
+always_ff @(posedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         xxxx_zero_dly <= 2'b00;
     end
@@ -59,7 +59,7 @@ always @(posedge AUDIO_CLK or negedge reset_reg_N) begin
     end
 end
 
-always @(negedge AUDIO_CLK or negedge reset_reg_N) begin
+always_ff @(negedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         trig_dly <= 1'b0;
         trig_rising <= 1'b0;
@@ -70,9 +70,9 @@ always @(negedge AUDIO_CLK or negedge reset_reg_N) begin
     end
 end
 
-always @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N) begin
+always_ff @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
-        run <= 0;
+        run <= 1'b0;
     end
     else if(trig_rising) begin
         run <= 1'b1;
@@ -85,7 +85,7 @@ always @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N
     end
 end
 
-always@(negedge AUDIO_CLK)
+always_ff @(negedge AUDIO_CLK)
 begin
     if (!AUDIO_CLK) begin
         if(!run) begin

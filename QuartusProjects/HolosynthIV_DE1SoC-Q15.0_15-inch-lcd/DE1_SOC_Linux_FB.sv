@@ -265,17 +265,19 @@ assign LCD_DE               = vid_datavalid;
 //    logic            OSC_CLK;
     logic    [31:0]  lsound_out;
     logic    [31:0]  rsound_out;
+    logic    [31:0]  lsound_mixed_out;
+    logic    [31:0]  rsound_mixed_out;
     logic            xxxx_zero;
     logic    [63:0]  i2s_output_apb_0_playback_fifo_data;
     logic            i2s_playback_fifo_ack;
     logic            i2s_output_apb_0_playback_fifo_empty;
     logic            i2s_playback_enable;
-    logic    [63:0]  i2s_output_apb_0_capture_fifo_data;
-    logic            i2s_output_apb_0_capture_fifo_full;
-    logic            i2s_capture_enable;
-    bit              i2s_clkctrl_apb_0_conduit_bclk;
-    bit              i2s_clk;
-
+    logic   [63:0]  i2s_output_apb_0_capture_fifo_data;
+    logic           i2s_output_apb_0_capture_fifo_full;
+    logic           i2s_capture_enable;
+    bit             i2s_clkctrl_apb_0_conduit_bclk;
+    bit             i2s_clk;
+    logic           AUDIO_CLK;
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -437,16 +439,20 @@ soc_system u0 (
     .i2s_output_apb_0_playback_fifo_i2s_playback_enable     (i2s_playback_enable),
     .i2s_output_apb_0_playback_fifo_empty                   (i2s_output_apb_0_playback_fifo_empty),
     .i2s_output_apb_0_playback_fifo_full                    (),
-    .i2s_output_apb_0_playback_fifo_data                    (i2s_output_apb_0_playback_fifo_data)
+    .i2s_output_apb_0_playback_fifo_data                    (i2s_output_apb_0_playback_fifo_data),
+    .audio_clk                                              (AUDIO_CLK)
     );
 // sound dma
+
+    assign rsound_mixed_out = SW[9] ? i2s_output_apb_0_playback_fifo_data[63:32] : i2s_output_apb_0_playback_fifo_data[63:32] + rsound_out;
+    assign lsound_mixed_out = SW[9] ? i2s_output_apb_0_playback_fifo_data[31:0]  : i2s_output_apb_0_playback_fifo_data[31:0]  + lsound_out;
 
     i2s_shift_out i2s_shift_out(
         .reset_n            (hps_0_h2f_reset_reset_n),
         .clk                (i2s_clk),
 
-        .fifo_right_data    (i2s_output_apb_0_playback_fifo_data[63:32]),
-        .fifo_left_data     (i2s_output_apb_0_playback_fifo_data[31:0]),
+        .fifo_right_data    (rsound_mixed_out),
+        .fifo_left_data     (lsound_mixed_out),
         .fifo_ready         (~i2s_output_apb_0_playback_fifo_empty),
         .fifo_ack           (i2s_playback_fifo_ack),
 
@@ -500,32 +506,33 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .CLOCK_50           (CLOCK2_50) ,
+    .AUDIO_CLK          ( AUDIO_CLK ),             // input
     .reset_n            (hps_0_h2f_reset_reset_n),
     .trig               (AUD_DACLRCK),
-    .MIDI_Rx_DAT        ( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-    .midi_txd           ( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
-    .button             ( KEY ),            //  Button[3:0]
+    .MIDI_Rx_DAT        ( midi_rxd ) ,              // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+    .midi_txd           ( midi_txd ),               // output midi transmit signal (inverted due to inverter in rs232 chip)
+    .button             ( KEY ),                    //  Button[3:0]
 `ifdef _Synth
-    .lsound_out         (lsound_out),      //  Audio Raw Data Low
-    .rsound_out         (rsound_out),      //  Audio Raw Data high
-    .xxxx_zero          (xxxx_zero),		// output  cycle complete signag
+    .lsound_out         (lsound_out),               //  Audio Raw Data Low
+    .rsound_out         (rsound_out),               //  Audio Raw Data high
+    .xxxx_zero          (xxxx_zero),                // output  cycle complete signag
 `endif
-    .keys_on            (keys_on),				//  LED [7:0]
-    .voice_free         (voice_free) , 			//  Red LED [4:1]
-    .io_reset_n         (hps_0_h2f_reset_reset_n) ,	// input  io_reset_sig
-    .cpu_read           (cpu_read) ,	// input  cpu_read_sig
-    .cpu_write          (cpu_write) ,	// input  cpu_write_sig
-    .chipselect         (cpu_chip_sel) ,	// input  chipselect_sig
-    .address            (cpu_adr) ,	// input [9:0] address_sig
-    .writedata          (cpu_data_out) ,	// input [31:0] writedata_sig
-    .readdata           (cpu_data_in), 	// output [31:0] readdata_sig
-    .socmidi_read       (socmidi_read) ,	// input  cpu_read_sig
-    .socmidi_write      (socmidi_write) ,	// input  cpu_write_sig
-    .socmidi_cs         (socmidi_chip_sel) ,	// input  chipselect_sig
-    .socmidi_addr       (socmidi_addr) ,	// input [9:0] address_sig
-    .socmidi_data_out   (socmidi_data_out) ,	// input [31:0] writedata_sig
-    .socmidi_data_in    (socmidi_data_in), 	// output [31:0] readdata_sig
-    .switch4            (SW[3])
+    .keys_on            (keys_on),                  //  LED [7:0]
+    .voice_free         (voice_free) ,              //  Red LED [4:1]
+    .io_reset_n         (hps_0_h2f_reset_reset_n) , // input  io_reset_sig
+    .cpu_read           (cpu_read) ,                // input  cpu_read_sig
+    .cpu_write          (cpu_write) ,               // input  cpu_write_sig
+    .chipselect         (cpu_chip_sel) ,            // input  chipselect_sig
+    .address            (cpu_adr) ,                 // input [9:0] address_sig
+    .writedata          (cpu_data_out) ,            // input [31:0] writedata_sig
+    .readdata           (cpu_data_in),              // output [31:0] readdata_sig
+    .socmidi_read       (socmidi_read) ,            // input  cpu_read_sig
+    .socmidi_write      (socmidi_write) ,           // input  cpu_write_sig
+    .socmidi_cs         (socmidi_chip_sel) ,        // input  chipselect_sig
+    .socmidi_addr       (socmidi_addr) ,            // input [9:0] address_sig
+    .socmidi_data_out   (socmidi_data_out) ,        // input [31:0] writedata_sig
+    .socmidi_data_in    (socmidi_data_in),          // output [31:0] readdata_sig
+    .switch4            (SW[3])                     // input
 );
 
 always @(negedge KEY[3] or posedge CLOCK_50)
