@@ -14,7 +14,7 @@ module osc (
     input signed [10:0]         modulation,
     input [VOICES-1:0]          voice_free,
     input [V_ENVS-1:0]          osc_accum_zero,
-    output signed [16:0]        sine_lut_out
+    output [16:0]               sine_lut_out
 );
 
 parameter VOICES = 8;

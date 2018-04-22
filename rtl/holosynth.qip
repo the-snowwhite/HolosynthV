@@ -31,9 +31,10 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engin
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/timing_gen.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/midi_ctrl_data.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mod_matrix.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/modulation_matrix.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/vol_mixer.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2.sv
+#set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/synth_clk_gen.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_status.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/note_stack.sv

@@ -52,64 +52,53 @@ reg     [1:0] xxxx_zero_dly;
 always_ff @(posedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         xxxx_zero_dly <= 2'b00;
-    end
-    else begin
-        xxxx_zero_dly[0] <= xxxx_zero;
-        xxxx_zero_dly[1] <= xxxx_zero_dly[0];
-    end
-end
-
-always_ff @(negedge AUDIO_CLK or negedge reset_reg_N) begin
-    if (!reset_reg_N) begin
         trig_dly <= 1'b0;
         trig_rising <= 1'b0;
     end
     else begin
+        xxxx_zero_dly[0] <= xxxx_zero;
+        xxxx_zero_dly[1] <= xxxx_zero_dly[0];
         trig_dly <= trig;
         trig_rising <= (trig && !trig_dly);
     end
 end
 
-always_ff @( posedge trig_rising or posedge xxxx_zero_dly[1] or negedge reset_reg_N) begin
+always_ff @( posedge AUDIO_CLK or negedge reset_reg_N) begin
     if (!reset_reg_N) begin
         run <= 1'b0;
     end
     else if(trig_rising) begin
         run <= 1'b1;
     end
-    else if (xxxx_zero_dly[1]) begin
+    else if (xxxx_zero_dly[0]) begin
         run <= 1'b0;
-    end
-    else begin
-        run <= run;
     end
 end
 
-always_ff @(negedge AUDIO_CLK)
+always_ff @(posedge AUDIO_CLK or negedge run)
 begin
-    if (!AUDIO_CLK) begin
-        if(!run) begin
-            sCLK_XVXOSC_DIV     <=  0;
-            sCLK_XVXENVS_DIV    <=  0;
-            sCLK_XVXOSC         <=  1'b0;
-            sCLK_XVXENVS        <=  1'b0;
+    if (!run) begin
+        sCLK_XVXOSC_DIV     <=  0;
+        sCLK_XVXENVS_DIV    <=  0;
+        sCLK_XVXOSC         <=  1'b0;
+        sCLK_XVXENVS        <=  1'b0;
+    end
+    else begin
+        if(sCLK_XVXOSC_DIV >= XVOSC_DIV)
+        begin
+            sCLK_XVXOSC_DIV     <=  1;
+            sCLK_XVXOSC         <=  ~sCLK_XVXOSC;
         end
         else begin
-            if(sCLK_XVXOSC_DIV >= XVOSC_DIV)
-            begin
-                sCLK_XVXOSC_DIV     <=  1;
-                sCLK_XVXOSC         <=  ~sCLK_XVXOSC;
-            end
-            else
-                sCLK_XVXOSC_DIV     <=  sCLK_XVXOSC_DIV+1'b1;
-
-            if(sCLK_XVXENVS_DIV >= XVXENVS_DIV)
-            begin
-                sCLK_XVXENVS_DIV    <=  1;
-                sCLK_XVXENVS        <=  ~sCLK_XVXENVS;
-            end
-            else
-                sCLK_XVXENVS_DIV    <=  sCLK_XVXENVS_DIV+1'b1;
+            sCLK_XVXOSC_DIV     <=  sCLK_XVXOSC_DIV+1'b1;
+        end
+        if(sCLK_XVXENVS_DIV >= XVXENVS_DIV)
+        begin
+            sCLK_XVXENVS_DIV    <=  1;
+            sCLK_XVXENVS        <=  ~sCLK_XVXENVS;
+        end
+        else begin
+            sCLK_XVXENVS_DIV    <=  sCLK_XVXENVS_DIV+1'b1;
         end
     end
 end

@@ -28,7 +28,7 @@ module synth_engine (
     input                   read,
     input                   sysex_data_patch_send,
     input   [6:0]           adr,
-    inout signed [7:0]      data,
+    inout   [7:0]           data,
     input                   env_sel,
     input                   osc_sel,
     input                   m1_sel,
@@ -55,8 +55,8 @@ parameter E_WIDTH   = O_WIDTH + OE_WIDTH;   // = 4
 wire                        sCLK_XVXENVS;
 wire                        sCLK_XVXOSC;
 wire [V_WIDTH+E_WIDTH-1:0]  xxxx;
-wire signed [7:0]           level_mul;
-wire signed [7:0]           level_mul_vel;
+wire [7:0]                  level_mul;
+wire [7:0]                  level_mul_vel;
 
 wire                        byteready;
 wire [7:0]                  cur_status;
@@ -65,7 +65,7 @@ wire [7:0]                  octrl_data;
 wire                        pitch_cmd;
 wire [7:0]                  midibyte;
 wire [7:0]                  midibyte_nr;
-wire signed [10:0]          modulation;
+wire [10:0]                 modulation;
 wire [16:0]                 sine_lut_out;
 wire [23:0]                 osc_pitch_val;
 

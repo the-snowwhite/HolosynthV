@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -26,7 +26,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -91,7 +91,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "8";
          type = "int";
       }
       datum sopceditor_expanded
@@ -125,7 +125,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "5";
          type = "int";
       }
    }
@@ -167,7 +167,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "19";
          type = "int";
       }
    }
@@ -183,7 +183,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
       }
    }
@@ -199,7 +199,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
       }
    }
@@ -207,7 +207,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -264,7 +264,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "9";
          type = "int";
       }
       datum sopceditor_expanded
@@ -286,11 +286,19 @@
          type = "String";
       }
    }
+   element mm_bridge_0
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
    element pll_bitclk
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
    }
@@ -298,7 +306,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -431,7 +439,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
       }
    }
@@ -473,7 +481,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
       }
    }
@@ -1241,7 +1249,7 @@
    kind="intr_capturer"
    version="100.99.98.97"
    enabled="1">
-  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="15" />
+  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="31" />
   <parameter name="NUM_INTR" value="32" />
  </module>
  <module
@@ -1276,6 +1284,24 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
+ </module>
+ <module
+   name="mm_bridge_0"
+   kind="altera_avalon_mm_bridge"
+   version="17.1"
+   enabled="1">
+  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
+  <parameter name="ADDRESS_WIDTH" value="10" />
+  <parameter name="DATA_WIDTH" value="32" />
+  <parameter name="LINEWRAPBURSTS" value="0" />
+  <parameter name="MAX_BURST_SIZE" value="1" />
+  <parameter name="MAX_PENDING_RESPONSES" value="4" />
+  <parameter name="PIPELINE_COMMAND" value="1" />
+  <parameter name="PIPELINE_RESPONSE" value="1" />
+  <parameter name="SYMBOL_WIDTH" value="8" />
+  <parameter name="SYSINFO_ADDR_WIDTH" value="19" />
+  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
+  <parameter name="USE_RESPONSE" value="0" />
  </module>
  <module name="pll_bitclk" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
@@ -1712,25 +1738,16 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_axi_master"
-   end="alt_vip_vfr.avalon_slave">
+   start="hps_0.h2f_lw_axi_master"
+   end="mm_bridge_0.s0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00031000" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="i2s_clkctrl_api_0.apb_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="i2s_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1739,7 +1756,16 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
+   end="i2s_clkctrl_api_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
    end="hsynth_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0040" />
@@ -1748,7 +1774,16 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
+   end="jtag_uart.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
    end="alt_vip_vfr.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00031000" />
@@ -1757,7 +1792,16 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
+   end="intr_capturer_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00010000" />
@@ -1766,25 +1810,7 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="led_pio.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="dipsw_pio.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010080" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x000100c0" />
@@ -1793,7 +1819,21 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
+   end="dipsw_pio.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00010080" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="avalon" version="17.1" start="mm_bridge_0.m0" end="led_pio.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
    end="uioreg_io_0.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00040000" />
@@ -1802,7 +1842,7 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="socmidi_0.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00050000" />
@@ -1812,9 +1852,45 @@
    kind="avalon"
    version="17.1"
    start="fpga_only_master_0.master"
+   end="i2s_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="i2s_clkctrl_api_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="hsynth_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="alt_vip_vfr.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00031000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1872,6 +1948,24 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="uioreg_io_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00040000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="socmidi_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
    kind="avalon_streaming"
    version="17.1"
    start="alt_vip_vfr.avalon_streaming_source"
@@ -1901,6 +1995,7 @@
    version="17.1"
    start="clk_0.clk"
    end="hsynth_output_apb_0.clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="mm_bridge_0.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -2052,6 +2147,13 @@
   <parameter name="irqNumber" value="3" />
  </connection>
  <connection
+   kind="interrupt"
+   version="17.1"
+   start="intr_capturer_0.interrupt_receiver"
+   end="socmidi_0.slv_irq">
+  <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
@@ -2136,6 +2238,11 @@
    version="17.1"
    start="clk_0.clk_reset"
    end="hsynth_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="mm_bridge_0.reset" />
  <connection
    kind="reset"
    version="17.1"

@@ -1,6 +1,6 @@
 module mixer_2 (
 // Inputs -- //
-    input                        sCLK_XVXENVS,  // clk
+    input                       sCLK_XVXENVS,  // clk
     input                       sCLK_XVXOSC,  // clk
     input                       reset_data_N,        // reset
     input [V_WIDTH+E_WIDTH-1:0] xxxx,
@@ -80,6 +80,25 @@ wire           [7:0]   patch_name     [15:0];
     .patch_name( patch_name )                           // output
 );
 
+modulation_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.O_ENVS(O_ENVS))modulation_matrix_inst
+(
+    .sCLK_XVXENVS(sCLK_XVXENVS),    // input
+    .sCLK_XVXOSC( sCLK_XVXOSC ),    // input
+    .ox_dly( ox_dly ),              // input
+    .vx_dly( vx_dly ),              // input
+    .sh_voice_reg( sh_voice_reg ),  // input
+    .sh_osc_reg( sh_osc_reg ),      // input
+    .osc_mod( osc_mod ),            // input
+    .osc_feedb( osc_feedb ),        // input
+    .osc_mod_in( osc_mod_in ),      // input
+    .osc_feedb_in( osc_feedb_in ),  // input
+    .mat_buf1( mat_buf1 ),          // input
+    .mat_buf2( mat_buf2 ),          // input
+    .level_mul_vel( level_mul_vel ),        // input
+    .sine_lut_out( sine_lut_out ),  // input
+    .modulation( modulation )       // output
+);
+/*
 mod_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.O_ENVS(O_ENVS))mod_matrix_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input
@@ -98,7 +117,7 @@ mod_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.
     .sine_lut_out( sine_lut_out ),  // input
     .modulation( modulation )       // output
 );
-
+*/
 vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input
