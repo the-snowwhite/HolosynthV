@@ -9,16 +9,16 @@ module midi_ctrl_data (
     input						m1_sel,
     input						m2_sel,
     inout signed        [7:0]   data,
-    output reg  signed  [7:0]   osc_lvl     [V_OSC-1:0],
-    output reg  signed  [7:0]   osc_mod     [V_OSC-1:0],
-    output reg  signed  [7:0]   osc_feedb   [V_OSC-1:0],
-    output reg  signed  [7:0]   osc_pan     [V_OSC-1:0],
-    output reg  signed  [7:0]   osc_mod_in  [V_OSC-1:0],
-    output reg  signed  [7:0]   osc_feedb_in[V_OSC-1:0],
+    output reg  signed  [7:0]   osc_lvl         [V_OSC-1:0],
+    output reg  signed  [7:0]   osc_mod_out     [V_OSC-1:0],
+    output reg  signed  [7:0]   osc_feedb_out   [V_OSC-1:0],
+    output reg  signed  [7:0]   osc_pan         [V_OSC-1:0],
+    output reg  signed  [7:0]   osc_mod_in      [V_OSC-1:0],
+    output reg  signed  [7:0]   osc_feedb_in    [V_OSC-1:0],
     output reg  signed  [7:0]   m_vol,
-    output reg  signed  [7:0]   mat_buf1    [15:0][V_OSC-1:0],
-    output reg  signed  [7:0]   mat_buf2    [15:0][V_OSC-1:0],
-    output reg          [7:0]   patch_name  [15:0]
+    output reg  signed  [7:0]   mat_buf1        [15:0][V_OSC-1:0],
+    output reg  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
+    output reg          [7:0]   patch_name      [15:0]
 );
 parameter V_OSC		= 4; // oscs per Voice
 
@@ -46,8 +46,8 @@ parameter V_OSC		= 4; // oscs per Voice
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 if(loop <= 1)osc_lvl[loop] <= 8'h40;
                 else osc_lvl[loop] <= 8'h00;
-                osc_mod[loop] <= 8'h00;
-                osc_feedb[loop] <= 8'h00;
+                osc_mod_out[loop] <= 8'h00;
+                osc_feedb_out[loop] <= 8'h00;
                 osc_pan[loop] <= 8'h40;
                 osc_mod_in[loop] <= 8'h00;
                 osc_feedb_in[loop] <= 8'h00;
@@ -67,8 +67,8 @@ parameter V_OSC		= 4; // oscs per Voice
                 for (osc1=0;osc1<V_OSC;osc1=osc1+1)begin
                     case (adr)
                         7'd2 +(osc1<<4): osc_lvl[osc1] <= data;
-                        7'd3 +(osc1<<4): osc_mod[osc1] <= data;
-                        7'd4 +(osc1<<4): osc_feedb[osc1] <= data;
+                        7'd3 +(osc1<<4): osc_mod_out[osc1] <= data;
+                        7'd4 +(osc1<<4): osc_feedb_out[osc1] <= data;
                         7'd7 +(osc1<<4): osc_pan[osc1] <= data;
                         7'd10 +(osc1<<4): osc_mod_in[osc1] <= data;
                         7'd11 +(osc1<<4): osc_feedb_in[osc1] <= data;
@@ -109,8 +109,8 @@ parameter V_OSC		= 4; // oscs per Voice
             for (osc2=0;osc2<V_OSC;osc2=osc2+1)begin
                 case (adr)
                     7'd2 +(osc2<<4): data_out <= osc_lvl[osc2];
-                    7'd3 +(osc2<<4): data_out <= osc_mod[osc2];
-                    7'd4 +(osc2<<4): data_out <= osc_feedb[osc2];
+                    7'd3 +(osc2<<4): data_out <= osc_mod_out[osc2];
+                    7'd4 +(osc2<<4): data_out <= osc_feedb_out[osc2];
                     7'd7 +(osc2<<4): data_out <= osc_pan[osc2];
                     7'd10 +(osc2<<4): data_out <= osc_mod_in[osc2];
                     7'd11 +(osc2<<4): data_out <= osc_feedb_in[osc2];

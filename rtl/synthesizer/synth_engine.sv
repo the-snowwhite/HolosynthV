@@ -1,20 +1,19 @@
 module synth_engine (
-    input                   CLOCK_50,
     input                   AUDIO_CLK,
     input                   reset_reg_N,
     input                   reset_data_N,
     input                   trig,
 `ifdef _32BitAudio
-    output  [31:0]          lsound_out,
-    output  [31:0]          rsound_out,
+    output signed [31:0]          lsound_out,
+    output signed [31:0]          rsound_out,
 `elsif _24BitAudio
-    output  [23:0]          lsound_out,
-    output  [23:0]          rsound_out,
+    output signed [23:0]          lsound_out,
+    output signed [23:0]          rsound_out,
 `else
-    output  [15:0]          lsound_out,
-    output  [15:0]          rsound_out,
+    output signed [15:0]          lsound_out,
+    output signed [15:0]          rsound_out,
 `endif
-    output		            xxxx_zero,
+    output                  xxxx_zero,
 // from synth_controller
 // note events
     input   [VOICES-1:0]    keys_on,
@@ -37,6 +36,7 @@ module synth_engine (
 // from midi_controller_unit
     input   [13:0]          pitch_val,
 // from env gen
+    output                  run,
     output  [VOICES-1:0]    voice_free
 );
 
@@ -75,17 +75,7 @@ wire [V_WIDTH-1:0]          reg_cur_key_adr;
 wire [7:0]                  reg_cur_key_val;
 wire [7:0]                  reg_cur_vel_on;
 wire [VOICES-1:0]           reg_keys_on;
-//wire                        audio_pll_locked, reset_clk_n;
-//  PLL
-/*
-assign reset_clk_n = (audio_pll_locked && reset_reg_N) ? 1'b1 : 1'b0;
-audio_pll	audio_pll_inst	(
-    .refclk		( CLOCK_50 ),
-    .rst		( ~reset_reg_N ),
-    .outclk_0	( AUDIO_CLK ),
-    .locked		( audio_pll_locked )    //  locked.export
-);
-*/
+
 synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
     .reset_reg_N    ( reset_reg_N ),    // input
@@ -94,8 +84,12 @@ synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),
     .sCLK_XVXENVS   ( sCLK_XVXENVS ),   // output
     .sCLK_XVXOSC    ( sCLK_XVXOSC ),    // output
     .xxxx           ( xxxx ),           // output
+    .run            ( run ),
     .xxxx_zero      ( xxxx_zero )       // output
 );
+
+// wire SYNC_CLK;
+// assign SYNC_CLK = run ? AUDIO_CLK : 1'b0;
 
 note_key_vel_sync #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) key_sync_inst
 (
@@ -113,7 +107,7 @@ note_key_vel_sync #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) key_sync_inst
     .reg_keys_on        (reg_keys_on)       // output
 );
 
-pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) pitch_control_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_pitch_control
+pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) pitch_control_inst
 (
     .reset_reg_N( reset_reg_N ),
     .reset_data_N( reset_data_N ),

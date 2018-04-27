@@ -46,8 +46,8 @@ parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
 parameter x_offset = (V_OSC * VOICES ) - 2;
 
 wire  signed   [7:0]   osc_lvl        [V_OSC-1:0];
-wire  signed   [7:0]   osc_mod        [V_OSC-1:0];
-wire  signed   [7:0]   osc_feedb      [V_OSC-1:0];
+wire  signed   [7:0]   osc_mod_out    [V_OSC-1:0];
+wire  signed   [7:0]   osc_feedb_out  [V_OSC-1:0];
 wire  signed   [7:0]   osc_pan        [V_OSC-1:0];
 wire  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
 wire  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
@@ -69,8 +69,8 @@ wire           [7:0]   patch_name     [15:0];
     .m2_sel( m2_sel ),                                  // output
     .data( data ),                                      // inout
     .osc_lvl( osc_lvl ),                                // output
-    .osc_mod( osc_mod ),                                // output
-    .osc_feedb( osc_feedb ),                            // output
+    .osc_mod_out( osc_mod_out ),                        // output
+    .osc_feedb_out( osc_feedb_out ),                    // output
     .osc_pan( osc_pan ),                                // output
     .osc_mod_in( osc_mod_in ),                          // output
     .osc_feedb_in( osc_feedb_in ),                      // output
@@ -88,36 +88,17 @@ modulation_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_W
     .vx_dly( vx_dly ),              // input
     .sh_voice_reg( sh_voice_reg ),  // input
     .sh_osc_reg( sh_osc_reg ),      // input
-    .osc_mod( osc_mod ),            // input
-    .osc_feedb( osc_feedb ),        // input
+    .osc_mod_out( osc_mod_out ),    // input
+    .osc_feedb_out( osc_feedb_out ),// input
     .osc_mod_in( osc_mod_in ),      // input
     .osc_feedb_in( osc_feedb_in ),  // input
     .mat_buf1( mat_buf1 ),          // input
     .mat_buf2( mat_buf2 ),          // input
-    .level_mul_vel( level_mul_vel ),        // input
+    .level_mul_vel( level_mul_vel ),// input
     .sine_lut_out( sine_lut_out ),  // input
     .modulation( modulation )       // output
 );
-/*
-mod_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.O_ENVS(O_ENVS))mod_matrix_inst
-(
-    .sCLK_XVXENVS(sCLK_XVXENVS),    // input
-    .sCLK_XVXOSC( sCLK_XVXOSC ),    // input
-    .ox_dly( ox_dly ),              // input
-    .vx_dly( vx_dly ),              // input
-    .sh_voice_reg( sh_voice_reg ),  // input
-    .sh_osc_reg( sh_osc_reg ),      // input
-    .osc_mod( osc_mod ),            // input
-    .osc_feedb( osc_feedb ),        // input
-    .osc_mod_in( osc_mod_in ),      // input
-    .osc_feedb_in( osc_feedb_in ),  // input
-    .mat_buf1( mat_buf1 ),          // input
-    .mat_buf2( mat_buf2 ),          // input
-    .level_mul_vel( level_mul_vel ),        // input
-    .sine_lut_out( sine_lut_out ),  // input
-    .modulation( modulation )       // output
-);
-*/
+
 vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input

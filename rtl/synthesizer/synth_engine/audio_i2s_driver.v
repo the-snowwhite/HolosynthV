@@ -11,7 +11,7 @@ module audio_i2s_driver (
 `else
 	input [15:0]        i_lsound_out, // 16-bits
 	input [15:0]        i_rsound_out, // 16-bits
-`endif 
+`endif
 	output              oAUD_DACDAT
 );
 
@@ -22,12 +22,12 @@ module audio_i2s_driver (
 	reg signed [23:0] sound_out; // 24-bits
 `else
 	reg signed [15:0] sound_out; // 16-bits
-`endif 
+`endif
 	reg reg_edge_detected;
 	reg reg_lrck_dly;
 
 	wire edge_detected = reg_lrck_dly ^ iAUD_DACLRCK;
-	
+
 ////////////        SoundOut        ///////////////
 	always@(posedge iAUD_BCLK)begin
 		reg_edge_detected <= edge_detected;
@@ -46,7 +46,7 @@ module audio_i2s_driver (
             if (SEL_Cont == 5'h1f) begin
                 if (iAUD_DACLRCK) begin 	sound_out <= i_rsound_out; end
 				else begin 				    sound_out <= i_lsound_out; end
-			end	
+			end
         end
     end
 

@@ -11,44 +11,46 @@
 
 module synthesizer (
 // Clock
-    input                   CLOCK_50,
-    input                   AUDIO_CLK,
+    input               CLOCK_50,
+    input               AUDIO_CLK,
 // reset
-    input                   reset_n,
-    input                   trig,
+    input               reset_n,
+    input               trig,
 // MIDI uart
-    input                   MIDI_Rx_DAT,
-    output                  midi_txd,
+    input               MIDI_Rx_DAT,
+    output              midi_txd,
 
-    input   [4:1]           button,
-    output [VOICES-1:0]     keys_on,
-    output [VOICES-1:0]     voice_free,
+    input   [4:1]       button,
+    output [VOICES-1:0] keys_on,
+    output [VOICES-1:0] voice_free,
 
 `ifdef _32BitAudio
-    output  [31:0]          lsound_out,
-    output  [31:0]          rsound_out,
+    output signed [31:0]      lsound_out,
+    output signed [31:0]      rsound_out,
 `elsif _24BitAudio
-    output  [23:0]          lsound_out,
-    output  [23:0]          rsound_out,
+    output signed [23:0]      lsound_out,
+    output signed [23:0]      rsound_out,
 `else
-    output  [15:0]          lsound_out,
-    output  [15:0]          rsound_out,
+    output signed [15:0]      lsound_out,
+    output signed [15:0]      rsound_out,
 `endif
-    output		            xxxx_zero,
-    input					io_reset_n,
-    input					cpu_read,
-    input					cpu_write,
-    input					chipselect,
-    input [9:0]             address,
-    input [31:0]			writedata,
-    output reg [31:0]		readdata,
-    input					socmidi_read,
-    input					socmidi_write,
-    input					socmidi_cs,
-    input [2:0]				socmidi_addr,
-    input [7:0]			    socmidi_data_out,
-    output reg [7:0]		socmidi_data_in,
-    input                   switch4
+    output              xxxx_zero,
+
+    input               io_reset_n,
+    input               cpu_read,
+    input               cpu_write,
+    input               chipselect,
+    input   [9:0]       address,
+    input   [31:0]      writedata,
+    output reg  [31:0]  readdata,
+    input               socmidi_read,
+    input               socmidi_write,
+    input               socmidi_cs,
+    input   [2:0]       socmidi_addr,
+    input   [7:0]       socmidi_data_out,
+    output reg [7:0]    socmidi_data_in,
+    output              run,
+    input               switch4
 );
 
 parameter VOICES = 32;
@@ -90,14 +92,10 @@ always @(posedge CLOCK_50) begin
         readdata[7:0] <= 8'b0;
     end
     else if (read) begin
-//        if(address == 10'h300) begin readdata <= rsound_out; end
-//        else if(address == 10'h304) begin readdata <= lsound_out; end
-//        else begin
             readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
-//        end
     end
     else if	(write) begin
-        indata <= signed'(writedata[7:0]);
+        indata <= writedata[7:0];
     end
 end
 
@@ -107,8 +105,8 @@ end
 
 /** @brief write data
 */
-    always@(negedge reset_reg_n or negedge write)begin
-        if(!reset_reg_n) begin
+    always@(negedge reset_reg_N or negedge write)begin
+        if(!reset_reg_N) begin
             midi_ch <= 8'h00;
         end else begin
             if(com_sel) begin
@@ -134,18 +132,16 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );
 
-//    wire data_reset_N = button[2] & sys_pll_locked;
+    wire data_DLY0, data_DLY1, data_DLY2, reg_DLY0, reg_DLY1, reg_DLY2;
+
     wire reg_reset_N;
     wire data_reset_N;
-    wire data_DLY0, data_DLY1, data_DLY2, reg_DLY1, reg_DLY2;
-
-    wire reset_reg_n;
     wire reset_data_n;
 
     assign reg_reset_N = button[1] & reset_n;
     assign data_reset_N = button[2];
 
-    assign reset_reg_n = reg_DLY2;
+    wire reset_reg_N = reg_DLY2;
     assign reset_data_n = data_DLY1;
 
 //---	Midi	---//
@@ -182,6 +178,9 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     wire [7:0]ictrl, ictrl_data;
 
     wire HC_LCD_CLK, HC_VGA_CLOCK;
+
+//    wire OSC_CLK;
+    wire audio_pll_locked;
 
     wire [63:0] lvoice_out;
     wire [63:0] rvoice_out;
@@ -239,7 +238,7 @@ reset_delay	reset_data_delay_inst  (
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
-    .reset_reg_N(reset_data_n) ,
+    .reset_reg_N(reset_reg_N) ,
     .CLOCK_50(CLOCK_50) ,
     .socmidi_addr(socmidi_addr) ,
     .socmidi_data_out(socmidi_data_out) ,
@@ -285,30 +284,27 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 
     //////////// Sound Generation /////////////
 
-//	assign	AUD_ADCLRCK	=	AUD_DACLRCK;
-
 // 2CH Audio Sound output -- Audio Generater //
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
-    .CLOCK_50       ( CLOCK_50 ),                       // input
-    .AUDIO_CLK      ( AUDIO_CLK ),                     // input
-    .reset_reg_N    ( reset_reg_n ) ,                   // input  reset_sig
-    .reset_data_N   ( reset_data_n ),
-    .trig(trig),
-    .lsound_out     ( lsound_out ),                     //  Audio Raw Dat
-    .rsound_out     ( rsound_out ),                     //  Audio Raw Data
-    .xxxx_zero      ( xxxx_zero) ,                      // output  cycle complete signag
+    .AUDIO_CLK              ( AUDIO_CLK ),              // input
+    .reset_reg_N            ( reset_reg_N ) ,           // input  reset_sig
+    .reset_data_N           ( reset_data_n ),
+    .trig                   ( trig ),
+    .lsound_out             ( lsound_out ),             //  Audio Raw Dat
+    .rsound_out             ( rsound_out ),             //  Audio Raw Data
+    .xxxx_zero              ( xxxx_zero) ,              // output  cycle complete signag
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //
-    .note_on        ( note_on ) ,                       // input  note_on_sig
-    .keys_on        ( keys_on ) ,                       // input [VOICES-1:0] keys_on_sig
-    .cur_key_adr    ( cur_key_adr ) ,                   // input [V_WIDTH-1:0] cur_key_adr_sig
-    .cur_key_val    ( cur_key_val ) ,                   // input [7:0] cur_key_val_sig
-    .cur_vel_on     ( cur_vel_on ) ,                    // input [7:0] cur_vel_on_sig
-    .cur_vel_off    ( cur_vel_off ) ,                   // input [7:0] cur_vel_off_sig
+    .note_on                ( note_on ) ,               // input  note_on_sig
+    .keys_on                ( keys_on ) ,               // input [VOICES-1:0] keys_on_sig
+    .cur_key_adr            ( cur_key_adr ) ,           // input [V_WIDTH-1:0] cur_key_adr_sig
+    .cur_key_val            ( cur_key_val ) ,           // input [7:0] cur_key_val_sig
+    .cur_vel_on             ( cur_vel_on ) ,            // input [7:0] cur_vel_on_sig
+    .cur_vel_off            ( cur_vel_off ) ,           // input [7:0] cur_vel_off_sig
 // from midi_controller_unit
-    .pitch_val      ( pitch_val ),
+    .pitch_val              ( pitch_val ),
 // controller data bus
     .write                  ( write) ,                  // input  write_sig
     .read                   ( read),                    // input read synth_data signal
@@ -321,6 +317,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .m2_sel                 ( m2_sel ) ,
     .com_sel                ( com_sel ),
 // from env gen //
+    .run                    ( run ),
     .voice_free             ( voice_free )              //output from envgen
 );
 `endif

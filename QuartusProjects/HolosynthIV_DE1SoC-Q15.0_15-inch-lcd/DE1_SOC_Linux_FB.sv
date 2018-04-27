@@ -263,21 +263,23 @@ assign LCD_DE               = vid_datavalid;
     assign synth_irq_n = 1'b1;
 // sound dma
 //    logic            OSC_CLK;
-    logic    [31:0]  lsound_out;
-    logic    [31:0]  rsound_out;
-    logic    [31:0]  lsound_mixed_out;
-    logic    [31:0]  rsound_mixed_out;
-    logic            xxxx_zero;
-    logic    [63:0]  i2s_output_apb_0_playback_fifo_data;
-    logic            i2s_playback_fifo_ack;
-    logic            i2s_output_apb_0_playback_fifo_empty;
-    logic            i2s_playback_enable;
-    logic   [63:0]  i2s_output_apb_0_capture_fifo_data;
-    logic           i2s_output_apb_0_capture_fifo_full;
-    logic           i2s_capture_enable;
-    bit             i2s_clkctrl_apb_0_conduit_bclk;
-    bit             i2s_clk;
-    logic           AUDIO_CLK;
+    logic [31:0] lsound_out;
+    logic [31:0] rsound_out;
+    logic [31:0] lsound_mixed_out;
+    logic [31:0] rsound_mixed_out;
+    logic        xxxx_zero;
+    logic [31:0] i2s_output_apb_0_playback_fifo_data_R;
+    logic [31:0] i2s_output_apb_0_playback_fifo_data_L;
+    logic        i2s_playback_fifo_ack;
+    logic        i2s_output_apb_0_playback_fifo_empty;
+    logic        i2s_playback_enable;
+    logic [31:0] i2s_output_apb_0_capture_fifo_data_R;
+    logic [31:0] i2s_output_apb_0_capture_fifo_data_L;
+    logic        i2s_output_apb_0_capture_fifo_full;
+    logic        i2s_capture_enable;
+    bit          i2s_clkctrl_apb_0_conduit_bclk;
+    bit          i2s_clk;
+    logic        AUDIO_CLK;
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -298,8 +300,6 @@ assign HEX[0] = 7'b1000000;
 assign HEX[1] = 7'b1111001;
 
 logic lcd_clk_75;
-
-//assign hps_0_h2f_reset_reset_n= 1'b1;
 
 soc_system u0 (
     .clk_clk                                                ( CLOCK_50),
@@ -394,15 +394,15 @@ soc_system u0 (
     .lcd_clk_clk                                            (lcd_clk_75),
 
     //itc
-    .alt_vip_itc_0_clocked_video_vid_clk                    (lcd_clk_75),
-    .alt_vip_itc_0_clocked_video_vid_data                   ({vid_r,vid_g,vid_b}),
-    .alt_vip_itc_0_clocked_video_underflow                  (),
-    .alt_vip_itc_0_clocked_video_vid_datavalid              (vid_datavalid),
-    .alt_vip_itc_0_clocked_video_vid_v_sync                 (vid_v_sync),
-    .alt_vip_itc_0_clocked_video_vid_h_sync                 (vid_h_sync),
-    .alt_vip_itc_0_clocked_video_vid_f                      (),
-    .alt_vip_itc_0_clocked_video_vid_h                      (),
-    .alt_vip_itc_0_clocked_video_vid_v                      (),
+    .alt_vip_cl_cvo_0_clocked_video_vid_clk                 (lcd_clk_75),
+    .alt_vip_cl_cvo_0_clocked_video_vid_data                ({vid_r,vid_g,vid_b}),
+    .alt_vip_cl_cvo_0_clocked_video_underflow               (),
+    .alt_vip_cl_cvo_0_clocked_video_vid_datavalid           (vid_datavalid),
+    .alt_vip_cl_cvo_0_clocked_video_vid_v_sync              (vid_v_sync),
+    .alt_vip_cl_cvo_0_clocked_video_vid_h_sync              (vid_h_sync),
+    .alt_vip_cl_cvo_0_clocked_video_vid_f                   (),
+    .alt_vip_cl_cvo_0_clocked_video_vid_h                   (),
+    .alt_vip_cl_cvo_0_clocked_video_vid_v                   (),
     .synthreg_io_uio_dataout                                (cpu_data_out),
     .synthreg_io_uio_address                                (cpu_adr),
     .synthreg_io_uio_read                                   (cpu_read),
@@ -430,7 +430,7 @@ soc_system u0 (
     .i2s_clkctrl_api_0_conduit_aud_adclrclk                 (AUD_ADCLRCK),
     .i2s_clkctrl_api_0_mclk_clk                             (AUD_XCK),
     .i2s_clkctrl_api_0_i2s_clk_clk                          (i2s_clk),
-    .i2s_output_apb_0_capture_fifo_data                     (i2s_output_apb_0_capture_fifo_data),
+    .i2s_output_apb_0_capture_fifo_data                     ({i2s_output_apb_0_capture_fifo_data_R,i2s_output_apb_0_capture_fifo_data_L}),
     .i2s_output_apb_0_capture_fifo_write                    (i2s_capture_fifo_write),
     .i2s_output_apb_0_capture_fifo_full                     (i2s_output_apb_0_capture_fifo_full),
     .i2s_output_apb_0_capture_fifo_i2s_capture_enable       (i2s_capture_enable),
@@ -439,13 +439,13 @@ soc_system u0 (
     .i2s_output_apb_0_playback_fifo_i2s_playback_enable     (i2s_playback_enable),
     .i2s_output_apb_0_playback_fifo_empty                   (i2s_output_apb_0_playback_fifo_empty),
     .i2s_output_apb_0_playback_fifo_full                    (),
-    .i2s_output_apb_0_playback_fifo_data                    (i2s_output_apb_0_playback_fifo_data),
+    .i2s_output_apb_0_playback_fifo_data                    ({i2s_output_apb_0_playback_fifo_data_R,i2s_output_apb_0_playback_fifo_data_L}),
     .audio_clk                                              (AUDIO_CLK)
     );
 // sound dma
 
-    assign rsound_mixed_out = SW[9] ? i2s_output_apb_0_playback_fifo_data[63:32] : i2s_output_apb_0_playback_fifo_data[63:32] + rsound_out;
-    assign lsound_mixed_out = SW[9] ? i2s_output_apb_0_playback_fifo_data[31:0]  : i2s_output_apb_0_playback_fifo_data[31:0]  + lsound_out;
+    assign rsound_mixed_out = SW[9] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
+    assign lsound_mixed_out = SW[9] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
 
     i2s_shift_out i2s_shift_out(
         .reset_n            (hps_0_h2f_reset_reset_n),
@@ -466,8 +466,8 @@ soc_system u0 (
         .reset_n            (hps_0_h2f_reset_reset_n),
         .clk                (i2s_clk),
 
-        .fifo_right_data    (i2s_output_apb_0_capture_fifo_data[63:32]),
-        .fifo_left_data     (i2s_output_apb_0_capture_fifo_data[31:0]),
+        .fifo_right_data    (i2s_output_apb_0_capture_fifo_data_R),
+        .fifo_left_data     (i2s_output_apb_0_capture_fifo_data_L),
         .fifo_ready         (~i2s_output_apb_0_capture_fifo_full),
         .fifo_write         (i2s_capture_fifo_write),
 
@@ -503,6 +503,8 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
     reg [7:0]  delay_1;
     logic       iRST_n;
+    wire run;
+    assign GPIO_1[0] = run;
 
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .CLOCK_50           (CLOCK2_50) ,
@@ -532,6 +534,7 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .socmidi_addr       (socmidi_addr) ,            // input [9:0] address_sig
     .socmidi_data_out   (socmidi_data_out) ,        // input [31:0] writedata_sig
     .socmidi_data_in    (socmidi_data_in),          // output [31:0] readdata_sig
+    .run                (run),
     .switch4            (SW[3])                     // input
 );
 
