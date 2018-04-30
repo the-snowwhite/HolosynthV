@@ -170,7 +170,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "32";
          type = "String";
       }
    }
@@ -186,7 +186,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "64";
          type = "String";
       }
    }
@@ -308,6 +308,22 @@
       {
          value = "1";
          type = "boolean";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
       }
    }
    element soc_system
@@ -558,6 +574,9 @@
    internal="i2s_output_apb_0.capture_fifo"
    type="conduit"
    dir="end" />
+ <interface
+   name="i2s_output_apb_0_hsynth_fifo"
+   internal="i2s_output_apb_0.hsynth_fifo" />
  <interface
    name="i2s_output_apb_0_playback_fifo"
    internal="i2s_output_apb_0.playback_fifo"
@@ -1769,7 +1788,7 @@
    start="mm_bridge_0.m0"
    end="i2s_clkctrl_api_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1778,7 +1797,7 @@
    start="mm_bridge_0.m0"
    end="hsynth_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1873,7 +1892,7 @@
    start="fpga_only_master_0.master"
    end="i2s_clkctrl_api_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1882,7 +1901,7 @@
    start="fpga_only_master_0.master"
    end="hsynth_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2000,12 +2019,12 @@
    version="17.1"
    start="clk_0.clk"
    end="i2s_output_apb_0.clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="mm_bridge_0.clk" />
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
    end="hsynth_output_apb_0.clk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="mm_bridge_0.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -2074,8 +2093,8 @@
  <connection
    kind="conduit"
    version="17.1"
-   start="hsynth_output_apb_0.capture_dma"
-   end="hps_0.f2h_dma_req2">
+   start="hps_0.f2h_dma_req2"
+   end="hsynth_output_apb_0.capture_dma">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -2247,12 +2266,12 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="hsynth_output_apb_0.reset" />
+   end="mm_bridge_0.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="mm_bridge_0.reset" />
+   end="hsynth_output_apb_0.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2412,22 +2431,22 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="hsynth_output_apb_0.reset" />
+   end="pll_stream.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
-   end="hsynth_output_apb_0.reset" />
+   end="pll_stream.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="pll_stream.reset" />
+   end="hsynth_output_apb_0.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
-   end="pll_stream.reset" />
+   end="hsynth_output_apb_0.reset" />
  <connection
    kind="reset"
    version="17.1"
