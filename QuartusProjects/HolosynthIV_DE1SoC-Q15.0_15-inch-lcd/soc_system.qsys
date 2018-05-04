@@ -17,29 +17,19 @@
          type = "int";
       }
    }
-   element alt_vip_vfr
+   element alt_vip_cl_vfb_0
    {
       datum _sortIndex
       {
          value = "11";
          type = "int";
       }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
    }
-   element alt_vip_vfr.avalon_slave
+   element alt_vip_cl_vfb_0.control
    {
-      datum _lockedAddress
-      {
-         value = "0";
-         type = "boolean";
-      }
       datum baseAddress
       {
-         value = "200704";
+         value = "512";
          type = "String";
       }
    }
@@ -652,19 +642,48 @@
   <parameter name="V_FRONT_PORCH" value="5" />
   <parameter name="V_SYNC_LENGTH" value="4" />
  </module>
- <module name="alt_vip_vfr" kind="alt_vip_vfr" version="14.0" enabled="1">
-  <parameter name="AUTO_CLOCK_MASTER_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="150000000" />
-  <parameter name="BITS_PER_PIXEL_PER_COLOR_PLANE" value="8" />
+ <module
+   name="alt_vip_cl_vfb_0"
+   kind="alt_vip_cl_vfb"
+   version="17.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="BURST_ALIGNMENT" value="1" />
   <parameter name="CLOCKS_ARE_SEPARATE" value="1" />
+  <parameter name="COLOR_PLANES_ARE_IN_PARALLEL" value="1" />
+  <parameter name="CONTROLLED_DROP_REPEAT" value="0" />
+  <parameter name="DROP_FRAMES" value="1" />
+  <parameter name="DROP_INVALID_FIELDS" value="1" />
+  <parameter name="DROP_REPEAT_USER" value="0" />
   <parameter name="FAMILY" value="Cyclone V" />
-  <parameter name="MAX_IMAGE_HEIGHT" value="768" />
-  <parameter name="MAX_IMAGE_WIDTH" value="1366" />
+  <parameter name="INTERLACED_SUPPORT" value="0" />
+  <parameter name="IS_FRAME_READER" value="1" />
+  <parameter name="IS_FRAME_WRITER" value="0" />
+  <parameter name="IS_SYNC_MASTER" value="0" />
+  <parameter name="IS_SYNC_SLAVE" value="0" />
+  <parameter name="LINE_BASED_BUFFERING" value="0" />
+  <parameter name="MAX_HEIGHT" value="768" />
+  <parameter name="MAX_SYMBOLS_PER_PACKET" value="10" />
+  <parameter name="MAX_WIDTH" value="1366" />
+  <parameter name="MEM_BASE_ADDR" value="0" />
+  <parameter name="MEM_BUFFER_OFFSET" value="16777216" />
   <parameter name="MEM_PORT_WIDTH" value="128" />
-  <parameter name="NUMBER_OF_CHANNELS_IN_PARALLEL" value="4" />
-  <parameter name="NUMBER_OF_CHANNELS_IN_SEQUENCE" value="1" />
-  <parameter name="RMASTER_BURST_TARGET" value="32" />
-  <parameter name="RMASTER_FIFO_DEPTH" value="64" />
+  <parameter name="MULTI_FRAME_DELAY" value="1" />
+  <parameter name="NUMBER_OF_COLOR_PLANES" value="4" />
+  <parameter name="PIXELS_IN_PARALLEL" value="1" />
+  <parameter name="READER_RUNTIME_CONTROL" value="1" />
+  <parameter name="READY_LATENCY" value="1" />
+  <parameter name="READ_BURST_TARGET" value="64" />
+  <parameter name="READ_FIFO_DEPTH" value="256" />
+  <parameter name="REPEAT_FRAMES" value="1" />
+  <parameter name="TEST_INIT" value="0" />
+  <parameter name="USER_PACKETS_MAX_STORAGE" value="0" />
+  <parameter name="USE_BUFFER_OFFSET" value="0" />
+  <parameter name="WRITER_RUNTIME_CONTROL" value="0" />
+  <parameter name="WRITE_BURST_TARGET" value="64" />
+  <parameter name="WRITE_FIFO_DEPTH" value="256" />
  </module>
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -811,7 +830,7 @@
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
   <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
-  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="100" />
+  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="50000000" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
@@ -824,8 +843,8 @@
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
   <parameter name="F2SCLK_WARMRST_Enable" value="false" />
-  <parameter name="F2SDRAM_Type" value="" />
-  <parameter name="F2SDRAM_Width" value="" />
+  <parameter name="F2SDRAM_Type" value="AXI-3" />
+  <parameter name="F2SDRAM_Width" value="128" />
   <parameter name="F2SINTERRUPT_Enable" value="true" />
   <parameter name="F2S_Width" value="3" />
   <parameter name="FIX_READ_LATENCY" value="8" />
@@ -1758,15 +1777,6 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="alt_vip_vfr.avalon_master"
-   end="hps_0.f2h_axi_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
    start="hps_0.h2f_lw_axi_master"
    end="mm_bridge_0.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1813,18 +1823,18 @@
    kind="avalon"
    version="17.1"
    start="mm_bridge_0.m0"
-   end="alt_vip_vfr.avalon_slave">
+   end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00031000" />
+  <parameter name="baseAddress" value="0x00030000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="17.1"
    start="mm_bridge_0.m0"
-   end="intr_capturer_0.avalon_slave_0">
+   end="alt_vip_cl_vfb_0.control">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="baseAddress" value="0x0200" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1917,18 +1927,18 @@
    kind="avalon"
    version="17.1"
    start="fpga_only_master_0.master"
-   end="alt_vip_vfr.avalon_slave">
+   end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00031000" />
+  <parameter name="baseAddress" value="0x00030000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="17.1"
    start="fpga_only_master_0.master"
-   end="intr_capturer_0.avalon_slave_0">
+   end="alt_vip_cl_vfb_0.control">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="baseAddress" value="0x0200" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1995,9 +2005,18 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
+   kind="avalon"
+   version="17.1"
+   start="alt_vip_cl_vfb_0.mem_master_rd"
+   end="hps_0.f2h_sdram0_data">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
    kind="avalon_streaming"
    version="17.1"
-   start="alt_vip_vfr.avalon_streaming_source"
+   start="alt_vip_cl_vfb_0.dout"
    end="alt_vip_cl_cvo_0.din" />
  <connection
    kind="clock"
@@ -2041,12 +2060,12 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="alt_vip_vfr.clock_master" />
+   end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="hps_0.f2h_axi_clock" />
+   end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2057,18 +2076,23 @@
    version="17.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="alt_vip_cl_vfb_0.mem_clock" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_stream.refclk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_stream.outclk0"
-   end="alt_vip_vfr.clock_reset" />
+   end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_stream.outclk0"
-   end="alt_vip_cl_cvo_0.main_clock" />
+   end="alt_vip_cl_vfb_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2111,6 +2135,13 @@
   <parameter name="startPort" value="" />
   <parameter name="startPortLSB" value="0" />
   <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="17.1"
+   start="hps_0.f2h_irq0"
+   end="alt_vip_cl_vfb_0.control_interrupt">
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="interrupt"
@@ -2196,17 +2227,17 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_vfr.clock_master_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
-   end="alt_vip_vfr.clock_reset_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="alt_vip_cl_vfb_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="alt_vip_cl_vfb_0.mem_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2301,32 +2332,32 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="alt_vip_vfr.clock_master_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="hps_only_master.master_reset"
-   end="alt_vip_vfr.clock_master_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master_0.master_reset"
-   end="alt_vip_vfr.clock_reset_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="hps_only_master.master_reset"
-   end="alt_vip_vfr.clock_reset_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master_0.master_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="alt_vip_cl_vfb_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_cl_vfb_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="alt_vip_cl_vfb_0.mem_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_cl_vfb_0.mem_reset" />
  <connection
    kind="reset"
    version="17.1"
