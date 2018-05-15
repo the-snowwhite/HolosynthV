@@ -72,6 +72,14 @@
          type = "boolean";
       }
    }
+   element clk_lcd
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
    element dipsw_pio
    {
       datum _sortIndex
@@ -152,7 +160,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "20";
          type = "int";
       }
    }
@@ -168,7 +176,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
    }
@@ -184,7 +192,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
       }
    }
@@ -283,7 +291,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "19";
          type = "int";
       }
    }
@@ -291,7 +299,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -440,7 +448,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
       }
    }
@@ -482,7 +490,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
       }
    }
@@ -572,7 +580,7 @@
    internal="i2s_output_apb_0.playback_fifo"
    type="conduit"
    dir="end" />
- <interface name="lcd_clk" internal="pll_stream.outclk1" type="clock" dir="start" />
+ <interface name="lcd_clk" internal="clk_lcd.in_clk" type="clock" dir="end" />
  <interface
    name="led_pio_external_connection"
    internal="led_pio.external_connection"
@@ -591,6 +599,11 @@
    internal="uioreg_io_0.pins"
    type="conduit"
    dir="end" />
+ <interface
+   name="vid_lcd_clk"
+   internal="pll_stream.outclk1"
+   type="clock"
+   dir="start" />
  <module
    name="alt_vip_cl_cvo_0"
    kind="alt_vip_cl_cvo"
@@ -615,7 +628,7 @@
   <parameter name="FIELD0_V_FRONT_PORCH" value="0" />
   <parameter name="FIELD0_V_RISING_EDGE" value="0" />
   <parameter name="FIELD0_V_SYNC_LENGTH" value="0" />
-  <parameter name="FIFO_DEPTH" value="1920" />
+  <parameter name="FIFO_DEPTH" value="1366" />
   <parameter name="F_FALLING_EDGE" value="0" />
   <parameter name="F_RISING_EDGE" value="0" />
   <parameter name="GENERATE_SYNC" value="0" />
@@ -633,7 +646,7 @@
   <parameter name="SRC_WIDTH" value="8" />
   <parameter name="STD_WIDTH" value="1" />
   <parameter name="TASK_WIDTH" value="8" />
-  <parameter name="THRESHOLD" value="1919" />
+  <parameter name="THRESHOLD" value="1365" />
   <parameter name="USE_CONTROL" value="0" />
   <parameter name="USE_EMBEDDED_SYNCS" value="0" />
   <parameter name="V_ACTIVE_LINES" value="768" />
@@ -704,6 +717,11 @@
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module name="clk_lcd" kind="altera_clock_bridge" version="17.1" enabled="1">
+  <parameter name="DERIVED_CLOCK_RATE" value="0" />
+  <parameter name="EXPLICIT_CLOCK_RATE" value="75000000" />
+  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
  <module name="dipsw_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -830,7 +848,7 @@
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
   <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
-  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="50000000" />
+  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="150000000" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
@@ -2065,11 +2083,6 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="hps_0.f2h_sdram0_clock" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
    end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
@@ -2086,13 +2099,18 @@
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
+   start="clk_lcd.out_clk"
+   end="alt_vip_cl_vfb_0.main_clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_lcd.out_clk"
    end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_stream.outclk0"
-   end="alt_vip_cl_vfb_0.main_clock" />
+   end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
    version="17.1"

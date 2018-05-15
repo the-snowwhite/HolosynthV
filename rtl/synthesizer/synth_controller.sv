@@ -35,7 +35,7 @@ module synth_controller(
     output [6:0]                dec_sel_bus,
 // status data
     output [V_WIDTH:0]          active_keys,
-    input                       switch4
+    input                       switch3
 );
 
 parameter VOICES = 8;
@@ -127,7 +127,7 @@ midi_in_mux midi_in_mux_inst
 (    .reset_reg_N        (reset_reg_N),
     .CLOCK_50           (CLOCK_50),
 
-	.sel(switch4) ,	// input  sel_sig
+	.sel(switch3) ,	// input  sel_sig
 
 	.byteready_u(byteready_u) ,	// input  byteready_u_sig
 	.cur_status_u(cur_status_u) ,	// input [7:0] cur_status_u_sig

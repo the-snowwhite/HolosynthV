@@ -50,7 +50,7 @@ module synthesizer (
     input   [7:0]       socmidi_data_out,
     output reg [7:0]    socmidi_data_in,
     output              run,
-    input               switch4
+    input               switch3
 );
 
 parameter VOICES = 32;
@@ -267,7 +267,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .synth_data (synth_data) ,
     .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
-    .switch4(switch4)
+    .switch3(switch3)
 );
 
 
