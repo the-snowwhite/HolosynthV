@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ip>
+ <presets version="12.1">
+  <preset
+     name="HD_cl_vfb_HDMI"
+     kind="alt_vip_cl_vfb"
+     version="All"
+     description="1920x1080x8">
+   <parameter name="READER_RUNTIME_CONTROL" value="1" />
+   <parameter name="CLOCKS_ARE_SEPARATE" value="1" />
+   <parameter name="MAX_WIDTH" value="1920" />
+   <parameter name="USER_PACKETS_MAX_STORAGE" value="0" />
+   <parameter name="IS_FRAME_READER" value="1" />
+   <parameter name="INTERLACED_SUPPORT" value="0" />
+   <parameter name="USE_BUFFER_OFFSET" value="0" />
+   <parameter name="MEM_BUFFER_OFFSET" value="16777216" />
+   <parameter name="PIXELS_IN_PARALLEL" value="1" />
+   <parameter name="BURST_ALIGNMENT" value="1" />
+   <parameter name="DROP_INVALID_FIELDS" value="0" />
+   <parameter name="COLOR_PLANES_ARE_IN_PARALLEL" value="1" />
+   <parameter name="BITS_PER_SYMBOL" value="8" />
+   <parameter name="MAX_HEIGHT" value="1080" />
+   <parameter name="MAX_SYMBOLS_PER_PACKET" value="10" />
+   <parameter name="NUMBER_OF_COLOR_PLANES" value="4" />
+   <parameter name="WRITE_BURST_TARGET" value="64" />
+   <parameter name="MULTI_FRAME_DELAY" value="1" />
+   <parameter name="MEM_PORT_WIDTH" value="128" />
+   <parameter name="READ_FIFO_DEPTH" value="512" />
+   <parameter name="CONTROLLED_DROP_REPEAT" value="0" />
+   <parameter name="REPEAT_FRAMES" value="1" />
+   <parameter name="DROP_FRAMES" value="0" />
+   <parameter name="READ_BURST_TARGET" value="64" />
+   <parameter name="MEM_BASE_ADDR" value="0" />
+   <parameter name="WRITE_FIFO_DEPTH" value="512" />
+   <parameter name="DROP_REPEAT_USER" value="0" />
+   <parameter name="WRITER_RUNTIME_CONTROL" value="0" />
+   <parameter name="IS_FRAME_WRITER" value="0" />
+  </preset>
+ </presets>
+</ip>

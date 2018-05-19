@@ -72,14 +72,6 @@
          type = "boolean";
       }
    }
-   element clk_lcd
-   {
-      datum _sortIndex
-      {
-         value = "13";
-         type = "int";
-      }
-   }
    element dipsw_pio
    {
       datum _sortIndex
@@ -160,7 +152,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "19";
          type = "int";
       }
    }
@@ -176,7 +168,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
    }
@@ -192,7 +184,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
    }
@@ -291,7 +283,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -299,7 +291,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -448,7 +440,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
    }
@@ -490,7 +482,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
    }
@@ -580,7 +572,7 @@
    internal="i2s_output_apb_0.playback_fifo"
    type="conduit"
    dir="end" />
- <interface name="lcd_clk" internal="clk_lcd.in_clk" type="clock" dir="end" />
+ <interface name="lcd_clk" internal="pll_stream.outclk1" type="clock" dir="start" />
  <interface
    name="led_pio_external_connection"
    internal="led_pio.external_connection"
@@ -599,11 +591,6 @@
    internal="uioreg_io_0.pins"
    type="conduit"
    dir="end" />
- <interface
-   name="vid_lcd_clk"
-   internal="pll_stream.outclk1"
-   type="clock"
-   dir="start" />
  <module
    name="alt_vip_cl_cvo_0"
    kind="alt_vip_cl_cvo"
@@ -680,23 +667,23 @@
   <parameter name="MAX_HEIGHT" value="768" />
   <parameter name="MAX_SYMBOLS_PER_PACKET" value="10" />
   <parameter name="MAX_WIDTH" value="1366" />
-  <parameter name="MEM_BASE_ADDR" value="0" />
+  <parameter name="MEM_BASE_ADDR" value="536870912" />
   <parameter name="MEM_BUFFER_OFFSET" value="16777216" />
-  <parameter name="MEM_PORT_WIDTH" value="128" />
+  <parameter name="MEM_PORT_WIDTH" value="512" />
   <parameter name="MULTI_FRAME_DELAY" value="1" />
   <parameter name="NUMBER_OF_COLOR_PLANES" value="4" />
   <parameter name="PIXELS_IN_PARALLEL" value="1" />
   <parameter name="READER_RUNTIME_CONTROL" value="1" />
   <parameter name="READY_LATENCY" value="1" />
   <parameter name="READ_BURST_TARGET" value="64" />
-  <parameter name="READ_FIFO_DEPTH" value="256" />
+  <parameter name="READ_FIFO_DEPTH" value="512" />
   <parameter name="REPEAT_FRAMES" value="1" />
   <parameter name="TEST_INIT" value="0" />
   <parameter name="USER_PACKETS_MAX_STORAGE" value="0" />
   <parameter name="USE_BUFFER_OFFSET" value="0" />
   <parameter name="WRITER_RUNTIME_CONTROL" value="0" />
   <parameter name="WRITE_BURST_TARGET" value="64" />
-  <parameter name="WRITE_FIFO_DEPTH" value="256" />
+  <parameter name="WRITE_FIFO_DEPTH" value="512" />
  </module>
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -717,11 +704,6 @@
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module name="clk_lcd" kind="altera_clock_bridge" version="17.1" enabled="1">
-  <parameter name="DERIVED_CLOCK_RATE" value="0" />
-  <parameter name="EXPLICIT_CLOCK_RATE" value="75000000" />
-  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
  <module name="dipsw_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -847,8 +829,8 @@
   <parameter name="ENABLE_USER_ECC" value="false" />
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
-  <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
-  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="150000000" />
+  <parameter name="F2H_AXI_CLOCK_FREQ" value="100000000" />
+  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
@@ -861,8 +843,8 @@
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
   <parameter name="F2SCLK_WARMRST_Enable" value="false" />
-  <parameter name="F2SDRAM_Type" value="AXI-3" />
-  <parameter name="F2SDRAM_Width" value="128" />
+  <parameter name="F2SDRAM_Type" value="" />
+  <parameter name="F2SDRAM_Width" value="" />
   <parameter name="F2SINTERRUPT_Enable" value="true" />
   <parameter name="F2S_Width" value="3" />
   <parameter name="FIX_READ_LATENCY" value="8" />
@@ -1098,7 +1080,7 @@
   <parameter name="REF_CLK_FREQ_PARAM_VALID" value="false" />
   <parameter name="S2FCLK_COLDRST_Enable" value="false" />
   <parameter name="S2FCLK_PENDINGRST_Enable" value="false" />
-  <parameter name="S2FCLK_USER0CLK_Enable" value="false" />
+  <parameter name="S2FCLK_USER0CLK_Enable" value="true" />
   <parameter name="S2FCLK_USER1CLK_Enable" value="false" />
   <parameter name="S2FCLK_USER1CLK_FREQ" value="100.0" />
   <parameter name="S2FCLK_USER2CLK" value="5" />
@@ -1219,7 +1201,7 @@
   <parameter name="dbg_trace_clk_div" value="0" />
   <parameter name="desired_can0_clk_mhz" value="100.0" />
   <parameter name="desired_can1_clk_mhz" value="100.0" />
-  <parameter name="desired_cfg_clk_mhz" value="123.333333" />
+  <parameter name="desired_cfg_clk_mhz" value="100.0" />
   <parameter name="desired_emac0_clk_mhz" value="250.0" />
   <parameter name="desired_emac1_clk_mhz" value="250.0" />
   <parameter name="desired_gpio_db_clk_hz" value="32000" />
@@ -2026,7 +2008,7 @@
    kind="avalon"
    version="17.1"
    start="alt_vip_cl_vfb_0.mem_master_rd"
-   end="hps_0.f2h_sdram0_data">
+   end="hps_0.f2h_axi_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -2036,11 +2018,6 @@
    version="17.1"
    start="alt_vip_cl_vfb_0.dout"
    end="alt_vip_cl_cvo_0.din" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
-   end="hps_only_master.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="sysid_qsys.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="led_pio.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="dipsw_pio.clk" />
@@ -2078,39 +2055,39 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="hps_0.f2h_axi_clock" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
    end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
-   end="alt_vip_cl_vfb_0.mem_clock" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_stream.refclk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
  <connection
    kind="clock"
    version="17.1"
-   start="clk_lcd.out_clk"
-   end="alt_vip_cl_vfb_0.main_clock" />
+   start="hps_0.h2f_user0_clock"
+   end="hps_only_master.clk" />
  <connection
    kind="clock"
    version="17.1"
-   start="clk_lcd.out_clk"
+   start="hps_0.h2f_user0_clock"
+   end="hps_0.f2h_axi_clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="hps_0.h2f_user0_clock"
+   end="alt_vip_cl_vfb_0.mem_clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_stream.outclk0"
    end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_stream.outclk0"
-   end="hps_0.f2h_sdram0_clock" />
+   end="alt_vip_cl_vfb_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
