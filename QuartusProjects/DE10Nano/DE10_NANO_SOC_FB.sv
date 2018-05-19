@@ -107,44 +107,44 @@ module DE10_NANO_SOC_FB(
     wire        hps_debug_reset;
     wire [27:0] stm_hw_events;
     wire 		fpga_clk_50;
-    wire        clk_75;
-
-    wire [7:0]         vid_r,vid_g,vid_b;
-    wire               vid_v_sync ;
-    wire               vid_h_sync ;
-    wire               vid_datavalid;
-
-    assign {vid_r,vid_g,vid_b} = HDMI_TX_D;
-    assign vid_datavalid = HDMI_TX_DE;
-    assign vid_v_sync = HDMI_TX_VS;
-    assign vid_h_sync = HDMI_TX_HS;
+    wire        lcd_clk;
+//
+//     wire [7:0]         vid_r,vid_g,vid_b;
+//     wire               vid_v_sync ;
+//     wire               vid_h_sync ;
+//     wire               vid_datavalid;
+//
+//     assign {vid_r,vid_g,vid_b} = HDMI_TX_D;
+//     assign vid_datavalid = HDMI_TX_DE;
+//     assign vid_v_sync = HDMI_TX_VS;
+//     assign vid_h_sync = HDMI_TX_HS;
 
     //////////// GPIO - 15" LCD  //////////
 
-    wire	[7:0]	LCD_B;
-    wire			LCD_DCLK;
-    wire	[7:0]	LCD_G;
-    wire			LCD_HSD;
-    wire	[7:0]	LCD_R;
-    wire			LCD_DE;
-    wire			LCD_VSD;
-
-    assign GPIO_0[28:22]	= LCD_B[7:1];
-    assign GPIO_0[20]		= LCD_B[0];
-    assign GPIO_0[21]		= LCD_G[7];
-    assign GPIO_0[19:18]	= LCD_G[6:5];
-    assign GPIO_0[15:11]	= LCD_G[4:0];
-    assign GPIO_0[10:3]		= LCD_R;
-    assign GPIO_0[1]		= LCD_DCLK;
-    assign GPIO_0[30]		= LCD_HSD;
-    assign GPIO_0[35]		= LCD_DE;
-    assign GPIO_0[31]		= LCD_VSD;
-
-    assign {LCD_R,LCD_G,LCD_B}	= {vid_r,vid_g,vid_b};
-    assign LCD_DCLK 			= clk_75;
-    assign LCD_HSD				= ~vid_h_sync;
-    assign LCD_VSD				= ~vid_v_sync;
-    assign LCD_DE				= vid_datavalid;
+//     wire	[7:0]	LCD_B;
+//     wire			LCD_DCLK;
+//     wire	[7:0]	LCD_G;
+//     wire			LCD_HSD;
+//     wire	[7:0]	LCD_R;
+//     wire			LCD_DE;
+//     wire			LCD_VSD;
+//
+//     assign GPIO_0[28:22]	= LCD_B[7:1];
+//     assign GPIO_0[20]		= LCD_B[0];
+//     assign GPIO_0[21]		= LCD_G[7];
+//     assign GPIO_0[19:18]	= LCD_G[6:5];
+//     assign GPIO_0[15:11]	= LCD_G[4:0];
+//     assign GPIO_0[10:3]		= LCD_R;
+//     assign GPIO_0[1]		= LCD_DCLK;
+//     assign GPIO_0[30]		= LCD_HSD;
+//     assign GPIO_0[35]		= LCD_DE;
+//     assign GPIO_0[31]		= LCD_VSD;
+//
+//     assign {LCD_R,LCD_G,LCD_B}	= {vid_r,vid_g,vid_b};
+//     assign LCD_DCLK 			= lcd_clk;
+//     assign LCD_HSD				= ~vid_h_sync;
+//     assign LCD_VSD				= ~vid_v_sync;
+//     assign LCD_DE				= vid_datavalid;
 
 ////////////      Midi       //////////
 
@@ -212,13 +212,13 @@ I2C_HDMI_Config u_I2C_HDMI_Config (
     .HDMI_TX_INT(HDMI_TX_INT)
     );
 
-    assign HDMI_TX_CLK = clk_75;
+    assign HDMI_TX_CLK = lcd_clk;
 
 soc_system u0 (
         //Clock&Reset
     .clk_clk                                     (FPGA_CLK1_50 ),
     .reset_reset_n                               (hps_fpga_reset_n ),
-    .alt_vip_cl_cvo_0_clocked_video_vid_clk       (HDMI_TX_CLK ),
+    .alt_vip_cl_cvo_0_clocked_video_vid_clk       (lcd_clk ),
     .alt_vip_cl_cvo_0_clocked_video_vid_data      (HDMI_TX_D ),
     .alt_vip_cl_cvo_0_clocked_video_underflow     ( ),
     .alt_vip_cl_cvo_0_clocked_video_vid_datavalid (HDMI_TX_DE),
@@ -258,7 +258,7 @@ soc_system u0 (
     .i2s_output_apb_0_playback_fifo_full                    (),
     .i2s_output_apb_0_playback_fifo_data                    ({i2s_output_apb_0_playback_fifo_data_R,i2s_output_apb_0_playback_fifo_data_L}),
     .audio_clk                                              (AUDIO_CLK),
-    .lcd_clk_clk                               (clk_75),
+    .lcd_clk_clk                               (lcd_clk),
     .pll_stream_locked_export                  (),      // out
     //HPS ddr3
     .memory_mem_a                          ( HPS_DDR3_ADDR),                       //                memory.mem_a
