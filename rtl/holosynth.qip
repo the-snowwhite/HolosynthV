@@ -1,7 +1,7 @@
 #-------------------- Common Holosynth Sources --------------------------#
 set_global_assignment -name SYSTEMVERILOG_FILE ../../Verilog_functions/utils.sv
 
-set_global_assignment -name IPX_FILE DE1_SOC_Linux_FB.ipx
+set_global_assignment -name IPX_FILE soc_system.ipx
 set_global_assignment -name SEARCH_PATH ../../cv-megawizard
 set_global_assignment -name SEARCH_PATH ../../megawizard_common
 set_global_assignment -name SEARCH_PATH ..\\..\\cv-megawizard
