@@ -280,6 +280,8 @@ assign LCD_DE               = vid_datavalid;
     bit          i2s_clkctrl_apb_0_conduit_bclk;
     bit          i2s_clk;
     logic        AUDIO_CLK;
+    logic        playback_enable;
+    logic        fifo_ready;
 //=======================================================
 //  Structural coding
 //=======================================================
@@ -444,8 +446,10 @@ soc_system u0 (
     );
 // sound dma
 
-    assign rsound_mixed_out = SW[9] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
-    assign lsound_mixed_out = SW[9] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
+    assign rsound_mixed_out = SW[3] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
+    assign lsound_mixed_out = SW[3] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
+    assign playback_enable  = SW[3] ? 1'b1 : i2s_playback_enable;
+    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
 
     i2s_shift_out i2s_shift_out(
         .reset_n            (hps_0_h2f_reset_reset_n),
@@ -453,10 +457,10 @@ soc_system u0 (
 
         .fifo_right_data    (rsound_mixed_out),
         .fifo_left_data     (lsound_mixed_out),
-        .fifo_ready         (~i2s_output_apb_0_playback_fifo_empty),
+        .fifo_ready         (fifo_ready),
         .fifo_ack           (i2s_playback_fifo_ack),
 
-        .enable             (i2s_playback_enable),
+        .enable             (playback_enable),
         .bclk               (i2s_clkctrl_apb_0_conduit_bclk),
         .lrclk              (AUD_DACLRCK),
         .data_out           (AUD_DACDAT)
