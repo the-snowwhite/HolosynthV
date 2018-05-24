@@ -37,7 +37,8 @@
 // Synthesizer
 `define _CycloneV
 `define _Synth
-`define _32BitAudio
+`define _24BitAudio
+//`define _32BitAudio
 //`define _180MhzOscs
 
 module DE1_SOC_Linux_FB(
@@ -519,8 +520,8 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .midi_txd           ( midi_txd ),               // output midi transmit signal (inverted due to inverter in rs232 chip)
     .button             ( KEY ),                    //  Button[3:0]
 `ifdef _Synth
-    .lsound_out         (lsound_out),               //  Audio Raw Data Low
-    .rsound_out         (rsound_out),               //  Audio Raw Data high
+    .lsound_out         (lsound_out[31:8]),               //  Audio Raw Data Low
+    .rsound_out         (rsound_out[31:8]),               //  Audio Raw Data high
     .xxxx_zero          (xxxx_zero),                // output  cycle complete signag
 `endif
     .keys_on            (keys_on),                  //  LED [7:0]

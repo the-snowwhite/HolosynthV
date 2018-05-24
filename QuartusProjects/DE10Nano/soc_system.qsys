@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "12";
          type = "int";
       }
    }
@@ -42,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "11";
          type = "int";
       }
    }
@@ -58,7 +58,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -97,7 +97,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
       datum sopceditor_expanded
@@ -125,14 +125,6 @@
       {
          value = "16384";
          type = "String";
-      }
-   }
-   element f2sdram_only_master
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
       }
    }
    element fpga_only_master
@@ -186,7 +178,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
    }
@@ -202,7 +194,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
    }
@@ -236,7 +228,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
       datum sopceditor_expanded
@@ -262,7 +254,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -278,7 +270,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -286,7 +278,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
    }
@@ -374,7 +366,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
    }
@@ -416,7 +408,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
    }
@@ -430,7 +422,7 @@
    }
 }
 ]]></parameter>
- <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="clockCrossingAdapter" value="AUTO" />
  <parameter name="device" value="5CSEBA6U23I7" />
  <parameter name="deviceFamily" value="Cyclone V" />
  <parameter name="deviceSpeedGrade" value="7" />
@@ -441,7 +433,7 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="maxAdditionalLatency" value="2" />
  <parameter name="projectName">DE10_NANO_SOC_FB.qpf</parameter>
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
@@ -559,7 +551,7 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="BPS" value="8" />
-  <parameter name="CLOCKS_ARE_SAME" value="0" />
+  <parameter name="CLOCKS_ARE_SAME" value="1" />
   <parameter name="COLOUR_PLANES_ARE_IN_PARALLEL" value="1" />
   <parameter name="CONTEXT_WIDTH" value="8" />
   <parameter name="COUNT_STEP_IS_PIP_VALUE" value="0" />
@@ -606,7 +598,7 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="BITS_PER_SYMBOL" value="8" />
   <parameter name="BURST_ALIGNMENT" value="1" />
-  <parameter name="CLOCKS_ARE_SEPARATE" value="1" />
+  <parameter name="CLOCKS_ARE_SEPARATE" value="0" />
   <parameter name="COLOR_PLANES_ARE_IN_PARALLEL" value="1" />
   <parameter name="CONTROLLED_DROP_REPEAT" value="0" />
   <parameter name="DROP_FRAMES" value="1" />
@@ -622,7 +614,7 @@
   <parameter name="MAX_HEIGHT" value="1080" />
   <parameter name="MAX_SYMBOLS_PER_PACKET" value="10" />
   <parameter name="MAX_WIDTH" value="1920" />
-  <parameter name="MEM_BASE_ADDR" value="0" />
+  <parameter name="MEM_BASE_ADDR" value="536870912" />
   <parameter name="MEM_BUFFER_OFFSET" value="16777216" />
   <parameter name="MEM_PORT_WIDTH" value="128" />
   <parameter name="MULTI_FRAME_DELAY" value="1" />
@@ -673,20 +665,6 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="4" />
- </module>
- <module
-   name="f2sdram_only_master"
-   kind="altera_jtag_avalon_master"
-   version="17.1"
-   enabled="1">
-  <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
-  <parameter name="COMPONENT_CLOCK" value="0" />
-  <parameter name="FAST_VER" value="0" />
-  <parameter name="FIFO_DEPTHS" value="2" />
-  <parameter name="PLI_PORT" value="50000" />
-  <parameter name="USE_PLI" value="0" />
  </module>
  <module
    name="fpga_only_master"
@@ -798,8 +776,8 @@
   <parameter name="ENABLE_USER_ECC" value="false" />
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
-  <parameter name="F2H_AXI_CLOCK_FREQ" value="100000000" />
-  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="100" />
+  <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
+  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="148500000" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
@@ -812,8 +790,8 @@
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
   <parameter name="F2SCLK_WARMRST_Enable" value="true" />
-  <parameter name="F2SDRAM_Type" value="" />
-  <parameter name="F2SDRAM_Width" value="" />
+  <parameter name="F2SDRAM_Type" value="AXI-3" />
+  <parameter name="F2SDRAM_Width" value="128" />
   <parameter name="F2SINTERRUPT_Enable" value="true" />
   <parameter name="F2S_Width" value="3" />
   <parameter name="FIX_READ_LATENCY" value="8" />
@@ -1910,7 +1888,7 @@
    kind="avalon"
    version="17.1"
    start="alt_vip_cl_vfb_0.mem_master_rd"
-   end="hps_0.f2h_axi_slave">
+   end="hps_0.f2h_sdram0_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1930,11 +1908,6 @@
  <connection kind="clock" version="17.1" start="clk_0.clk" end="dipsw_pio.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="button_pio.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="jtag_uart.clk" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
-   end="f2sdram_only_master.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="mm_bridge_0.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="ILC.clk" />
  <connection
@@ -1942,6 +1915,11 @@
    version="17.1"
    start="clk_0.clk"
    end="i2s_output_apb_0.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="hps_only_master.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="uioreg_io_0.clock" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="socmidi_0.clock" />
  <connection
@@ -1949,6 +1927,11 @@
    version="17.1"
    start="clk_0.clk"
    end="i2s_clkctrl_api_0.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -1964,28 +1947,18 @@
  <connection
    kind="clock"
    version="17.1"
-   start="hps_0.h2f_user0_clock"
-   end="hps_only_master.clk" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="hps_0.h2f_user0_clock"
-   end="hps_0.f2h_axi_clock" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="hps_0.h2f_user0_clock"
-   end="alt_vip_cl_vfb_0.mem_clock" />
- <connection
-   kind="clock"
-   version="17.1"
    start="pll_stream.outclk0"
-   end="alt_vip_cl_cvo_0.main_clock" />
+   end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_stream.outclk0"
    end="alt_vip_cl_vfb_0.main_clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_stream.outclk0"
+   end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2069,22 +2042,12 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="f2sdram_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
    end="alt_vip_cl_vfb_0.main_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
-   end="alt_vip_cl_vfb_0.mem_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2149,26 +2112,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="f2sdram_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master.master_reset"
-   end="f2sdram_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="hps_only_master.master_reset"
-   end="f2sdram_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="fpga_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="fpga_only_master.clk_reset" />
  <connection
@@ -2176,11 +2119,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="fpga_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="hps_only_master.clk_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2194,11 +2132,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="alt_vip_cl_cvo_0.main_reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
  <connection
@@ -2206,11 +2139,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="button_pio.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2224,11 +2152,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="dipsw_pio.reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="dipsw_pio.reset" />
  <connection
@@ -2236,11 +2159,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="dipsw_pio.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="jtag_uart.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2254,11 +2172,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="led_pio.reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="led_pio.reset" />
  <connection
@@ -2269,11 +2182,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="mm_bridge_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="mm_bridge_0.reset" />
  <connection
@@ -2281,21 +2189,11 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="mm_bridge_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="sysid_qsys.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
    end="sysid_qsys.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="pll_stream.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2324,16 +2222,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="uioreg_io_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="socmidi_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="socmidi_0.reset" />
  <connection
@@ -2341,11 +2229,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="socmidi_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="pll_bitclk.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2359,11 +2242,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="i2s_clkctrl_api_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="i2s_clkctrl_api_0.reset" />
  <connection
@@ -2371,11 +2249,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="i2s_clkctrl_api_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="i2s_output_apb_0.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2389,11 +2262,6 @@
  <connection
    kind="reset"
    version="17.1"
-   start="f2sdram_only_master.master_reset"
-   end="ILC.reset_n" />
- <connection
-   kind="reset"
-   version="17.1"
    start="fpga_only_master.master_reset"
    end="ILC.reset_n" />
  <connection
@@ -2401,6 +2269,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="ILC.reset_n" />
- <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="AUTO" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="2" />
 </system>
