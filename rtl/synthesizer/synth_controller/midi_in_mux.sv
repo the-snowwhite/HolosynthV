@@ -24,10 +24,10 @@ module midi_in_mux (
             midi_in_data <= 8'h00;
         end
         else begin
-            byteready    <= sel ? byteready_c : byteready_u;
-            cur_status   <= sel ? cur_status_c : cur_status_u;
-            midibyte_nr  <= sel ? midibyte_nr_c : midibyte_nr_u;
-            midi_in_data <= sel ? midi_in_data_c : midi_in_data_u;
+            byteready    <= sel ? byteready_u : byteready_c;
+            cur_status   <= sel ? cur_status_u : cur_status_c;
+            midibyte_nr  <= sel ? midibyte_nr_u : midibyte_nr_c;
+            midi_in_data <= sel ? midi_in_data_u : midi_in_data_c;
         end
     end
 
