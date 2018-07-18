@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "17";
          type = "int";
       }
    }
@@ -21,12 +21,17 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "16";
          type = "int";
       }
    }
    element alt_vip_cl_vfb_0.control
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "200704";
@@ -37,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -55,7 +60,7 @@
       }
       datum baseAddress
       {
-         value = "65728";
+         value = "20480";
          type = "String";
       }
    }
@@ -76,7 +81,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -102,7 +107,7 @@
       }
       datum baseAddress
       {
-         value = "65664";
+         value = "16384";
          type = "String";
       }
    }
@@ -110,7 +115,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "8";
          type = "int";
       }
    }
@@ -118,7 +123,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -139,7 +144,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -152,7 +157,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "5";
          type = "int";
       }
    }
@@ -168,7 +173,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "4";
          type = "int";
       }
    }
@@ -184,7 +189,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "3";
          type = "int";
       }
    }
@@ -205,7 +210,7 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum _tags
@@ -215,7 +220,7 @@
       }
       datum baseAddress
       {
-         value = "196608";
+         value = "3840";
          type = "String";
       }
    }
@@ -223,7 +228,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -249,7 +254,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -267,7 +272,7 @@
       }
       datum baseAddress
       {
-         value = "65600";
+         value = "12288";
          type = "String";
       }
    }
@@ -275,23 +280,31 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "9";
          type = "int";
+      }
+   }
+   element mm_bridge_0.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element pll_bitclk
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "1";
          type = "int";
       }
    }
-   element pll_stream
+   element pll_lcd
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "2";
          type = "int";
       }
       datum sopceditor_expanded
@@ -440,7 +453,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "19";
          type = "int";
       }
    }
@@ -456,7 +469,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -474,7 +487,7 @@
       }
       datum baseAddress
       {
-         value = "65536";
+         value = "4096";
          type = "String";
       }
    }
@@ -482,12 +495,17 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "18";
          type = "int";
       }
    }
    element uioreg_io_0.slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "262144";
@@ -572,7 +590,7 @@
    internal="i2s_output_apb_0.playback_fifo"
    type="conduit"
    dir="end" />
- <interface name="lcd_clk" internal="pll_stream.outclk1" type="clock" dir="start" />
+ <interface name="lcd_clk" internal="pll_lcd.outclk1" type="clock" dir="start" />
  <interface
    name="led_pio_external_connection"
    internal="led_pio.external_connection"
@@ -581,7 +599,7 @@
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
    name="pll_stream_locked"
-   internal="pll_stream.locked"
+   internal="pll_lcd.locked"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
@@ -1554,7 +1572,7 @@
   <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
   <parameter name="gui_use_locked" value="false" />
  </module>
- <module name="pll_stream" kind="altera_pll" version="17.1" enabled="1">
+ <module name="pll_lcd" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEMA5F31C6" />
@@ -1825,7 +1843,7 @@
    start="mm_bridge_0.m0"
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="baseAddress" value="0x0f00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1843,7 +1861,7 @@
    start="mm_bridge_0.m0"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1852,7 +1870,7 @@
    start="mm_bridge_0.m0"
    end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000100c0" />
+  <parameter name="baseAddress" value="0x5000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1861,12 +1879,12 @@
    start="mm_bridge_0.m0"
    end="dipsw_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010080" />
+  <parameter name="baseAddress" value="0x4000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="17.1" start="mm_bridge_0.m0" end="led_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="baseAddress" value="0x3000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1929,7 +1947,7 @@
    start="fpga_only_master_0.master"
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="baseAddress" value="0x0f00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1947,7 +1965,7 @@
    start="fpga_only_master_0.master"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1965,7 +1983,7 @@
    start="fpga_only_master_0.master"
    end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000100c0" />
+  <parameter name="baseAddress" value="0x5000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1974,7 +1992,7 @@
    start="fpga_only_master_0.master"
    end="dipsw_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010080" />
+  <parameter name="baseAddress" value="0x4000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1983,7 +2001,7 @@
    start="fpga_only_master_0.master"
    end="led_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="baseAddress" value="0x3000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2071,22 +2089,22 @@
    version="17.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_stream.refclk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_lcd.refclk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
+   start="pll_lcd.outclk0"
    end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
+   start="pll_lcd.outclk0"
    end="alt_vip_cl_vfb_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
+   start="pll_lcd.outclk0"
    end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
@@ -2135,13 +2153,6 @@
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
-   end="alt_vip_cl_vfb_0.control_interrupt">
-  <parameter name="irqNumber" value="5" />
- </connection>
- <connection
-   kind="interrupt"
-   version="17.1"
-   start="hps_0.f2h_irq0"
    end="jtag_uart.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
@@ -2150,14 +2161,14 @@
    version="17.1"
    start="hps_0.f2h_irq0"
    end="button_pio.irq">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
    end="dipsw_pio.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -2185,14 +2196,14 @@
    version="17.1"
    start="intr_capturer_0.interrupt_receiver"
    end="button_pio.irq">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="intr_capturer_0.interrupt_receiver"
    end="dipsw_pio.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -2252,7 +2263,7 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="pll_stream.reset" />
+   end="pll_lcd.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2432,12 +2443,12 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="pll_stream.reset" />
+   end="pll_lcd.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
-   end="pll_stream.reset" />
+   end="pll_lcd.reset" />
  <connection
    kind="reset"
    version="17.1"
