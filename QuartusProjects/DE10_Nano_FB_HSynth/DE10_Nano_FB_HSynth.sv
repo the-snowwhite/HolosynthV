@@ -8,7 +8,7 @@
 `define _Synth
 `define _24BitAudio
 
-module DE10_NANO_SOC_FB(
+module DE10_Nano_FB_HSynth(
 
     //////////// CLOCK //////////
     input 		          		FPGA_CLK1_50,
@@ -159,7 +159,7 @@ module DE10_NANO_SOC_FB(
 //wire               clk_150;
 // connection of internal logics
 //	assign LED[7:0] = fpga_led_internal | {7'b0000000, led_level};
-    assign LED[0] = led_level;
+    assign LED[7:0] = {fpga_led_internal[2:0],~voice_free[3:0],led_level};
     assign fpga_clk_50=FPGA_CLK1_50;
     assign stm_hw_events    = {{15{1'b0}}, SW, fpga_led_internal, fpga_debounced_buttons};
 
@@ -454,7 +454,7 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 //	assign aud_mute = user_dipsw_fpga[2];
 
 /////// LED Display ////////
-    assign LED[7:1] = ~voice_free[6:0];
+//    assign LED[7:1] = ~voice_free[6:0];
     wire  [VOICES-1:0]	keys_on;
     wire  [VOICES-1:0]	voice_free;
 
