@@ -349,7 +349,8 @@ soc_system u0 (
     assign rsound_mixed_out = SW[3] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
     assign lsound_mixed_out = SW[3] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
     assign playback_enable  = SW[3] ? 1'b1 : i2s_playback_enable;
-    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
+//    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
+    assign fifo_ready       = ~i2s_output_apb_0_playback_fifo_empty;
 
     i2s_shift_out i2s_shift_out(
         .reset_n            (hps_fpga_reset_n),
