@@ -21,18 +21,8 @@ module hsynth_output_apb (
 	output reg			capture_dma_single,
 	input wire			capture_dma_ack
 );
-//	wire			playback_fifo_read;
-//	wire			playback_dma_enable;
 	wire			capture_dma_enable;
-//	assign i2s_playback_enable = playback_dma_enable & ~playback_fifo_empty;
 	assign i2s_capture_enable = capture_dma_enable & ~capture_fifo_full;
-
-	wire			wr_fifo_write;
-	wire			wr_fifo_clear;
-	reg		[31:0]	wr_fifo_data;
-	wire			wr_fifo_empty;
-	wire			wr_fifo_full;
-	wire	[3:0]	wr_fifo_used;
 
 	wire			rd_fifo_read;
 	wire			rd_fifo_clear;
@@ -49,15 +39,7 @@ module hsynth_output_apb (
 	wire			cmd_sel = psel && (paddr == 8);
 
 	wire			capture_fifo_write;
-//	reg [2:0] i2s_playback_fifo_ack_synchro;
 	reg [2:0] i2s_capture_fifo_write_synchro;
-
-// 	always @(posedge clk or negedge reset_n)
-// 		if (~reset_n)
-// 			i2s_playback_fifo_ack_synchro <= 0;
-// 		else
-// 			i2s_playback_fifo_ack_synchro <= {i2s_playback_fifo_ack_synchro[1:0], i2s_playback_fifo_ack};
-// 	assign playback_fifo_read = i2s_playback_fifo_ack_synchro[2] & ~i2s_playback_fifo_ack_synchro[1];
 
 	always @(posedge clk or negedge reset_n)
 		if (~reset_n)
@@ -71,14 +53,11 @@ module hsynth_output_apb (
 	begin
 		if (~reset_n)
 		begin
-			wr_fifo_data <= 0;
 			cmd_reg <= 0;
 		end
 		else
 		begin
-			if (data_sel & pwrite & ~penable) // data write, phase 1
-				wr_fifo_data <= pwdata;
-			else if (data_sel & ~pwrite & ~penable) // data input register
+			if (data_sel & ~pwrite & ~penable) // data input register
 				prdata <= rd_fifo_data;
 			else if (sts_sel & ~pwrite & ~penable) // read status
 				prdata <= sts_reg;
@@ -103,10 +82,7 @@ module hsynth_output_apb (
 		end
 		else
 		begin
-			sts_reg[0] <= wr_fifo_empty;
-			sts_reg[1] <= wr_fifo_full;
 			sts_reg[7:5] <= 3'b0;
-			sts_reg[12:8] <= wr_fifo_used;
 			sts_reg[15:13] <= 3'b0;
 			sts_reg[16] <= rd_fifo_empty;
 			sts_reg[17] <= rd_fifo_full;
@@ -136,9 +112,6 @@ module hsynth_output_apb (
 	end
 
 	// Combinatorics
-	assign wr_fifo_write = data_sel & pwrite & penable; // data write, phase 2
-	assign wr_fifo_clear = cmd_reg[0];
-
 	assign rd_fifo_read = data_sel & ~pwrite & penable; // data read, phase 2
 	assign rd_fifo_clear = cmd_reg[2];
 	assign capture_dma_enable = cmd_reg[3];

@@ -70,8 +70,8 @@ module i2s_clkctrl_apb (
 	begin
 		if (~reset_n)
 		begin
-			cmd_reg1 <= 0;
-			cmd_reg2 <= 0;
+			cmd_reg1 <= 32'h00050003;
+			cmd_reg2 <= 32'h00001717;
 		end
 		else
 		begin

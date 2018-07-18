@@ -52,7 +52,6 @@
 *.sopc_builder
 *example*
 *~
-*.sdc
 *.tcl
 *.pin
 *.mif

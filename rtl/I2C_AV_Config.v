@@ -66,7 +66,7 @@ I2C_Controller 	u0	(	.CLOCK(mI2C_CTRL_CLK),		//	Controller Work Clock
  	 	 	 	 	 	.I2C_SDAT(I2C_SDAT),		//	I2C DATA
 						.I2C_DATA(mI2C_DATA),		//	DATA:[SLAVE_ADDR,SUB_ADDR,DATA]
 						.GO(mI2C_GO),      			//	GO transfor
-						.END(mI2C_END),				//	END transfor 
+						.END(mI2C_END),				//	END transfor
 						.ACK(mI2C_ACK),				//	ACK
 						.RESET(iRST_N)	);
 ////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ begin
 						if(!mI2C_ACK)
 						mSetup_ST	<=	2;
 						else
-						mSetup_ST	<=	0;							
+						mSetup_ST	<=	0;
 						mI2C_GO		<=	0;
 					end
 				end
@@ -111,7 +111,7 @@ begin
 	end
 end
 ////////////////////////////////////////////////////////////////////
-/////////////////////	Config Data LUT	  //////////////////////////	
+/////////////////////	Config Data LUT	  //////////////////////////
 always
 begin
 	case(LUT_INDEX)
@@ -139,8 +139,8 @@ begin
 	SET_ACTIVE	:	LUT_DATA	<=	16'h1201;
 	//	Video Config Data
 	SET_VIDEO+1	:	LUT_DATA	   <=	16'h0000;//04
-	SET_VIDEO+2	:	LUT_DATA	   <=	16'hc301;	
-    SET_VIDEO+3	:	LUT_DATA	   <=	16'hc480;	
+	SET_VIDEO+2	:	LUT_DATA	   <=	16'hc301;
+    SET_VIDEO+3	:	LUT_DATA	   <=	16'hc480;
     SET_VIDEO+4	:	LUT_DATA	   <=	16'h0457;
 	SET_VIDEO+5	:	LUT_DATA	   <=	16'h1741;
 	SET_VIDEO+6	:	LUT_DATA	   <=	16'h5801;
@@ -151,13 +151,13 @@ begin
 	SET_VIDEO+11	:	LUT_DATA	   <=	16'h0e80;
 	SET_VIDEO+12	:	LUT_DATA	   <=	16'h5581;
 	SET_VIDEO+13	:	LUT_DATA	   <=	16'h37A0;   // Polarity regiser
-	SET_VIDEO+14	:	LUT_DATA	   <=	16'h0880;	// Contrast Register 
-	SET_VIDEO+15	:	LUT_DATA	   <=	16'h0a18;	// Brightness Register 
+	SET_VIDEO+14	:	LUT_DATA	   <=	16'h0880;	// Contrast Register
+	SET_VIDEO+15	:	LUT_DATA	   <=	16'h0a18;	// Brightness Register
 	SET_VIDEO+16	:	LUT_DATA	   <=	16'h2c8e;	// AGC Mode control
-	SET_VIDEO+17	:	LUT_DATA	   <=	16'h2df8;   // Chroma Gain Control 1 
-	SET_VIDEO+18	:	LUT_DATA	   <=	16'h2ece;	// Chroma Gain Control 2 
+	SET_VIDEO+17	:	LUT_DATA	   <=	16'h2df8;   // Chroma Gain Control 1
+	SET_VIDEO+18	:	LUT_DATA	   <=	16'h2ece;	// Chroma Gain Control 2
 	SET_VIDEO+19	:	LUT_DATA	   <=	16'h2ff4;	// Luma Gain Control 1
-	SET_VIDEO+20	:	LUT_DATA	   <=	16'h30b2;	// Luma Gain Control 2	
+	SET_VIDEO+20	:	LUT_DATA	   <=	16'h30b2;	// Luma Gain Control 2
 	SET_VIDEO+21	:	LUT_DATA	   <=	16'h0e00;
 
 	default:		LUT_DATA	<=	16'd0 ;

@@ -1,5 +1,5 @@
 module addr_mux (
-input                       clk,
+input bit                   clk,
 input                       dataready,
 input                       dec_syx,
 input   [1:0]               cpu_and,
@@ -14,7 +14,9 @@ output  [num_lines-1:0]     sel_out
 
 parameter addr_width = 7;
 parameter num_lines = 7;
-    wire   read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]
+
+    logic read_write_act;
+    assign read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]
             || reg_dataready[3] || reg_dataready[4]);
 
     reg reg_dataready[4:0];

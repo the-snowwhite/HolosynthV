@@ -2,19 +2,10 @@
 set_global_assignment -name SYSTEMVERILOG_FILE ../../Verilog_functions/utils.sv
 
 set_global_assignment -name IPX_FILE soc_system.ipx
-set_global_assignment -name SEARCH_PATH "../../cv-megawizard/audio_pll"
-set_global_assignment -name SEARCH_PATH "../../cv-megawizard/sys_pll"
 set_global_assignment -name SEARCH_PATH ../../cv-megawizard
 set_global_assignment -name SEARCH_PATH ../../megawizard_common
-set_global_assignment -name SEARCH_PATH "..\\..\\cv-megawizard\\audio_pll"
-set_global_assignment -name SEARCH_PATH "..\\..\\cv-megawizard\\sys_pll"
 set_global_assignment -name SEARCH_PATH ..\\..\\cv-megawizard
 set_global_assignment -name SEARCH_PATH ..\\..\\megawizard_common
-
-set_global_assignment -name QIP_FILE ../../cv_megawizard/sys_pll.qip
-#set_global_assignment -name SIP_FILE ../../cv_megawizard/sys_pll.sip
-#set_global_assignment -name SIP_FILE ../../cv_megawizard/audio_pll.sip
-set_global_assignment -name QIP_FILE ../../cv_megawizard/audio_pll.qip
 
 set_global_assignment -name VERILOG_FILE ../../cv_ip/debounce/debounce.v
 
@@ -23,44 +14,54 @@ set_global_assignment -name QIP_FILE ../../megawizard_common/constmaprom2.qip
 set_global_assignment -name QIP_FILE ../../megawizard_common/blockram512x16bits_2clklatency.qip
 
 # generic functions:
-set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_mux.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_decoder.sv
+set_global_assignment -name SEARCH_PATH ../../lib
+#set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_mux.sv
+#set_global_assignment -name SYSTEMVERILOG_FILE ../../lib/addr_decoder.sv
 
 
 # Synth topfile
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer.sv
 
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/reset_delay.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/rt_controllers.sv
+
 # synth:
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/rt_controllers.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_controller.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/address_decoder.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/div_module.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/st_reg_ram.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/timing_gen.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/synth_clk_gen.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_status.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/note_stack.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/seq_trigger.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/sysex_func.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/cpu_port.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/midi_in_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/timing_gen.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/velocity.sv
 
 # Synth cores:
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/midi_uart.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/reset_delay.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/address_decoder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/cpu_port.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_in_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_status.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_uart.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/note_stack.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/seq_trigger.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/sysex_func.sv
+
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine.sv
+
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed.sv
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed/div_module.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed/st_reg_ram.sv
+
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/note_key_vel_sync.sv
+
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2.sv
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/nco_ram.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/osc.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/pitch_control.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/note_key_vel_sync.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/sine_lookup.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/constmap2.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/nco2.v
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/velocity.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2/midi_ctrl_data.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2/modulation_matrix.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2/vol_mixer.sv
+
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc.sv
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/nco_ram.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/nco2.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/sine_lookup.sv
+
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/pitch_control.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/pitch_control/constmap2.sv
 
 # Misc Drivers:
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/audio_i2s_driver.v
 set_global_assignment -name VERILOG_FILE ../../rtl/I2C_Controller.v
 set_global_assignment -name VERILOG_FILE ../../rtl/I2C_AV_Config.v

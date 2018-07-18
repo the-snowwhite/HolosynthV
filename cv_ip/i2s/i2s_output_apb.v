@@ -81,7 +81,7 @@ module i2s_output_apb (
 		if (~reset_n)
 		begin
 			wr_fifo_data <= 0;
-			cmd_reg <= 0;
+			cmd_reg <= 32'h0000000A;
 		end
 		else
 		begin

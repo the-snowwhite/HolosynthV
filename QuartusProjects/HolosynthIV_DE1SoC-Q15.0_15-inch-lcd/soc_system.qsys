@@ -9,37 +9,27 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element alt_vip_itc_0
+   element alt_vip_cl_cvo_0
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "17";
          type = "int";
       }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
    }
-   element alt_vip_vfr
+   element alt_vip_cl_vfb_0
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "16";
          type = "int";
       }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
    }
-   element alt_vip_vfr.avalon_slave
+   element alt_vip_cl_vfb_0.control
    {
       datum _lockedAddress
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
       datum baseAddress
@@ -52,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -70,7 +60,7 @@
       }
       datum baseAddress
       {
-         value = "65728";
+         value = "20480";
          type = "String";
       }
    }
@@ -87,19 +77,11 @@
          type = "boolean";
       }
    }
-   element clock_bridge_0
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-   }
    element dipsw_pio
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -125,7 +107,7 @@
       }
       datum baseAddress
       {
-         value = "65664";
+         value = "16384";
          type = "String";
       }
    }
@@ -141,7 +123,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -162,7 +144,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -175,7 +157,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "5";
          type = "int";
       }
    }
@@ -183,7 +165,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "32";
          type = "String";
       }
    }
@@ -191,7 +173,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "4";
          type = "int";
       }
    }
@@ -199,7 +181,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "64";
          type = "String";
       }
    }
@@ -207,7 +189,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "3";
          type = "int";
       }
    }
@@ -215,7 +197,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -228,7 +210,7 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum _tags
@@ -238,7 +220,7 @@
       }
       datum baseAddress
       {
-         value = "196608";
+         value = "3840";
          type = "String";
       }
    }
@@ -246,7 +228,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -272,7 +254,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -290,29 +272,61 @@
       }
       datum baseAddress
       {
-         value = "65600";
+         value = "12288";
          type = "String";
       }
    }
-   element pll_audio
+   element mm_bridge_0
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "9";
          type = "int";
       }
    }
-   element pll_stream
+   element mm_bridge_0.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element pll_bitclk
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "1";
+         type = "int";
+      }
+   }
+   element pll_lcd
+   {
+      datum _sortIndex
+      {
+         value = "2";
          type = "int";
       }
       datum sopceditor_expanded
       {
          value = "1";
          type = "boolean";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
       }
    }
    element soc_system
@@ -439,7 +453,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "19";
          type = "int";
       }
    }
@@ -455,7 +469,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -473,7 +487,7 @@
       }
       datum baseAddress
       {
-         value = "65536";
+         value = "4096";
          type = "String";
       }
    }
@@ -481,12 +495,17 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "18";
          type = "int";
       }
    }
    element uioreg_io_0.slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "262144";
@@ -515,15 +534,11 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
-   name="alt_vip_itc_0_clocked_video"
-   internal="alt_vip_itc_0.clocked_video"
+   name="alt_vip_cl_cvo_0_clocked_video"
+   internal="alt_vip_cl_cvo_0.clocked_video"
    type="conduit"
    dir="end" />
- <interface
-   name="audio_clk"
-   internal="clock_bridge_0.out_clk"
-   type="clock"
-   dir="start" />
+ <interface name="audio" internal="pll_bitclk.outclk0" type="clock" dir="start" />
  <interface
    name="button_pio_external_connection"
    internal="button_pio.external_connection"
@@ -553,6 +568,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="i2s_clkctrl_api_0_i2s_clk"
+   internal="i2s_clkctrl_api_0.i2s_clk"
+   type="clock"
+   dir="start" />
+ <interface
    name="i2s_clkctrl_api_0_mclk"
    internal="i2s_clkctrl_api_0.mclk"
    type="clock"
@@ -563,16 +583,14 @@
    type="conduit"
    dir="end" />
  <interface
-   name="i2s_output_apb_0_dma_control"
-   internal="i2s_output_apb_0.dma_control"
-   type="conduit"
-   dir="end" />
+   name="i2s_output_apb_0_hsynth_fifo"
+   internal="i2s_output_apb_0.hsynth_fifo" />
  <interface
    name="i2s_output_apb_0_playback_fifo"
    internal="i2s_output_apb_0.playback_fifo"
    type="conduit"
    dir="end" />
- <interface name="lcd_clk" internal="pll_stream.outclk1" type="clock" dir="start" />
+ <interface name="lcd_clk" internal="pll_lcd.outclk1" type="clock" dir="start" />
  <interface
    name="led_pio_external_connection"
    internal="led_pio.external_connection"
@@ -581,7 +599,7 @@
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
    name="pll_stream_locked"
-   internal="pll_stream.locked"
+   internal="pll_lcd.locked"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
@@ -591,21 +609,31 @@
    internal="uioreg_io_0.pins"
    type="conduit"
    dir="end" />
- <module name="alt_vip_itc_0" kind="alt_vip_itc" version="14.0" enabled="1">
+ <module
+   name="alt_vip_cl_cvo_0"
+   kind="alt_vip_cl_cvo"
+   version="17.1"
+   enabled="1">
   <parameter name="ACCEPT_COLOURS_IN_SEQ" value="0" />
+  <parameter name="ACCEPT_SYNC" value="0" />
   <parameter name="ANC_LINE" value="0" />
   <parameter name="AP_LINE" value="0" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="BPS" value="8" />
   <parameter name="CLOCKS_ARE_SAME" value="0" />
   <parameter name="COLOUR_PLANES_ARE_IN_PARALLEL" value="1" />
-  <parameter name="FAMILY" value="Cyclone V" />
+  <parameter name="CONTEXT_WIDTH" value="8" />
+  <parameter name="COUNT_STEP_IS_PIP_VALUE" value="0" />
+  <parameter name="DST_WIDTH" value="8" />
   <parameter name="FIELD0_ANC_LINE" value="0" />
   <parameter name="FIELD0_V_BACK_PORCH" value="0" />
   <parameter name="FIELD0_V_BLANK" value="0" />
   <parameter name="FIELD0_V_FRONT_PORCH" value="0" />
   <parameter name="FIELD0_V_RISING_EDGE" value="0" />
   <parameter name="FIELD0_V_SYNC_LENGTH" value="0" />
-  <parameter name="FIFO_DEPTH" value="1920" />
+  <parameter name="FIFO_DEPTH" value="1366" />
   <parameter name="F_FALLING_EDGE" value="0" />
   <parameter name="F_RISING_EDGE" value="0" />
   <parameter name="GENERATE_SYNC" value="0" />
@@ -615,10 +643,15 @@
   <parameter name="H_FRONT_PORCH" value="40" />
   <parameter name="H_SYNC_LENGTH" value="32" />
   <parameter name="INTERLACED" value="0" />
+  <parameter name="LOW_LATENCY" value="0" />
+  <parameter name="NO_OF_CHANNELS" value="1" />
   <parameter name="NO_OF_MODES" value="1" />
   <parameter name="NUMBER_OF_COLOUR_PLANES" value="4" />
+  <parameter name="PIXELS_IN_PARALLEL" value="1" />
+  <parameter name="SRC_WIDTH" value="8" />
   <parameter name="STD_WIDTH" value="1" />
-  <parameter name="THRESHOLD" value="1919" />
+  <parameter name="TASK_WIDTH" value="8" />
+  <parameter name="THRESHOLD" value="1365" />
   <parameter name="USE_CONTROL" value="0" />
   <parameter name="USE_EMBEDDED_SYNCS" value="0" />
   <parameter name="V_ACTIVE_LINES" value="768" />
@@ -627,19 +660,48 @@
   <parameter name="V_FRONT_PORCH" value="5" />
   <parameter name="V_SYNC_LENGTH" value="4" />
  </module>
- <module name="alt_vip_vfr" kind="alt_vip_vfr" version="14.0" enabled="1">
-  <parameter name="AUTO_CLOCK_MASTER_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="150000000" />
-  <parameter name="BITS_PER_PIXEL_PER_COLOR_PLANE" value="8" />
-  <parameter name="CLOCKS_ARE_SEPARATE" value="1" />
+ <module
+   name="alt_vip_cl_vfb_0"
+   kind="alt_vip_cl_vfb"
+   version="17.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="BURST_ALIGNMENT" value="1" />
+  <parameter name="CLOCKS_ARE_SEPARATE" value="0" />
+  <parameter name="COLOR_PLANES_ARE_IN_PARALLEL" value="1" />
+  <parameter name="CONTROLLED_DROP_REPEAT" value="0" />
+  <parameter name="DROP_FRAMES" value="1" />
+  <parameter name="DROP_INVALID_FIELDS" value="1" />
+  <parameter name="DROP_REPEAT_USER" value="0" />
   <parameter name="FAMILY" value="Cyclone V" />
-  <parameter name="MAX_IMAGE_HEIGHT" value="768" />
-  <parameter name="MAX_IMAGE_WIDTH" value="1366" />
-  <parameter name="MEM_PORT_WIDTH" value="128" />
-  <parameter name="NUMBER_OF_CHANNELS_IN_PARALLEL" value="4" />
-  <parameter name="NUMBER_OF_CHANNELS_IN_SEQUENCE" value="1" />
-  <parameter name="RMASTER_BURST_TARGET" value="32" />
-  <parameter name="RMASTER_FIFO_DEPTH" value="64" />
+  <parameter name="INTERLACED_SUPPORT" value="0" />
+  <parameter name="IS_FRAME_READER" value="1" />
+  <parameter name="IS_FRAME_WRITER" value="0" />
+  <parameter name="IS_SYNC_MASTER" value="0" />
+  <parameter name="IS_SYNC_SLAVE" value="0" />
+  <parameter name="LINE_BASED_BUFFERING" value="0" />
+  <parameter name="MAX_HEIGHT" value="768" />
+  <parameter name="MAX_SYMBOLS_PER_PACKET" value="10" />
+  <parameter name="MAX_WIDTH" value="1366" />
+  <parameter name="MEM_BASE_ADDR" value="536870912" />
+  <parameter name="MEM_BUFFER_OFFSET" value="16777216" />
+  <parameter name="MEM_PORT_WIDTH" value="512" />
+  <parameter name="MULTI_FRAME_DELAY" value="1" />
+  <parameter name="NUMBER_OF_COLOR_PLANES" value="4" />
+  <parameter name="PIXELS_IN_PARALLEL" value="1" />
+  <parameter name="READER_RUNTIME_CONTROL" value="1" />
+  <parameter name="READY_LATENCY" value="1" />
+  <parameter name="READ_BURST_TARGET" value="64" />
+  <parameter name="READ_FIFO_DEPTH" value="512" />
+  <parameter name="REPEAT_FRAMES" value="1" />
+  <parameter name="TEST_INIT" value="0" />
+  <parameter name="USER_PACKETS_MAX_STORAGE" value="0" />
+  <parameter name="USE_BUFFER_OFFSET" value="0" />
+  <parameter name="WRITER_RUNTIME_CONTROL" value="0" />
+  <parameter name="WRITE_BURST_TARGET" value="64" />
+  <parameter name="WRITE_FIFO_DEPTH" value="512" />
  </module>
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -660,15 +722,6 @@
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module
-   name="clock_bridge_0"
-   kind="altera_clock_bridge"
-   version="17.1"
-   enabled="1">
-  <parameter name="DERIVED_CLOCK_RATE" value="180612244" />
-  <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
-  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
  <module name="dipsw_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -795,7 +848,7 @@
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
   <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
-  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="100" />
+  <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="150000000" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
@@ -808,8 +861,8 @@
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
   <parameter name="F2SCLK_WARMRST_Enable" value="false" />
-  <parameter name="F2SDRAM_Type" value="" />
-  <parameter name="F2SDRAM_Width" value="" />
+  <parameter name="F2SDRAM_Type" value="AXI-3" />
+  <parameter name="F2SDRAM_Width" value="128" />
   <parameter name="F2SINTERRUPT_Enable" value="true" />
   <parameter name="F2S_Width" value="3" />
   <parameter name="FIX_READ_LATENCY" value="8" />
@@ -1166,13 +1219,13 @@
   <parameter name="dbg_trace_clk_div" value="0" />
   <parameter name="desired_can0_clk_mhz" value="100.0" />
   <parameter name="desired_can1_clk_mhz" value="100.0" />
-  <parameter name="desired_cfg_clk_mhz" value="123.333333" />
+  <parameter name="desired_cfg_clk_mhz" value="100.0" />
   <parameter name="desired_emac0_clk_mhz" value="250.0" />
   <parameter name="desired_emac1_clk_mhz" value="250.0" />
   <parameter name="desired_gpio_db_clk_hz" value="32000" />
   <parameter name="desired_l4_mp_clk_mhz" value="100.0" />
   <parameter name="desired_l4_sp_clk_mhz" value="100.0" />
-  <parameter name="desired_mpu_clk_mhz" value="800.0" />
+  <parameter name="desired_mpu_clk_mhz" value="920.0" />
   <parameter name="desired_nand_clk_mhz" value="12.5" />
   <parameter name="desired_qspi_clk_mhz" value="370.0" />
   <parameter name="desired_sdmmc_clk_mhz" value="200.0" />
@@ -1262,7 +1315,7 @@
    kind="intr_capturer"
    version="100.99.98.97"
    enabled="1">
-  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="15" />
+  <parameter name="AUTO_INTERRUPT_RECEIVER_INTERRUPTS_USED" value="31" />
   <parameter name="NUM_INTR" value="32" />
  </module>
  <module
@@ -1298,13 +1351,31 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="pll_audio" kind="altera_pll" version="17.1" enabled="1">
+ <module
+   name="mm_bridge_0"
+   kind="altera_avalon_mm_bridge"
+   version="17.1"
+   enabled="1">
+  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
+  <parameter name="ADDRESS_WIDTH" value="10" />
+  <parameter name="DATA_WIDTH" value="32" />
+  <parameter name="LINEWRAPBURSTS" value="0" />
+  <parameter name="MAX_BURST_SIZE" value="1" />
+  <parameter name="MAX_PENDING_RESPONSES" value="4" />
+  <parameter name="PIPELINE_COMMAND" value="1" />
+  <parameter name="PIPELINE_RESPONSE" value="1" />
+  <parameter name="SYMBOL_WIDTH" value="8" />
+  <parameter name="SYSINFO_ADDR_WIDTH" value="19" />
+  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
+  <parameter name="USE_RESPONSE" value="0" />
+ </module>
+ <module name="pll_bitclk" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEMA5F31C6" />
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_active_clk" value="false" />
-  <parameter name="gui_actual_output_clock_frequency0" value="270.833333 MHz" />
+  <parameter name="gui_actual_output_clock_frequency0" value="98.333333 MHz" />
   <parameter name="gui_actual_output_clock_frequency1" value="0 MHz" />
   <parameter name="gui_actual_output_clock_frequency10" value="0 MHz" />
   <parameter name="gui_actual_output_clock_frequency11" value="0 MHz" />
@@ -1417,8 +1488,8 @@
   <parameter name="gui_multiply_factor" value="1" />
   <parameter name="gui_number_of_clocks" value="3" />
   <parameter name="gui_operation_mode" value="direct" />
-  <parameter name="gui_output_clock_frequency0" value="180.612244" />
-  <parameter name="gui_output_clock_frequency1" value="24.313186" />
+  <parameter name="gui_output_clock_frequency0" value="90.416666" />
+  <parameter name="gui_output_clock_frequency1" value="33.90625" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1427,8 +1498,8 @@
   <parameter name="gui_output_clock_frequency15" value="100.0" />
   <parameter name="gui_output_clock_frequency16" value="100.0" />
   <parameter name="gui_output_clock_frequency17" value="100.0" />
-  <parameter name="gui_output_clock_frequency2" value="34.169884" />
-  <parameter name="gui_output_clock_frequency3" value="100.0" />
+  <parameter name="gui_output_clock_frequency2" value="24.675" />
+  <parameter name="gui_output_clock_frequency3" value="33.908" />
   <parameter name="gui_output_clock_frequency4" value="100.0" />
   <parameter name="gui_output_clock_frequency5" value="100.0" />
   <parameter name="gui_output_clock_frequency6" value="100.0" />
@@ -1501,7 +1572,7 @@
   <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
   <parameter name="gui_use_locked" value="false" />
  </module>
- <module name="pll_stream" kind="altera_pll" version="17.1" enabled="1">
+ <module name="pll_lcd" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEMA5F31C6" />
@@ -1724,8 +1795,8 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="alt_vip_vfr.avalon_master"
-   end="hps_0.f2h_axi_slave">
+   start="hps_0.h2f_lw_axi_master"
+   end="mm_bridge_0.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1733,25 +1804,7 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_axi_master"
-   end="alt_vip_vfr.avalon_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00031000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="i2s_clkctrl_api_0.apb_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="i2s_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1760,8 +1813,8 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="hsynth_output_apb_0.apb_slave">
+   start="mm_bridge_0.m0"
+   end="i2s_clkctrl_api_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
@@ -1769,8 +1822,35 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="alt_vip_vfr.avalon_slave">
+   start="mm_bridge_0.m0"
+   end="hsynth_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
+   end="jtag_uart.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
+   end="intr_capturer_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0f00" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
+   end="alt_vip_cl_vfb_0.control">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00031000" />
   <parameter name="defaultConnection" value="false" />
@@ -1778,43 +1858,39 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="led_pio.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="dipsw_pio.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010080" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000100c0" />
+  <parameter name="baseAddress" value="0x5000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
+   end="dipsw_pio.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x4000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="avalon" version="17.1" start="mm_bridge_0.m0" end="led_pio.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="mm_bridge_0.m0"
    end="uioreg_io_0.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00040000" />
@@ -1823,10 +1899,37 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="hps_0.h2f_lw_axi_master"
+   start="mm_bridge_0.m0"
    end="socmidi_0.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="i2s_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="i2s_clkctrl_api_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="hsynth_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1844,7 +1947,16 @@
    start="fpga_only_master_0.master"
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="baseAddress" value="0x0f00" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="alt_vip_cl_vfb_0.control">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00031000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1853,7 +1965,7 @@
    start="fpga_only_master_0.master"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1871,7 +1983,7 @@
    start="fpga_only_master_0.master"
    end="button_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000100c0" />
+  <parameter name="baseAddress" value="0x5000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1880,7 +1992,7 @@
    start="fpga_only_master_0.master"
    end="dipsw_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010080" />
+  <parameter name="baseAddress" value="0x4000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1889,19 +2001,41 @@
    start="fpga_only_master_0.master"
    end="led_pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010040" />
+  <parameter name="baseAddress" value="0x3000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="uioreg_io_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00040000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="fpga_only_master_0.master"
+   end="socmidi_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="alt_vip_cl_vfb_0.mem_master_rd"
+   end="hps_0.f2h_sdram0_data">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="alt_vip_vfr.avalon_streaming_source"
-   end="alt_vip_itc_0.din" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
-   end="hps_only_master.clk" />
+   start="alt_vip_cl_vfb_0.dout"
+   end="alt_vip_cl_cvo_0.din" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="sysid_qsys.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="led_pio.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="dipsw_pio.clk" />
@@ -1917,11 +2051,17 @@
    version="17.1"
    start="clk_0.clk"
    end="i2s_output_apb_0.clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="mm_bridge_0.clk" />
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
    end="hsynth_output_apb_0.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="hps_only_master.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -1938,11 +2078,6 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="alt_vip_vfr.clock_master" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1954,33 +2089,33 @@
    version="17.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_stream.refclk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_audio.refclk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_lcd.refclk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
-   end="alt_vip_vfr.clock_reset" />
+   start="pll_lcd.outclk0"
+   end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_audio.outclk0"
-   end="clock_bridge_0.in_clk" />
+   start="pll_lcd.outclk0"
+   end="alt_vip_cl_vfb_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_stream.outclk0"
-   end="alt_vip_itc_0.is_clk_rst" />
+   start="pll_lcd.outclk0"
+   end="alt_vip_cl_cvo_0.main_clock" />
  <connection
    kind="clock"
    version="17.1"
-   start="pll_audio.outclk1"
-   end="i2s_clkctrl_api_0.clk_48" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="pll_audio.outclk2"
+   start="pll_bitclk.outclk1"
    end="i2s_clkctrl_api_0.clk_44" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_bitclk.outclk2"
+   end="i2s_clkctrl_api_0.clk_48" />
  <connection
    kind="conduit"
    version="17.1"
@@ -1995,8 +2130,8 @@
  <connection
    kind="conduit"
    version="17.1"
-   start="hsynth_output_apb_0.capture_dma"
-   end="hps_0.f2h_dma_req2">
+   start="hps_0.f2h_dma_req2"
+   end="hsynth_output_apb_0.capture_dma">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -2026,14 +2161,14 @@
    version="17.1"
    start="hps_0.f2h_irq0"
    end="button_pio.irq">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
    end="dipsw_pio.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -2061,14 +2196,14 @@
    version="17.1"
    start="intr_capturer_0.interrupt_receiver"
    end="button_pio.irq">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="intr_capturer_0.interrupt_receiver"
    end="dipsw_pio.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -2078,10 +2213,12 @@
   <parameter name="irqNumber" value="3" />
  </connection>
  <connection
-   kind="reset"
+   kind="interrupt"
    version="17.1"
-   start="clk_0.clk_reset"
-   end="hps_only_master.clk_reset" />
+   start="intr_capturer_0.interrupt_receiver"
+   end="socmidi_0.slv_irq">
+  <parameter name="irqNumber" value="4" />
+ </connection>
  <connection
    kind="reset"
    version="17.1"
@@ -2091,17 +2228,17 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_vfr.clock_master_reset" />
+   end="hps_only_master.clk_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_vfr.clock_reset_reset" />
+   end="alt_vip_cl_cvo_0.main_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_itc_0.is_clk_rst_reset" />
+   end="alt_vip_cl_vfb_0.main_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2126,12 +2263,7 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="jtag_uart.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
-   end="pll_stream.reset" />
+   end="pll_lcd.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2156,12 +2288,22 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="mm_bridge_0.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
    end="hsynth_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="jtag_uart.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2191,6 +2333,26 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
+   end="alt_vip_cl_cvo_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_cl_cvo_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="alt_vip_cl_vfb_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="alt_vip_cl_vfb_0.main_reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
    end="button_pio.reset" />
  <connection
    kind="reset"
@@ -2207,16 +2369,6 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="dipsw_pio.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master_0.master_reset"
-   end="jtag_uart.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="hps_only_master.master_reset"
-   end="jtag_uart.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2281,12 +2433,22 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master_0.master_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="hps_only_master.master_reset"
-   end="pll_audio.reset" />
+   end="pll_bitclk.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="pll_lcd.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="pll_lcd.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2297,6 +2459,16 @@
    version="17.1"
    start="hps_only_master.master_reset"
    end="hsynth_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master_0.master_reset"
+   end="jtag_uart.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="hps_only_master.master_reset"
+   end="jtag_uart.reset" />
  <connection
    kind="reset"
    version="17.1"
