@@ -8,6 +8,8 @@
 /* BUTTON[3]: Keyboard code Reset             		 */
 /* BUTTON[4]: Keyboard system Reset                  */
 /*****************************************************/
+`define _Synth
+`define _24BitAudio
 
 module synthesizer (
 // Clock
