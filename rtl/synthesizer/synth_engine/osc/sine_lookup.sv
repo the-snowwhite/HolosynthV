@@ -1,7 +1,7 @@
 module sine_lookup(
-    input clk,
-    input [10:0] addr,
-    output reg signed [16:0] sine_value
+    input wire                  clk,
+    input wire [10:0]           addr,
+    output reg signed [16:0]    sine_value
 );
 
 // sine lookup value module using two symmetries

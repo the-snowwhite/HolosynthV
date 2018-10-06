@@ -1,14 +1,16 @@
-module midi_ctrl_data (
-    input                		reset_data_N,        // reset
-    input               [6:0]   adr,
-    input                       write,
-    input                       read,
-    input						sysex_data_patch_send,
-    input						osc_sel,
-    input						com_sel,
-    input						m1_sel,
-    input						m2_sel,
-    inout signed        [7:0]   data,
+module midi_ctrl_data #(
+parameter V_OSC		= 4 // oscs per Voice
+) (
+    input wire                  reset_data_N,        // reset
+    input wire          [6:0]   adr,
+    input wire                  write,
+    input wire                  read,
+    input wire                  sysex_data_patch_send,
+    input wire                  osc_sel,
+    input wire                  com_sel,
+    input wire                  m1_sel,
+    input wire                  m2_sel,
+    inout wire signed   [7:0]   data,
     output reg  signed  [7:0]   osc_lvl         [V_OSC-1:0],
     output reg  signed  [7:0]   osc_mod_out     [V_OSC-1:0],
     output reg  signed  [7:0]   osc_feedb_out   [V_OSC-1:0],
@@ -20,7 +22,6 @@ module midi_ctrl_data (
     output reg  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
     output reg          [7:0]   patch_name      [15:0]
 );
-parameter V_OSC		= 4; // oscs per Voice
 
     wire [V_OSC-1:0] osc_adr_data;
     reg signed [7:0] data_out;

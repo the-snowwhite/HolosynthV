@@ -1,16 +1,16 @@
 module MIDI_UART(
-    input               reset_reg_N,
-    input               CLOCK_50,
+    input wire              reset_reg_N,
+    input wire              CLOCK_50,
 // receiver
-    input               midi_rxd,
+    input wire              midi_rxd,
 // data out
     output	reg         byteready,
     output	reg[7:0]    cur_status,
     output	reg[7:0]    midibyte_nr,
     output	reg[7:0]    midi_in_data,
 // Transmitter
-    input               midi_send_byte,
-    input       [7:0]   midi_out_data,
+    input wire              midi_send_byte,
+    input wire      [7:0]   midi_out_data,
     output	reg         midi_txd,
     output	reg         midi_out_ready
 );

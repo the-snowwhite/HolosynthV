@@ -1,15 +1,18 @@
-module note_stack (
-    input                       CLOCK_50,
-    input                       reset_reg_N,
-    input   [VOICES-1:0]        voice_free,
-    input                       is_data_byte,
-    input                       is_velocity,
-    input                       is_st_note_on,
-    input                       is_st_note_off,
-    input                       is_st_ctrl,
-    input                       auto_syx_cmd,
-    input                       byteready,
-    input   [7:0]               databyte,
+module note_stack #(
+parameter VOICES = 8,
+parameter V_WIDTH = 3
+) (
+    input wire                      CLOCK_50,
+    input wire                      reset_reg_N,
+    input wire  [VOICES-1:0]        voice_free,
+    input wire                      is_data_byte,
+    input wire                      is_velocity,
+    input wire                      is_st_note_on,
+    input wire                      is_st_note_off,
+    input wire                      is_st_ctrl,
+    input wire                      auto_syx_cmd,
+    input wire                      byteready,
+    input wire  [7:0]               databyte,
     output reg [V_WIDTH:0]      active_keys,
     output reg                  note_on,
     output reg [V_WIDTH-1:0]    cur_key_adr,
@@ -17,12 +20,9 @@ module note_stack (
     output reg [7:0]            cur_vel_on,
     output reg [7:0]            cur_vel_off,
 // outputs to synth_engine
-    output [VOICES-1:0]         keys_on
+    output wire [VOICES-1:0]         keys_on
 
 );
-
-parameter VOICES = 8;
-parameter V_WIDTH = 3;
 
     integer free_voices_found;
  //   integer note_found;

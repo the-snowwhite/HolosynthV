@@ -1,12 +1,12 @@
 module address_decoder (
-    input               CLOCK_50,
-    input               reset_reg_N,
-    input               data_ready,
-    input   [2:0]       bank_adr,
-    input   [7:0]       out_data,
+    input wire              CLOCK_50,
+    input wire              reset_reg_N,
+    input wire              data_ready,
+    input wire  [2:0]       bank_adr,
+    input wire  [7:0]       out_data,
     output  reg         read_write ,
-	output  [7:0]       data_out,
-    output  [5:0]       dec_sel,
+	output wire [7:0]       data_out,
+    output wire [5:0]       dec_sel,
     output reg          write_dataenable
 );
 

@@ -1,21 +1,21 @@
-module nco2 (
-    input       reset_reg_N,
-    input       sCLK_XVXOSC,
-    input       sCLK_XVXENVS,
-    input       [23:0]osc_pitch_val,
-    input       [V_ENVS-1:0]osc_accum_zero,
-    input       [O_WIDTH-1:0] ox,
-    input       [V_WIDTH-1:0] vx,
-    output      [10:0]phase_acc
-);
-
-parameter VOICES = 8;
-parameter V_OSC = 4;
-parameter V_ENVS = 8;
-parameter V_WIDTH = 3;
-parameter O_WIDTH = 2;
+module nco2 #(
+parameter VOICES = 8,
+parameter V_OSC = 4,
+parameter V_ENVS = 8,
+parameter V_WIDTH = 3,
+parameter O_WIDTH = 2,
 //parameter x_offset = (V_OSC * VOICES ) - 2;
-parameter x_offset = 6;
+parameter x_offset = 6
+) (
+    input wire      reset_reg_N,
+    input wire      sCLK_XVXOSC,
+    input wire      sCLK_XVXENVS,
+    input wire      [23:0]osc_pitch_val,
+    input wire      [V_ENVS-1:0]osc_accum_zero,
+    input wire      [O_WIDTH-1:0] ox,
+    input wire      [V_WIDTH-1:0] vx,
+    output wire     [10:0]phase_acc
+);
 
 //parameter x_offset = (V_OSC * VOICES ) - 5;// osc 2,3
 //parameter x_offset = (V_OSC * VOICES ) - 8;

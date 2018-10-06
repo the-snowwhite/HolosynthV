@@ -11,61 +11,58 @@
 `define _Synth
 `define _24BitAudio
 
-module synthesizer (
+module synthesizer #(
+parameter VOICES = 32,
+parameter V_OSC = 4,				// number of oscilators pr. voice.
+parameter O_ENVS = 2,				// number of envelope generators pr. oscilator.
+parameter V_ENVS = V_OSC * O_ENVS,	// number of envelope generators  pr. voice.
+parameter V_WIDTH = utils::clogb2(VOICES),
+parameter O_WIDTH = utils::clogb2(V_OSC),
+parameter OE_WIDTH = utils::clogb2(O_ENVS),
+parameter E_WIDTH = O_WIDTH + OE_WIDTH
+) (
 // Clock
-    input               CLOCK_50,
-    input               AUDIO_CLK,
+    input wire          CLOCK_50,
+    input wire              AUDIO_CLK,
 // reset
-    input               reset_n,
-    input               trig,
+    input wire              reset_n,
+    input wire              trig,
 // MIDI uart
-    input               MIDI_Rx_DAT,
-    output              midi_txd,
+    input wire              MIDI_Rx_DAT,
+    output wire             midi_txd,
 
-    input   [4:1]       button,
-    output [VOICES-1:0] keys_on,
-    output [VOICES-1:0] voice_free,
+    input wire  [4:1]       button,
+    output wire [VOICES-1:0] keys_on,
+    output wire [VOICES-1:0] voice_free,
 
 `ifdef _32BitAudio
-    output signed [31:0]      lsound_out,
-    output signed [31:0]      rsound_out,
+    output wire signed [31:0]      lsound_out,
+    output wire signed [31:0]      rsound_out,
 `elsif _24BitAudio
-    output signed [23:0]      lsound_out,
-    output signed [23:0]      rsound_out,
+    output wire signed [23:0]      lsound_out,
+    output wire signed [23:0]      rsound_out,
 `else
-    output signed [15:0]      lsound_out,
-    output signed [15:0]      rsound_out,
+    output wire signed [15:0]      lsound_out,
+    output wire signed [15:0]      rsound_out,
 `endif
-    output              xxxx_zero,
+    output wire             xxxx_zero,
 
-    input               io_reset_n,
-    input               cpu_read,
-    input               cpu_write,
-    input               chipselect,
-    input   [9:0]       address,
-    input   [31:0]      writedata,
+    input wire              io_reset_n,
+    input wire              cpu_read,
+    input wire              cpu_write,
+    input wire              chipselect,
+    input wire  [9:0]       address,
+    input wire  [31:0]      writedata,
     output reg  [31:0]  readdata,
-    input               socmidi_read,
-    input               socmidi_write,
-    input               socmidi_cs,
-    input   [2:0]       socmidi_addr,
-    input   [7:0]       socmidi_data_out,
+    input wire              socmidi_read,
+    input wire              socmidi_write,
+    input wire              socmidi_cs,
+    input wire  [2:0]       socmidi_addr,
+    input wire  [7:0]       socmidi_data_out,
     output reg [7:0]    socmidi_data_in,
-    output              run,
-    input               switch3
+    output wire             run,
+    input wire              switch3
 );
-
-parameter VOICES = 32;
-parameter V_OSC = 4;				// number of oscilators pr. voice.
-parameter O_ENVS = 2;				// number of envelope generators pr. oscilator.
-
-parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
-
-parameter V_WIDTH = utils::clogb2(VOICES);
-parameter O_WIDTH = utils::clogb2(V_OSC);
-parameter OE_WIDTH = utils::clogb2(O_ENVS);
-parameter E_WIDTH = O_WIDTH + OE_WIDTH;
-
 
 //-----		Registers		-----//
 // io:

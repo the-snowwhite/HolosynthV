@@ -1,14 +1,15 @@
-module velocity (
-input                   reset_reg_N,
-input   [V_WIDTH-1:0]   vx,
-input                   reg_note_on,
-input   [7:0]           reg_cur_vel_on,
-input   [V_WIDTH-1:0]   reg_cur_key_adr,
-input   [7:0]           level_mul,
-output  [7:0]           level_mul_vel
+module velocity #(
+parameter VOICES	= 32,
+parameter V_WIDTH	= 5
+) (
+input wire                  reset_reg_N,
+input wire  [V_WIDTH-1:0]   vx,
+input wire                  reg_note_on,
+input wire  [7:0]           reg_cur_vel_on,
+input wire  [V_WIDTH-1:0]   reg_cur_key_adr,
+input wire  [7:0]           level_mul,
+output wire [7:0]           level_mul_vel
 );
-parameter VOICES	= 32;
-parameter V_WIDTH	= 5;
 
     reg  [7:0]r_cur_vel_on[VOICES-1:0];
     wire [14:0]  level_mul_vel_w;

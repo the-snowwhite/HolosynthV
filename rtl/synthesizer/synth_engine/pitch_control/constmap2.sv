@@ -1,10 +1,10 @@
 module constmap2
 (
     // Input Ports
-    input   [8:0]   sound,
-    input           clk,
+    input  wire  [8:0]   sound,
+    input  wire          clk,
     // Output Ports
-    output  [23:0]  constant
+    output  wire [23:0]  constant
 );
 
 blockrom256x24bits blockrom256x24bits_inst

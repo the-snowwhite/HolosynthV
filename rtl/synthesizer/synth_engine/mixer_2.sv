@@ -1,49 +1,48 @@
-module mixer_2 (
+module mixer_2 #(
+parameter VOICES	= 32,
+parameter V_OSC		= 8, // oscs per Voice
+parameter O_ENVS	= 2, // envs per Oscilator
+parameter V_ENVS	= V_OSC * O_ENVS, // = 16 number of envelope generators  pr. voice.
+parameter V_WIDTH = utils::clogb2(VOICES),
+parameter O_WIDTH = utils::clogb2(V_OSC),
+parameter OE_WIDTH	= 1,
+parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
+parameter x_offset = (V_OSC * VOICES ) - 2
+) (
 // Inputs -- //
-    input                       sCLK_XVXENVS,  // clk
-    input                       sCLK_XVXOSC,  // clk
-    input                       reset_data_N,        // reset
-    input [V_WIDTH+E_WIDTH-1:0] xxxx,
-    input                       xxxx_zero,
+    input wire                          sCLK_XVXENVS,  // clk
+    input wire                          sCLK_XVXOSC,  // clk
+    input wire                          reset_data_N,        // reset
+    input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
+    input wire                          xxxx_zero,
 //  env gen
-    input signed [7:0]          level_mul_vel,    // envgen output
-    input signed [16:0]         sine_lut_out, // sine
+    input wire signed [7:0]             level_mul_vel,    // envgen output
+    input wire signed [16:0]            sine_lut_out, // sine
 
-    inout signed [7:0]          data,
-    input [6:0]                 adr,
-    input                       write,
-    input                       read,
-    input                       sysex_data_patch_send,
-    input                       osc_sel,
-    input                       com_sel,
-    input                       m1_sel,
-    input                       m2_sel,
+    inout wire signed [7:0]             data,
+    input wire [6:0]                    adr,
+    input wire                          write,
+    input wire                          read,
+    input wire                          sysex_data_patch_send,
+    input wire                          osc_sel,
+    input wire                          com_sel,
+    input wire                          m1_sel,
+    input wire                          m2_sel,
 // Outputs -- //
 // osc
     output reg signed [10:0]    modulation,
 // sound data out
 `ifdef	_32BitAudio
-    output signed [31:0]        lsound_out, // 32-bits
-    output signed [31:0]        rsound_out  // 32-bits
+    output wire signed [31:0]        lsound_out, // 32-bits
+    output wire signed [31:0]        rsound_out  // 32-bits
 `elsif	_24BitAudio
-    output signed [23:0]        lsound_out, // 24-bits
-    output signed [23:0]        rsound_out  // 24-bits
+    output wire signed [23:0]        lsound_out, // 24-bits
+    output wire signed [23:0]        rsound_out  // 24-bits
 `else
-    output signed [15:0]        lsound_out, // 16-bits
-    output signed [15:0]        rsound_out  // 16-bits
+    output wire signed [15:0]        lsound_out, // 16-bits
+    output wire signed [15:0]        rsound_out  // 16-bits
 `endif
 );
-
-parameter VOICES	= 32;
-parameter V_OSC		= 8; // oscs per Voice
-parameter O_ENVS	= 2; // envs per Oscilator
-parameter V_ENVS	= V_OSC * O_ENVS; // = 16 number of envelope generators  pr. voice.
-parameter V_WIDTH = utils::clogb2(VOICES);
-parameter O_WIDTH = utils::clogb2(V_OSC);
-parameter OE_WIDTH	= 1;
-parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
-
-parameter x_offset = (V_OSC * VOICES ) - 2;
 
 wire  signed   [7:0]   osc_lvl        [V_OSC-1:0];
 wire  signed   [7:0]   osc_mod_out    [V_OSC-1:0];

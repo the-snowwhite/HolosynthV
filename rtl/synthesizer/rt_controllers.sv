@@ -1,18 +1,18 @@
-module rt_controllers (
-    input               reset_data_N,
-    input               CLOCK_50,
+module rt_controllers #(
+parameter VOICES = 8,// Set in toplevel
+parameter V_OSC = 4, // oscs per Voice  // Set in toplevel
+parameter V_WIDTH = 3,
+parameter O_WIDTH = 2,
+parameter B_WIDTH = O_WIDTH+3
+) (
+    input wire          reset_data_N,
+    input wire          CLOCK_50,
 //@name from synth_controller
-    input       [7:0]   ictrl,
-    input       [7:0]   ictrl_data,
-    input               pitch_cmd,
+    input wire  [7:0]   ictrl,
+    input wire  [7:0]   ictrl_data,
+    input wire          pitch_cmd,
     output reg  [13:0]  pitch_val
 );
-
-parameter VOICES = 8;// Set in toplevel
-parameter V_OSC = 4; // oscs per Voice  // Set in toplevel
-parameter V_WIDTH = 3;
-parameter O_WIDTH = 2;
-parameter B_WIDTH = O_WIDTH+3;
 
 /////////////   Fetch Controllers           /////////////
 //      Internal             //
