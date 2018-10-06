@@ -1,8 +1,8 @@
 module blockrom256x24bits
 #(parameter DATA_WIDTH=24, parameter ADDR_WIDTH=8)
 (
-	input [(ADDR_WIDTH-1):0] addr,
-	input clk, 
+	input wire [(ADDR_WIDTH-1):0] addr,
+	input wire clk, 
 	output reg [(DATA_WIDTH-1):0] q
 );
 
