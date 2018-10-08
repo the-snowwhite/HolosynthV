@@ -6,22 +6,15 @@ parameter V_ENVS    = O_ENVS * V_OSC,       // = 16 number of envelope generator
 parameter V_WIDTH   = utils::clogb2(VOICES),// = 5
 parameter O_WIDTH   = utils::clogb2(V_OSC), // = 3
 parameter OE_WIDTH  = 1,                    // = 1
-parameter E_WIDTH   = O_WIDTH + OE_WIDTH   // = 4
+parameter E_WIDTH   = O_WIDTH + OE_WIDTH,   // = 4
+parameter AUD_BIT_DEPTH = 24
 ) (
     input wire                  AUDIO_CLK,
     input wire                  reset_reg_N,
     input wire                  reset_data_N,
     input wire                  trig,
-`ifdef _32BitAudio
-    output wire signed [31:0]          lsound_out,
-    output wire signed [31:0]          rsound_out,
-`elsif _24BitAudio
-    output wire signed [23:0]          lsound_out,
-    output wire signed [23:0]          rsound_out,
-`else
-    output wire signed [15:0]          lsound_out,
-    output wire signed [15:0]          rsound_out,
-`endif
+    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
     output wire                 xxxx_zero,
 // from synth_controller
 // note events

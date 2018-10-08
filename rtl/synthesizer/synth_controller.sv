@@ -2,8 +2,8 @@ module synth_controller #(
 parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
-    input wire                      reset_reg_N,
-    input wire                      CLOCK_50,
+    input wire                  reset_reg_N,
+    input wire                  CLOCK_50,
 // cpu:
     input wire [2:0]            socmidi_addr,
     input wire [7:0]            socmidi_data_out,
@@ -38,7 +38,7 @@ parameter V_WIDTH = 3
     output wire [6:0]           dec_sel_bus,
 // status data
     output wire [V_WIDTH:0]     active_keys,
-    input wire                  switch3
+    input wire                  uart_usb_sel
 );
 
 //////////////key1 & key2 Assign///////////
@@ -126,7 +126,7 @@ midi_in_mux midi_in_mux_inst
 (    .reset_reg_N        (reset_reg_N),
     .CLOCK_50           (CLOCK_50),
 
-	.sel(switch3) ,	// input  sel_sig
+	.sel(uart_usb_sel) ,	// input  sel_sig
 
 	.byteready_u(byteready_u) ,	// input  byteready_u_sig
 	.cur_status_u(cur_status_u) ,	// input [7:0] cur_status_u_sig
@@ -192,7 +192,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.cur_key_val(cur_key_val) ,	// output [7:0] cur_key_val_sig
 	.cur_vel_on(cur_vel_on) ,	// output [7:0] cur_vel_on_sig
 	.cur_vel_off(cur_vel_off) ,	// output [7:0] cur_vel_off_sig
-	.keys_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
+	.key_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
 );
 
 seq_trigger seq_trigger_inst

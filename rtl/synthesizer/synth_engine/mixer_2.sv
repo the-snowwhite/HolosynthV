@@ -7,7 +7,8 @@ parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH	= 1,
 parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
-parameter x_offset = (V_OSC * VOICES ) - 2
+parameter x_offset = (V_OSC * VOICES ) - 2,
+parameter AUD_BIT_DEPTH = 24
 ) (
 // Inputs -- //
     input wire                          sCLK_XVXENVS,  // clk
@@ -32,28 +33,34 @@ parameter x_offset = (V_OSC * VOICES ) - 2
 // osc
     output reg signed [10:0]    modulation,
 // sound data out
-`ifdef	_32BitAudio
-    output wire signed [31:0]        lsound_out, // 32-bits
-    output wire signed [31:0]        rsound_out  // 32-bits
-`elsif	_24BitAudio
-    output wire signed [23:0]        lsound_out, // 24-bits
-    output wire signed [23:0]        rsound_out  // 24-bits
-`else
-    output wire signed [15:0]        lsound_out, // 16-bits
-    output wire signed [15:0]        rsound_out  // 16-bits
-`endif
+    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]  rsound_out
+
 );
 
-wire  signed   [7:0]   osc_lvl        [V_OSC-1:0];
-wire  signed   [7:0]   osc_mod_out    [V_OSC-1:0];
-wire  signed   [7:0]   osc_feedb_out  [V_OSC-1:0];
-wire  signed   [7:0]   osc_pan        [V_OSC-1:0];
-wire  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
-wire  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
-wire  signed   [7:0]   m_vol;
-wire  signed   [7:0]   mat_buf1       [15:0][V_OSC-1:0];
-wire  signed   [7:0]   mat_buf2       [15:0][V_OSC-1:0];
-wire           [7:0]   patch_name     [15:0];
+    wire  signed   [7:0]   osc_lvl        [V_OSC-1:0];
+    wire  signed   [7:0]   osc_mod_out    [V_OSC-1:0];
+    wire  signed   [7:0]   osc_feedb_out  [V_OSC-1:0];
+    wire  signed   [7:0]   osc_pan        [V_OSC-1:0];
+    wire  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
+    wire  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
+    wire  signed   [7:0]   m_vol;
+    wire  signed   [7:0]   mat_buf1       [15:0][V_OSC-1:0];
+    wire  signed   [7:0]   mat_buf2       [15:0][V_OSC-1:0];
+    wire           [7:0]   patch_name     [15:0];
+
+    reg [O_WIDTH-1:0]  ox_dly[x_offset:0];
+    reg [V_WIDTH-1:0]  vx_dly[x_offset:0];
+
+    reg[V_OSC+2:0] sh_voice_reg;
+    reg[V_ENVS:0] sh_osc_reg;
+
+    wire [O_WIDTH-1:0]  ox;
+    wire [V_WIDTH-1:0]  vx;
+    assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
+    assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
+    reg [E_WIDTH-1:0] sh_v_counter;
+    reg [OE_WIDTH-1:0] sh_o_counter;
 
  midi_ctrl_data #(.V_OSC(V_OSC))midi_ctrl_data_inst
 (
@@ -118,19 +125,6 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
 
 /**	@brief main shiftreg state driver
 */
-
-    reg [O_WIDTH-1:0]  ox_dly[x_offset:0];
-    reg [V_WIDTH-1:0]  vx_dly[x_offset:0];
-
-    reg[V_OSC+2:0] sh_voice_reg;
-    reg[V_ENVS:0] sh_osc_reg;
-
-    wire [O_WIDTH-1:0]  ox;
-    wire [V_WIDTH-1:0]  vx;
-    assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
-    assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
-    reg [E_WIDTH-1:0] sh_v_counter;
-    reg [OE_WIDTH-1:0] sh_o_counter;
 
     always @(posedge sCLK_XVXENVS )begin : main_sh_regs_state_driver
         if (xxxx_zero) begin sh_v_counter <= 0;sh_o_counter <= 0; end

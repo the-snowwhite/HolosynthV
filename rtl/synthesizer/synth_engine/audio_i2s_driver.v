@@ -1,28 +1,16 @@
-module audio_i2s_driver (
+module audio_i2s_driver #(
+parameter AUD_BIT_DEPTH = 24
+) (
     input wire              reset_reg_N,
     input wire              iAUD_DACLRCK,
     input wire              iAUD_BCLK,
-`ifdef _32BitAudio
-    input wire [31:0]        i_lsound_out, // 32-bits
-    input wire [31:0]        i_rsound_out, // 32-bits
-`elsif _24BitAudio
-    input wire [23:0]        i_lsound_out, // 24-bits
-    input wire [23:0]        i_rsound_out, // 24-bits
-`else
-    input wire [15:0]        i_lsound_out, // 16-bits
-    input wire [15:0]        i_rsound_out, // 16-bits
-`endif
+    input wire [AUD_BIT_DEPTH-1:0]  i_lsound_out,
+    input wire [AUD_BIT_DEPTH-1:0]  i_rsound_out,
     output wire             oAUD_DACDAT
 );
 
     reg [4:0]         SEL_Cont;
-`ifdef	_32BitAudio
-    reg signed [31:0] sound_out; // 32-bits
-`elsif	_24BitAudio
-    reg signed [23:0] sound_out; // 24-bits
-`else
-    reg signed [15:0] sound_out; // 16-bits
-`endif
+    reg signed [AUD_BIT_DEPTH-1:0] sound_out; // 
     reg reg_edge_detected;
     reg reg_lrck_dly;
 
@@ -50,12 +38,12 @@ module audio_i2s_driver (
         end
     end
 
-`ifdef _32BitAudio
-    assign  oAUD_DACDAT   =  (SEL_Cont <= 31) ? sound_out[(~SEL_Cont)] : 1'b0; // 32-bits
-`elsif _24BitAudio
-    assign  oAUD_DACDAT   =  (SEL_Cont <= 23) ? sound_out[(~SEL_Cont)-5'd8] : 1'b0; // 24-bits
-`else
-    assign  oAUD_DACDAT   =  (SEL_Cont <= 15 ) ? sound_out[~SEL_Cont[4:0]] : 1'b0; // 16-bits
-`endif
+// // `ifdef _32BitAudio
+// //     assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1) ? sound_out[(~SEL_Cont)] : 1'b0; // 32-bits
+// `elsif _24BitAudio
+    assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1) ? sound_out[(~SEL_Cont)-(32-AUD_BIT_DEPTH)] : 1'b0; // 24-bits
+// `else
+//     assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1 ) ? sound_out[~SEL_Cont[4:0]] : 1'b0; // 16-bits
+// `endif
 
 endmodule

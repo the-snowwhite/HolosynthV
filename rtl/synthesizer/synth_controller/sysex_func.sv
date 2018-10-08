@@ -11,7 +11,7 @@ module sysex_func (
     output  reg         syx_cmd,
     output  reg         sysex_data_patch_send,
     output  reg         auto_syx_cmd,
-    output wire [7:0]       midi_out_data,
+    output reg  [7:0]       midi_out_data,
     output wire [2:0]       bank_adr,
     output wire [6:0]       dec_addr
 );

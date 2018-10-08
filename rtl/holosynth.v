@@ -1,11 +1,9 @@
-`define _Synth
-`define _24BitAudio
-
 module holosynth #(
 parameter a_NUM_VOICES = 32,
 parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
-parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC	// number of envelope generators  pr. voice.
+parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
+parameter AUD_BIT_DEPTH = 24
 ) (
 // Clock
     input  wire         fpga_clk,
@@ -21,16 +19,9 @@ parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC	// number of env
     output [a_NUM_VOICES-1:0] keys_on,
     output [a_NUM_VOICES-1:0] voice_free,
 
-`ifdef _32BitAudio
-    output wire [31:0]  lsound_out,
-    output wire [31:0]  rsound_out,
-`elsif _24BitAudio
-    output wire [23:0]  lsound_out,
-    output wire [23:0]  rsound_out,
-`else
-    output wire [15:0]  lsound_out,
-    output wire [15:0]  rsound_out,
-`endif
+    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+
     output wire          xxxx_zero,
 
     input  wire          cpu_read,
@@ -54,31 +45,21 @@ parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC	// number of env
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_n                (reset_n),
         .trig                   (AUD_DACLRCK),
-        .MIDI_Rx_DAT            (midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-        .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
+        .MIDI_Rx_DAT            (~midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+        .midi_txd               (~midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
-    `ifdef _Synth
-        `ifdef _32BitAudio
-        .lsound_out             (lsound_out[31:0] ),      //  Audio Raw Data Low
-        .rsound_out             (rsound_out[31:0] ),      //  Audio Raw Data high
-        `elsif _24BitAudio
-        .lsound_out             (lsound_out[23:0] ),      //  Audio Raw Data Low
-        .rsound_out             (rsound_out[23:0] ),      //  Audio Raw Data high
-        `else
-        .lsound_out             (lsound_out[15:0] ),      //  Audio Raw Data Low
-        .rsound_out             (rsound_out[15:0] ),      //  Audio Raw Data high
-        `endif
+         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
+        .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
-    `endif
         .keys_on                (keys_on),				//  LED [7:0]
         .voice_free             (voice_free) , 			//  Red LED [4:1]
 //        .io_reset_n             (reset_n) ,	// input  io_reset_sig
-        .cpu_addr               (cpu_addr) ,	// input [9:0] address_sig
+        .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig
-        .cpu_chip_sel           (cpu_chip_sel) ,	// input  chipselect_sig
-        .cpu_data_in            (cpu_data_in) ,	// input [31:0] writedata_sig
-        .cpu_data_out           (cpu_data_out), 	// output [31:0] readdata_sig
+        .chipselect             (cpu_chip_sel) ,	// input  chipselect_sig
+        .readdata               (cpu_data_in) ,	// input [31:0] writedata_sig
+        .writedata              (cpu_data_out), 	// output [31:0] readdata_sig
         .socmidi_addr           (socmidi_addr) ,	// input [9:0] address_sig
         .socmidi_write          (socmidi_write) ,	// input  cpu_write_sig
         .socmidi_read           (socmidi_read) ,	// input  cpu_read_sig

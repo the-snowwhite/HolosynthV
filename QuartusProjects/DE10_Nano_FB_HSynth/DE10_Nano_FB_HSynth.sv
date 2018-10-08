@@ -493,7 +493,7 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .socmidi_data_out       (socmidi_data_out) ,	// input [31:0] writedata_sig
     .socmidi_data_in        (socmidi_data_in), 	// output [31:0] readdata_sig
     .run                    (run),
-    .switch3                (SW[2])
+    .uart_usb_sel           (SW[2])
 );
 
 endmodule

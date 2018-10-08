@@ -2,17 +2,17 @@ module note_stack #(
 parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
-    input wire                      CLOCK_50,
-    input wire                      reset_reg_N,
-    input wire  [VOICES-1:0]        voice_free,
-    input wire                      is_data_byte,
-    input wire                      is_velocity,
-    input wire                      is_st_note_on,
-    input wire                      is_st_note_off,
-    input wire                      is_st_ctrl,
-    input wire                      auto_syx_cmd,
-    input wire                      byteready,
-    input wire  [7:0]               databyte,
+    input wire                  CLOCK_50,
+    input wire                  reset_reg_N,
+    input wire  [VOICES-1:0]    voice_free,
+    input wire                  is_data_byte,
+    input wire                  is_velocity,
+    input wire                  is_st_note_on,
+    input wire                  is_st_note_off,
+    input wire                  is_st_ctrl,
+    input wire                  auto_syx_cmd,
+    input wire                  byteready,
+    input wire  [7:0]           databyte,
     output reg [V_WIDTH:0]      active_keys,
     output reg                  note_on,
     output reg [V_WIDTH-1:0]    cur_key_adr,
@@ -20,7 +20,7 @@ parameter V_WIDTH = 3
     output reg [7:0]            cur_vel_on,
     output reg [7:0]            cur_vel_off,
 // outputs to synth_engine
-    output wire [VOICES-1:0]         keys_on
+    output reg  [VOICES-1:0]    key_on
 
 );
 
@@ -39,13 +39,13 @@ parameter V_WIDTH = 3
 
 // ----- Pack / Unpack macros   ---- //
 
-`define PACK_BIT_ARRAY(PK_LEN,PK_SRC,PK_DEST) generate genvar pk_idx; for(pk_idx=0;pk_idx<(PK_LEN);pk_idx = pk_idx+1)begin : pack_bit_array assign keys_on[pk_idx] = key_on[pk_idx]; end endgenerate
- // -----        End Macros Def     ---- //
- `PACK_BIT_ARRAY(VOICES,key_on,keys_on)
+// `define PACK_BIT_ARRAY(PK_LEN,PK_SRC,PK_DEST) generate genvar pk_idx; for(pk_idx=0;pk_idx<(PK_LEN);pk_idx = pk_idx+1)begin : pack_bit_array assign keys_on[pk_idx] = key_on[pk_idx]; end endgenerate
+//  // -----        End Macros Def     ---- //
+//  `PACK_BIT_ARRAY(VOICES,key_on,keys_on)
 
 // -----        End Macros     ---- //
 
-    reg   key_on[VOICES-1:0];
+//    reg   key_on[VOICES-1:0];
 
     reg   [7:0]key_val[VOICES-1:0];
 
