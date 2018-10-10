@@ -1,7 +1,0 @@
-vhdl xil_defaultlib  \
-"../../../bd/design_1/ip/design_1_rst_ps8_0_99M_0/sim/design_1_rst_ps8_0_99M_0.vhd" \
-"../../../../Ultra96_Holosynth.srcs/sources_1/bd/design_1/ipshared/8c6e/src/hm2_axilite_int.vhd" \
-"../../../bd/design_1/ip/design_1_hm2_axilite_int_0_0/sim/design_1_hm2_axilite_int_0_0.vhd" \
-"../../../bd/design_1/ip/design_1_hm2_axilite_int_1_0/sim/design_1_hm2_axilite_int_1_0.vhd" \
-
-nosort
