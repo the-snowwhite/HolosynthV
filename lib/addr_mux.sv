@@ -1,4 +1,7 @@
-module addr_mux (
+module addr_mux #(
+parameter addr_width = 7,
+parameter num_lines = 7
+) (
 input bit                   clk,
 input                       dataready,
 input                       dec_syx,
@@ -11,9 +14,6 @@ output                      syx_out,
 output  [addr_width-1:0]    addr_out,
 output  [num_lines-1:0]     sel_out
 );
-
-parameter addr_width = 7;
-parameter num_lines = 7;
 
     logic read_write_act;
     assign read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]

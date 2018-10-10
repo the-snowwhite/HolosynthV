@@ -1,6 +1,6 @@
 module	reset_delay(
-    input       iCLK,
-    input       reset_reg_N,
+    input wire  iCLK,
+    input wire  reset_reg_N,
     output reg  oRST_0,
     output reg  oRST_1,
     output reg  oRST_2

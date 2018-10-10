@@ -1,35 +1,34 @@
-module modulation_matrix (
+module modulation_matrix #(
+parameter VOICES	= 8,
+parameter V_OSC		= 4, // oscs per Voice
+parameter O_ENVS	= 2, // envs per Oscilator
+parameter V_ENVS	= V_OSC * O_ENVS, // envs per Voice
+parameter V_WIDTH	= 3,
+parameter O_WIDTH	= 2,
+parameter OE_WIDTH	= 1,
+parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
+parameter x_offset = (V_OSC * VOICES ) - 2,
+parameter vo_x_offset = x_offset
+) (
 // Inputs -- //
-    input                		sCLK_XVXENVS,    // clk
-    input                		sCLK_XVXOSC,     // clk
-    input   [O_WIDTH-1:0]       ox_dly          [x_offset:0],
-    input   [V_WIDTH-1:0]       vx_dly          [x_offset:0],
-    input   [V_OSC+2:0]         sh_voice_reg,
-    input   [V_ENVS:0]          sh_osc_reg,
-    input signed [7:0]          level_mul_vel,  // envgen output
-    input signed [16:0]         sine_lut_out,   // sine
+    input wire                  sCLK_XVXENVS,    // clk
+    input wire                  sCLK_XVXOSC,     // clk
+    input wire  [O_WIDTH-1:0]   ox_dly          [x_offset:0],
+    input wire  [V_WIDTH-1:0]   vx_dly          [x_offset:0],
+    input wire  [V_OSC+2:0]     sh_voice_reg,
+    input wire  [V_ENVS:0]      sh_osc_reg,
+    input wire signed   [7:0]   level_mul_vel,  // envgen output
+    input wire signed   [16:0]  sine_lut_out,   // sine
 
-    input   signed      [7:0]   osc_mod_out     [V_OSC-1:0],
-    input   signed      [7:0]   osc_feedb_out   [V_OSC-1:0],
-    input   signed      [7:0]   osc_mod_in      [V_OSC-1:0],
-    input   signed      [7:0]   osc_feedb_in    [V_OSC-1:0],
-    input   signed      [7:0]   mat_buf1        [15:0][V_OSC-1:0],
-    input   signed      [7:0]   mat_buf2        [15:0][V_OSC-1:0],
+    input wire  signed  [7:0]   osc_mod_out     [V_OSC-1:0],
+    input wire  signed  [7:0]   osc_feedb_out   [V_OSC-1:0],
+    input wire  signed  [7:0]   osc_mod_in      [V_OSC-1:0],
+    input wire  signed  [7:0]   osc_feedb_in    [V_OSC-1:0],
+    input wire  signed  [7:0]   mat_buf1        [15:0][V_OSC-1:0],
+    input wire  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
 // Output -- //
     output reg signed [10:0]	modulation
 );
-
-parameter VOICES	= 8;
-parameter V_OSC		= 4; // oscs per Voice
-parameter O_ENVS	= 2; // envs per Oscilator
-parameter V_ENVS	= V_OSC * O_ENVS; // envs per Voice
-parameter V_WIDTH	= 3;
-parameter O_WIDTH	= 2;
-parameter OE_WIDTH	= 1;
-parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
-
-parameter x_offset = (V_OSC * VOICES ) - 2;
-parameter vo_x_offset = x_offset;
 
     reg signed [47:0] sine_mod_data_in[V_OSC-1:0];
     reg signed [47:0] sine_fb_data_in[V_OSC-1:0];

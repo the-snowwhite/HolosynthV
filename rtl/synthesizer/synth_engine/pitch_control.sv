@@ -1,27 +1,28 @@
-module pitch_control (
-    input                       reset_reg_N,
-    input                       reset_data_N,
-    input                       sCLK_XVXOSC,
-    input [V_WIDTH+E_WIDTH-1:0] xxxx,
-    input [V_WIDTH-1:0]         cur_key_adr,
-    input [7:0]                 cur_key_val,
-    input [13:0]                pitch_val,
-    input                       note_on,
-    inout [7:0]                 data,
-    input [6:0]                 adr,
-    input                       write,
-    input                       read,
-    input                       sysex_data_patch_send,
-    input                       osc_sel,
-    input                       com_sel,
-    output [23:0]               osc_pitch_val
+module pitch_control #(
+parameter VOICES = 8,
+parameter V_OSC = 4,
+parameter V_WIDTH = 3,
+parameter O_WIDTH = 2,
+parameter OE_WIDTH = 1,
+parameter E_WIDTH = O_WIDTH + OE_WIDTH
+) (
+    input wire                          reset_reg_N,
+    input wire                          reset_data_N,
+    input wire                          sCLK_XVXOSC,
+    input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
+    input wire [V_WIDTH-1:0]            cur_key_adr,
+    input wire [7:0]                    cur_key_val,
+    input wire [13:0]                   pitch_val,
+    input wire                          note_on,
+    inout wire [7:0]                    data,
+    input wire [6:0]                    adr,
+    input wire                          write,
+    input wire                          read,
+    input wire                          sysex_data_patch_send,
+    input wire                          osc_sel,
+    input wire                          com_sel,
+    output wire [23:0]                  osc_pitch_val
 );
-parameter VOICES = 8;
-parameter V_OSC = 4;
-parameter V_WIDTH = 3;
-parameter O_WIDTH = 2;
-parameter OE_WIDTH = 1;
-parameter E_WIDTH = O_WIDTH + OE_WIDTH;
 
     reg           [7:0]rkey_val[VOICES-1:0];
 

@@ -1,9 +1,9 @@
 
 module div_module
 (
-input  [15:0]denom ,
-input  [36:0]numer ,
-output [36:0]quotient
+input wire [15:0]   denom ,
+input wire [36:0]   numer ,
+output wire [36:0]  quotient
 );
 
 wire signed [15:0]d = denom;

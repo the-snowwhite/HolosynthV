@@ -9,9 +9,12 @@ set_global_assignment -name SEARCH_PATH ..\\..\\megawizard_common
 
 set_global_assignment -name VERILOG_FILE ../../cv_ip/debounce/debounce.v
 
-set_global_assignment -name QIP_FILE ../../megawizard_common/pitchdiv.qip
-set_global_assignment -name QIP_FILE ../../megawizard_common/constmaprom2.qip
-set_global_assignment -name QIP_FILE ../../megawizard_common/blockram512x16bits_2clklatency.qip
+#set_global_assignment -name QIP_FILE ../../megawizard_common/pitchdiv.qip
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Common_Func/pitchdiv.v
+#set_global_assignment -name QIP_FILE ../../megawizard_common/constmaprom2.qip
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Common_Func/blockrom256x24bits.v
+#set_global_assignment -name QIP_FILE ../../megawizard_common/blockram512x16bits_2clklatency.qip
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Common_Func/blockrom512x16bits.v
 
 # generic functions:
 set_global_assignment -name SEARCH_PATH ../../lib
@@ -55,7 +58,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engin
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/mixer_2/vol_mixer.sv
 
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc.sv
-set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/nco_ram.v
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/nco_ram.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/nco2.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/osc/sine_lookup.sv
 

@@ -1,13 +1,13 @@
 module midi_status (
-    input   [7:0]   cur_status,
-    input   [3:0]   cur_midi_ch,
-    output          is_cur_midi_ch,
-    output          is_st_note_on,
-    output          is_st_note_off,
-    output          is_st_ctrl,
-    output          is_st_prg_change,
-    output          is_st_pitch,
-    output          is_st_sysex
+    input wire  [7:0]   cur_status,
+    input wire  [3:0]   cur_midi_ch,
+    output wire         is_cur_midi_ch,
+    output wire         is_st_note_on,
+    output wire         is_st_note_off,
+    output wire         is_st_ctrl,
+    output wire         is_st_prg_change,
+    output wire         is_st_pitch,
+    output wire         is_st_sysex
 );
 
 

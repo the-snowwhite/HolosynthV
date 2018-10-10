@@ -1,32 +1,28 @@
-module synth_clk_gen (
-    input       reset_reg_N,
-    input       AUDIO_CLK,                  //  180.555556 MHz
-    input       trig,
+module synth_clk_gen #(
+parameter VOICES            = 32,
+parameter V_OSC             = 4, // oscs per Voice
+parameter V_ENVS            = 2*V_OSC,
+parameter V_WIDTH           = 3,
+parameter E_WIDTH           = 3,
+parameter SYNTH_CHANNELS    = 1,
+parameter OVERSAMPLING      = 384,
+parameter   AUDIO_CLK_RATE       =   90416666,  //  90.416666 MHz <<-- use for fast
+parameter   AUDIO_REF_CLK         =   16953125,   //  16.953125   MHz <<<--- use for slow
+parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING, //44100;      //  44.1      KHz
+parameter XVOSC_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*2)-1),
+parameter XVXENVS_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*2)-1),
+parameter XVXOSC_WIDTH = utils::clogb2(XVOSC_DIV),
+parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV)
+) (
+    input wire  reset_reg_N,
+    input wire  AUDIO_CLK,                  //  180.555556 MHz
+    input wire  trig,
     output reg  sCLK_XVXOSC,
     output reg  sCLK_XVXENVS,
     output reg  [V_WIDTH+E_WIDTH-1:0]xxxx,  // index counter
     output reg  run,
     output reg  xxxx_zero
 );
-parameter VOICES            = 32;
-parameter V_OSC             = 4; // oscs per Voice
-parameter V_ENVS            = 2*V_OSC;
-parameter V_WIDTH           = 3;
-parameter E_WIDTH           = 3;
-
-parameter SYNTH_CHANNELS    = 1;
-parameter OVERSAMPLING      = 384;
-
-//parameter   AUDIO_CLK_RATE       =   135625000;  //  135.625000 MHz <<-- use for slow
-//parameter   AUDIO_CLK_RATE       =   180833333;  //  180.833333 MHz <<-- use for fast
-parameter   AUDIO_CLK_RATE       =   90416666;  //  90.416666 MHz <<-- use for fast
-parameter   AUDIO_REF_CLK         =   16953125;   //  16.953125   MHz <<<--- use for slow
-parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING; //44100;      //  44.1      KHz
-
-parameter XVOSC_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*2)-1);
-parameter XVXENVS_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*2)-1);
-parameter XVXOSC_WIDTH = utils::clogb2(XVOSC_DIV);
-parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV);
 
 //  Internal Registers and Wires
 reg     [XVXOSC_WIDTH:0]	sCLK_XVXOSC_DIV;

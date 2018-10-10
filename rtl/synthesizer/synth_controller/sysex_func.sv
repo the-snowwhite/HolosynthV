@@ -1,19 +1,19 @@
 module sysex_func (
-    input               reset_reg_N,
-    input               write_dataenable,
-    inout   [7:0]       synth_data,
-    input   [3:0]       midi_ch,
-    input               is_st_sysex,
-    input               midi_out_ready,
-    input   [7:0]       midi_bytes,
-    input   [7:0]       databyte,
-    input               seq_trigger,
+    input wire              reset_reg_N,
+    input wire              write_dataenable,
+    inout wire  [7:0]       synth_data,
+    input wire  [3:0]       midi_ch,
+    input wire              is_st_sysex,
+    input wire              midi_out_ready,
+    input wire  [7:0]       midi_bytes,
+    input wire  [7:0]       databyte,
+    input wire              seq_trigger,
     output  reg         syx_cmd,
     output  reg         sysex_data_patch_send,
     output  reg         auto_syx_cmd,
-    output  [7:0]       midi_out_data,
-    output  [2:0]       bank_adr,
-    output  [6:0]       dec_addr
+    output reg  [7:0]       midi_out_data,
+    output wire [2:0]       bank_adr,
+    output wire [6:0]       dec_addr
 );
 
 

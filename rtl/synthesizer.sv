@@ -9,61 +9,52 @@
 /* BUTTON[4]: Keyboard system Reset                  */
 /*****************************************************/
 
-module synthesizer (
+module synthesizer #(
+parameter VOICES = 32,
+parameter V_OSC = 4,				// number of oscilators pr. voice.
+parameter O_ENVS = 2,				// number of envelope generators pr. oscilator.
+parameter V_ENVS = V_OSC * O_ENVS,	// number of envelope generators  pr. voice.
+parameter V_WIDTH = utils::clogb2(VOICES),
+parameter O_WIDTH = utils::clogb2(V_OSC),
+parameter OE_WIDTH = utils::clogb2(O_ENVS),
+parameter E_WIDTH = O_WIDTH + OE_WIDTH,
+AUD_BIT_DEPTH = 24
+) (
 // Clock
-    input               CLOCK_50,
-    input               AUDIO_CLK,
+    input wire          CLOCK_50,
+    input wire              AUDIO_CLK,
 // reset
-    input               reset_n,
-    input               trig,
+    input wire              reset_n,
+    input wire              trig,
 // MIDI uart
-    input               MIDI_Rx_DAT,
-    output              midi_txd,
+    input wire              MIDI_Rx_DAT,
+    output wire             midi_txd,
 
-    input   [4:1]       button,
-    output [VOICES-1:0] keys_on,
-    output [VOICES-1:0] voice_free,
+    input wire  [4:1]       button,
+    output wire [VOICES-1:0] keys_on,
+    output wire [VOICES-1:0] voice_free,
 
-`ifdef _32BitAudio
-    output signed [31:0]      lsound_out,
-    output signed [31:0]      rsound_out,
-`elsif _24BitAudio
-    output signed [23:0]      lsound_out,
-    output signed [23:0]      rsound_out,
-`else
-    output signed [15:0]      lsound_out,
-    output signed [15:0]      rsound_out,
-`endif
-    output              xxxx_zero,
+    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
 
-    input               io_reset_n,
-    input               cpu_read,
-    input               cpu_write,
-    input               chipselect,
-    input   [9:0]       address,
-    input   [31:0]      writedata,
+    output wire             xxxx_zero,
+
+    input wire              io_reset_n,
+    input wire              cpu_read,
+    input wire              cpu_write,
+    input wire              chipselect,
+    input wire  [9:0]       address,
+    input wire  [31:0]      writedata,
     output reg  [31:0]  readdata,
-    input               socmidi_read,
-    input               socmidi_write,
-    input               socmidi_cs,
-    input   [2:0]       socmidi_addr,
-    input   [7:0]       socmidi_data_out,
+    input wire              socmidi_read,
+    input wire              socmidi_write,
+    input wire              socmidi_cs,
+    input wire  [2:0]       socmidi_addr,
+    input wire  [7:0]       socmidi_data_out,
     output reg [7:0]    socmidi_data_in,
-    output              run,
-    input               switch3
+    output wire             run,
+    input wire              uart_usb_sel
 );
-
-parameter VOICES = 32;
-parameter V_OSC = 4;				// number of oscilators pr. voice.
-parameter O_ENVS = 2;				// number of envelope generators pr. oscilator.
-
-parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
-
-parameter V_WIDTH = utils::clogb2(VOICES);
-parameter O_WIDTH = utils::clogb2(V_OSC);
-parameter OE_WIDTH = utils::clogb2(O_ENVS);
-parameter E_WIDTH = O_WIDTH + OE_WIDTH;
-
 
 //-----		Registers		-----//
 // io:
@@ -81,48 +72,6 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH;
     assign io_reset = ~io_reset_n;
 
     assign synth_data = (!cpu_read && write_active) ? indata : 8'bz;
-
-always @(posedge CLOCK_50) begin
-    write_delay <= cpu_write;
-    reg_w_act <= w_act;
-end
-
-always @(posedge CLOCK_50) begin
-    if (io_reset) begin
-        readdata[7:0] <= 8'b0;
-    end
-    else if (read) begin
-            readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
-    end
-    else if	(write) begin
-        indata <= writedata[7:0];
-    end
-end
-
-
-    reg [7:0] midi_ch;
-    reg [7:0] out_data;
-
-/** @brief write data
-*/
-    always@(negedge reset_reg_N or negedge write)begin
-        if(!reset_reg_N) begin
-            midi_ch <= 8'h00;
-        end else begin
-            if(com_sel) begin
-                if(adr == 2) midi_ch <= synth_data;
-            end
-        end
-    end
-
-/** @brief read data
-*/
-    always @(posedge read) begin
-        if(com_sel) begin
-            if(adr == 2) out_data <= midi_ch;
-        end
-    end
-
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -197,6 +146,10 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     wire		read;
     wire		write;
     wire		sysex_data_patch_send;
+    wire		dec_read_write;
+
+    reg [7:0] midi_ch;
+    reg [7:0] out_data;
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
@@ -213,6 +166,43 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     .sel_out({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
 );
 
+
+/** @brief write data
+*/
+    always@(negedge reset_reg_N or negedge write)begin
+        if(!reset_reg_N) begin
+            midi_ch <= 8'h00;
+        end else begin
+            if(com_sel) begin
+                if(adr == 2) midi_ch <= synth_data;
+            end
+        end
+    end
+
+/** @brief read data
+*/
+    always @(posedge read) begin
+        if(com_sel) begin
+            if(adr == 2) out_data <= midi_ch;
+        end
+    end
+
+    always @(posedge CLOCK_50) begin
+        write_delay <= cpu_write;
+        reg_w_act <= w_act;
+    end
+    
+    always @(posedge CLOCK_50) begin
+        if (io_reset) begin
+            readdata[7:0] <= 8'b0;
+        end
+        else if (read) begin
+                readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+        end
+        else if    (write) begin
+            indata <= writedata[7:0];
+        end
+    end
 
 ////////////	Init Reset sig Gen	////////////
 // system reset  //
@@ -234,7 +224,6 @@ reset_delay	reset_data_delay_inst  (
 );
 
     // Sound clk gen //
-`ifdef _Synth
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
@@ -267,7 +256,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .synth_data (synth_data) ,
     .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
-    .switch3(switch3)
+    .uart_usb_sel(uart_usb_sel)
 );
 
 
@@ -320,7 +309,6 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .run                    ( run ),
     .voice_free             ( voice_free )              //output from envgen
 );
-`endif
 
 
 

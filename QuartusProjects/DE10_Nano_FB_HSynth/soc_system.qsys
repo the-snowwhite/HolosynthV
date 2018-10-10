@@ -386,6 +386,38 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element socmidi_0
    {
       datum _sortIndex
@@ -515,15 +547,17 @@
    type="conduit"
    dir="end" />
  <interface
-   name="i2s_clkctrl_api_0_i2s_clk"
-   internal="i2s_clkctrl_api_0.i2s_clk"
+   name="i2s_clkctrl_api_0_ext_mclk"
+   internal="i2s_clkctrl_api_0.ext_mclk"
    type="clock"
    dir="start" />
  <interface
-   name="i2s_clkctrl_api_0_mclk"
-   internal="i2s_clkctrl_api_0.mclk"
+   name="i2s_clkctrl_api_0_ext_shift_clk"
+   internal="i2s_clkctrl_api_0.ext_shift_clk"
    type="clock"
    dir="start" />
+ <interface name="i2s_clkctrl_api_0_i2s_clk" internal="i2s_clkctrl_api_0.i2s_clk" />
+ <interface name="i2s_clkctrl_api_0_mclk" internal="i2s_clkctrl_api_0.mclk" />
  <interface
    name="i2s_output_apb_0_capture_fifo"
    internal="i2s_output_apb_0.capture_fifo"
@@ -2102,12 +2136,12 @@
    kind="clock"
    version="17.1"
    start="pll_bitclk.outclk1"
-   end="i2s_clkctrl_api_0.clk_44" />
+   end="i2s_clkctrl_api_0.ext_clk44_clkin" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_bitclk.outclk2"
-   end="i2s_clkctrl_api_0.clk_48" />
+   end="i2s_clkctrl_api_0.ext_clk48_clkin" />
  <connection
    kind="conduit"
    version="17.1"

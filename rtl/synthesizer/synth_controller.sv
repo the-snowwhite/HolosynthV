@@ -1,24 +1,27 @@
-module synth_controller(
-    input                       reset_reg_N,
-    input                       CLOCK_50,
+module synth_controller #(
+parameter VOICES = 8,
+parameter V_WIDTH = 3
+) (
+    input wire                  reset_reg_N,
+    input wire                  CLOCK_50,
 // cpu:
-    input [2:0]                 socmidi_addr,
-    input [7:0]                 socmidi_data_out,
-    input                       socmidi_write,
+    input wire [2:0]            socmidi_addr,
+    input wire [7:0]            socmidi_data_out,
+    input wire                  socmidi_write,
 // uart:
-    input                       midi_rxd,
-    output                      midi_txd,
+    input wire                  midi_rxd,
+    output wire                 midi_txd,
 // inputs from synth engine
-    input [VOICES-1:0]          voice_free,
-    input [3:0]                 midi_ch,
+    input wire [VOICES-1:0]     voice_free,
+    input wire [3:0]            midi_ch,
 // outputs to synth_engine
-    output [VOICES-1:0]         keys_on,
+    output wire [VOICES-1:0]    keys_on,
 // note events
-    output                      note_on,
-    output  [V_WIDTH-1:0]       cur_key_adr,
-    output  [7:0]               cur_key_val,
-    output  [7:0]               cur_vel_on,
-    output  [7:0]               cur_vel_off,
+    output wire                 note_on,
+    output wire [V_WIDTH-1:0]   cur_key_adr,
+    output wire [7:0]           cur_key_val,
+    output wire [7:0]           cur_vel_on,
+    output wire [7:0]           cur_vel_off,
 // controller data
 //    output reg                   octrl_cmd,
     output reg                  prg_ch_cmd,
@@ -27,20 +30,16 @@ module synth_controller(
     output reg [7:0]            octrl_data,
     output reg [7:0]            prg_ch_data,
 //synth memory controller
-    output                      data_ready,
-    output                      read_write,
-    output                      sysex_data_patch_send,
-    output [6:0]                dec_addr,
-    inout  [7:0]                synth_data,
-    output [6:0]                dec_sel_bus,
+    output wire                 data_ready,
+    output wire                 read_write,
+    output wire                 sysex_data_patch_send,
+    output wire [6:0]           dec_addr,
+    inout  wire [7:0]           synth_data,
+    output wire [6:0]           dec_sel_bus,
 // status data
-    output [V_WIDTH:0]          active_keys,
-    input                       switch3
+    output wire [V_WIDTH:0]     active_keys,
+    input wire                  uart_usb_sel
 );
-
-parameter VOICES = 8;
-parameter V_WIDTH = 3;
-
 
 //////////////key1 & key2 Assign///////////
     wire [3:0] cur_midi_ch;
@@ -127,7 +126,7 @@ midi_in_mux midi_in_mux_inst
 (    .reset_reg_N        (reset_reg_N),
     .CLOCK_50           (CLOCK_50),
 
-	.sel(switch3) ,	// input  sel_sig
+	.sel(uart_usb_sel) ,	// input  sel_sig
 
 	.byteready_u(byteready_u) ,	// input  byteready_u_sig
 	.cur_status_u(cur_status_u) ,	// input [7:0] cur_status_u_sig
@@ -193,7 +192,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.cur_key_val(cur_key_val) ,	// output [7:0] cur_key_val_sig
 	.cur_vel_on(cur_vel_on) ,	// output [7:0] cur_vel_on_sig
 	.cur_vel_off(cur_vel_off) ,	// output [7:0] cur_vel_off_sig
-	.keys_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
+	.key_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
 );
 
 seq_trigger seq_trigger_inst

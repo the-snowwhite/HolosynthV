@@ -1,7 +1,7 @@
 module sine_lookup(
-    input clk,
-    input [10:0] addr,
-    output reg signed [16:0] sine_value
+    input wire                  clk,
+    input wire [10:0]           addr,
+    output reg signed [16:0]    sine_value
 );
 
 // sine lookup value module using two symmetries
@@ -10,11 +10,23 @@ module sine_lookup(
 
 wire  [15:0] LUT_output;
 
-blockram512x16bits_2clklatency my_DDS_sine_LUT(        // the LUT must contain only the first quarter of the sine wave
-    .clock(clk),
-    .address(addr[9] ? ~addr[8:0] : addr[8:0]),   // first symmetry
-    .q(LUT_output)
+//blockram512x16bits_2clklatency my_DDS_sine_LUT(        // the LUT must contain only the first quarter of the sine wave
+//    .clock(clk),
+//    .address(addr[9] ? ~addr[8:0] : addr[8:0]),   // first symmetry
+//    .q(LUT_output)
+//);
+
+
+blockrom512x16bits blockrom512x16bits_inst
+(
+	.addr(addr[9] ? ~addr[8:0] : addr[8:0]) ,	// input [ADDR_WIDTH-1:0] addr_sig
+	.clk(clk) ,	// input  clk_sig
+	.q(LUT_output) 	// output [DATA_WIDTH-1:0] q_sig
 );
+
+defparam blockrom512x16bits_inst.DATA_WIDTH = 16;
+defparam blockrom512x16bits_inst.ADDR_WIDTH = 9;
+
 
 // for the second symmetry, we need to use addr[10]
 // but since we use a blockram that has 2 clock latencies on reads

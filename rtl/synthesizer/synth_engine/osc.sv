@@ -1,30 +1,30 @@
-module osc (
-    input                       reset_reg_N,
-    input                       reset_data_N,
-    input                       sCLK_XVXENVS,
-    input                       sCLK_XVXOSC,
-    inout                       [7:0] data,
-    input                       [6:0] adr,
-    input                       write,
-    input                       read,
-    input                       sysex_data_patch_send,
-    input [V_WIDTH+E_WIDTH-1:0] xxxx,
-    input                       osc_sel,
-    input [23:0]                osc_pitch_val,
-    input signed [10:0]         modulation,
-    input [VOICES-1:0]          voice_free,
-    input [V_ENVS-1:0]          osc_accum_zero,
-    output [16:0]               sine_lut_out
+module osc #(
+parameter VOICES = 8,
+parameter V_OSC = 4,
+parameter V_ENVS = 8,
+parameter V_WIDTH = 3,
+parameter O_WIDTH = 2,
+parameter OE_WIDTH = 1,
+parameter E_WIDTH = O_WIDTH + OE_WIDTH,
+parameter ox_offset = (V_OSC * VOICES ) - 1
+) (
+    input wire                          reset_reg_N,
+    input wire                          reset_data_N,
+    input wire                          sCLK_XVXENVS,
+    input wire                          sCLK_XVXOSC,
+    inout wire                          [7:0] data,
+    input wire                          [6:0] adr,
+    input wire                          write,
+    input wire                          read,
+    input wire                          sysex_data_patch_send,
+    input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
+    input wire                          osc_sel,
+    input wire [23:0]                   osc_pitch_val,
+    input wire signed [10:0]            modulation,
+    input wire [VOICES-1:0]             voice_free,
+    input wire [V_ENVS-1:0]             osc_accum_zero,
+    output wire [16:0]                  sine_lut_out
 );
-
-parameter VOICES = 8;
-parameter V_OSC = 4;
-parameter V_ENVS = 8;
-parameter V_WIDTH = 3;
-parameter O_WIDTH = 2;
-parameter OE_WIDTH = 1;
-parameter E_WIDTH = O_WIDTH + OE_WIDTH;
-parameter ox_offset = (V_OSC * VOICES ) - 1;
 
     wire [10:0]tablelookup;
     wire signed [10:0]phase_acc;

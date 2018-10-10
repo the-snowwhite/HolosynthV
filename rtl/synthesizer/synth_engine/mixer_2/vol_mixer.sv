@@ -1,44 +1,32 @@
-module vol_mixer (
-    input                           sCLK_XVXENVS,  // clk
-    input   [V_WIDTH+E_WIDTH-1:0]   xxxx,
-    input   [O_WIDTH-1:0]           ox_dly      [x_offset:0],
-    input   [V_OSC+2:0]             sh_voice_reg,
-    input   [V_ENVS:0]              sh_osc_reg,
-    input   signed  [7:0]           m_vol,
-    input   signed  [7:0]           osc_lvl     [V_OSC-1:0],
-    input   signed  [7:0]           level_mul_vel,
-    input   signed  [7:0]           osc_pan     [V_OSC-1:0],
-    input   signed  [16:0]          sine_lut_out,
+module vol_mixer #(
+parameter VOICES	= 8,
+parameter V_OSC		= 4, // oscs per Voice
+parameter O_ENVS	= 2, // envs per Oscilator
+parameter V_WIDTH = utils::clogb2(VOICES),
+parameter O_WIDTH = utils::clogb2(V_OSC),
+parameter OE_WIDTH	= utils::clogb2(O_ENVS),
+parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
+parameter V_ENVS	= V_OSC * O_ENVS, // envs per Voice
+parameter x_offset = (V_OSC * VOICES ) - 2,
+parameter AUD_BIT_DEPTH = 24
+) (
+    input wire                          sCLK_XVXENVS,  // clk
+    input wire  [V_WIDTH+E_WIDTH-1:0]   xxxx,
+    input wire  [O_WIDTH-1:0]           ox_dly      [x_offset:0],
+    input wire  [V_OSC+2:0]             sh_voice_reg,
+    input wire  [V_ENVS:0]              sh_osc_reg,
+    input wire  signed  [7:0]           m_vol,
+    input wire  signed  [7:0]           osc_lvl     [V_OSC-1:0],
+    input wire  signed  [7:0]           level_mul_vel,
+    input wire  signed  [7:0]           osc_pan     [V_OSC-1:0],
+    input wire  signed  [16:0]          sine_lut_out,
 // sound data out
-`ifdef	_32BitAudio
-    output signed [31:0]            lsound_out, // 32-bits
-    output signed [31:0]            rsound_out  // 32-bits
-`elsif	_24BitAudio
-    output signed [23:0]            lsound_out, // 24-bits
-    output signed [23:0]            rsound_out  // 24-bits
-`else
-    output signed [15:0]            lsound_out, // 16-bits
-    output signed [15:0]            rsound_out  // 16-bits
-`endif
+
+    output reg [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output reg [AUD_BIT_DEPTH-1:0]  rsound_out
 );
 
-parameter VOICES	= 8;
-parameter V_OSC		= 4; // oscs per Voice
-parameter O_ENVS	= 2; // envs per Oscilator
-parameter V_WIDTH = utils::clogb2(VOICES);
-parameter O_WIDTH = utils::clogb2(V_OSC);
-parameter OE_WIDTH	= utils::clogb2(O_ENVS);
-parameter E_WIDTH	= O_WIDTH + OE_WIDTH;
-parameter V_ENVS	= V_OSC * O_ENVS; // envs per Voice
-parameter x_offset = (V_OSC * VOICES ) - 2;
-
-`ifdef	_32BitAudio
-    parameter output_volume_scaling = 21; // 32-bits
-`elsif	_24BitAudio
-    parameter output_volume_scaling = 29; // 24-bits
-`else
-    parameter output_volume_scaling = 37; // 16-bits
-`endif
+    parameter output_volume_scaling = 53-AUD_BIT_DEPTH;
 
 /**	@brief output mixed sounddata to out register
 */
@@ -73,7 +61,6 @@ parameter x_offset = (V_OSC * VOICES ) - 2;
 
 /**	@brief main mix summing machine
 *		multiply sine level mul data with main vol env (1), left/right pan value, osc vol level and main volume
-*
 */
 
     wire signed [63:0] sine_level_mul_osc_lvl_m_vol_osc_pan_main_vol_env_l;

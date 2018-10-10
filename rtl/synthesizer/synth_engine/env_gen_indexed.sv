@@ -4,21 +4,26 @@
 *
 *		@author	Michael Brown (Holotronic)
 */
-module env_gen_indexed (
-    input                       reset_reg_N,
-    input                       reset_data_N,
-    input                       sCLK_XVXENVS,
-    inout       [7:0]           data,
-    input       [6:0]           adr,
-    input                       write,
-    input                       read,
-    input                       sysex_data_patch_send,
-    input                       env_sel,
-    input       [VOICES-1:0]    keys_on,
-    input [V_WIDTH+E_WIDTH-1:0] xxxx,
-    output  [7:0]               level_mul,
-    output reg  [V_ENVS-1:0]    osc_accum_zero,
-    output reg  [VOICES-1:0]    voice_free
+module env_gen_indexed #(
+parameter VOICES = 8,
+parameter V_ENVS = 8,
+parameter V_WIDTH = 3,
+parameter E_WIDTH = 3
+) (
+    input wire                      reset_reg_N,
+    input wire                      reset_data_N,
+    input wire                      sCLK_XVXENVS,
+    inout wire      [7:0]           data,
+    input wire      [6:0]           adr,
+    input wire                      write,
+    input wire                      read,
+    input wire                      sysex_data_patch_send,
+    input wire                      env_sel,
+    input wire      [VOICES-1:0]    keys_on,
+    input wire [V_WIDTH+E_WIDTH-1:0] xxxx,
+    output wire [7:0]               level_mul,
+    output reg  [V_ENVS-1:0]        osc_accum_zero,
+    output reg  [VOICES-1:0]        voice_free
 );
 
 /**	@brief keys_on -> high triggers for a certain voice bit.
@@ -26,11 +31,6 @@ module env_gen_indexed (
 *
 '		@return voice_free bit goes low until keys_on deasserted and eventual release (Rate 4)
 */
-
-parameter VOICES = 8;
-parameter V_ENVS = 8;
-parameter V_WIDTH = 3;
-parameter E_WIDTH = 3;
 
 parameter rate_mul = 7;
 parameter num_mul = 22;

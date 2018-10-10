@@ -1,55 +1,46 @@
-module synth_engine (
-    input                   AUDIO_CLK,
-    input                   reset_reg_N,
-    input                   reset_data_N,
-    input                   trig,
-`ifdef _32BitAudio
-    output signed [31:0]          lsound_out,
-    output signed [31:0]          rsound_out,
-`elsif _24BitAudio
-    output signed [23:0]          lsound_out,
-    output signed [23:0]          rsound_out,
-`else
-    output signed [15:0]          lsound_out,
-    output signed [15:0]          rsound_out,
-`endif
-    output                  xxxx_zero,
+module synth_engine #(
+parameter VOICES    = 32,                   // = 32
+parameter V_OSC     = 8,                    // = 8 number of oscilators pr. voice.
+parameter O_ENVS    = 2,                    // = 2 number of envelope generators pr. oscilator.
+parameter V_ENVS    = O_ENVS * V_OSC,       // = 16 number of envelope generators  pr. voice.
+parameter V_WIDTH   = utils::clogb2(VOICES),// = 5
+parameter O_WIDTH   = utils::clogb2(V_OSC), // = 3
+parameter OE_WIDTH  = 1,                    // = 1
+parameter E_WIDTH   = O_WIDTH + OE_WIDTH,   // = 4
+parameter AUD_BIT_DEPTH = 24
+) (
+    input wire                  AUDIO_CLK,
+    input wire                  reset_reg_N,
+    input wire                  reset_data_N,
+    input wire                  trig,
+    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+    output wire                 xxxx_zero,
 // from synth_controller
 // note events
-    input   [VOICES-1:0]    keys_on,
-    input                   note_on,
-    input   [V_WIDTH-1:0]   cur_key_adr,
-    input   [7:0]           cur_key_val,
-    input   [7:0]           cur_vel_on,
-    input   [7:0]           cur_vel_off,
+    input wire  [VOICES-1:0]    keys_on,
+    input wire                  note_on,
+    input wire  [V_WIDTH-1:0]   cur_key_adr,
+    input wire  [7:0]           cur_key_val,
+    input wire  [7:0]           cur_vel_on,
+    input wire  [7:0]           cur_vel_off,
 // midi data events
-    input                   write,
-    input                   read,
-    input                   sysex_data_patch_send,
-    input   [6:0]           adr,
-    inout   [7:0]           data,
-    input                   env_sel,
-    input                   osc_sel,
-    input                   m1_sel,
-    input                   m2_sel,
-    input                   com_sel,
+    input wire                  write,
+    input wire                  read,
+    input wire                  sysex_data_patch_send,
+    input wire  [6:0]           adr,
+    inout wire  [7:0]           data,
+    input wire                  env_sel,
+    input wire                  osc_sel,
+    input wire                  m1_sel,
+    input wire                  m2_sel,
+    input wire                  com_sel,
 // from midi_controller_unit
-    input   [13:0]          pitch_val,
+    input wire  [13:0]          pitch_val,
 // from env gen
-    output                  run,
-    output  [VOICES-1:0]    voice_free
+    output wire                 run,
+    output wire [VOICES-1:0]    voice_free
 );
-
-
-parameter VOICES    = 32;                   // = 32
-parameter V_OSC     = 8;                    // = 8 number of oscilators pr. voice.
-parameter O_ENVS    = 2;                    // = 2 number of envelope generators pr. oscilator.
-parameter V_ENVS    = O_ENVS * V_OSC;       // = 16 number of envelope generators  pr. voice.
-
-parameter V_WIDTH   = utils::clogb2(VOICES);// = 5
-parameter O_WIDTH   = utils::clogb2(V_OSC); // = 3
-parameter OE_WIDTH  = 1;                    // = 1
-parameter E_WIDTH   = O_WIDTH + OE_WIDTH;   // = 4
 
 //-----		Wires		-----//
 wire                        sCLK_XVXENVS;

@@ -243,12 +243,12 @@ soc_system u0 (
     .socmidi_io_socmidi_datain                 (socmidi_data_in),
     .socmidi_io_socmidi_write                  (socmidi_write),
     .socmidi_io_socmidi_int_in                 (socmidi_irq_n),
-    .i2s_clkctrl_api_0_conduit_aud_daclrclk                 (AUD_DACLRCK),
-    .i2s_clkctrl_api_0_conduit_aud_bclk                     (AUD_BCLK),
-    .i2s_clkctrl_api_0_conduit_bclk                         (i2s_clkctrl_apb_0_conduit_bclk),
-    .i2s_clkctrl_api_0_conduit_aud_adclrclk                 (AUD_ADCLRCK),
-    .i2s_clkctrl_api_0_mclk_clk                             (AUD_XCK),
-    .i2s_clkctrl_api_0_i2s_clk_clk                          (i2s_clk),
+    .i2s_clkctrl_api_0_conduit_ext_AUD_DACLRCLK(AUD_DACLRCK),
+    .i2s_clkctrl_api_0_conduit_ext_AUD_BCLK    (AUD_BCLK),
+    .i2s_clkctrl_api_0_conduit_ext_shift_bclk  (i2s_clkctrl_apb_0_conduit_bclk),
+    .i2s_clkctrl_api_0_conduit_ext_AUD_ADCLRCLK(AUD_ADCLRCK),
+    .i2s_clkctrl_api_0_ext_mclk_clk            (AUD_XCK),
+    .i2s_clkctrl_api_0_ext_shift_clk_clk       (i2s_clk),
     .i2s_output_apb_0_capture_fifo_data                     ({rsound_out[31:0],lsound_out[31:0]}),
     .i2s_output_apb_0_capture_fifo_write                    (xxxx_zero),
     .i2s_output_apb_0_capture_fifo_full                     (),
@@ -349,7 +349,8 @@ soc_system u0 (
     assign rsound_mixed_out = SW[3] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
     assign lsound_mixed_out = SW[3] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
     assign playback_enable  = SW[3] ? 1'b1 : i2s_playback_enable;
-    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
+//    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
+    assign fifo_ready       = ~i2s_output_apb_0_playback_fifo_empty;
 
     i2s_shift_out i2s_shift_out(
         .reset_n            (hps_fpga_reset_n),
@@ -492,7 +493,7 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .socmidi_data_out       (socmidi_data_out) ,	// input [31:0] writedata_sig
     .socmidi_data_in        (socmidi_data_in), 	// output [31:0] readdata_sig
     .run                    (run),
-    .switch3                (SW[2])
+    .uart_usb_sel           (SW[2])
 );
 
 endmodule

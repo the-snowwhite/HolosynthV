@@ -1,42 +1,43 @@
-module nco2 (
-    input       reset_reg_N,
-    input       sCLK_XVXOSC,
-    input       sCLK_XVXENVS,
-    input       [23:0]osc_pitch_val,
-    input       [V_ENVS-1:0]osc_accum_zero,
-    input       [O_WIDTH-1:0] ox,
-    input       [V_WIDTH-1:0] vx,
-    output      [10:0]phase_acc
-);
-
-parameter VOICES = 8;
-parameter V_OSC = 4;
-parameter V_ENVS = 8;
-parameter V_WIDTH = 3;
-parameter O_WIDTH = 2;
+module nco2 #(
+parameter VOICES = 8,
+parameter V_OSC = 4,
+parameter V_ENVS = 8,
+parameter V_WIDTH = 3,
+parameter O_WIDTH = 2,
 //parameter x_offset = (V_OSC * VOICES ) - 2;
-parameter x_offset = 6;
+parameter x_offset = 6
+) (
+    input wire      reset_reg_N,
+    input wire      sCLK_XVXOSC,
+    input wire      sCLK_XVXENVS,
+    input wire      [23:0]osc_pitch_val,
+    input wire      [V_ENVS-1:0]osc_accum_zero,
+    input wire      [O_WIDTH-1:0] ox,
+    input wire      [V_WIDTH-1:0] vx,
+    output wire     [10:0]phase_acc
+);
 
 //parameter x_offset = (V_OSC * VOICES ) - 5;// osc 2,3
 //parameter x_offset = (V_OSC * VOICES ) - 8;
 
-    assign phase_acc = phase_accum_b[24:14];
-    assign reset = osc_accum_zero[{ox_dly[0],1'b0}];
-
-    reg [V_WIDTH-1:0]   vx_dly[x_offset:0];
-    reg [O_WIDTH-1:0]   ox_dly[x_offset:0];
-    reg                 reset_dly[2:0];
+    reg [V_WIDTH-1:0]  vx_dly[x_offset:0];
+    reg [O_WIDTH-1:0]  ox_dly[x_offset:0];
+    reg                reset_dly[2:0];
     wire               reset;
     wire               reset_a;
     wire               reset_b;
-    reg signed [10:0]   reg_phase_acc;
-    reg [23:0]          reg_osc_pitch_val;
+    reg signed [10:0]  reg_phase_acc;
+    reg [23:0]         reg_osc_pitch_val;
     wire [23:0]        osc_pitch_val_a;
     wire [23:0]        osc_pitch_val_b;
     wire [25:0]        phase_accum_a; // 36 bits phase accumulator
     wire [25:0]        phase_accum_b; // 36 bits phase accumulator
-    reg [25:0]          reg_phase_accum; // 36 bits phase accumulator
+    reg [25:0]         reg_phase_accum; // 36 bits phase accumulator
     integer o1,d1;
+ 
+    assign phase_acc = phase_accum_b[24:14];
+    assign reset = osc_accum_zero[{ox_dly[0],1'b0}];
+    
     nco_ram #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH))nco_ram_inst
     (
         .qa({reset_a,phase_accum_a,osc_pitch_val_a}) ,  // output [16+37+37+8+21+9-1:0] q_sig

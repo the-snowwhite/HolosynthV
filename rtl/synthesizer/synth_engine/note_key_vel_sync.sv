@@ -1,20 +1,20 @@
-module note_key_vel_sync(
-input                       xxxx_zero,
-input                       AUDIO_CLK,
-input                       note_on,
-input       [V_WIDTH-1:0]   cur_key_adr,
-input       [7:0]           cur_key_val,
-input       [7:0]           cur_vel_on,
-input       [VOICES-1:0]    keys_on,
+module note_key_vel_sync #(
+parameter VOICES	= 8,
+parameter V_WIDTH	= 3
+) (
+input wire                  xxxx_zero,
+input wire                  AUDIO_CLK,
+input wire                  note_on,
+input wire  [V_WIDTH-1:0]   cur_key_adr,
+input wire  [7:0]           cur_key_val,
+input wire  [7:0]           cur_vel_on,
+input wire  [VOICES-1:0]    keys_on,
 output reg                  reg_note_on,
 output reg  [V_WIDTH-1:0]   reg_cur_key_adr,
 output reg  [7:0]           reg_cur_key_val,
 output reg  [7:0]           reg_cur_vel_on,
 output reg  [VOICES-1:0]    reg_keys_on
 );
-
-parameter VOICES	= 8;
-parameter V_WIDTH	= 3;
 
 reg                 note_on_r[1:0];
 reg [V_WIDTH-1:0]   cur_key_adr_r[1:0];

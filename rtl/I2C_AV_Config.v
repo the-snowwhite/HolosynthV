@@ -1,3 +1,4 @@
+`define _24BitAudio
 module I2C_AV_Config (	//	Host Side
 						iCLK,
 						iRST_N,
