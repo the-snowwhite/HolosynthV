@@ -1,0 +1,63 @@
+mib@neon-ws:~/Developer/the-snowwhite_git/HolosynthV/QuartusProjects/DE10_Nano_FB_HSynth$ git status
+On branch ultra96
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   ../../Common_Func/blockrom256x24bits.v
+        modified:   ../../Common_Func/blockrom512x16bits.v
+        modified:   DE10_Nano_FB_HSynth.sv
+        modified:   soc_system.qsys
+        modified:   ../../cv_ip/i2s/i2s_clkctrl_apb.v
+        modified:   ../../cv_ip/i2s/i2s_clkctrl_apb_hw.tcl
+        modified:   ../../lib/addr_decoder.sv
+        modified:   ../../lib/addr_mux.sv
+        modified:   ../../lib/i2s_shift_in.v
+        modified:   ../../lib/i2s_shift_out.v
+        modified:   ../../rtl/holosynth.qip
+        modified:   ../../rtl/synthesizer.sv
+        modified:   ../../rtl/synthesizer/reset_delay.sv
+        modified:   ../../rtl/synthesizer/rt_controllers.sv
+        modified:   ../../rtl/synthesizer/synth_controller.sv
+        modified:   ../../rtl/synthesizer/synth_controller/address_decoder.sv
+        modified:   ../../rtl/synthesizer/synth_controller/cpu_port.sv
+        modified:   ../../rtl/synthesizer/synth_controller/midi_in_mux.sv
+        modified:   ../../rtl/synthesizer/synth_controller/midi_status.sv
+        modified:   ../../rtl/synthesizer/synth_controller/midi_uart.sv
+        modified:   ../../rtl/synthesizer/synth_controller/note_stack.sv
+        modified:   ../../rtl/synthesizer/synth_controller/seq_trigger.sv
+        modified:   ../../rtl/synthesizer/synth_controller/sysex_func.sv
+        modified:   ../../rtl/synthesizer/synth_engine.sv
+        modified:   ../../rtl/synthesizer/synth_engine/audio_i2s_driver.v
+        modified:   ../../rtl/synthesizer/synth_engine/env_gen_indexed.sv
+        modified:   ../../rtl/synthesizer/synth_engine/env_gen_indexed/div_module.v
+        modified:   ../../rtl/synthesizer/synth_engine/env_gen_indexed/st_reg_ram.sv
+        modified:   ../../rtl/synthesizer/synth_engine/mixer_2.sv
+        modified:   ../../rtl/synthesizer/synth_engine/mixer_2/midi_ctrl_data.sv
+        modified:   ../../rtl/synthesizer/synth_engine/mixer_2/modulation_matrix.sv
+        modified:   ../../rtl/synthesizer/synth_engine/mixer_2/vol_mixer.sv
+        modified:   ../../rtl/synthesizer/synth_engine/note_key_vel_sync.sv
+        modified:   ../../rtl/synthesizer/synth_engine/osc.sv
+        modified:   ../../rtl/synthesizer/synth_engine/osc/nco2.sv
+        deleted:    ../../rtl/synthesizer/synth_engine/osc/nco_ram.v
+        modified:   ../../rtl/synthesizer/synth_engine/osc/sine_lookup.sv
+        modified:   ../../rtl/synthesizer/synth_engine/pitch_control.sv
+        modified:   ../../rtl/synthesizer/synth_engine/pitch_control/constmap2.sv
+        modified:   ../../rtl/synthesizer/synth_engine/synth_clk_gen.sv
+        modified:   ../../rtl/synthesizer/synth_engine/timing_gen.sv
+        modified:   ../../rtl/synthesizer/synth_engine/velocity.sv
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        ../../Common_Func/pitchdiv.v
+        ../../Common_Func/reset_syncro.v
+        ../../Common_Func/sig_syncro.v
+        ../../VivadoProjects/
+        ../../XilinxProjects.tar.bz2
+        ../../cv_ip/i2s/i2s_clkctrl_apb_hw.tcl~
+        ../../rtl/holosynth.v
+        ../../rtl/synthesizer.sv.bak
+        ../../rtl/synthesizer/synth_engine.sv.bak
+        ../../rtl/synthesizer/synth_engine/osc/nco_ram.sv
+        ../../xil_ip_repo/
