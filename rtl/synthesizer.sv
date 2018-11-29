@@ -18,7 +18,7 @@ parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH = utils::clogb2(O_ENVS),
 parameter E_WIDTH = O_WIDTH + OE_WIDTH,
-AUD_BIT_DEPTH = 24
+parameter AUD_BIT_DEPTH = 24
 ) (
 // Clock
     input wire          CLOCK_50,
@@ -44,14 +44,14 @@ AUD_BIT_DEPTH = 24
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    input wire  [31:0]      writedata,
-    output reg  [31:0]  readdata,
+    input wire  [7:0]       data_from_cpu,
+    output reg  [7:0]       data_to_cpu,
     input wire              socmidi_read,
     input wire              socmidi_write,
     input wire              socmidi_cs,
     input wire  [2:0]       socmidi_addr,
-    input wire  [7:0]       socmidi_data_out,
-    output reg [7:0]    socmidi_data_in,
+    input wire  [7:0]       socmidi_data_from_cpu,
+    output reg [7:0]        socmidi_data_to_cpu,
     output wire             run,
     input wire              uart_usb_sel
 );
@@ -73,7 +73,7 @@ AUD_BIT_DEPTH = 24
 
     assign synth_data = (!cpu_read && write_active) ? indata : 8'bz;
 
-addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
+addr_decoder #(.addr_width(3),.num_lines(6)) Bank_addr_decoder_inst
 (
     .clk(CLOCK_50) ,	// input  clk_sig
     .reset(io_reset) ,	// input  reset_sig
@@ -194,13 +194,13 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     
     always @(posedge CLOCK_50) begin
         if (io_reset) begin
-            readdata[7:0] <= 8'b0;
+            data_to_cpu <= 8'b0;
         end
         else if (read) begin
-                readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+                data_to_cpu <= (com_sel && adr == 2) ? out_data : synth_data;
         end
         else if    (write) begin
-            indata <= writedata[7:0];
+            indata <= data_from_cpu;
         end
     end
 
@@ -230,7 +230,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .reset_reg_N(reset_reg_N) ,
     .CLOCK_50(CLOCK_50) ,
     .socmidi_addr(socmidi_addr) ,
-    .socmidi_data_out(socmidi_data_out) ,
+    .socmidi_data_from_cpu(socmidi_data_from_cpu) ,
     .socmidi_write(socmidi_write) ,
     .midi_rxd(midi_rxd) ,
     .midi_txd(midi_txd) ,

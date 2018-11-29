@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER uioreg_io
+	OPTION supported_peripherals = (uioreg_io);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = uioreg_io;
+END DRIVER

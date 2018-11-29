@@ -3,11 +3,11 @@ module address_decoder (
     input wire              reset_reg_N,
     input wire              data_ready,
     input wire  [2:0]       bank_adr,
-    input wire  [7:0]       out_data,
-    output  reg         read_write ,
+    inout wire  [7:0]       out_data,
+    output  reg             read_write ,
 	output wire [7:0]       data_out,
     output wire [5:0]       dec_sel,
-    output reg          write_dataenable
+    output reg              write_dataenable
 );
 
     reg syx_data_rdy_r[3:0];
@@ -25,7 +25,7 @@ module address_decoder (
         write_dataenable  <= syx_data_rdy_r[3] || syx_data_rdy_r[2];
     end
 
-    addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder2_inst
+    addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     (
         .clk(syx_data_rdy_r[1]) ,	// input  clk_sig
         .reset(!reset_reg_N) ,	// input  reset_sig

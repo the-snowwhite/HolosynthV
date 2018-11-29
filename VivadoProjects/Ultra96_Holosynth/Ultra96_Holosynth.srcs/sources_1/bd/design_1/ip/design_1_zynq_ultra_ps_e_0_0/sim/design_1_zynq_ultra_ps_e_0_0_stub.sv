@@ -139,6 +139,12 @@ module design_1_zynq_ultra_ps_e_0_0 (
   output bit_as_bool maxigp1_rready,
   output bit [3 : 0] maxigp1_awqos,
   output bit [3 : 0] maxigp1_arqos,
+  input bit_as_bool emio_uart0_ctsn,
+  output bit_as_bool emio_uart0_rtsn,
+  input bit_as_bool emio_uart0_dsrn,
+  input bit_as_bool emio_uart0_dcdn,
+  input bit_as_bool emio_uart0_rin,
+  output bit_as_bool emio_uart0_dtrn,
   input bit [0 : 0] pl_ps_irq0,
   output bit_as_bool pl_resetn0,
   output bit_as_bool pl_clk0
