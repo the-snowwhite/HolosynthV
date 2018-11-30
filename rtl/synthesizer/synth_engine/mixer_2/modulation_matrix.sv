@@ -30,20 +30,22 @@ parameter vo_x_offset = x_offset
     output reg signed [10:0]	modulation
 );
 
-    reg signed [47:0] sine_mod_data_in[V_OSC-1:0];
-    reg signed [47:0] sine_fb_data_in[V_OSC-1:0];
+    localparam DATA_WIDTH = 48;
 
-    wire signed [47:0] mod_matrix_mul_mat[V_OSC-1:0];
-    wire signed [47:0] fb_matrix_mul_mat[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] sine_mod_data_in[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] sine_fb_data_in[V_OSC-1:0];
 
-    reg signed [47:0] reg_mod_matrix_mul_mat_sum[V_OSC-1:0];
-    reg signed [47:0] reg_fb_matrix_mul_mat_sum[V_OSC-1:0];
+    wire signed [DATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
+    wire signed [DATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
 
-    reg signed [47:0] reg_mod_matrix_summed[V_OSC-1:0];
-    reg signed [47:0] reg_fb_matrixl_summed[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] reg_mod_matrix_mul_mat_sum[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] reg_fb_matrix_mul_mat_sum[V_OSC-1:0];
 
-    wire signed [47:0] mod_matrix_out_sum;
-    wire signed [47:0] fb_matrix_out_sum;
+    reg signed [DATA_WIDTH-1:0] reg_mod_matrix_summed[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] reg_fb_matrixl_summed[V_OSC-1:0];
+
+    wire signed [DATA_WIDTH-1:0] mod_matrix_out_sum;
+    wire signed [DATA_WIDTH-1:0] fb_matrix_out_sum;
 
     reg signed [10:0] reg_matrix_data[VOICES-1:0][V_OSC-1:0];
 
@@ -68,6 +70,7 @@ parameter vo_x_offset = x_offset
     always @(posedge sCLK_XVXENVS )begin : main_mix_summing
         for(mmmloop=0;mmmloop<V_OSC;mmmloop=mmmloop+1) begin
             if(sh_osc_reg[0])begin
+//                reg_mod_matrix_mul_mat_sum[mmmloop] <= reg_mod_matrix_mul_mat_sum[mmmloop] + (mod_matrix_mul_mat[mmmloop] >>> 7);
                 reg_mod_matrix_mul_mat_sum[mmmloop] <= reg_mod_matrix_mul_mat_sum[mmmloop] + (mod_matrix_mul_mat[mmmloop] >>> 7);
                 reg_fb_matrix_mul_mat_sum[mmmloop] <= reg_fb_matrix_mul_mat_sum[mmmloop] + fb_matrix_mul_mat[mmmloop];
             end
@@ -93,6 +96,7 @@ parameter vo_x_offset = x_offset
 
     wire signed [10:0] modulation_sum;
     assign modulation_sum = (( mod_matrix_out_sum + fb_matrix_out_sum ) >>> (26 ));
+//    assign modulation_sum = (( mod_matrix_out_sum + fb_matrix_out_sum ) >>> (34 ));
 
     always @(posedge sCLK_XVXOSC)begin : out_gen
         reg_matrix_data[vx_dly[V_OSC]][ox_dly[V_OSC]] <= modulation_sum;

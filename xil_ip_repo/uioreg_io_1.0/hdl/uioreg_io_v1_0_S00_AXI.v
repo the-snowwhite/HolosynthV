@@ -125,54 +125,59 @@
 
 	// I/O Connections assignments
 
-	assign S_AXI_AWREADY	= axi_awready;
-	assign S_AXI_WREADY	= axi_wready;
-	assign S_AXI_BRESP	= axi_bresp;
-	assign S_AXI_BVALID	= axi_bvalid;
-	assign S_AXI_ARREADY	= axi_arready;
-	assign S_AXI_RDATA	= axi_rdata;
-	assign S_AXI_RRESP	= axi_rresp;
-	assign S_AXI_RVALID	= axi_rvalid;
+	assign S_AXI_AWREADY   = axi_awready;
+	assign S_AXI_WREADY    = axi_wready;
+	assign S_AXI_BRESP     = axi_bresp;
+	assign S_AXI_BVALID    = axi_bvalid;
+	assign S_AXI_ARREADY   = axi_arready;
+	assign S_AXI_RDATA     = axi_rdata;
+	assign S_AXI_RRESP     = axi_rresp;
+	assign S_AXI_RVALID    = axi_rvalid;
 	// Implement axi_awready generation
 	// axi_awready is asserted for one S_AXI_ACLK clock cycle when both
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
 	// de-asserted when reset is low.
 
-//    reg [1:0] awready_dly;
+	reg aw_en_dly;
+	reg awready_dly;
 
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-//	      awready_dly <= 2'b0;
 	      axi_awready <= 1'b0;
-	      aw_en <= 1'b1;
+	      awready_dly <= 1'b0;
+//	      aw_en <= 1'b1;
+	      aw_en <= 1'b0;
+	      aw_en_dly <= 1'b1;
 	    end 
 	  else
 	    begin
-//	      awready_dly[1] <= awready_dly[0];     
-//	      axi_awready    <= awready_dly[1];     
-	      if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en)
-//	      if (~awready_dly[0] && S_AXI_AWVALID && S_AXI_WVALID && aw_en)
+          aw_en <= aw_en_dly;
+          axi_awready <= awready_dly;
+//	      if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en)
+	      if (~awready_dly && S_AXI_AWVALID && S_AXI_WVALID && aw_en_dly)
 	        begin
 	          // slave is ready to accept write address when 
 	          // there is a valid write address and write data
 	          // on the write address and data bus. This design 
 	          // expects no outstanding transactions. 
-	          axi_awready <= 1'b1;
-//	          awready_dly[0] <= 1'b1;
-	          aw_en <= 1'b0;
+//	          axi_awready <= 1'b1;
+	          awready_dly <= 1'b1;
+//	          aw_en <= 1'b0;
+              aw_en_dly <= 1'b0;
 	        end
 	        else if (S_AXI_BREADY && axi_bvalid)
 	            begin
-	              aw_en <= 1'b1;
-	              axi_awready <= 1'b0;
-//	              awready_dly[0] <= 1'b0;
+//	              aw_en <= 1'b1;
+	              aw_en_dly <= 1'b1;
+//	              axi_awready <= 1'b0;
+	              awready_dly <= 1'b0;
 	            end
 	      else           
 	        begin
-	          axi_awready <= 1'b0;
-//	          awready_dly[0] <= 1'b0;
+//	          axi_awready <= 1'b0;
+	          awready_dly <= 1'b0;
 	        end
 	    end 
 	end     
@@ -228,26 +233,33 @@
 	// axi_wready is asserted for one S_AXI_ACLK clock cycle when both
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
 	// de-asserted when reset is low. 
-
+	
+	reg wready_dly;
+	
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
+	      wready_dly <= 1'b0;
 	      axi_wready <= 1'b0;
 	    end 
 	  else
-	    begin 
-	      if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
+	    begin
+	      axi_wready <= wready_dly;
+//	      if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
+	      if (~wready_dly && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
 	        begin
 	          // slave is ready to accept write data when 
 	          // there is a valid write address and write data
 	          // on the write address and data bus. This design 
 	          // expects no outstanding transactions. 
-	          axi_wready <= 1'b1;
+//	          axi_wready <= 1'b1;
+	          wready_dly <= 1'b1;
 	        end
 	      else
 	        begin
-	          axi_wready <= 1'b0;
+//	          axi_wready <= 1'b0;
+	          wready_dly <= 1'b0;
 	        end
 	    end 
 	end       
@@ -319,6 +331,7 @@
 	// This marks the acceptance of address and indicates the status of 
 	// write transaction.
 
+	
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
@@ -327,7 +340,7 @@
 	      axi_bresp   <= 2'b0;
 	    end 
 	  else
-	    begin    
+	    begin
 	      if (axi_awready && S_AXI_AWVALID && ~axi_bvalid && axi_wready && S_AXI_WVALID)
 	        begin
 	          // indicates a valid write response is available
@@ -353,6 +366,7 @@
 	// The read address is also latched when S_AXI_ARVALID is 
 	// asserted. axi_araddr is reset to zero on reset assertion.
     
+/*    
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
@@ -375,18 +389,23 @@
 	        end
 	    end 
 	end       
-    
+    */
 	always @( posedge S_AXI_ACLK )
     begin
       if ( S_AXI_ARESETN == 1'b0 )
         begin
+          axi_arready <= 1'b0;
           con_adrout <= 0;
         end
-        else if (S_AXI_ARVALID) begin
+        else if (~axi_arready && S_AXI_ARVALID) begin
+            axi_arready <= 1'b1;
             con_adrout  <= S_AXI_ARADDR[ADDRESS_WIDTH+1:2];
         end
-        else if (S_AXI_AWVALID) begin
+        else if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en) begin
             con_adrout  <= S_AXI_AWADDR[ADDRESS_WIDTH+1:2];
+        end
+        else begin
+            axi_arready <= 1'b0;
         end
       end 
 

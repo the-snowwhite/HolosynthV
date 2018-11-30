@@ -105,7 +105,7 @@ modulation_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_W
     .modulation( modulation )       // output
 );
 
-vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
+vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.AUD_BIT_DEPTH(AUD_BIT_DEPTH))vol_mixer_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input
     .xxxx( xxxx ),                  // input

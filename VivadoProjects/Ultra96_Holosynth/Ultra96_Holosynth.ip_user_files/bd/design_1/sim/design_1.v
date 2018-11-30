@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
-//Date        : Thu Nov 29 00:11:03 2018
+//Date        : Fri Nov 30 20:16:39 2018
 //Host        : kdeneon-ws running 64-bit KDE neon User Edition 5.14
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=23,numReposBlks=17,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_clkrst_cnt=5,da_zynq_ultra_ps_e_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=22,numReposBlks=16,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=7,da_clkrst_cnt=6,da_zynq_ultra_ps_e_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (BT_ctsn,
     BT_rtsn,
@@ -42,9 +42,9 @@ module design_1
   wire emio_uart0_ctsn_0_1;
   wire [7:0]holosynth_0_data_to_cpu;
   wire [31:0]holosynth_0_keys_on;
-  wire [23:0]holosynth_0_lsound_out;
+  wire [31:0]holosynth_0_lsound_out;
   wire holosynth_0_midi_txd;
-  wire [23:0]holosynth_0_rsound_out;
+  wire [31:0]holosynth_0_rsound_out;
   wire [7:0]holosynth_0_socmidi_data_to_cpu;
   wire midi_rxd_0_1;
   wire [39:0]ps8_0_axi_periph_M00_AXI_ARADDR;
@@ -263,13 +263,6 @@ module design_1
         .socmidi_read(uioreg_io_1_con_read_out),
         .socmidi_write(uioreg_io_1_con_write_out),
         .uart_usb_sel(xlconstant_0_dout));
-  design_1_ila_1_0 ila_1
-       (.clk(zynq_ultra_ps_e_0_pl_clk0),
-        .probe0(uioreg_io_0_con_write_out),
-        .probe1(uioreg_io_0_con_read_out),
-        .probe2(uioreg_io_0_con_adrout),
-        .probe3(uioreg_io_0_con_dataout),
-        .probe4(holosynth_0_data_to_cpu));
   design_1_ps8_0_axi_periph_0 ps8_0_axi_periph
        (.ACLK(zynq_ultra_ps_e_0_pl_clk0),
         .ARESETN(rst_ps8_0_99M_interconnect_aresetn),
@@ -445,6 +438,9 @@ module design_1
         .clk(zynq_ultra_ps_e_0_pl_clk0),
         .probe0(uioreg_io_0_con_write_out),
         .probe1(uioreg_io_0_con_read_out),
+        .probe2(uioreg_io_0_con_adrout),
+        .probe3(uioreg_io_0_con_dataout),
+        .probe4(holosynth_0_data_to_cpu),
         .resetn(rst_ps8_0_99M_peripheral_aresetn));
   design_1_uioreg_io_0_0 uioreg_io_0
        (.con_adrout(uioreg_io_0_con_adrout),

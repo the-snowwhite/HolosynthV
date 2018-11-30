@@ -3,7 +3,7 @@ parameter a_NUM_VOICES = 32,
 parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
 parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
-parameter AUD_BIT_DEPTH = 24
+parameter AUD_BIT_DEPTH = 32
 ) (
 // Clock
     input  wire         fpga_clk,
@@ -43,7 +43,7 @@ parameter AUD_BIT_DEPTH = 24
     wire txd;
     assign midi_txd = ~txd;
     
-    synthesizer #(.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
+    synthesizer #(.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC),.AUD_BIT_DEPTH(AUD_BIT_DEPTH))  synthesizer_inst(
         .CLOCK_50               (fpga_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_n                (reset_n),

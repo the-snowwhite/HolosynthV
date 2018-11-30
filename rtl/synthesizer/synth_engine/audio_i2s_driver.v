@@ -1,5 +1,5 @@
 module audio_i2s_driver #(
-parameter AUD_BIT_DEPTH = 24
+parameter AUD_BIT_DEPTH = 32
 ) (
     input wire              reset_reg_N,
     input wire              iAUD_DACLRCK,

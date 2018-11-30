@@ -274,7 +274,7 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
     //////////// Sound Generation /////////////
 
 // 2CH Audio Sound output -- Audio Generater //
-synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
+synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH),.AUD_BIT_DEPTH(AUD_BIT_DEPTH)) synth_engine_inst	(
 // AUDIO CODEC //
     .AUDIO_CLK              ( AUDIO_CLK ),              // input
     .reset_reg_N            ( reset_reg_N ) ,           // input  reset_sig

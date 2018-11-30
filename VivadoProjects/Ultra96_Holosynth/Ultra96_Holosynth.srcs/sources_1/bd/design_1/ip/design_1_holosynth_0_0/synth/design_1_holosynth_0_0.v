@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "holosynth,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_holosynth_0_0,holosynth,{}" *)
-(* CORE_GENERATION_INFO = "design_1_holosynth_0_0,holosynth,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=holosynth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,a_NUM_VOICES=32,b_NUM_OSCS_PER_VOICE=8,c_NUM_ENVGENS_PER_OSC=2,V_ENVS=16,AUD_BIT_DEPTH=24}" *)
+(* CORE_GENERATION_INFO = "design_1_holosynth_0_0,holosynth,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=holosynth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,a_NUM_VOICES=32,b_NUM_OSCS_PER_VOICE=8,c_NUM_ENVGENS_PER_OSC=2,V_ENVS=16,AUD_BIT_DEPTH=32}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_holosynth_0_0 (
@@ -96,8 +96,8 @@ input wire midi_rxd;
 output wire midi_txd;
 output wire [31 : 0] keys_on;
 output wire [31 : 0] voice_free;
-output wire [23 : 0] lsound_out;
-output wire [23 : 0] rsound_out;
+output wire [31 : 0] lsound_out;
+output wire [31 : 0] rsound_out;
 output wire xxxx_zero;
 input wire cpu_read;
 input wire cpu_write;
@@ -118,7 +118,7 @@ input wire uart_usb_sel;
     .b_NUM_OSCS_PER_VOICE(8),
     .c_NUM_ENVGENS_PER_OSC(2),
     .V_ENVS(16),
-    .AUD_BIT_DEPTH(24)
+    .AUD_BIT_DEPTH(32)
   ) inst (
     .fpga_clk(fpga_clk),
     .AUDIO_CLK(AUDIO_CLK),

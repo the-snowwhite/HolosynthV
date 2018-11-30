@@ -152,7 +152,7 @@ velocity velocity_inst
 defparam velocity_inst.VOICES = VOICES;
 defparam velocity_inst.V_WIDTH = V_WIDTH;
 
-mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) mixer_2_inst
+mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH),.AUD_BIT_DEPTH(AUD_BIT_DEPTH)) mixer_2_inst
 (
     .reset_data_N( reset_data_N ),
     .sCLK_XVXENVS( sCLK_XVXENVS ),

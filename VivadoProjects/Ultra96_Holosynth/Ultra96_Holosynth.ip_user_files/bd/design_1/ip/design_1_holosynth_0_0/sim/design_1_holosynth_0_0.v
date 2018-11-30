@@ -95,8 +95,8 @@ input wire midi_rxd;
 output wire midi_txd;
 output wire [31 : 0] keys_on;
 output wire [31 : 0] voice_free;
-output wire [23 : 0] lsound_out;
-output wire [23 : 0] rsound_out;
+output wire [31 : 0] lsound_out;
+output wire [31 : 0] rsound_out;
 output wire xxxx_zero;
 input wire cpu_read;
 input wire cpu_write;
@@ -117,7 +117,7 @@ input wire uart_usb_sel;
     .b_NUM_OSCS_PER_VOICE(8),
     .c_NUM_ENVGENS_PER_OSC(2),
     .V_ENVS(16),
-    .AUD_BIT_DEPTH(24)
+    .AUD_BIT_DEPTH(32)
   ) inst (
     .fpga_clk(fpga_clk),
     .AUDIO_CLK(AUDIO_CLK),

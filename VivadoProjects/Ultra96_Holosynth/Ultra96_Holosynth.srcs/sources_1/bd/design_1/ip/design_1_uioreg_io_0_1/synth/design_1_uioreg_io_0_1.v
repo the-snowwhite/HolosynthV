@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:uioreg_io:1.0
-// IP Revision: 31
+// IP Revision: 42
 
 (* X_CORE_INFO = "uioreg_io_v1_0,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_uioreg_io_0_1,uioreg_io_v1_0,{}" *)
