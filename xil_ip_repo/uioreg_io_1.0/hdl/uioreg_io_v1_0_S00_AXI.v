@@ -138,51 +138,55 @@
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
 	// de-asserted when reset is low.
 
-	reg aw_en_dly;
-	reg awready_dly;
+	reg [2:0] aw_en_dly;
+	reg [2:0] awready_dly;
 
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
 	      axi_awready <= 1'b0;
-	      awready_dly <= 1'b0;
+	      awready_dly <= 3'b0;
 //	      aw_en <= 1'b1;
 	      aw_en <= 1'b0;
-	      aw_en_dly <= 1'b1;
+	      aw_en_dly <= 3'b1;
 	    end 
 	  else
 	    begin
-          aw_en <= aw_en_dly;
-          axi_awready <= awready_dly;
+          aw_en_dly[1] <= aw_en_dly[0];
+          aw_en_dly[2] <= aw_en_dly[1];
+          aw_en <= aw_en_dly[2];
+          awready_dly[1] <= awready_dly[0];
+          awready_dly[2] <= awready_dly[1];
+          axi_awready <= awready_dly[2];
 //	      if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en)
-	      if (~awready_dly && S_AXI_AWVALID && S_AXI_WVALID && aw_en_dly)
+	      if (~awready_dly[0] && S_AXI_AWVALID && S_AXI_WVALID && aw_en_dly[0])
 	        begin
 	          // slave is ready to accept write address when 
 	          // there is a valid write address and write data
 	          // on the write address and data bus. This design 
 	          // expects no outstanding transactions. 
 //	          axi_awready <= 1'b1;
-	          awready_dly <= 1'b1;
+	          awready_dly[0] <= 1'b1;
 //	          aw_en <= 1'b0;
-              aw_en_dly <= 1'b0;
+              aw_en_dly[0] <= 1'b0;
 	        end
 	        else if (S_AXI_BREADY && axi_bvalid)
 	            begin
 //	              aw_en <= 1'b1;
-	              aw_en_dly <= 1'b1;
+	              aw_en_dly[0] <= 1'b1;
 //	              axi_awready <= 1'b0;
-	              awready_dly <= 1'b0;
+	              awready_dly[0] <= 1'b0;
 	            end
 	      else           
 	        begin
 //	          axi_awready <= 1'b0;
-	          awready_dly <= 1'b0;
+	          awready_dly[0] <= 1'b0;
 	        end
 	    end 
 	end     
 	
-	reg [4:0] write_dly;
+	reg [3:0] write_dly;
 	
 	always @( posedge S_AXI_ACLK )
     begin
@@ -196,8 +200,8 @@
           write_dly[1] <= write_dly[0];
           write_dly[2] <= write_dly[1];
           write_dly[3] <= write_dly[2];
-          write_dly[4] <= write_dly[3];
-          con_write_out <= write_dly[4] ;
+//          write_dly[4] <= write_dly[3];
+          con_write_out <= write_dly[3] ;
             if(S_AXI_AWVALID && axi_awready)
             begin
               write_dly[0] <= 1'b1;
@@ -234,32 +238,34 @@
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
 	// de-asserted when reset is low. 
 	
-	reg wready_dly;
+	reg [3:0] wready_dly;
 	
 	always @( posedge S_AXI_ACLK )
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-	      wready_dly <= 1'b0;
+	      wready_dly <= 3'b0;
 	      axi_wready <= 1'b0;
 	    end 
 	  else
 	    begin
-	      axi_wready <= wready_dly;
+	      wready_dly[1] <= wready_dly[0];
+	      wready_dly[2] <= wready_dly[1];
+	      axi_wready <= wready_dly[2];
 //	      if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
-	      if (~wready_dly && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
+	      if (~wready_dly[0] && S_AXI_WVALID && S_AXI_AWVALID && aw_en )
 	        begin
 	          // slave is ready to accept write data when 
 	          // there is a valid write address and write data
 	          // on the write address and data bus. This design 
 	          // expects no outstanding transactions. 
 //	          axi_wready <= 1'b1;
-	          wready_dly <= 1'b1;
+	          wready_dly[0] <= 1'b1;
 	        end
 	      else
 	        begin
 //	          axi_wready <= 1'b0;
-	          wready_dly <= 1'b0;
+	          wready_dly[0] <= 1'b0;
 	        end
 	    end 
 	end       
@@ -285,43 +291,7 @@
 	        if ( S_AXI_WSTRB[1] == 1 ) begin
 	           con_dataout <= S_AXI_WDATA[DATA_WIDTH-1:0];
 	        end
-/*	        case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	          2'h0:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 0
-	                slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h1:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 1
-	                slv_reg1[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h2:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 2
-	                slv_reg2[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h3:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg3[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          default : begin
-	                      slv_reg0 <= slv_reg0;
-	                      slv_reg1 <= slv_reg1;
-	                      slv_reg2 <= slv_reg2;
-	                      slv_reg3 <= slv_reg3;
-	                    end
-	        endcase
-*/	      end
+	      end
 	  end
 	end    
 

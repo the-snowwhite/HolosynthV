@@ -244,7 +244,7 @@ proc create_root_design { parentCell } {
      return 1
    }
     set_property -dict [ list \
-   CONFIG.AUD_BIT_DEPTH {32} \
+   CONFIG.AUD_BIT_DEPTH {24} \
  ] $holosynth_0
 
   # Create instance: ps8_0_axi_periph, and set properties

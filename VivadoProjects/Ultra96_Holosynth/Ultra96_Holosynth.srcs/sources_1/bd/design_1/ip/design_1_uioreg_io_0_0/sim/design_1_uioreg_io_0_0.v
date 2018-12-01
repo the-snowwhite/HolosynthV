@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:uioreg_io:1.0
-// IP Revision: 42
+// IP Revision: 45
 
 `timescale 1ns/1ps
 

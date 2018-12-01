@@ -3,7 +3,7 @@ parameter a_NUM_VOICES = 32,
 parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
 parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
-parameter AUD_BIT_DEPTH = 32
+parameter AUD_BIT_DEPTH = 24
 ) (
 // Clock
     input  wire         fpga_clk,
@@ -19,8 +19,8 @@ parameter AUD_BIT_DEPTH = 32
     output [a_NUM_VOICES-1:0] keys_on,
     output [a_NUM_VOICES-1:0] voice_free,
 
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+    output wire [31:0]  lsound_out,
+    output wire [31:0]  rsound_out,
 
     output wire         xxxx_zero,
 
@@ -51,8 +51,8 @@ parameter AUD_BIT_DEPTH = 32
         .MIDI_Rx_DAT            (~midi_rxd) ,   // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
         .midi_txd               (txd),		    // output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
-         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
-        .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
+        .lsound_out             (lsound_out[31:8] ),      //  Audio Raw Data Low
+        .rsound_out             (rsound_out[31:8] ),      //  Audio Raw Data high
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
         .keys_on                (keys_on),				//  LED [7:0]
         .voice_free             (voice_free) , 			//  Red LED [4:1]

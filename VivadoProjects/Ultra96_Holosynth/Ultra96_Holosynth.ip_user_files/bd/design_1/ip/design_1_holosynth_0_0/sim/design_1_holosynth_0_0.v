@@ -117,7 +117,7 @@ input wire uart_usb_sel;
     .b_NUM_OSCS_PER_VOICE(8),
     .c_NUM_ENVGENS_PER_OSC(2),
     .V_ENVS(16),
-    .AUD_BIT_DEPTH(32)
+    .AUD_BIT_DEPTH(24)
   ) inst (
     .fpga_clk(fpga_clk),
     .AUDIO_CLK(AUDIO_CLK),
