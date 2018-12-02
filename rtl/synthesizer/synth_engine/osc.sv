@@ -26,7 +26,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     output wire [16:0]                  sine_lut_out
 );
 
-    wire signed [10:0]tablelookup;
+    wire [10:0]tablelookup;
     wire signed [10:0]phase_acc;
     wire signed [10:0] mod;
 

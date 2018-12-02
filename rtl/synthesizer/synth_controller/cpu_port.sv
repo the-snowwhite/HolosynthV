@@ -2,7 +2,7 @@ module cpu_port (
 	input wire               reset_reg_N,
 	input wire              CLOCK_50,
     input wire [2:0]         socmidi_addr,
-    input wire [7:0]         socmidi_data_from_cpu,
+    inout wire [7:0]         socmidi_data_from_cpu,
 //    input               cpu_com_sel,
     input wire              socmidi_write,
 	output reg          byteready,

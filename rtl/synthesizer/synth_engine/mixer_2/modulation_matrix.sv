@@ -84,8 +84,8 @@ parameter vo_x_offset = x_offset
             for(mmcloop=0;mmcloop<V_OSC;mmcloop=mmcloop+1) begin
                 reg_mod_matrix_summed[mmcloop] <= reg_mod_matrix_mul_mat_sum[mmcloop];
                 reg_fb_matrixl_summed[mmcloop]	<= reg_fb_matrix_mul_mat_sum[mmcloop];
-                reg_mod_matrix_mul_mat_sum[mmcloop] <= signed'(0);
-                reg_fb_matrix_mul_mat_sum[mmcloop] <= signed'(0);
+                reg_mod_matrix_mul_mat_sum[mmcloop] <= 0;
+                reg_fb_matrix_mul_mat_sum[mmcloop] <= 0;
             end
         end
 
