@@ -186,29 +186,31 @@
 	    end 
 	end     
 	
-	reg [3:0] write_dly;
+//	reg write_dly;
 	
 	always @( posedge S_AXI_ACLK )
     begin
       if ( S_AXI_ARESETN == 1'b0 )
         begin
-          write_dly <= 4'b0;
+//          write_dly <= 4'b0;
           con_write_out <= 1'b0;
         end 
       else
         begin
-          write_dly[1] <= write_dly[0];
-          write_dly[2] <= write_dly[1];
-          write_dly[3] <= write_dly[2];
+//          write_dly[1] <= write_dly[0];
+//          write_dly[2] <= write_dly[1];
+//          write_dly[3] <= write_dly[2];
 //          write_dly[4] <= write_dly[3];
-          con_write_out <= write_dly[3] ;
+//          con_write_out <= write_dly ;
             if(S_AXI_AWVALID && axi_awready)
             begin
-              write_dly[0] <= 1'b1;
+//              write_dly <= 1'b1;
+              con_write_out <= 1'b1;
             end    
             else           
             begin
-              write_dly[0] <= 1'b0;
+//              write_dly <= 1'b0;
+              con_write_out <= 1'b0;
             end
 	    end 
     end     
@@ -277,7 +279,9 @@
 	// These registers are cleared when reset (active low) is applied.
 	// Slave register write enable is asserted when valid address and data are available
 	// and the slave is ready to accept the write address and write data.
-	assign slv_reg_wren = axi_wready && S_AXI_WVALID && axi_awready && S_AXI_AWVALID;
+
+	//	assign slv_reg_wren = axi_wready && S_AXI_WVALID && axi_awready && S_AXI_AWVALID;
+	assign slv_reg_wren = wready_dly[0] && S_AXI_WVALID && awready_dly[0] && S_AXI_AWVALID;
 
 	always @( posedge S_AXI_ACLK )
 	begin
@@ -335,7 +339,8 @@
 	// de-asserted when reset (active low) is asserted. 
 	// The read address is also latched when S_AXI_ARVALID is 
 	// asserted. axi_araddr is reset to zero on reset assertion.
-    
+
+   
 /*    
 	always @( posedge S_AXI_ACLK )
 	begin
@@ -360,51 +365,65 @@
 	    end 
 	end       
     */
+    reg [3:0] arready_dly;
+	
 	always @( posedge S_AXI_ACLK )
     begin
       if ( S_AXI_ARESETN == 1'b0 )
         begin
+          arready_dly <= 3'b0;
           axi_arready <= 1'b0;
           con_adrout <= 0;
         end
-        else if (~axi_arready && S_AXI_ARVALID) begin
-            axi_arready <= 1'b1;
-            con_adrout  <= S_AXI_ARADDR[ADDRESS_WIDTH+1:2];
-        end
-        else if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en) begin
-            con_adrout  <= S_AXI_AWADDR[ADDRESS_WIDTH+1:2];
-        end
         else begin
-            axi_arready <= 1'b0;
+            arready_dly[1]  <= arready_dly[0];
+            arready_dly[2]  <= arready_dly[1];
+            arready_dly[3]  <= arready_dly[2];
+            axi_arready     <= arready_dly[3];
+            if (~arready_dly[0] && S_AXI_ARVALID) begin
+                arready_dly[0] <= 1'b1;
+                con_adrout  <= S_AXI_ARADDR[ADDRESS_WIDTH+1:2];
+            end
+//            else if (~axi_awready && S_AXI_AWVALID && S_AXI_WVALID && aw_en) begin
+//            else if (~awready_dly[0] && S_AXI_AWVALID && S_AXI_WVALID && aw_en_dly[0]) begin
+            else if (~awready_dly[0] && S_AXI_AWVALID) begin
+                con_adrout  <= S_AXI_AWADDR[ADDRESS_WIDTH+1:2];
+            end
+            else begin
+                arready_dly[0]  <= 1'b0;
+            end
         end
       end 
 
-    reg [2:0] read_dly;
+//    reg read_dly;
 	
 	always @( posedge S_AXI_ACLK )
     begin
       if ( S_AXI_ARESETN == 4'b0 )
         begin
-          read_dly <= 3'b0;
+//          read_dly <= 1'b0;
           con_read_out <= 1'b0;
         end 
       else
         begin
-          read_dly[1] <= read_dly[0];
-          read_dly[2] <= read_dly[1];
-          con_read_out <= read_dly[2];
+//          read_dly[1] <= read_dly[0];
+//          read_dly[2] <= read_dly[1];
+//          con_read_out <= read_dly;
           if(S_AXI_ARVALID && axi_arready)
             begin
-              read_dly[0] <= 1'b1;
+//              read_dly <= 1'b1;
+              con_read_out <= 1'b1;
             end    
 	      else           
             begin
-              read_dly[0]  <= 1'b0;
+//              read_dly  <= 1'b0;
+              con_read_out  <= 1'b0;
             end
 	    end 
     end     
 
-    reg [5:0] rvalid_dly;
+//    reg [4:0] rvalid_dly;
+    reg [2:0] rvalid_dly;
 
 	// Implement axi_arvalid generation
 	// axi_rvalid is asserted for one S_AXI_ACLK clock cycle when both 
@@ -420,17 +439,18 @@
 	    begin
 	      axi_rvalid <= 0;
 	      axi_rresp  <= 0;
-	      rvalid_dly  <= 6'b0;
+	      rvalid_dly  <= 3'b0;
 	    end 
 	  else
 	    begin
 	      rvalid_dly[1]    <=  rvalid_dly[0];  
 	      rvalid_dly[2]    <=  rvalid_dly[1];  
-	      rvalid_dly[3]    <=  rvalid_dly[2];  
-	      rvalid_dly[4]    <=  rvalid_dly[3];  
-	      rvalid_dly[5]    <=  rvalid_dly[4];  
-	      axi_rvalid       <=  rvalid_dly[5];  
-	      if (axi_rvalid) begin axi_rresp  <= 2'b0; end // 'OKAY' response
+//	      rvalid_dly[3]    <=  rvalid_dly[2];  
+//	      rvalid_dly[4]    <=  rvalid_dly[3];  
+//	      rvalid_dly[5]    <=  rvalid_dly[4];  
+	      axi_rvalid       <=  rvalid_dly[1];  
+//	      if (axi_rvalid) begin axi_rresp  <= 2'b0; end // 'OKAY' response
+	      if (rvalid_dly[2]) begin axi_rresp  <= 2'b0; end // 'OKAY' response
 //	      if (axi_arready && S_AXI_ARVALID && ~axi_rvalid)
 	      if (axi_arready && S_AXI_ARVALID && ~rvalid_dly[0])
 	        begin
@@ -451,7 +471,7 @@
 	// Implement memory mapped register select and read logic generation
 	// Slave register read enable is asserted when valid address is available
 	// and the slave is ready to accept the read address.
-	assign slv_reg_rden = S_AXI_RREADY & rvalid_dly[5] & ~axi_rvalid;
+	assign slv_reg_rden = S_AXI_RREADY & rvalid_dly[1] & ~axi_rvalid;
 /*	always @(*)
 	begin
 	      // Address decoding for reading registers
