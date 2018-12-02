@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "audio_i2s_driver,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{}" *)
-(* CORE_GENERATION_INFO = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_i2s_driver,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,AUD_BIT_DEPTH=32}" *)
+(* CORE_GENERATION_INFO = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_i2s_driver,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,AUD_BIT_DEPTH=24}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_audio_i2s_driver_0_0 (
@@ -69,12 +69,12 @@ module design_1_audio_i2s_driver_0_0 (
 input wire reset_reg_N;
 input wire iAUD_DACLRCK;
 input wire iAUD_BCLK;
-input wire [31 : 0] i_lsound_out;
-input wire [31 : 0] i_rsound_out;
+input wire [23 : 0] i_lsound_out;
+input wire [23 : 0] i_rsound_out;
 output wire oAUD_DACDAT;
 
   audio_i2s_driver #(
-    .AUD_BIT_DEPTH(32)
+    .AUD_BIT_DEPTH(24)
   ) inst (
     .reset_reg_N(reset_reg_N),
     .iAUD_DACLRCK(iAUD_DACLRCK),

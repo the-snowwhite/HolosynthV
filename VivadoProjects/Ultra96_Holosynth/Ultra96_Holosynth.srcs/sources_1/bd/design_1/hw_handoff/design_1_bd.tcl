@@ -189,7 +189,7 @@ proc create_root_design { parentCell } {
      return 1
    }
     set_property -dict [ list \
-   CONFIG.AUD_BIT_DEPTH {32} \
+   CONFIG.AUD_BIT_DEPTH {24} \
  ] $audio_i2s_driver_0
 
   # Create instance: clk_wiz_0, and set properties
@@ -256,28 +256,6 @@ proc create_root_design { parentCell } {
 
   # Create instance: rst_ps8_0_99M, and set properties
   set rst_ps8_0_99M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_99M ]
-
-  # Create instance: system_ila_0, and set properties
-  set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
-  set_property -dict [ list \
-   CONFIG.ALL_PROBE_SAME_MU {false} \
-   CONFIG.C_BRAM_CNT {7} \
-   CONFIG.C_MON_TYPE {MIX} \
-   CONFIG.C_NUM_OF_PROBES {5} \
-   CONFIG.C_PROBE1_MU_CNT {1} \
-   CONFIG.C_PROBE2_TYPE {1} \
-   CONFIG.C_PROBE2_WIDTH {10} \
-   CONFIG.C_PROBE3_TYPE {1} \
-   CONFIG.C_PROBE3_WIDTH {8} \
-   CONFIG.C_PROBE4_TYPE {1} \
-   CONFIG.C_PROBE4_WIDTH {8} \
-   CONFIG.C_PROBE_WIDTH_PROPAGATION {MANUAL} \
-   CONFIG.C_SLOT_0_AXI_AR_SEL_TRIG {0} \
-   CONFIG.C_SLOT_0_AXI_AW_SEL_TRIG {0} \
-   CONFIG.C_SLOT_0_AXI_B_SEL_TRIG {1} \
-   CONFIG.C_SLOT_0_AXI_R_SEL_TRIG {0} \
-   CONFIG.C_SLOT_0_AXI_W_SEL_TRIG {0} \
- ] $system_ila_0
 
   # Create instance: uioreg_io_0, and set properties
   set uioreg_io_0 [ create_bd_cell -type ip -vlnv user.org:user:uioreg_io:1.0 uioreg_io_0 ]
@@ -917,7 +895,6 @@ proc create_root_design { parentCell } {
   # Create interface connections
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins audio_clk_mux_ip_0/S00_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins ps8_0_axi_periph/M01_AXI] [get_bd_intf_pins uioreg_io_0/S00_AXI]
-connect_bd_intf_net -intf_net [get_bd_intf_nets ps8_0_axi_periph_M01_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI] [get_bd_intf_pins system_ila_0/SLOT_0_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins ps8_0_axi_periph/M02_AXI] [get_bd_intf_pins uioreg_io_1/S00_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM1_FPD [get_bd_intf_pins ps8_0_axi_periph/S01_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM1_FPD]
@@ -933,7 +910,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets ps8_0_axi_periph_M01_AXI] [get_b
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins audio_clk_mux_ip_0/ext_clk44_clkin] [get_bd_pins clk_wiz_0/clk_out2]
   connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_pins audio_clk_mux_ip_0/ext_clk48_clkin] [get_bd_pins clk_wiz_0/clk_out3]
   connect_bd_net -net emio_uart0_ctsn_0_1 [get_bd_ports BT_ctsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_ctsn]
-  connect_bd_net -net holosynth_0_data_to_cpu [get_bd_pins holosynth_0/data_to_cpu] [get_bd_pins system_ila_0/probe4] [get_bd_pins uioreg_io_0/con_datain]
+  connect_bd_net -net holosynth_0_data_to_cpu [get_bd_pins holosynth_0/data_to_cpu] [get_bd_pins uioreg_io_0/con_datain]
   connect_bd_net -net holosynth_0_keys_on [get_bd_pins holosynth_0/keys_on] [get_bd_pins xlslice_0/Din]
   connect_bd_net -net holosynth_0_lsound_out [get_bd_pins audio_i2s_driver_0/i_lsound_out] [get_bd_pins holosynth_0/lsound_out]
   connect_bd_net -net holosynth_0_midi_txd [get_bd_ports midi_txd_0] [get_bd_pins holosynth_0/midi_txd]
@@ -941,11 +918,11 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets ps8_0_axi_periph_M01_AXI] [get_b
   connect_bd_net -net holosynth_0_socmidi_data_to_cpu [get_bd_pins holosynth_0/socmidi_data_to_cpu] [get_bd_pins uioreg_io_1/con_datain]
   connect_bd_net -net midi_rxd_0_1 [get_bd_ports midi_rxd_0] [get_bd_pins holosynth_0/midi_rxd]
   connect_bd_net -net rst_ps8_0_99M_interconnect_aresetn [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_99M/interconnect_aresetn]
-  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_ip_0/s00_axi_aresetn] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins system_ila_0/resetn] [get_bd_pins uioreg_io_0/s00_axi_aresetn] [get_bd_pins uioreg_io_1/s00_axi_aresetn]
-  connect_bd_net -net uioreg_io_0_con_adrout [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins system_ila_0/probe2] [get_bd_pins uioreg_io_0/con_adrout]
-  connect_bd_net -net uioreg_io_0_con_dataout [get_bd_pins holosynth_0/data_from_cpu] [get_bd_pins system_ila_0/probe3] [get_bd_pins uioreg_io_0/con_dataout]
-  connect_bd_net -net uioreg_io_0_con_read_out [get_bd_pins holosynth_0/cpu_read] [get_bd_pins system_ila_0/probe1] [get_bd_pins uioreg_io_0/con_read_out]
-  connect_bd_net -net uioreg_io_0_con_write_out [get_bd_pins holosynth_0/cpu_write] [get_bd_pins system_ila_0/probe0] [get_bd_pins uioreg_io_0/con_write_out]
+  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_ip_0/s00_axi_aresetn] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins uioreg_io_0/s00_axi_aresetn] [get_bd_pins uioreg_io_1/s00_axi_aresetn]
+  connect_bd_net -net uioreg_io_0_con_adrout [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins uioreg_io_0/con_adrout]
+  connect_bd_net -net uioreg_io_0_con_dataout [get_bd_pins holosynth_0/data_from_cpu] [get_bd_pins uioreg_io_0/con_dataout]
+  connect_bd_net -net uioreg_io_0_con_read_out [get_bd_pins holosynth_0/cpu_read] [get_bd_pins uioreg_io_0/con_read_out]
+  connect_bd_net -net uioreg_io_0_con_write_out [get_bd_pins holosynth_0/cpu_write] [get_bd_pins uioreg_io_0/con_write_out]
   connect_bd_net -net uioreg_io_1_con_adrout [get_bd_pins holosynth_0/socmidi_addr] [get_bd_pins uioreg_io_1/con_adrout]
   connect_bd_net -net uioreg_io_1_con_dataout [get_bd_pins holosynth_0/socmidi_data_from_cpu] [get_bd_pins uioreg_io_1/con_dataout]
   connect_bd_net -net uioreg_io_1_con_read_out [get_bd_pins holosynth_0/socmidi_read] [get_bd_pins uioreg_io_1/con_read_out]
@@ -953,7 +930,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets ps8_0_axi_periph_M01_AXI] [get_b
   connect_bd_net -net xlconstant_0_dout [get_bd_pins holosynth_0/cpu_chip_sel] [get_bd_pins holosynth_0/uart_usb_sel] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_ports Led_out] [get_bd_pins xlslice_0/Dout]
   connect_bd_net -net zynq_ultra_ps_e_0_emio_uart0_rtsn [get_bd_ports BT_rtsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_rtsn]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_ip_0/s00_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins holosynth_0/fpga_clk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/S01_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins system_ila_0/clk] [get_bd_pins uioreg_io_0/s00_axi_aclk] [get_bd_pins uioreg_io_1/s00_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_ip_0/s00_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins holosynth_0/fpga_clk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/S01_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins uioreg_io_0/s00_axi_aclk] [get_bd_pins uioreg_io_1/s00_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments
