@@ -1,6 +1,6 @@
 module modulation_matrix #(
-parameter VOICES	= 8,
-parameter V_OSC		= 4, // oscs per Voice
+parameter VOICES	= 32,
+parameter V_OSC		= 8, // oscs per Voice
 parameter O_ENVS	= 2, // envs per Oscilator
 parameter V_ENVS	= V_OSC * O_ENVS, // envs per Voice
 parameter V_WIDTH	= 3,
@@ -34,8 +34,10 @@ parameter x_offset = (V_OSC * VOICES ) - 2
     reg signed [DATA_WIDTH-1:0] sine_mod_data_in[V_OSC-1:0];
     reg signed [DATA_WIDTH-1:0] sine_fb_data_in[V_OSC-1:0];
 
-    wire signed [DATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
-    wire signed [DATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
+//     wire signed [DATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
+//     wire signed [DATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
+    reg signed [DATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
 
     reg signed [DATA_WIDTH-1:0] reg_mod_matrix_mul_mat_sum[V_OSC-1:0];
     reg signed [DATA_WIDTH-1:0] reg_fb_matrix_mul_mat_sum[V_OSC-1:0];
@@ -55,10 +57,18 @@ parameter x_offset = (V_OSC * VOICES ) - 2
 
     genvar matloop;
     generate
-        for (matloop=0;matloop<V_OSC;matloop=matloop+1) begin : cal_mod_mat_mul
-            assign mod_matrix_mul_mat[matloop] = sine_mod_data_in[ox_dly[1]] * mat_buf1[matloop][ox_dly[1]];
-            assign fb_matrix_mul_mat[matloop]  = sine_fb_data_in[ox_dly[1]]  * mat_buf1[matloop+8][ox_dly[1]];
+    for (matloop=0;matloop<V_OSC;matloop=matloop+1) begin : cal_mod_mat_mul
+        always @(posedge sCLK_XVXENVS) begin
+//             assign mod_matrix_mul_mat[matloop] = sine_mod_data_in[ox_dly[1]] * mat_buf1[matloop][ox_dly[1]];
+//             assign fb_matrix_mul_mat[matloop]  = sine_fb_data_in[ox_dly[1]]  * mat_buf1[matloop+8][ox_dly[1]];
+//            mod_matrix_mul_mat[matloop] <= sine_mod_data_in[ox_dly[1]] * mat_buf1[matloop][ox_dly[1]];
+//            fb_matrix_mul_mat[matloop]  <= sine_fb_data_in[ox_dly[1]]  * mat_buf1[matloop+8][ox_dly[1]];
+            if (sh_osc_reg[1])begin
+                mod_matrix_mul_mat[matloop] <= (level_mul_vel * sine_lut_out * osc_mod_out[ox_dly[0]]) * mat_buf1[matloop][ox_dly[0]];
+                fb_matrix_mul_mat[matloop]  <= ((sine_lut_out * osc_feedb_out[ox_dly[0]]  * mat_buf1[matloop+8][ox_dly[0]]) <<< 7);
+            end
         end
+    end
     endgenerate
 
 
@@ -71,15 +81,14 @@ parameter x_offset = (V_OSC * VOICES ) - 2
     always @(posedge sCLK_XVXENVS )begin : main_mix_summing
         for(mmmloop=0;mmmloop<V_OSC;mmmloop=mmmloop+1) begin
             if(sh_osc_reg[0])begin
-//                reg_mod_matrix_mul_mat_sum[mmmloop] <= reg_mod_matrix_mul_mat_sum[mmmloop] + (mod_matrix_mul_mat[mmmloop] >>> 7);
                 reg_mod_matrix_mul_mat_sum[mmmloop] <= reg_mod_matrix_mul_mat_sum[mmmloop] + mod_matrix_mul_mat[mmmloop];
                 reg_fb_matrix_mul_mat_sum[mmmloop] <= reg_fb_matrix_mul_mat_sum[mmmloop] + fb_matrix_mul_mat[mmmloop];
             end
         end
-        if (sh_osc_reg[1])begin
-            sine_mod_data_in[ox_dly[0]] <= (level_mul_vel * sine_lut_out * osc_mod_out[ox_dly[0]]);
-            sine_fb_data_in[ox_dly[0]]  <= ((sine_lut_out  * osc_feedb_out[ox_dly[0]]) <<< 7);
-        end
+//         if (sh_osc_reg[1])begin
+//             sine_mod_data_in[ox_dly[0]] <= (level_mul_vel * sine_lut_out * osc_mod_out[ox_dly[0]]);
+//             sine_fb_data_in[ox_dly[0]]  <= ((sine_lut_out  * osc_feedb_out[ox_dly[0]]) <<< 7);
+//         end
 
         if (sh_voice_reg[1])begin
             for(mmcloop=0;mmcloop<V_OSC;mmcloop=mmcloop+1) begin
