@@ -59,11 +59,11 @@ parameter AUD_BIT_DEPTH = 24
 //-----		Registers		-----//
 // io:
 
-    reg                 write_delay;
-    reg                 reg_w_act;
-    reg signed [7:0]    indata;
-    wire [5:0]          cpu_sel;
-    wire signed [7:0]   synth_data;
+    reg         write_delay;
+    reg         reg_w_act;
+    reg [7:0]   indata;
+    wire [5:0]  cpu_sel;
+    wire [7:0]  synth_data;
     wire w_act;
     wire write_active;
     wire io_reset;
@@ -98,10 +98,10 @@ addr_decoder #(.addr_width(3),.num_lines(6)) Bank_addr_decoder_inst
     wire midi_rxd;
     assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 //outputs
-    wire midi_out_ready,midi_send_byte;
-    wire [7:0] midi_out_data;
-    wire byteready;
-    wire [7:0] cur_status,midibyte_nr,midi_data_byte;
+//    wire midi_out_ready,midi_send_byte;
+//    wire [7:0] midi_out_data;
+//    wire byteready;
+//    wire [7:0] cur_status,midibyte_nr,midi_data_byte;
 
 //---	Midi	Decoder ---//
     wire dataready;
@@ -118,21 +118,17 @@ addr_decoder #(.addr_width(3),.num_lines(6)) Bank_addr_decoder_inst
 
 // inputs
 // outputs
-    wire octrl_cmd,prg_ch_cmd,pitch_cmd;
-    wire[7:0] octrl,octrl_data,prg_ch_data;
+//    wire octrl_cmd,prg_ch_cmd,pitch_cmd;
+    wire prg_ch_cmd,pitch_cmd;
+//    wire[7:0] octrl,octrl_data,prg_ch_data;
+    wire[7:0] octrl_data,prg_ch_data;
     wire [V_WIDTH:0]	active_keys;
-    wire 	off_note_error;
+//    wire 	off_note_error;
 
-    wire ictrl_cmd;
-    wire [7:0]ictrl, ictrl_data;
-
-    wire HC_LCD_CLK, HC_VGA_CLOCK;
+//    wire ictrl_cmd;
+//    wire [7:0]0ctrl, ictrl_data;
 
 //    wire OSC_CLK;
-    wire audio_pll_locked;
-
-    wire [63:0] lvoice_out;
-    wire [63:0] rvoice_out;
 
 //---	Midi	Controllers unit ---//
     wire [6:0]	dec_addr;

@@ -27,13 +27,746 @@
       <Properties Property="CONTROL.WINDOW_COUNT" value="1"/>
       <Properties Property="CORE_REFRESH_RATE_MS" value="500"/>
     </Object>
+    <Object name="u_ila_0" gui_info="">
+      <Properties Property="CONTROL.CAPTURE_MODE" value="BASIC"/>
+      <Properties Property="CONTROL.DATA_DEPTH" value="64"/>
+      <Properties Property="CONTROL.TRIGGER_CONDITION" value="AND"/>
+      <Properties Property="CONTROL.TRIGGER_MODE" value="BASIC_ONLY"/>
+      <Properties Property="CONTROL.TRIGGER_POSITION" value="25"/>
+      <Properties Property="CORE_REFRESH_RATE_MS" value="500"/>
+    </Object>
+    <Object name="u_ila_1" gui_info="">
+      <Properties Property="CONTROL.TRIGGER_CONDITION" value="AND"/>
+      <Properties Property="CORE_REFRESH_RATE_MS" value="500"/>
+    </Object>
   </ObjectList>
   <ObjectList object_type="hw_probe" gui_info="">
+    <Object name="design_1_i/holosynth_0/xxxx_zero__0" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/system_ila_0/inst/probe0_1" gui_info="Trigger Setup=1"/>
     <Object name="design_1_i/system_ila_0/inst/probe1_1" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/uioreg_io_0_con_write_out" gui_info="Trigger Setup=0"/>
+    <Object name="u_ila_0_xxxx_zero__0" gui_info="Trigger Setup=0"/>
   </ObjectList>
   <probeset name="hw project" active="false">
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe7[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_2"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_2"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_2"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="SIGNED"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="SIGNED"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe5[10:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[33]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[10:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[10:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe5[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]__0[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[36:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[43:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[43]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[42]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[41]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[40]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[39]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[38]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[37]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[36]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[35]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[34]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[33]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[32]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[31]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[30]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[29]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[28]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[27]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[26]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[25]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[24]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[10:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq11&apos;hXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq11&apos;hXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[10:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq11&apos;hXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq15&apos;hXXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq15&apos;hXXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[14:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq15&apos;hXXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[1]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe6[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/xxxx_zero__0"/>
+      </nets>
+    </probe>
     <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
@@ -59,7 +792,7 @@
         <net name="design_1_i/holosynth_0_data_to_cpu[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -81,7 +814,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_ar_cnt[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -103,7 +836,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_ar_ctrl[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -287,7 +1020,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_arlock"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -436,7 +1169,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_arvalid"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -458,7 +1191,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_aw_cnt[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -480,7 +1213,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_aw_ctrl[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -664,7 +1397,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_awlock"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -813,7 +1546,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_awvalid"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -835,7 +1568,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_b_cnt[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -878,7 +1611,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_bready"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -925,7 +1658,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_bvalid"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -947,7 +1680,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_r_cnt[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -992,7 +1725,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_r_ctrl[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -1083,7 +1816,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_rready"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -1127,7 +1860,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_rvalid"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -1172,7 +1905,7 @@
         <net name="design_1_i/system_ila_0/inst/net_slot_0_axi_w_ctrl[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -1374,7 +2107,7 @@
         <net name="design_1_i/system_ila_0/inst/probe2_1[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -1399,7 +2132,7 @@
         <net name="design_1_i/system_ila_0/inst/probe3_1[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -1516,6 +2249,27 @@
       </probeOptions>
       <nets>
         <net name="design_1_i/uioreg_io_0_con_write_out"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe8[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="u_ila_0_xxxx_zero__0"/>
       </nets>
     </probe>
   </probeset>

@@ -44,7 +44,7 @@ parameter V_WIDTH = 3
 //////////////key1 & key2 Assign///////////
     wire [3:0] cur_midi_ch;
     wire [7:0] midi_bytes;
-    wire signed [7:0] seq_databyte;
+    wire [7:0] seq_databyte;
 
     wire [5:0] dec_sel;
 
