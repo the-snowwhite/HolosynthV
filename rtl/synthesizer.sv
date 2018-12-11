@@ -88,7 +88,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) Bank_addr_decoder_inst
     wire reset_data_n;
 
     assign reg_reset_N = button[1] & reset_n;
-    assign data_reset_N = button[2];
+    assign data_reset_N = button[2] & reset_n;
 
     wire reset_reg_N = reg_DLY2;
     assign reset_data_n = data_DLY1;
@@ -120,7 +120,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) Bank_addr_decoder_inst
 // outputs
 //    wire octrl_cmd,prg_ch_cmd,pitch_cmd;
     wire prg_ch_cmd,pitch_cmd;
-//    wire[7:0] octrl,octrl_data,prg_ch_data;
+    wire[7:0] octrl;
     wire[7:0] octrl_data,prg_ch_data;
     wire [V_WIDTH:0]	active_keys;
 //    wire 	off_note_error;
@@ -187,7 +187,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
         write_delay <= cpu_write;
         reg_w_act <= w_act;
     end
-    
+
     always @(posedge CLOCK_50) begin
         if (io_reset) begin
             data_to_cpu <= 8'b0;
