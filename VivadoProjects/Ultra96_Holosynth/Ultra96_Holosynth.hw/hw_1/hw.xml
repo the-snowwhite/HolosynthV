@@ -29,10 +29,10 @@
     </Object>
     <Object name="u_ila_0" gui_info="">
       <Properties Property="CONTROL.CAPTURE_MODE" value="BASIC"/>
-      <Properties Property="CONTROL.DATA_DEPTH" value="64"/>
+      <Properties Property="CONTROL.DATA_DEPTH" value="131072"/>
       <Properties Property="CONTROL.TRIGGER_CONDITION" value="AND"/>
       <Properties Property="CONTROL.TRIGGER_MODE" value="BASIC_ONLY"/>
-      <Properties Property="CONTROL.TRIGGER_POSITION" value="25"/>
+      <Properties Property="CONTROL.TRIGGER_POSITION" value="8192"/>
       <Properties Property="CORE_REFRESH_RATE_MS" value="500"/>
     </Object>
     <Object name="u_ila_1" gui_info="">
@@ -41,6 +41,9 @@
     </Object>
   </ObjectList>
   <ObjectList object_type="hw_probe" gui_info="">
+    <Object name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt" gui_info="Trigger Setup=0"/>
+    <Object name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg" gui_info="Trigger Setup=0"/>
+    <Object name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/key_sync_inst/note_on" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/holosynth_0/xxxx_zero__0" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/system_ila_0/inst/probe0_1" gui_info="Trigger Setup=1"/>
     <Object name="design_1_i/system_ila_0/inst/probe1_1" gui_info="Trigger Setup=0"/>
@@ -49,6 +52,262 @@
   </ObjectList>
   <probeset name="hw project" active="false">
     <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[6:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe7[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/pitch_cmd"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[6:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe8[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[6:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe5[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe6[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_2"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe7[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/key_sync_inst/note_on"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -73,7 +332,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -98,7 +357,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -123,7 +382,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -148,7 +407,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -237,7 +496,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__2[33]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -298,7 +557,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -326,7 +585,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -354,7 +613,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -591,7 +850,7 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed[0]"/>
       </nets>
     </probe>
-    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -711,6 +970,47 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/modulation_reg[10][0]"/>
       </nets>
     </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/nco_inst/reg_osc_pitch_val[0]"/>
+      </nets>
+    </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq15&apos;hXXXX"/>
@@ -744,6 +1044,248 @@
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[3]"/>
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[2]"/>
         <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_inst/osc_sine/blockrom512x16bits_inst/q_reg__0[1]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/osc_pitch_val[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[6:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_ct_64_r[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_div_r[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_h_div_r[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[23]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[22]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[21]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[20]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[19]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[18]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[17]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[16]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[15]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[14]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[13]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[12]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[11]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[10]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[9]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/osc_res_l_div_r[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_2"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[8:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[8]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[7]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[6]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[5]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[4]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[3]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[2]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[1]"/>
+        <net name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/rkey_val_reg[0]__0[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">

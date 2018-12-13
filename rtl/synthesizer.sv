@@ -260,8 +260,8 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
     .CLOCK_50       ( CLOCK_50 ),
     .reset_data_N   ( reset_data_n ),
 // from synth_controller
-    .ictrl          ( octrl ),
-    .ictrl_data     ( octrl_data ),
+    .octrl          ( octrl ),
+    .octrl_data     ( octrl_data ),
     .pitch_cmd      ( pitch_cmd ),
 // outputs
     .pitch_val      ( pitch_val )

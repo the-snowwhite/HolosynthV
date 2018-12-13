@@ -248,7 +248,6 @@ sysex_func sysex_func_inst
             pitch_cmd <= 1'b0;
         end
         else begin
-            pitch_cmd <= 1'b0;
             if(is_st_pitch)begin // Control Change omni
                 if(is_data_byte)begin
                     octrl<=seq_databyte;
@@ -259,6 +258,9 @@ sysex_func sysex_func_inst
                     pitch_cmd<=1'b0;
                 end
             end
+            else begin
+                pitch_cmd <= 1'b0;
+            end
         end
     end
 
@@ -268,13 +270,15 @@ sysex_func sysex_func_inst
             prg_ch_cmd <=1'b0;
         end
         else begin
-            prg_ch_cmd <=1'b0;
             if(is_st_prg_change)begin // Control Change omni
                     prg_ch_cmd <= 1'b1;
                 if(is_data_byte)begin
                     prg_ch_data<=seq_databyte;
                     prg_ch_cmd <= 1'b0;
                 end
+            end
+            else begin
+                prg_ch_cmd <=1'b0;
             end
         end
     end

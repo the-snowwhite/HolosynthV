@@ -10,85 +10,83 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="64001fs"></ZoomEndTime>
-      <Cursor1Time time="48000fs"></Cursor1Time>
+      <ZoomEndTime time="44450001fs"></ZoomEndTime>
+      <Cursor1Time time="5750000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="450"></NameColumnWidth>
-      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+      <NameColumnWidth column_width="603"></NameColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="9" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/level_mul_vel[7:0]</obj_property>
-      <obj_property name="ObjectShortName">level_mul_vel[7:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[6:0]</obj_property>
+      <obj_property name="ObjectShortName">octrl_data[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1">
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/pitch_cmd">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_mul_mat[0]__1[43:0]</obj_property>
-      <obj_property name="ObjectShortName">mod_matrix_mul_mat[0]__1[43:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/pitch_cmd</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6]">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/mod_matrix_out_sum__1[43:0]</obj_property>
-      <obj_property name="ObjectShortName">mod_matrix_out_sum__1[43:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][6:0]</obj_property>
+      <obj_property name="ObjectShortName">octrl_reg[6][6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum">
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/modulation_sum[10:0]</obj_property>
-      <obj_property name="ObjectShortName">modulation_sum[10:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd_rt</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[6:0]</obj_property>
+      <obj_property name="ObjectShortName">pitch_lsb[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7]">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_matrix_data_reg[0][0]__0[10:0]</obj_property>
-      <obj_property name="ObjectShortName">reg_matrix_data_reg[0][0]__0[10:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][7:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_databyte_reg[7][7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_mul_mat_sum_reg[0]_216[43:0]</obj_property>
-      <obj_property name="ObjectShortName">reg_mod_matrix_mul_mat_sum_reg[0]_216[43:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_r[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/modulation_matrix_inst/reg_mod_matrix_summed_reg[0]__0[43:0]</obj_property>
-      <obj_property name="ObjectShortName">reg_mod_matrix_summed_reg[0]__0[43:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_reg[7]_0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/modulation[10:0]</obj_property>
-      <obj_property name="ObjectShortName">modulation[10:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_databyte[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="u_ila_0_xxxx_zero__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">u_ila_0_xxxx_zero__0</obj_property>
-      <obj_property name="ObjectShortName">u_ila_0_xxxx_zero__0</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

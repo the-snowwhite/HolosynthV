@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Dec  9 21:15:37 2018" VIVADOVERSION="2018.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Dec 11 22:44:10 2018" VIVADOVERSION="2018.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="em.avnet.com:ultra96:part0:1.0" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -2291,12 +2291,12 @@
             <CONNECTION INSTANCE="audio_clk_mux_ip_0" PORT="s00_axi_aresetn"/>
             <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_aresetn"/>
             <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_aresetn"/>
-            <CONNECTION INSTANCE="audio_i2s_driver_0" PORT="reset_reg_N"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ARESETN"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S01_ARESETN"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_ARESETN"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_ARESETN"/>
+            <CONNECTION INSTANCE="audio_i2s_driver_0" PORT="reset_reg_N"/>
             <CONNECTION INSTANCE="holosynth_0" PORT="reset_n"/>
           </CONNECTIONS>
         </PORT>

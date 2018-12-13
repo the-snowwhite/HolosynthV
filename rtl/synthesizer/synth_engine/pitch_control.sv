@@ -24,27 +24,63 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     output wire [23:0]                  osc_pitch_val
 );
 
-    reg           [7:0]rkey_val[VOICES-1:0];
-
-    reg  signed   [7:0]osc_ct[V_OSC-1:0];
-    reg  signed   [7:0]osc_ft[V_OSC-1:0];
-    reg  signed   [7:0]b_ct[V_OSC-1:0];   // base pitch
-    reg  signed   [7:0]b_ft[V_OSC-1:0];  // base tune
-    reg  signed   [7:0]k_scale[V_OSC-1:0];
-
-    reg  signed   [7:0]pb_range;
-
-    reg [7:0] data_out;
-
     wire [O_WIDTH-1:0] ox;
     wire [V_WIDTH-1:0] vx;
 
     wire [V_OSC-1:0] osc_adr_data;
 
-    assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
-assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
+    wire [8:0] key;
+    wire [8:0] ft_ct_key;
+
+    wire [23:0]ct_res;
+    wire [23:0]ft_ct_res;
+
+    wire [23:0]pb_res;
+    wire [23:0]ft_pb_res;
+    wire [23:0]key_scale;
+
+    wire [29:0]ft_range_l;
+    wire [29:0]ft_range_h;
+    wire [23:0]ft_pitch;
+    wire [8:0] pitch_key;
+    wire [8:0] pb_pitch_key;
+    wire [36:0]pb_range_l;
+    wire [36:0]pb_range_h;
+    wire [42:0]pb_ft_range_l;
+    wire [42:0]pb_ft_range_h;
+    wire [23:0]full_pitch;
+    wire [23:0]base_pitch_val;
+
+    wire [30:0]osc_res;
+    wire [30:0]osc_res_l;
+    wire [30:0]osc_res_h;
+    wire [30:0]osc_transp_range_l;
+    wire [30:0]osc_transp_range_h;
+    wire [30:0]osc_transp_val_l;
+    wire [30:0]osc_transp_val_h;
+    wire [7:0]osc_ct_64;
+
+    wire [23:0] osc_res_div, osc_res_l_div, osc_res_h_div;
+
+    reg           [7:0]rkey_val[VOICES-1:0];
+    reg  signed   [7:0]osc_ct[V_OSC-1:0];
+    reg  signed   [7:0]osc_ft[V_OSC-1:0];
+    reg  signed   [7:0]b_ct[V_OSC-1:0];   // base pitch
+    reg  signed   [7:0]b_ft[V_OSC-1:0];  // base tune
+    reg  signed   [7:0]k_scale[V_OSC-1:0];
+    reg  signed   [7:0]pb_range;
+
+    reg [7:0] data_out;
+
+    reg [7:0]	osc_ct_64_r;
+    reg [23:0] 	osc_res_div_r, osc_res_l_div_r, osc_res_h_div_r, base_pitch_val_r;
+
+    reg [30:0]	osc_res_r, osc_res_l_r, osc_res_h_r;
 
     reg [O_WIDTH-1:0] ox_dly[3:0];
+
+    assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
+    assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
     always @(posedge sCLK_XVXOSC)begin
         ox_dly[0] <= ox;
@@ -75,7 +111,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
             rkey_val[cur_key_adr] <= cur_key_val;
     end
 
-    always@(negedge reset_data_N or negedge write)begin
+    always @(negedge reset_data_N or negedge write)begin
         if(!reset_data_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 osc_ct[loop] <= 8'h40;
@@ -127,35 +163,14 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
 
 ////////        Internals       ////////
-    wire [8:0] key;
-    wire [8:0] ft_ct_key;
-
     assign key = (b_ct[ox] <= 63) ?
         ((rkey_val[vx])-( 64 - b_ct[ox])+128) : ((rkey_val[vx])+(b_ct[ox][5:0])+128);
 
     assign ft_ct_key = (b_ft[ox] <= 63) ? (key-1) : (key+1);
 
-    wire [23:0]ct_res;
-    wire [23:0]ft_ct_res;
-
     constmap2 constmap(.sound(key), .clk(sCLK_XVXOSC), .constant(ct_res));
     constmap2 ct_pb_pitchmap(.sound(ft_ct_key), .clk(sCLK_XVXOSC), .constant(ft_ct_res));
 
-    wire [23:0]pb_res;
-    wire [23:0]ft_pb_res;
-    wire [23:0]key_scale;
-
-    wire [29:0]ft_range_l;
-    wire [29:0]ft_range_h;
-    wire [23:0]ft_pitch;
-    wire [8:0] pitch_key;
-    wire [8:0] pb_pitch_key;
-    wire [36:0]pb_range_l;
-    wire [36:0]pb_range_h;
-    wire [42:0]pb_ft_range_l;
-    wire [42:0]pb_ft_range_h;
-    wire [23:0]full_pitch;
-    wire [23:0]base_pitch_val;
 // Fine tune  //
     assign ft_range_l = (ct_res-ft_ct_res)*(64 - b_ft[ox_dly[0]]);//b_ft(down)
     assign ft_range_h = ((ft_ct_res - ct_res)*b_ft[ox_dly[0]][5:0]);// b_ft(up)
@@ -187,21 +202,8 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 // keyboard rate scaling //
     assign base_pitch_val = full_pitch + (k_scale[ox_dly[0]] << 4);
 
-    wire [30:0]osc_res;
-    wire [30:0]osc_res_l;
-    wire [30:0]osc_res_h;
-//    wire [23:0]osc_transp_range_l;
-//    wire [23:0]osc_transp_range_h;
-    wire [30:0]osc_transp_range_l;
-    wire [30:0]osc_transp_range_h;
-    wire [30:0]osc_transp_val_l;
-    wire [30:0]osc_transp_val_h;
-    wire [7:0]osc_ct_64;
-
     assign osc_ct_64 = (osc_ct[ox_dly[0]] <= 8'd64) ?
             (64-osc_ct[ox_dly[0]]+1):(osc_ct[ox_dly[0]][5:0]+1);
-
-    wire [23:0] osc_res_div, osc_res_l_div, osc_res_h_div;
 
     pitchdiv	pitchdiv_inst (
         .denom ( osc_ct_64 ),
@@ -218,9 +220,6 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         .numer ( base_pitch_val ),
         .quotient ( osc_res_h_div )
     );
-
-    reg [7:0]	osc_ct_64_r;
-    reg [23:0] 	osc_res_div_r, osc_res_l_div_r, osc_res_h_div_r, base_pitch_val_r;
 
     always @(posedge sCLK_XVXOSC)begin
         osc_ct_64_r <= osc_ct_64;
@@ -241,8 +240,6 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
     assign osc_res_h =  (osc_ct[ox_dly[1]] <= 8'd63) ?// M:C Ratio
         (osc_res_h_div_r):
         (base_pitch_val_r * (osc_ct_64_r+1));
-
-    reg [30:0]	osc_res_r, osc_res_l_r, osc_res_h_r;
 
     always @(posedge sCLK_XVXOSC)begin
         osc_res_r <= osc_res;

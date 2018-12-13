@@ -10,36 +10,27 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1024001fs"></ZoomEndTime>
+      <ZoomEndTime time="8192001fs"></ZoomEndTime>
       <Cursor1Time time="8000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="452"></NameColumnWidth>
-      <ValueColumnWidth column_width="99"></ValueColumnWidth>
+      <NameColumnWidth column_width="471"></NameColumnWidth>
+      <ValueColumnWidth column_width="91"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="2" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200">
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/mat_buf1[0][0]_200[7:0]</obj_property>
-      <obj_property name="ObjectShortName">mat_buf1[0][0]_200[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd_reg</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64">
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_in[0]_64[7:0]</obj_property>
-      <obj_property name="ObjectShortName">osc_mod_in[0]_64[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/mixer_2_inst/midi_ctrl_data_inst/osc_mod_out[0]_40[7:0]</obj_property>
-      <obj_property name="ObjectShortName">osc_mod_out[0]_40[7:0]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[8:0]</obj_property>
+      <obj_property name="ObjectShortName">pitch_val[8:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
