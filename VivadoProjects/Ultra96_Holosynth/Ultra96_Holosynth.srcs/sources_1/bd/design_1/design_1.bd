@@ -795,13 +795,13 @@
         <spirit:internalPortReference spirit:componentRef="rst_ps8_0_99M" spirit:portRef="slowest_sync_clk"/>
         <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="s00_axi_aclk"/>
         <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="s00_axi_aclk"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="fpga_clk"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S01_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M01_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M02_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="fpga_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>clk_wiz_0_clk_out2</spirit:name>
@@ -824,13 +824,13 @@
         <spirit:internalPortReference spirit:componentRef="audio_clk_mux_ip_0" spirit:portRef="s00_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="s00_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="s00_axi_aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="audio_i2s_driver_0" spirit:portRef="reset_reg_N"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="reset_n"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S00_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M00_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S01_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M01_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M02_ARESETN"/>
-        <spirit:internalPortReference spirit:componentRef="audio_i2s_driver_0" spirit:portRef="reset_reg_N"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="reset_n"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>rst_ps8_0_99M_interconnect_aresetn</spirit:name>
