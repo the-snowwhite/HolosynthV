@@ -154,6 +154,12 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     // Non-AXI ports are declared here
     sc_core::sc_in<bool> maxihpm0_fpd_aclk;
     sc_core::sc_in<bool> maxihpm1_fpd_aclk;
+    sc_core::sc_in<bool> emio_uart0_ctsn;
+    sc_core::sc_out<bool> emio_uart0_rtsn;
+    sc_core::sc_in<bool> emio_uart0_dsrn;
+    sc_core::sc_in<bool> emio_uart0_dcdn;
+    sc_core::sc_in<bool> emio_uart0_rin;
+    sc_core::sc_out<bool> emio_uart0_dtrn;
     sc_core::sc_in<sc_dt::sc_bv<1> >  pl_ps_irq0;
     sc_core::sc_out<bool> pl_resetn0;
     sc_core::sc_out<bool> pl_clk0;
@@ -178,6 +184,12 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     xsc::common::properties&): sc_module(name)//registering module name with parent
         ,maxihpm0_fpd_aclk("maxihpm0_fpd_aclk")
         ,maxihpm1_fpd_aclk("maxihpm1_fpd_aclk")
+        ,emio_uart0_ctsn("emio_uart0_ctsn")
+        ,emio_uart0_rtsn("emio_uart0_rtsn")
+        ,emio_uart0_dsrn("emio_uart0_dsrn")
+        ,emio_uart0_dcdn("emio_uart0_dcdn")
+        ,emio_uart0_rin("emio_uart0_rin")
+        ,emio_uart0_dtrn("emio_uart0_dtrn")
         ,pl_ps_irq0("pl_ps_irq0")
         ,pl_resetn0("pl_resetn0")
         ,pl_clk0("pl_clk0")

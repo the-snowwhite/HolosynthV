@@ -27,7 +27,8 @@ module seq_trigger (
 
     assign midi_send_byte = (midi_send_byte_req[1] && ~midi_send_byte_req[2]) ? 1'b1 : 1'b0;
 
-    reg seq_trigger_r_dly[2:0], syx_cmd_r[1:0];
+    reg seq_trigger_r_dly[2:0];
+    reg syx_cmd_r[1:0];
     reg midi_send_byte_req[3];
 
     always @(posedge CLOCK_50)begin

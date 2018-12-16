@@ -148,6 +148,12 @@ public: // module pin-to-pin RTL interface
   sc_out< bool > maxigp1_rready;
   sc_out< sc_bv<4> > maxigp1_awqos;
   sc_out< sc_bv<4> > maxigp1_arqos;
+  sc_in< bool > emio_uart0_ctsn;
+  sc_out< bool > emio_uart0_rtsn;
+  sc_in< bool > emio_uart0_dsrn;
+  sc_in< bool > emio_uart0_dcdn;
+  sc_in< bool > emio_uart0_rin;
+  sc_out< bool > emio_uart0_dtrn;
   sc_in< sc_bv<1> > pl_ps_irq0;
   sc_out< bool > pl_resetn0;
   sc_out< bool > pl_clk0;

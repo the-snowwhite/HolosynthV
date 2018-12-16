@@ -23,12 +23,12 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     input wire signed [10:0]            modulation,
     input wire [VOICES-1:0]             voice_free,
     input wire [V_ENVS-1:0]             osc_accum_zero,
-    output wire [16:0]                  sine_lut_out
+    output wire signed [16:0]           sine_lut_out
 );
 
-    wire [10:0]tablelookup;
+    wire signed [10:0]tablelookup;
     wire signed [10:0]phase_acc;
-    wire signed [10:0] mod;
+//    wire signed [10:0] mod;
 
     wire [O_WIDTH-1:0] ox;
     wire [V_WIDTH-1:0] vx;
@@ -51,7 +51,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
 
     assign data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
 
-    assign mod = modulation;
+//    assign mod = modulation;
 
     integer loop,o1,o2,d1;
 
@@ -97,7 +97,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         .phase_acc ( phase_acc )
     );
 
-    assign tablelookup = phase_acc + mod + (o_offs[ox_dly[ox_offset]] << 3);
+    assign tablelookup = phase_acc + modulation + (o_offs[ox_dly[ox_offset]] <<< 3);
 
     sine_lookup osc_sine(.clk( sCLK_XVXENVS ), .addr( tablelookup ), .sine_value( sine_lut_out ));
 

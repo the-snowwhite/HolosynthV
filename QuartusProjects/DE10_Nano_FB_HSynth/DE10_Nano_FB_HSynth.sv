@@ -484,14 +484,14 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .cpu_write              (cpu_write) ,	// input  cpu_write_sig
     .chipselect             (cpu_chip_sel) ,	// input  chipselect_sig
     .address                (cpu_adr) ,	// input [9:0] address_sig
-    .writedata              (cpu_data_out) ,	// input [31:0] writedata_sig
-    .readdata               (cpu_data_in), 	// output [31:0] readdata_sig
+    .data_from_cpu          (cpu_data_out) ,	// input [31:0] writedata_sig
+    .data_to_cpu            (cpu_data_in), 	// output [31:0] readdata_sig
     .socmidi_read           (socmidi_read) ,	// input  cpu_read_sig
     .socmidi_write          (socmidi_write) ,	// input  cpu_write_sig
     .socmidi_cs             (socmidi_chip_sel) ,	// input  chipselect_sig
     .socmidi_addr           (socmidi_addr) ,	// input [9:0] address_sig
-    .socmidi_data_out       (socmidi_data_out) ,	// input [31:0] writedata_sig
-    .socmidi_data_in        (socmidi_data_in), 	// output [31:0] readdata_sig
+    .socmidi_data_from_cpu  (socmidi_data_out) ,	// input [31:0] writedata_sig
+    .socmidi_data_to_cpu    (socmidi_data_in), 	// output [31:0] readdata_sig
     .run                    (run),
     .uart_usb_sel           (SW[2])
 );

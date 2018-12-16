@@ -6,7 +6,7 @@ parameter V_WIDTH = 3
     input wire                  CLOCK_50,
 // cpu:
     input wire [2:0]            socmidi_addr,
-    input wire [7:0]            socmidi_data_out,
+    input wire [7:0]            socmidi_data_from_cpu,
     input wire                  socmidi_write,
 // uart:
     input wire                  midi_rxd,
@@ -44,16 +44,19 @@ parameter V_WIDTH = 3
 //////////////key1 & key2 Assign///////////
     wire [3:0] cur_midi_ch;
     wire [7:0] midi_bytes;
-    wire signed [7:0] seq_databyte;
+    wire [7:0] seq_databyte;
 
     wire [5:0] dec_sel;
 
-    assign dec_sel_bus = {write,read,dec_sel[5],dec_sel[3:0]};
+    wire write;
+    wire read;
 
     reg [3:0]    midi_cha_num, sysex_type;
 
     assign  write = (read_write && ~sysex_data_patch_send) ? 1'b1 : 1'b0;
     assign  read = (read_write && sysex_data_patch_send) ? 1'b1 : 1'b0;
+
+    assign dec_sel_bus = {write,read,dec_sel[5],dec_sel[3:0]};
 
 //  uart:
     wire       byteready_u;
@@ -88,6 +91,8 @@ parameter V_WIDTH = 3
     wire is_data_byte;
     wire is_velocity;
     wire seq_trigger;
+    wire syx_cmd;
+    wire auto_syx_cmd;
 
 
 MIDI_UART MIDI_UART_inst (
@@ -111,7 +116,7 @@ cpu_port cpu_port_inst
 	.reset_reg_N(reset_reg_N) ,
 	.CLOCK_50(CLOCK_50) ,
 	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
-	.socmidi_data_out(socmidi_data_out) ,	// input [7:0] cpu_data_sig
+	.socmidi_data_from_cpu(socmidi_data_from_cpu) ,	// input [7:0] cpu_data_sig
 //	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
 	.socmidi_write(socmidi_write) ,	    // input  cpu_write_sig
 
@@ -145,7 +150,7 @@ midi_in_mux midi_in_mux_inst
 );
 
 
-address_decoder adr_dec_inst (
+address_decoder address_decoder_inst (
     .CLOCK_50 ( CLOCK_50 ),
     .reset_reg_N ( reset_reg_N ),
     .data_ready ( data_ready ),
@@ -243,7 +248,6 @@ sysex_func sysex_func_inst
             pitch_cmd <= 1'b0;
         end
         else begin
-            pitch_cmd <= 1'b0;
             if(is_st_pitch)begin // Control Change omni
                 if(is_data_byte)begin
                     octrl<=seq_databyte;
@@ -254,6 +258,9 @@ sysex_func sysex_func_inst
                     pitch_cmd<=1'b0;
                 end
             end
+            else begin
+                pitch_cmd <= 1'b0;
+            end
         end
     end
 
@@ -263,13 +270,15 @@ sysex_func sysex_func_inst
             prg_ch_cmd <=1'b0;
         end
         else begin
-            prg_ch_cmd <=1'b0;
             if(is_st_prg_change)begin // Control Change omni
                     prg_ch_cmd <= 1'b1;
                 if(is_data_byte)begin
                     prg_ch_data<=seq_databyte;
                     prg_ch_cmd <= 1'b0;
                 end
+            end
+            else begin
+                prg_ch_cmd <=1'b0;
             end
         end
     end

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/mib/Projects/FPGA_HW/HolosynthV/VivadoProjects/Ultra96_Holosynth/Ultra96_Holosynth.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wdb" id="1">
+         <top_modules>
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="44450001fs"></ZoomEndTime>
+      <Cursor1Time time="5750000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="603"></NameColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="9" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/octrl_data[6:0]</obj_property>
+      <obj_property name="ObjectShortName">octrl_data[6:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/pitch_cmd">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/pitch_cmd</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6]">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/octrl_reg[6][6:0]</obj_property>
+      <obj_property name="ObjectShortName">octrl_reg[6][6:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_cmd_rt</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd_rt</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/rt_controllers_inst/pitch_lsb[6:0]</obj_property>
+      <obj_property name="ObjectShortName">pitch_lsb[6:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7]">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/seq_databyte_reg[7][7:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_databyte_reg[7][7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_r[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_reg[7]_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_reg[7]_0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/seq_databyte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_databyte[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+</wave_config>

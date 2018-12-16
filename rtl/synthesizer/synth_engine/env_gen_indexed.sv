@@ -32,21 +32,21 @@ parameter E_WIDTH = 3
 '		@return voice_free bit goes low until keys_on deasserted and eventual release (Rate 4)
 */
 
-parameter rate_mul = 7;
-parameter num_mul = 22;
+localparam rate_mul = 7;
+localparam num_mul = 22;
 
-    parameter RES    = 9'h000;  // Reset state <----
-    parameter IDLE   = 9'h1FE;  //9'b1 1111 1110;
-    parameter RATE1  = 9'h002;  //9'b0 0000 0010;
-    parameter LEVEL1 = 9'h004;  //9'b0 0000 0100;
-    parameter RATE2  = 9'h008;  //9'b0 0000 1000;
-    parameter LEVEL2 = 9'h010;  //9'b0 0001 0000;
-    parameter RATE3  = 9'h020;  //9'b0 0010 0000;
-    parameter LEVEL3 = 9'h040;  //9'b0 0100 0000;
-    parameter RATE4  = 9'h080;  //9'b0 1000 0000;
-    parameter LEVEL4 = 9'h100;  //9'b1 0000 0000;
+    localparam RES    = 9'h000;  // Reset state <----
+    localparam IDLE   = 9'h1FE;  //9'b1 1111 1110;
+    localparam RATE1  = 9'h002;  //9'b0 0000 0010;
+    localparam LEVEL1 = 9'h004;  //9'b0 0000 0100;
+    localparam RATE2  = 9'h008;  //9'b0 0000 1000;
+    localparam LEVEL2 = 9'h010;  //9'b0 0001 0000;
+    localparam RATE3  = 9'h020;  //9'b0 0010 0000;
+    localparam LEVEL3 = 9'h040;  //9'b0 0100 0000;
+    localparam RATE4  = 9'h080;  //9'b0 1000 0000;
+    localparam LEVEL4 = 9'h100;  //9'b1 0000 0000;
 
-    parameter mainvol_env_nr = 1;
+    localparam mainvol_env_nr = 1;
 
 // ------ Internal regs -------//
     reg           [7:0]   r_r[V_ENVS-1:0][3:0];

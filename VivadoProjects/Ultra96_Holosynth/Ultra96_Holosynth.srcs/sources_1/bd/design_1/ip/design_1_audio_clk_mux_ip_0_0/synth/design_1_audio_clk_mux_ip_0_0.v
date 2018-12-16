@@ -50,7 +50,7 @@
 // IP VLNV: Holotronic.dk:producer:audio_clk_mux_ip:1.1
 // IP Revision: 12
 
-(* X_CORE_INFO = "audio_clk_mux_ip_v1_1,Vivado 2018.2.2" *)
+(* X_CORE_INFO = "audio_clk_mux_ip_v1_1,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_audio_clk_mux_ip_0_0,audio_clk_mux_ip_v1_1,{}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_audio_clk_mux_ip_0_0 (

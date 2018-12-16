@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Oct  9 22:57:50 2018" VIVADOVERSION="2018.2.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec 14 23:09:33 2018" VIVADOVERSION="2018.2">
 
-  <SYSTEMINFO ARCH="zynquplus" BOARD="em.avnet.com:ultra96v1:part0:1.2" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
+  <SYSTEMINFO ARCH="zynquplus" BOARD="em.avnet.com:ultra96:part0:1.0" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
     <PORT CLKFREQUENCY="100000000" DIR="IO" NAME="ext_AUD_B_CLK_0" SIGIS="clk" SIGNAME="External_Ports_ext_AUD_B_CLK_0">
@@ -37,6 +37,16 @@
     <PORT DIR="O" LEFT="3" NAME="Led_out" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_0_Dout">
       <CONNECTIONS>
         <CONNECTION INSTANCE="xlslice_0" PORT="Dout"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="BT_ctsn" SIGIS="undef" SIGNAME="External_Ports_BT_ctsn">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="emio_uart0_ctsn"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="BT_rtsn" SIGIS="undef" SIGNAME="zynq_ultra_ps_e_0_emio_uart0_rtsn">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="emio_uart0_rtsn"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -895,408 +905,6 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/hm2_axilite_int_0" HWVERSION="1.0" INSTANCE="hm2_axilite_int_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="hm2_axilite_int" VLNV="machinekit.io:user:hm2_axilite_int:1.0">
-      <DOCUMENTS/>
-      <ADDRESSBLOCKS>
-        <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="reg0" RANGE="65536" USAGE="register"/>
-      </ADDRESSBLOCKS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_S_AXI_ADDR_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="design_1_hm2_axilite_int_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0xA0040000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0xA004FFFF"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="15" NAME="ADDR" RIGHT="2" SIGIS="undef" SIGNAME="hm2_axilite_int_0_ADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_addr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="IBUS" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_IBUS">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_data_in"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="OBUS" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_cpu_data_out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_data_out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="READSTB" SIGIS="undef" SIGNAME="hm2_axilite_int_0_READSTB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_read"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="WRITESTB" SIGIS="undef" SIGNAME="hm2_axilite_int_0_WRITESTB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_write"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="S_AXI_ACLK" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_ARESETN" SIGIS="rst" SIGNAME="rst_ps8_0_99M_peripheral_aresetn">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="rst_ps8_0_99M" PORT="peripheral_aresetn"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="S_AXI_AWADDR" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S_AXI_AWPROT" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWPROT">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_AWVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_AWREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S_AXI_WDATA" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WDATA">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="3" NAME="S_AXI_WSTRB" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WSTRB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_WVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_WREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S_AXI_BRESP" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BRESP">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_BVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_BREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="S_AXI_ARADDR" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S_AXI_ARPROT" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARPROT">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_ARVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_ARREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="S_AXI_RDATA" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RDATA">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S_AXI_RRESP" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RRESP">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_RVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_RREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M01_AXI" DATAWIDTH="32" NAME="S_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
-          <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
-          <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="16"/>
-          <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="RUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
-          <PARAMETER NAME="HAS_BURST" VALUE="0"/>
-          <PARAMETER NAME="HAS_LOCK" VALUE="0"/>
-          <PARAMETER NAME="HAS_PROT" VALUE="1"/>
-          <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
-          <PARAMETER NAME="HAS_QOS" VALUE="0"/>
-          <PARAMETER NAME="HAS_REGION" VALUE="0"/>
-          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
-          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
-          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
-          <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
-          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
-          <PARAMETER NAME="RUSER_BITS_PER_BYTE" VALUE="0"/>
-          <PARAMETER NAME="WUSER_BITS_PER_BYTE" VALUE="0"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="AWADDR" PHYSICAL="S_AXI_AWADDR"/>
-            <PORTMAP LOGICAL="AWPROT" PHYSICAL="S_AXI_AWPROT"/>
-            <PORTMAP LOGICAL="AWVALID" PHYSICAL="S_AXI_AWVALID"/>
-            <PORTMAP LOGICAL="AWREADY" PHYSICAL="S_AXI_AWREADY"/>
-            <PORTMAP LOGICAL="WDATA" PHYSICAL="S_AXI_WDATA"/>
-            <PORTMAP LOGICAL="WSTRB" PHYSICAL="S_AXI_WSTRB"/>
-            <PORTMAP LOGICAL="WVALID" PHYSICAL="S_AXI_WVALID"/>
-            <PORTMAP LOGICAL="WREADY" PHYSICAL="S_AXI_WREADY"/>
-            <PORTMAP LOGICAL="BRESP" PHYSICAL="S_AXI_BRESP"/>
-            <PORTMAP LOGICAL="BVALID" PHYSICAL="S_AXI_BVALID"/>
-            <PORTMAP LOGICAL="BREADY" PHYSICAL="S_AXI_BREADY"/>
-            <PORTMAP LOGICAL="ARADDR" PHYSICAL="S_AXI_ARADDR"/>
-            <PORTMAP LOGICAL="ARPROT" PHYSICAL="S_AXI_ARPROT"/>
-            <PORTMAP LOGICAL="ARVALID" PHYSICAL="S_AXI_ARVALID"/>
-            <PORTMAP LOGICAL="ARREADY" PHYSICAL="S_AXI_ARREADY"/>
-            <PORTMAP LOGICAL="RDATA" PHYSICAL="S_AXI_RDATA"/>
-            <PORTMAP LOGICAL="RRESP" PHYSICAL="S_AXI_RRESP"/>
-            <PORTMAP LOGICAL="RVALID" PHYSICAL="S_AXI_RVALID"/>
-            <PORTMAP LOGICAL="RREADY" PHYSICAL="S_AXI_RREADY"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/hm2_axilite_int_1" HWVERSION="1.0" INSTANCE="hm2_axilite_int_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="hm2_axilite_int" VLNV="machinekit.io:user:hm2_axilite_int:1.0">
-      <DOCUMENTS/>
-      <ADDRESSBLOCKS>
-        <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="reg0" RANGE="65536" USAGE="register"/>
-      </ADDRESSBLOCKS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_S_AXI_ADDR_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="design_1_hm2_axilite_int_1_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0xA0000000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0xA000FFFF"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="15" NAME="ADDR" RIGHT="2" SIGIS="undef" SIGNAME="hm2_axilite_int_1_ADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_addr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="IBUS" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_IBUS">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_data_in"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="OBUS" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_socmidi_data_out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_data_out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="READSTB" SIGIS="undef" SIGNAME="hm2_axilite_int_1_READSTB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_read"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="WRITESTB" SIGIS="undef" SIGNAME="hm2_axilite_int_1_WRITESTB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_write"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="S_AXI_ACLK" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_ARESETN" SIGIS="rst" SIGNAME="rst_ps8_0_99M_peripheral_aresetn">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="rst_ps8_0_99M" PORT="peripheral_aresetn"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="S_AXI_AWADDR" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S_AXI_AWPROT" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWPROT">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_AWVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_AWREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S_AXI_WDATA" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WDATA">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="3" NAME="S_AXI_WSTRB" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WSTRB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_WVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_WREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S_AXI_BRESP" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BRESP">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_BVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_BREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="S_AXI_ARADDR" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARADDR">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S_AXI_ARPROT" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARPROT">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_ARVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_ARREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="S_AXI_RDATA" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RDATA">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S_AXI_RRESP" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RRESP">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S_AXI_RVALID" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RVALID">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S_AXI_RREADY" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RREADY">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M02_AXI" DATAWIDTH="32" NAME="S_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
-          <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
-          <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="16"/>
-          <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="RUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
-          <PARAMETER NAME="HAS_BURST" VALUE="0"/>
-          <PARAMETER NAME="HAS_LOCK" VALUE="0"/>
-          <PARAMETER NAME="HAS_PROT" VALUE="1"/>
-          <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
-          <PARAMETER NAME="HAS_QOS" VALUE="0"/>
-          <PARAMETER NAME="HAS_REGION" VALUE="0"/>
-          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
-          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
-          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
-          <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
-          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
-          <PARAMETER NAME="RUSER_BITS_PER_BYTE" VALUE="0"/>
-          <PARAMETER NAME="WUSER_BITS_PER_BYTE" VALUE="0"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="AWADDR" PHYSICAL="S_AXI_AWADDR"/>
-            <PORTMAP LOGICAL="AWPROT" PHYSICAL="S_AXI_AWPROT"/>
-            <PORTMAP LOGICAL="AWVALID" PHYSICAL="S_AXI_AWVALID"/>
-            <PORTMAP LOGICAL="AWREADY" PHYSICAL="S_AXI_AWREADY"/>
-            <PORTMAP LOGICAL="WDATA" PHYSICAL="S_AXI_WDATA"/>
-            <PORTMAP LOGICAL="WSTRB" PHYSICAL="S_AXI_WSTRB"/>
-            <PORTMAP LOGICAL="WVALID" PHYSICAL="S_AXI_WVALID"/>
-            <PORTMAP LOGICAL="WREADY" PHYSICAL="S_AXI_WREADY"/>
-            <PORTMAP LOGICAL="BRESP" PHYSICAL="S_AXI_BRESP"/>
-            <PORTMAP LOGICAL="BVALID" PHYSICAL="S_AXI_BVALID"/>
-            <PORTMAP LOGICAL="BREADY" PHYSICAL="S_AXI_BREADY"/>
-            <PORTMAP LOGICAL="ARADDR" PHYSICAL="S_AXI_ARADDR"/>
-            <PORTMAP LOGICAL="ARPROT" PHYSICAL="S_AXI_ARPROT"/>
-            <PORTMAP LOGICAL="ARVALID" PHYSICAL="S_AXI_ARVALID"/>
-            <PORTMAP LOGICAL="ARREADY" PHYSICAL="S_AXI_ARREADY"/>
-            <PORTMAP LOGICAL="RDATA" PHYSICAL="S_AXI_RDATA"/>
-            <PORTMAP LOGICAL="RRESP" PHYSICAL="S_AXI_RRESP"/>
-            <PORTMAP LOGICAL="RVALID" PHYSICAL="S_AXI_RVALID"/>
-            <PORTMAP LOGICAL="RREADY" PHYSICAL="S_AXI_RREADY"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
     <MODULE FULLNAME="/holosynth_0" HWVERSION="1.0" INSTANCE="holosynth_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="holosynth" VLNV="xilinx.com:module_ref:holosynth:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -1356,14 +964,14 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="xxxx_zero" SIGIS="undef"/>
-        <PORT DIR="I" NAME="cpu_read" SIGIS="undef" SIGNAME="hm2_axilite_int_0_READSTB">
+        <PORT DIR="I" NAME="cpu_read" SIGIS="undef" SIGNAME="uioreg_io_0_con_read_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="READSTB"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="con_read_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="cpu_write" SIGIS="undef" SIGNAME="hm2_axilite_int_0_WRITESTB">
+        <PORT DIR="I" NAME="cpu_write" SIGIS="undef" SIGNAME="uioreg_io_0_con_write_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="WRITESTB"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="con_write_out"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="cpu_chip_sel" SIGIS="undef" SIGNAME="xlconstant_0_dout">
@@ -1371,44 +979,44 @@
             <CONNECTION INSTANCE="xlconstant_0" PORT="dout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="9" NAME="cpu_addr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_ADDR">
+        <PORT DIR="I" LEFT="11" NAME="cpu_addr" RIGHT="2" SIGIS="undef" SIGNAME="uioreg_io_0_con_adrout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="ADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="con_adrout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="cpu_data_in" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_IBUS">
+        <PORT DIR="I" LEFT="7" NAME="data_from_cpu" RIGHT="0" SIGIS="undef" SIGNAME="uioreg_io_0_con_dataout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="IBUS"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="con_dataout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="cpu_data_out" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_cpu_data_out">
+        <PORT DIR="O" LEFT="7" NAME="data_to_cpu" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_data_to_cpu">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="OBUS"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="con_datain"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="socmidi_read" SIGIS="undef" SIGNAME="hm2_axilite_int_1_READSTB">
+        <PORT DIR="I" NAME="socmidi_read" SIGIS="undef" SIGNAME="uioreg_io_1_con_read_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="READSTB"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="con_read_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="socmidi_write" SIGIS="undef" SIGNAME="hm2_axilite_int_1_WRITESTB">
+        <PORT DIR="I" NAME="socmidi_write" SIGIS="undef" SIGNAME="uioreg_io_1_con_write_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="WRITESTB"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="con_write_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="2" NAME="socmidi_addr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_ADDR">
+        <PORT DIR="I" LEFT="2" NAME="socmidi_addr" RIGHT="0" SIGIS="undef" SIGNAME="uioreg_io_1_con_adrout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="ADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="con_adrout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="socmidi_data_in" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_IBUS">
+        <PORT DIR="I" LEFT="7" NAME="socmidi_data_from_cpu" RIGHT="0" SIGIS="undef" SIGNAME="uioreg_io_1_con_dataout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="IBUS"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="con_dataout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="socmidi_data_out" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_socmidi_data_out">
+        <PORT DIR="O" LEFT="7" NAME="socmidi_data_to_cpu" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_socmidi_data_to_cpu">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="OBUS"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="con_datain"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="run" SIGIS="undef"/>
@@ -2288,194 +1896,194 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxigp1_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="39" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWADDR">
+        <PORT DIR="O" LEFT="39" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_AWADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M01_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWPROT">
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_AWPROT"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_awprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWVALID">
+        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_AWVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_AWREADY">
+        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_AWREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_awready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WDATA">
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_WDATA"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M01_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WSTRB">
+        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_WSTRB"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WVALID">
+        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_WVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_WREADY">
+        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_WREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M01_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BRESP">
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_BRESP"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BVALID">
+        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_BVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_BREADY">
+        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_BREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="39" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARADDR">
+        <PORT DIR="O" LEFT="39" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ARADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M01_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARPROT">
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ARPROT"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_arprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARVALID">
+        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ARVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_ARREADY">
+        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ARREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_arready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RDATA">
+        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_RDATA"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M01_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RRESP">
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_RRESP"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RVALID">
+        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_RVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="hm2_axilite_int_0_S_AXI_RREADY">
+        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_RREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="39" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWADDR">
+        <PORT DIR="O" LEFT="39" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_AWADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWPROT">
+        <PORT DIR="O" LEFT="2" NAME="M01_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_AWPROT"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_awprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWVALID">
+        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_AWVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_AWREADY">
+        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_AWREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_awready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WDATA">
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_WDATA"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WSTRB">
+        <PORT DIR="O" LEFT="3" NAME="M01_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_WSTRB"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WVALID">
+        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_WVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_WREADY">
+        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_WREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BRESP">
+        <PORT DIR="I" LEFT="1" NAME="M01_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_BRESP"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BVALID">
+        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_BVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_BREADY">
+        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_BREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="39" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARADDR">
+        <PORT DIR="O" LEFT="39" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ARADDR"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARPROT">
+        <PORT DIR="O" LEFT="2" NAME="M01_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ARPROT"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_arprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARVALID">
+        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ARVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_ARREADY">
+        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ARREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_arready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RDATA">
+        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_RDATA"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RRESP">
+        <PORT DIR="I" LEFT="1" NAME="M01_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_RRESP"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RVALID">
+        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_RVALID"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="hm2_axilite_int_1_S_AXI_RREADY">
+        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_RREADY"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2680,9 +2288,9 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" RIGHT="0" SIGIS="rst" SIGNAME="rst_ps8_0_99M_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ARESETN"/>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ARESETN"/>
             <CONNECTION INSTANCE="audio_clk_mux_ip_0" PORT="s00_axi_aresetn"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_aresetn"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_aresetn"/>
             <CONNECTION INSTANCE="audio_i2s_driver_0" PORT="reset_reg_N"/>
             <CONNECTION INSTANCE="holosynth_0" PORT="reset_n"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ARESETN"/>
@@ -2694,6 +2302,416 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/uioreg_io_0" HWVERSION="1.0" INSTANCE="uioreg_io_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="uioreg_io" VLNV="user.org:user:uioreg_io:1.0">
+      <DOCUMENTS/>
+      <ADDRESSBLOCKS>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="S00_AXI" NAME="S00_AXI_reg" RANGE="4096" USAGE="register"/>
+      </ADDRESSBLOCKS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_S00_AXI_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_S00_AXI_ADDR_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="ADDRESS_WIDTH" VALUE="10"/>
+        <PARAMETER NAME="DATA_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_uioreg_io_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+        <PARAMETER NAME="C_S00_AXI_BASEADDR" VALUE="0xA0040000"/>
+        <PARAMETER NAME="C_S00_AXI_HIGHADDR" VALUE="0xA0040FFF"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" LEFT="7" NAME="con_dataout" RIGHT="0" SIGIS="undef" SIGNAME="uioreg_io_0_con_dataout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="data_from_cpu"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="con_datain" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_data_to_cpu">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="data_to_cpu"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="11" NAME="con_adrout" RIGHT="2" SIGIS="undef" SIGNAME="uioreg_io_0_con_adrout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_addr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="con_write_out" SIGIS="undef" SIGNAME="uioreg_io_0_con_write_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_write"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="con_read_out" SIGIS="undef" SIGNAME="uioreg_io_0_con_read_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="cpu_read"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s00_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="s00_axi_awprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_awvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_awready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s00_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="3" NAME="s00_axi_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_wvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_wready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s00_axi_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_bvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_bready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s00_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="s00_axi_arprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_arvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_arready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="s00_axi_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s00_axi_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_rvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_rready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M01_AXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="s00_axi_aclk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_aresetn" SIGIS="rst" SIGNAME="rst_ps8_0_99M_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_ps8_0_99M" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M01_AXI" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="WIZ_DATA_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="WIZ_NUM_REG" VALUE="4"/>
+          <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
+          <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="16"/>
+          <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="RUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
+          <PARAMETER NAME="HAS_BURST" VALUE="0"/>
+          <PARAMETER NAME="HAS_LOCK" VALUE="0"/>
+          <PARAMETER NAME="HAS_PROT" VALUE="1"/>
+          <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
+          <PARAMETER NAME="HAS_QOS" VALUE="0"/>
+          <PARAMETER NAME="HAS_REGION" VALUE="0"/>
+          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
+          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
+          <PARAMETER NAME="RUSER_BITS_PER_BYTE" VALUE="0"/>
+          <PARAMETER NAME="WUSER_BITS_PER_BYTE" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="AWADDR" PHYSICAL="s00_axi_awaddr"/>
+            <PORTMAP LOGICAL="AWPROT" PHYSICAL="s00_axi_awprot"/>
+            <PORTMAP LOGICAL="AWVALID" PHYSICAL="s00_axi_awvalid"/>
+            <PORTMAP LOGICAL="AWREADY" PHYSICAL="s00_axi_awready"/>
+            <PORTMAP LOGICAL="WDATA" PHYSICAL="s00_axi_wdata"/>
+            <PORTMAP LOGICAL="WSTRB" PHYSICAL="s00_axi_wstrb"/>
+            <PORTMAP LOGICAL="WVALID" PHYSICAL="s00_axi_wvalid"/>
+            <PORTMAP LOGICAL="WREADY" PHYSICAL="s00_axi_wready"/>
+            <PORTMAP LOGICAL="BRESP" PHYSICAL="s00_axi_bresp"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="s00_axi_bvalid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="s00_axi_bready"/>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="s00_axi_araddr"/>
+            <PORTMAP LOGICAL="ARPROT" PHYSICAL="s00_axi_arprot"/>
+            <PORTMAP LOGICAL="ARVALID" PHYSICAL="s00_axi_arvalid"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="s00_axi_arready"/>
+            <PORTMAP LOGICAL="RDATA" PHYSICAL="s00_axi_rdata"/>
+            <PORTMAP LOGICAL="RRESP" PHYSICAL="s00_axi_rresp"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="s00_axi_rvalid"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="s00_axi_rready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/uioreg_io_1" HWVERSION="1.0" INSTANCE="uioreg_io_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="uioreg_io" VLNV="user.org:user:uioreg_io:1.0">
+      <DOCUMENTS/>
+      <ADDRESSBLOCKS>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="S00_AXI" NAME="S00_AXI_reg" RANGE="4096" USAGE="register"/>
+      </ADDRESSBLOCKS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_S00_AXI_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_S00_AXI_ADDR_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="ADDRESS_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="DATA_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_uioreg_io_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+        <PARAMETER NAME="C_S00_AXI_BASEADDR" VALUE="0xA0000000"/>
+        <PARAMETER NAME="C_S00_AXI_HIGHADDR" VALUE="0xA0000FFF"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" LEFT="7" NAME="con_dataout" RIGHT="0" SIGIS="undef" SIGNAME="uioreg_io_1_con_dataout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_data_from_cpu"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="con_datain" RIGHT="0" SIGIS="undef" SIGNAME="holosynth_0_socmidi_data_to_cpu">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_data_to_cpu"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="4" NAME="con_adrout" RIGHT="2" SIGIS="undef" SIGNAME="uioreg_io_1_con_adrout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_addr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="con_write_out" SIGIS="undef" SIGNAME="uioreg_io_1_con_write_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_write"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="con_read_out" SIGIS="undef" SIGNAME="uioreg_io_1_con_read_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="holosynth_0" PORT="socmidi_read"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s00_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="s00_axi_awprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_awvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_awready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s00_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="3" NAME="s00_axi_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_wvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_wready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s00_axi_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_bvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_bready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s00_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="s00_axi_arprot" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_arvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_arready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="s00_axi_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s00_axi_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axi_rvalid" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_rready" SIGIS="undef" SIGNAME="ps8_0_axi_periph_M02_AXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_AXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="s00_axi_aclk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axi_aresetn" SIGIS="rst" SIGNAME="rst_ps8_0_99M_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_ps8_0_99M" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M02_AXI" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="WIZ_DATA_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="WIZ_NUM_REG" VALUE="4"/>
+          <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
+          <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="16"/>
+          <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="RUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
+          <PARAMETER NAME="HAS_BURST" VALUE="0"/>
+          <PARAMETER NAME="HAS_LOCK" VALUE="0"/>
+          <PARAMETER NAME="HAS_PROT" VALUE="1"/>
+          <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
+          <PARAMETER NAME="HAS_QOS" VALUE="0"/>
+          <PARAMETER NAME="HAS_REGION" VALUE="0"/>
+          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
+          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
+          <PARAMETER NAME="RUSER_BITS_PER_BYTE" VALUE="0"/>
+          <PARAMETER NAME="WUSER_BITS_PER_BYTE" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="AWADDR" PHYSICAL="s00_axi_awaddr"/>
+            <PORTMAP LOGICAL="AWPROT" PHYSICAL="s00_axi_awprot"/>
+            <PORTMAP LOGICAL="AWVALID" PHYSICAL="s00_axi_awvalid"/>
+            <PORTMAP LOGICAL="AWREADY" PHYSICAL="s00_axi_awready"/>
+            <PORTMAP LOGICAL="WDATA" PHYSICAL="s00_axi_wdata"/>
+            <PORTMAP LOGICAL="WSTRB" PHYSICAL="s00_axi_wstrb"/>
+            <PORTMAP LOGICAL="WVALID" PHYSICAL="s00_axi_wvalid"/>
+            <PORTMAP LOGICAL="WREADY" PHYSICAL="s00_axi_wready"/>
+            <PORTMAP LOGICAL="BRESP" PHYSICAL="s00_axi_bresp"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="s00_axi_bvalid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="s00_axi_bready"/>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="s00_axi_araddr"/>
+            <PORTMAP LOGICAL="ARPROT" PHYSICAL="s00_axi_arprot"/>
+            <PORTMAP LOGICAL="ARVALID" PHYSICAL="s00_axi_arvalid"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="s00_axi_arready"/>
+            <PORTMAP LOGICAL="RDATA" PHYSICAL="s00_axi_rdata"/>
+            <PORTMAP LOGICAL="RRESP" PHYSICAL="s00_axi_rresp"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="s00_axi_rvalid"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="s00_axi_rready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
     </MODULE>
     <MODULE FULLNAME="/xlconstant_0" HWVERSION="1.1" INSTANCE="xlconstant_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
       <DOCUMENTS/>
@@ -3278,7 +3296,7 @@
         <PARAMETER NAME="PSU__ACPU3__POWER__ON" VALUE="1"/>
         <PARAMETER NAME="PSU__UART0__PERIPHERAL__ENABLE" VALUE="1"/>
         <PARAMETER NAME="PSU__UART0__PERIPHERAL__IO" VALUE="MIO 2 .. 3"/>
-        <PARAMETER NAME="PSU__UART0__MODEM__ENABLE" VALUE="0"/>
+        <PARAMETER NAME="PSU__UART0__MODEM__ENABLE" VALUE="1"/>
         <PARAMETER NAME="PSU__UART1__PERIPHERAL__ENABLE" VALUE="1"/>
         <PARAMETER NAME="PSU__UART1__PERIPHERAL__IO" VALUE="MIO 0 .. 1"/>
         <PARAMETER NAME="PSU__UART1__MODEM__ENABLE" VALUE="0"/>
@@ -4751,6 +4769,20 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S01_AXI_arqos"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="emio_uart0_ctsn" SIGIS="undef" SIGNAME="External_Ports_BT_ctsn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="BT_ctsn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="emio_uart0_rtsn" SIGIS="undef" SIGNAME="zynq_ultra_ps_e_0_emio_uart0_rtsn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="BT_rtsn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="emio_uart0_dsrn" SIGIS="undef"/>
+        <PORT DIR="I" NAME="emio_uart0_dcdn" SIGIS="undef"/>
+        <PORT DIR="I" NAME="emio_uart0_rin" SIGIS="undef"/>
+        <PORT DIR="O" NAME="emio_uart0_dtrn" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="pl_ps_irq0" RIGHT="0" SENSITIVITY="LEVEL_HIGH" SIGIS="INTERRUPT"/>
         <PORT DIR="O" NAME="pl_resetn0" SIGIS="rst" SIGNAME="zynq_ultra_ps_e_0_pl_resetn0">
           <CONNECTIONS>
@@ -4761,12 +4793,12 @@
           <CONNECTIONS>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm0_fpd_aclk"/>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm1_fpd_aclk"/>
-            <CONNECTION INSTANCE="hm2_axilite_int_0" PORT="S_AXI_ACLK"/>
-            <CONNECTION INSTANCE="hm2_axilite_int_1" PORT="S_AXI_ACLK"/>
             <CONNECTION INSTANCE="audio_clk_mux_ip_0" PORT="s00_axi_aclk"/>
-            <CONNECTION INSTANCE="holosynth_0" PORT="fpga_clk"/>
             <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_in1"/>
             <CONNECTION INSTANCE="rst_ps8_0_99M" PORT="slowest_sync_clk"/>
+            <CONNECTION INSTANCE="uioreg_io_0" PORT="s00_axi_aclk"/>
+            <CONNECTION INSTANCE="uioreg_io_1" PORT="s00_axi_aclk"/>
+            <CONNECTION INSTANCE="holosynth_0" PORT="fpga_clk"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="ACLK"/>
@@ -4923,16 +4955,26 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="maxigp1_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="UART_0" TYPE="INITIATOR" VLNV="xilinx.com:interface:uart:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="CTSn" PHYSICAL="emio_uart0_ctsn"/>
+            <PORTMAP LOGICAL="DCDn" PHYSICAL="emio_uart0_dcdn"/>
+            <PORTMAP LOGICAL="DSRn" PHYSICAL="emio_uart0_dsrn"/>
+            <PORTMAP LOGICAL="DTRn" PHYSICAL="emio_uart0_dtrn"/>
+            <PORTMAP LOGICAL="RI" PHYSICAL="emio_uart0_rin"/>
+            <PORTMAP LOGICAL="RTSn" PHYSICAL="emio_uart0_rtsn"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
       </BUSINTERFACES>
       <MEMORYMAP>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0xA0000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0xA000FFFF" INSTANCE="hm2_axilite_int_1" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM1_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="S00_AXI_reg" BASENAME="C_S00_AXI_BASEADDR" BASEVALUE="0xA0010000" HIGHNAME="C_S00_AXI_HIGHADDR" HIGHVALUE="0xA0010FFF" INSTANCE="audio_clk_mux_ip_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM1_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S00_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0xA0040000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0xA004FFFF" INSTANCE="hm2_axilite_int_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM1_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="S00_AXI_reg" BASENAME="C_S00_AXI_BASEADDR" BASEVALUE="0xA0000000" HIGHNAME="C_S00_AXI_HIGHADDR" HIGHVALUE="0xA0000FFF" INSTANCE="uioreg_io_1" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM0_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S00_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="S00_AXI_reg" BASENAME="C_S00_AXI_BASEADDR" BASEVALUE="0xA0010000" HIGHNAME="C_S00_AXI_HIGHADDR" HIGHVALUE="0xA0010FFF" INSTANCE="audio_clk_mux_ip_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM0_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S00_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="S00_AXI_reg" BASENAME="C_S00_AXI_BASEADDR" BASEVALUE="0xA0040000" HIGHNAME="C_S00_AXI_HIGHADDR" HIGHVALUE="0xA0040FFF" INSTANCE="uioreg_io_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_HPM0_FPD" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S00_AXI"/>
       </MEMORYMAP>
       <PERIPHERALS>
-        <PERIPHERAL INSTANCE="hm2_axilite_int_1"/>
+        <PERIPHERAL INSTANCE="uioreg_io_1"/>
         <PERIPHERAL INSTANCE="audio_clk_mux_ip_0"/>
-        <PERIPHERAL INSTANCE="hm2_axilite_int_0"/>
+        <PERIPHERAL INSTANCE="uioreg_io_0"/>
       </PERIPHERALS>
     </MODULE>
   </MODULES>

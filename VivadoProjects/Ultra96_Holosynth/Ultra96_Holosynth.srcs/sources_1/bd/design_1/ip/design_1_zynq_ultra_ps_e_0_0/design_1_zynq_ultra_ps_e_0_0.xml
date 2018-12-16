@@ -10968,7 +10968,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.UART_0" xilinx:dependency="((spirit:decode(id(PARAM_VALUE.PSU__UART0__PERIPHERAL__IO)) = &quot;EMIO&quot;)||(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.UART_0" xilinx:dependency="((spirit:decode(id(PARAM_VALUE.PSU__UART0__PERIPHERAL__IO)) = &quot;EMIO&quot;)||(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -29980,11 +29980,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:38 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:31 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:2bf0e95b</spirit:value>
+            <spirit:value>8:54dbb413</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30000,11 +30000,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:40 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:32 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:2bf0e95b</spirit:value>
+            <spirit:value>8:54dbb413</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30031,11 +30031,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:40 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:32 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30051,11 +30051,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:41 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:33 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>sim_type</spirit:name>
@@ -30075,11 +30075,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:41 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:33 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>sim_type</spirit:name>
@@ -30102,11 +30102,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:41 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:34 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30122,11 +30122,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:41 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:34 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>sim_type</spirit:name>
@@ -30146,11 +30146,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Oct 09 20:57:48 UTC 2018</spirit:value>
+            <spirit:value>Sat Dec 01 05:27:40 UTC 2018</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:99e12e5c</spirit:value>
+            <spirit:value>8:0ff41318</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>sim_type</spirit:name>
@@ -30165,7 +30165,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:2bf0e95b</spirit:value>
+            <spirit:value>8:54dbb413</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -48594,7 +48594,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_ctsn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_ctsn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -48614,7 +48614,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_rtsn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_rtsn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -48637,7 +48637,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dsrn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dsrn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -48660,7 +48660,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dcdn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dcdn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -48683,7 +48683,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_rin" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_rin" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -48703,7 +48703,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dtrn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.emio_uart0_dtrn" xilinx:dependency="(spirit:decode(id(PARAM_VALUE.PSU__UART0__MODEM__ENABLE)) = 1)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -70338,7 +70338,7 @@ FA50000;FFA5FFFF;1|FPD;AFI_5;FD3B0000;FD3BFFFF;1|FPD;AFI_4;FD3A0000;FD3AFFFF;1|F
     <spirit:parameter>
       <spirit:name>PSU__UART0__MODEM__ENABLE</spirit:name>
       <spirit:displayName>MODEM</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__UART0__MODEM__ENABLE" spirit:choiceRef="choice_list_8af5a703" spirit:order="501">0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__UART0__MODEM__ENABLE" spirit:choiceRef="choice_list_8af5a703" spirit:order="501">1</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__UART1__PERIPHERAL__ENABLE</spirit:name>

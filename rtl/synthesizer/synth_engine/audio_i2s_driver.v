@@ -10,7 +10,7 @@ parameter AUD_BIT_DEPTH = 24
 );
 
     reg [4:0]         SEL_Cont;
-    reg signed [AUD_BIT_DEPTH-1:0] sound_out; // 
+    reg signed [AUD_BIT_DEPTH-1:0] sound_out; //
     reg reg_edge_detected;
     reg reg_lrck_dly;
 

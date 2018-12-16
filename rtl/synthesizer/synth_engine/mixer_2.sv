@@ -17,8 +17,8 @@ parameter AUD_BIT_DEPTH = 24
     input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
     input wire                          xxxx_zero,
 //  env gen
-    input wire signed [7:0]             level_mul_vel,    // envgen output
-    input wire signed [16:0]            sine_lut_out, // sine
+    input wire [7:0]                    level_mul_vel,    // envgen output
+    input wire [16:0]                   sine_lut_out, // sine
 
     inout wire signed [7:0]             data,
     input wire [6:0]                    adr,
@@ -31,10 +31,10 @@ parameter AUD_BIT_DEPTH = 24
     input wire                          m2_sel,
 // Outputs -- //
 // osc
-    output reg signed [10:0]    modulation,
+    output wire [10:0]                  modulation,
 // sound data out
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out
+    output wire [AUD_BIT_DEPTH-1:0]     lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]     rsound_out
 
 );
 
@@ -45,8 +45,8 @@ parameter AUD_BIT_DEPTH = 24
     wire  signed   [7:0]   osc_mod_in     [V_OSC-1:0];
     wire  signed   [7:0]   osc_feedb_in   [V_OSC-1:0];
     wire  signed   [7:0]   m_vol;
-    wire  signed   [7:0]   mat_buf1       [15:0][V_OSC-1:0];
-    wire  signed   [7:0]   mat_buf2       [15:0][V_OSC-1:0];
+    wire  signed   [7:0]   mat_buf1 [15:0] [V_OSC-1:0];
+    wire  signed   [7:0]   mat_buf2 [15:0] [V_OSC-1:0];
     wire           [7:0]   patch_name     [15:0];
 
     reg [O_WIDTH-1:0]  ox_dly[x_offset:0];
@@ -105,7 +105,7 @@ modulation_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_W
     .modulation( modulation )       // output
 );
 
-vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
+vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.AUD_BIT_DEPTH(AUD_BIT_DEPTH))vol_mixer_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input
     .xxxx( xxxx ),                  // input

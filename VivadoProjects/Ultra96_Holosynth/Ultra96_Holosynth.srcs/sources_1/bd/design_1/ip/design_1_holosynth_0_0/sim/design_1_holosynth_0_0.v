@@ -70,13 +70,13 @@ module design_1_holosynth_0_0 (
   cpu_write,
   cpu_chip_sel,
   cpu_addr,
-  cpu_data_in,
-  cpu_data_out,
+  data_from_cpu,
+  data_to_cpu,
   socmidi_read,
   socmidi_write,
   socmidi_addr,
-  socmidi_data_in,
-  socmidi_data_out,
+  socmidi_data_from_cpu,
+  socmidi_data_to_cpu,
   run,
   uart_usb_sel
 );
@@ -101,14 +101,14 @@ output wire xxxx_zero;
 input wire cpu_read;
 input wire cpu_write;
 input wire cpu_chip_sel;
-input wire [9 : 0] cpu_addr;
-input wire [31 : 0] cpu_data_in;
-output wire [31 : 0] cpu_data_out;
+input wire [11 : 2] cpu_addr;
+input wire [7 : 0] data_from_cpu;
+output wire [7 : 0] data_to_cpu;
 input wire socmidi_read;
 input wire socmidi_write;
 input wire [2 : 0] socmidi_addr;
-input wire [7 : 0] socmidi_data_in;
-output wire [7 : 0] socmidi_data_out;
+input wire [7 : 0] socmidi_data_from_cpu;
+output wire [7 : 0] socmidi_data_to_cpu;
 output wire run;
 input wire uart_usb_sel;
 
@@ -134,13 +134,13 @@ input wire uart_usb_sel;
     .cpu_write(cpu_write),
     .cpu_chip_sel(cpu_chip_sel),
     .cpu_addr(cpu_addr),
-    .cpu_data_in(cpu_data_in),
-    .cpu_data_out(cpu_data_out),
+    .data_from_cpu(data_from_cpu),
+    .data_to_cpu(data_to_cpu),
     .socmidi_read(socmidi_read),
     .socmidi_write(socmidi_write),
     .socmidi_addr(socmidi_addr),
-    .socmidi_data_in(socmidi_data_in),
-    .socmidi_data_out(socmidi_data_out),
+    .socmidi_data_from_cpu(socmidi_data_from_cpu),
+    .socmidi_data_to_cpu(socmidi_data_to_cpu),
     .run(run),
     .uart_usb_sel(uart_usb_sel)
   );

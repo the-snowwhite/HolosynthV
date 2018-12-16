@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/mib/Projects/FPGA_HW/HolosynthV/VivadoProjects/Ultra96_Holosynth/Ultra96_Holosynth.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wdb" id="1">
+         <top_modules>
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="8192001fs"></ZoomEndTime>
+      <Cursor1Time time="8000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="471"></NameColumnWidth>
+      <ValueColumnWidth column_width="91"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="2" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="logic" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/midi_in_mux_inst/pitch_cmd_reg</obj_property>
+      <obj_property name="ObjectShortName">pitch_cmd_reg</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/pitch_control_inst/pitch_val[8:0]</obj_property>
+      <obj_property name="ObjectShortName">pitch_val[8:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+</wave_config>

@@ -50,9 +50,9 @@
 // IP VLNV: xilinx.com:module_ref:audio_i2s_driver:1.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "audio_i2s_driver,Vivado 2018.2.2" *)
+(* X_CORE_INFO = "audio_i2s_driver,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{}" *)
-(* CORE_GENERATION_INFO = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{x_ipProduct=Vivado 2018.2.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_i2s_driver,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,AUD_BIT_DEPTH=24}" *)
+(* CORE_GENERATION_INFO = "design_1_audio_i2s_driver_0_0,audio_i2s_driver,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_i2s_driver,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,AUD_BIT_DEPTH=24}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_audio_i2s_driver_0_0 (

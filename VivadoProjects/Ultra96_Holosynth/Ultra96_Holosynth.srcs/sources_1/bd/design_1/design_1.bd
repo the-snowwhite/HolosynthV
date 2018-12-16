@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xB2BB8C8589332DB5" bd:device="xczu3eg-sbva484-1-e" bd:isValidated="true" bd:synthFlowMode="None" bd:tool_version="2018.2" bd:top="design_1" bd:version="1.00.a">
+<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0x830CC5F6101DA8C7" bd:device="xczu3eg-sbva484-1-e" bd:isValidated="true" bd:synthFlowMode="None" bd:tool_version="2018.2" bd:top="design_1" bd:version="1.00.a">
 
   <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
     <spirit:vendor>xilinx.com</spirit:vendor>
@@ -183,6 +183,18 @@
             </spirit:vector>
           </spirit:wire>
         </spirit:port>
+        <spirit:port>
+          <spirit:name>BT_ctsn</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>BT_rtsn</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -364,7 +376,7 @@
           <spirit:configurableElementValue spirit:referenceId="PSU__DDR_QOS_WR_THRSHLD">16</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PSU__UART0__PERIPHERAL__ENABLE">1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PSU__UART0__PERIPHERAL__IO">MIO 2 .. 3</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="PSU__UART0__MODEM__ENABLE">0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="PSU__UART0__MODEM__ENABLE">1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PSU__UART1__PERIPHERAL__ENABLE">1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PSU__UART1__PERIPHERAL__IO">MIO 0 .. 1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PSU__UART1__MODEM__ENABLE">0</spirit:configurableElementValue>
@@ -632,24 +644,10 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>hm2_axilite_int_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="user" spirit:name="hm2_axilite_int" spirit:vendor="machinekit.io" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_hm2_axilite_int_0_0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>xlconstant_0</spirit:instanceName>
         <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_xlconstant_0_0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>hm2_axilite_int_1</spirit:instanceName>
-        <spirit:componentRef spirit:library="user" spirit:name="hm2_axilite_int" spirit:vendor="machinekit.io" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_hm2_axilite_int_1_0</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -666,28 +664,6 @@
         <spirit:componentRef spirit:library="producer" spirit:name="audio_clk_mux_ip" spirit:vendor="Holotronic.dk" spirit:version="1.1"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_audio_clk_mux_ip_0_0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>audio_i2s_driver_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="module_ref" spirit:name="audio_i2s_driver" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_audio_i2s_driver_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">audio_i2s_driver</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"/>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>holosynth_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="module_ref" spirit:name="holosynth" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_holosynth_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">holosynth</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"/>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -740,6 +716,46 @@
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_rst_ps8_0_99M_0</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>uioreg_io_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="user" spirit:name="uioreg_io" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_uioreg_io_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="ADDRESS_WIDTH">10</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>uioreg_io_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="user" spirit:name="uioreg_io" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_uioreg_io_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="ADDRESS_WIDTH">3</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>audio_i2s_driver_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="audio_i2s_driver" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_audio_i2s_driver_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="AUD_BIT_DEPTH">24</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">audio_i2s_driver</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>holosynth_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="holosynth" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_holosynth_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="AUD_BIT_DEPTH">24</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">holosynth</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
@@ -758,14 +774,14 @@
         <spirit:activeInterface spirit:busRef="S01_AXI" spirit:componentRef="ps8_0_axi_periph"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>ps8_0_axi_periph_M01_AXI</spirit:name>
-        <spirit:activeInterface spirit:busRef="M01_AXI" spirit:componentRef="ps8_0_axi_periph"/>
-        <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="hm2_axilite_int_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>ps8_0_axi_periph_M02_AXI</spirit:name>
         <spirit:activeInterface spirit:busRef="M02_AXI" spirit:componentRef="ps8_0_axi_periph"/>
-        <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="hm2_axilite_int_1"/>
+        <spirit:activeInterface spirit:busRef="S00_AXI" spirit:componentRef="uioreg_io_1"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>ps8_0_axi_periph_M01_AXI</spirit:name>
+        <spirit:activeInterface spirit:busRef="M01_AXI" spirit:componentRef="ps8_0_axi_periph"/>
+        <spirit:activeInterface spirit:busRef="S00_AXI" spirit:componentRef="uioreg_io_0"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
@@ -774,18 +790,18 @@
         <spirit:internalPortReference spirit:componentRef="zynq_ultra_ps_e_0" spirit:portRef="pl_clk0"/>
         <spirit:internalPortReference spirit:componentRef="zynq_ultra_ps_e_0" spirit:portRef="maxihpm0_fpd_aclk"/>
         <spirit:internalPortReference spirit:componentRef="zynq_ultra_ps_e_0" spirit:portRef="maxihpm1_fpd_aclk"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="S_AXI_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="S_AXI_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="audio_clk_mux_ip_0" spirit:portRef="s00_axi_aclk"/>
+        <spirit:internalPortReference spirit:componentRef="clk_wiz_0" spirit:portRef="clk_in1"/>
+        <spirit:internalPortReference spirit:componentRef="rst_ps8_0_99M" spirit:portRef="slowest_sync_clk"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="s00_axi_aclk"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="s00_axi_aclk"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="fpga_clk"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S01_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M01_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M02_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="fpga_clk"/>
-        <spirit:internalPortReference spirit:componentRef="clk_wiz_0" spirit:portRef="clk_in1"/>
-        <spirit:internalPortReference spirit:componentRef="rst_ps8_0_99M" spirit:portRef="slowest_sync_clk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>clk_wiz_0_clk_out2</spirit:name>
@@ -805,16 +821,16 @@
       <spirit:adHocConnection>
         <spirit:name>rst_ps8_0_99M_peripheral_aresetn</spirit:name>
         <spirit:internalPortReference spirit:componentRef="rst_ps8_0_99M" spirit:portRef="peripheral_aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="S_AXI_ARESETN"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="S_AXI_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="audio_clk_mux_ip_0" spirit:portRef="s00_axi_aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="s00_axi_aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="s00_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="audio_i2s_driver_0" spirit:portRef="reset_reg_N"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="reset_n"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S00_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M00_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="S01_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M01_ARESETN"/>
         <spirit:internalPortReference spirit:componentRef="ps8_0_axi_periph" spirit:portRef="M02_ARESETN"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="reset_n"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>rst_ps8_0_99M_interconnect_aresetn</spirit:name>
@@ -868,56 +884,6 @@
         <spirit:externalPortReference spirit:portRef="midi_txd_0"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_0_READSTB</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="READSTB"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_read"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_0_WRITESTB</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="WRITESTB"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_write"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_0_ADDR</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="ADDR"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_addr"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_0_IBUS</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="IBUS"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_data_in"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_1_READSTB</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="READSTB"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_read"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_1_WRITESTB</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="WRITESTB"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_write"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_1_ADDR</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="ADDR"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_addr"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>hm2_axilite_int_1_IBUS</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="IBUS"/>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_data_in"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>holosynth_0_socmidi_data_out</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_data_out"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_1" spirit:portRef="OBUS"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>holosynth_0_cpu_data_out</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_data_out"/>
-        <spirit:internalPortReference spirit:componentRef="hm2_axilite_int_0" spirit:portRef="OBUS"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
         <spirit:internalPortReference spirit:componentRef="xlslice_0" spirit:portRef="Dout"/>
         <spirit:externalPortReference spirit:portRef="Led_out"/>
@@ -932,6 +898,66 @@
         <spirit:internalPortReference spirit:componentRef="xlconstant_0" spirit:portRef="dout"/>
         <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_chip_sel"/>
         <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="uart_usb_sel"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_0_con_dataout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="con_dataout"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="data_from_cpu"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_0_con_write_out</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="con_write_out"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_write"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_0_con_read_out</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="con_read_out"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_read"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>holosynth_0_data_to_cpu</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="data_to_cpu"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="con_datain"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_1_con_write_out</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="con_write_out"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_write"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_1_con_read_out</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="con_read_out"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_read"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>emio_uart0_ctsn_0_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="BT_ctsn"/>
+        <spirit:internalPortReference spirit:componentRef="zynq_ultra_ps_e_0" spirit:portRef="emio_uart0_ctsn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>zynq_ultra_ps_e_0_emio_uart0_rtsn</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="zynq_ultra_ps_e_0" spirit:portRef="emio_uart0_rtsn"/>
+        <spirit:externalPortReference spirit:portRef="BT_rtsn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_1_con_dataout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="con_dataout"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_data_from_cpu"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>holosynth_0_socmidi_data_to_cpu</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_data_to_cpu"/>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="con_datain"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_0_con_adrout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_0" spirit:portRef="con_adrout"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="cpu_addr"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>uioreg_io_1_con_adrout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="uioreg_io_1" spirit:portRef="con_adrout"/>
+        <spirit:internalPortReference spirit:componentRef="holosynth_0" spirit:portRef="socmidi_addr"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>holosynth_0_lsound_out</spirit:name>
@@ -2582,16 +2608,16 @@
             <spirit:range>4K</spirit:range>
           </spirit:segment>
           <spirit:segment>
-            <spirit:name>SEG_hm2_axilite_int_0_reg0</spirit:name>
-            <spirit:displayName>/hm2_axilite_int_0/S_AXI/reg0</spirit:displayName>
+            <spirit:name>SEG_uioreg_io_0_S00_AXI_reg</spirit:name>
+            <spirit:displayName>/uioreg_io_0/S00_AXI/S00_AXI_reg</spirit:displayName>
             <spirit:addressOffset>0x000A0040000</spirit:addressOffset>
-            <spirit:range>64K</spirit:range>
+            <spirit:range>4K</spirit:range>
           </spirit:segment>
           <spirit:segment>
-            <spirit:name>SEG_hm2_axilite_int_1_reg0</spirit:name>
-            <spirit:displayName>/hm2_axilite_int_1/S_AXI/reg0</spirit:displayName>
+            <spirit:name>SEG_uioreg_io_1_S00_AXI_reg</spirit:name>
+            <spirit:displayName>/uioreg_io_1/S00_AXI/S00_AXI_reg</spirit:displayName>
             <spirit:addressOffset>0x000A0000000</spirit:addressOffset>
-            <spirit:range>64K</spirit:range>
+            <spirit:range>4K</spirit:range>
           </spirit:segment>
         </spirit:segments>
       </spirit:addressSpace>

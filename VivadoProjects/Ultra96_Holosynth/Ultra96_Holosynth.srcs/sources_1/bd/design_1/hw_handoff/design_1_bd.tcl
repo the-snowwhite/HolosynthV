@@ -51,7 +51,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xczu3eg-sbva484-1-e
-   set_property BOARD_PART em.avnet.com:ultra96v1:part0:1.2 [current_project]
+   set_property BOARD_PART em.avnet.com:ultra96:part0:1.0 [current_project]
 }
 
 
@@ -165,6 +165,8 @@ proc create_root_design { parentCell } {
   # Create interface ports
 
   # Create ports
+  set BT_ctsn [ create_bd_port -dir I BT_ctsn ]
+  set BT_rtsn [ create_bd_port -dir O BT_rtsn ]
   set Led_out [ create_bd_port -dir O -from 3 -to 0 Led_out ]
   set ext_AUD_ADCLR_CLK_0 [ create_bd_port -dir IO -type clk ext_AUD_ADCLR_CLK_0 ]
   set ext_AUD_B_CLK_0 [ create_bd_port -dir IO -type clk ext_AUD_B_CLK_0 ]
@@ -186,7 +188,10 @@ proc create_root_design { parentCell } {
      catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
-  
+    set_property -dict [ list \
+   CONFIG.AUD_BIT_DEPTH {24} \
+ ] $audio_i2s_driver_0
+
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
   set_property -dict [ list \
@@ -228,12 +233,6 @@ proc create_root_design { parentCell } {
    CONFIG.USE_RESET {false} \
  ] $clk_wiz_0
 
-  # Create instance: hm2_axilite_int_0, and set properties
-  set hm2_axilite_int_0 [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_axilite_int:1.0 hm2_axilite_int_0 ]
-
-  # Create instance: hm2_axilite_int_1, and set properties
-  set hm2_axilite_int_1 [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_axilite_int:1.0 hm2_axilite_int_1 ]
-
   # Create instance: holosynth_0, and set properties
   set block_name holosynth
   set block_cell_name holosynth_0
@@ -244,7 +243,10 @@ proc create_root_design { parentCell } {
      catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
-  
+    set_property -dict [ list \
+   CONFIG.AUD_BIT_DEPTH {24} \
+ ] $holosynth_0
+
   # Create instance: ps8_0_axi_periph, and set properties
   set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps8_0_axi_periph ]
   set_property -dict [ list \
@@ -254,6 +256,20 @@ proc create_root_design { parentCell } {
 
   # Create instance: rst_ps8_0_99M, and set properties
   set rst_ps8_0_99M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_99M ]
+
+  # Create instance: uioreg_io_0, and set properties
+  set uioreg_io_0 [ create_bd_cell -type ip -vlnv user.org:user:uioreg_io:1.0 uioreg_io_0 ]
+  set_property -dict [ list \
+   CONFIG.ADDRESS_WIDTH {10} \
+   CONFIG.C_S00_AXI_ADDR_WIDTH {16} \
+ ] $uioreg_io_0
+
+  # Create instance: uioreg_io_1, and set properties
+  set uioreg_io_1 [ create_bd_cell -type ip -vlnv user.org:user:uioreg_io:1.0 uioreg_io_1 ]
+  set_property -dict [ list \
+   CONFIG.ADDRESS_WIDTH {3} \
+   CONFIG.C_S00_AXI_ADDR_WIDTH {16} \
+ ] $uioreg_io_1
 
   # Create instance: xlconstant_0, and set properties
   set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
@@ -844,7 +860,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__TTC3__PERIPHERAL__ENABLE {1} \
    CONFIG.PSU__TTC3__WAVEOUT__ENABLE {0} \
    CONFIG.PSU__UART0__BAUD_RATE {115200} \
-   CONFIG.PSU__UART0__MODEM__ENABLE {0} \
+   CONFIG.PSU__UART0__MODEM__ENABLE {1} \
    CONFIG.PSU__UART0__PERIPHERAL__ENABLE {1} \
    CONFIG.PSU__UART0__PERIPHERAL__IO {MIO 2 .. 3} \
    CONFIG.PSU__UART1__BAUD_RATE {115200} \
@@ -878,8 +894,8 @@ proc create_root_design { parentCell } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins audio_clk_mux_ip_0/S00_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
-  connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins hm2_axilite_int_0/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
-  connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins hm2_axilite_int_1/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins ps8_0_axi_periph/M01_AXI] [get_bd_intf_pins uioreg_io_0/S00_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins ps8_0_axi_periph/M02_AXI] [get_bd_intf_pins uioreg_io_1/S00_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM1_FPD [get_bd_intf_pins ps8_0_axi_periph/S01_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM1_FPD]
 
@@ -893,32 +909,34 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins holosynth_0/AUDIO_CLK]
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins audio_clk_mux_ip_0/ext_clk44_clkin] [get_bd_pins clk_wiz_0/clk_out2]
   connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_pins audio_clk_mux_ip_0/ext_clk48_clkin] [get_bd_pins clk_wiz_0/clk_out3]
-  connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins hm2_axilite_int_0/ADDR] [get_bd_pins holosynth_0/cpu_addr]
-  connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins hm2_axilite_int_0/IBUS] [get_bd_pins holosynth_0/cpu_data_in]
-  connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins hm2_axilite_int_0/READSTB] [get_bd_pins holosynth_0/cpu_read]
-  connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins hm2_axilite_int_0/WRITESTB] [get_bd_pins holosynth_0/cpu_write]
-  connect_bd_net -net hm2_axilite_int_1_ADDR [get_bd_pins hm2_axilite_int_1/ADDR] [get_bd_pins holosynth_0/socmidi_addr]
-  connect_bd_net -net hm2_axilite_int_1_IBUS [get_bd_pins hm2_axilite_int_1/IBUS] [get_bd_pins holosynth_0/socmidi_data_in]
-  connect_bd_net -net hm2_axilite_int_1_READSTB [get_bd_pins hm2_axilite_int_1/READSTB] [get_bd_pins holosynth_0/socmidi_read]
-  connect_bd_net -net hm2_axilite_int_1_WRITESTB [get_bd_pins hm2_axilite_int_1/WRITESTB] [get_bd_pins holosynth_0/socmidi_write]
-  connect_bd_net -net holosynth_0_cpu_data_out [get_bd_pins hm2_axilite_int_0/OBUS] [get_bd_pins holosynth_0/cpu_data_out]
+  connect_bd_net -net emio_uart0_ctsn_0_1 [get_bd_ports BT_ctsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_ctsn]
+  connect_bd_net -net holosynth_0_data_to_cpu [get_bd_pins holosynth_0/data_to_cpu] [get_bd_pins uioreg_io_0/con_datain]
   connect_bd_net -net holosynth_0_keys_on [get_bd_pins holosynth_0/keys_on] [get_bd_pins xlslice_0/Din]
   connect_bd_net -net holosynth_0_lsound_out [get_bd_pins audio_i2s_driver_0/i_lsound_out] [get_bd_pins holosynth_0/lsound_out]
   connect_bd_net -net holosynth_0_midi_txd [get_bd_ports midi_txd_0] [get_bd_pins holosynth_0/midi_txd]
   connect_bd_net -net holosynth_0_rsound_out [get_bd_pins audio_i2s_driver_0/i_rsound_out] [get_bd_pins holosynth_0/rsound_out]
-  connect_bd_net -net holosynth_0_socmidi_data_out [get_bd_pins hm2_axilite_int_1/OBUS] [get_bd_pins holosynth_0/socmidi_data_out]
+  connect_bd_net -net holosynth_0_socmidi_data_to_cpu [get_bd_pins holosynth_0/socmidi_data_to_cpu] [get_bd_pins uioreg_io_1/con_datain]
   connect_bd_net -net midi_rxd_0_1 [get_bd_ports midi_rxd_0] [get_bd_pins holosynth_0/midi_rxd]
   connect_bd_net -net rst_ps8_0_99M_interconnect_aresetn [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_99M/interconnect_aresetn]
-  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_ip_0/s00_axi_aresetn] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins hm2_axilite_int_0/S_AXI_ARESETN] [get_bd_pins hm2_axilite_int_1/S_AXI_ARESETN] [get_bd_pins holosynth_0/reset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn]
+  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_ip_0/s00_axi_aresetn] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins uioreg_io_0/s00_axi_aresetn] [get_bd_pins uioreg_io_1/s00_axi_aresetn]
+  connect_bd_net -net uioreg_io_0_con_adrout [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins uioreg_io_0/con_adrout]
+  connect_bd_net -net uioreg_io_0_con_dataout [get_bd_pins holosynth_0/data_from_cpu] [get_bd_pins uioreg_io_0/con_dataout]
+  connect_bd_net -net uioreg_io_0_con_read_out [get_bd_pins holosynth_0/cpu_read] [get_bd_pins uioreg_io_0/con_read_out]
+  connect_bd_net -net uioreg_io_0_con_write_out [get_bd_pins holosynth_0/cpu_write] [get_bd_pins uioreg_io_0/con_write_out]
+  connect_bd_net -net uioreg_io_1_con_adrout [get_bd_pins holosynth_0/socmidi_addr] [get_bd_pins uioreg_io_1/con_adrout]
+  connect_bd_net -net uioreg_io_1_con_dataout [get_bd_pins holosynth_0/socmidi_data_from_cpu] [get_bd_pins uioreg_io_1/con_dataout]
+  connect_bd_net -net uioreg_io_1_con_read_out [get_bd_pins holosynth_0/socmidi_read] [get_bd_pins uioreg_io_1/con_read_out]
+  connect_bd_net -net uioreg_io_1_con_write_out [get_bd_pins holosynth_0/socmidi_write] [get_bd_pins uioreg_io_1/con_write_out]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins holosynth_0/cpu_chip_sel] [get_bd_pins holosynth_0/uart_usb_sel] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_ports Led_out] [get_bd_pins xlslice_0/Dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_ip_0/s00_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins hm2_axilite_int_0/S_AXI_ACLK] [get_bd_pins hm2_axilite_int_1/S_AXI_ACLK] [get_bd_pins holosynth_0/fpga_clk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/S01_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_emio_uart0_rtsn [get_bd_ports BT_rtsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_rtsn]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_ip_0/s00_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins holosynth_0/fpga_clk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/S01_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins uioreg_io_0/s00_axi_aclk] [get_bd_pins uioreg_io_1/s00_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments
   create_bd_addr_seg -range 0x00001000 -offset 0xA0010000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_clk_mux_ip_0/S00_AXI/S00_AXI_reg] SEG_audio_clk_mux_ip_0_S00_AXI_reg
-  create_bd_addr_seg -range 0x00010000 -offset 0xA0040000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs hm2_axilite_int_0/S_AXI/reg0] SEG_hm2_axilite_int_0_reg0
-  create_bd_addr_seg -range 0x00010000 -offset 0xA0000000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs hm2_axilite_int_1/S_AXI/reg0] SEG_hm2_axilite_int_1_reg0
+  create_bd_addr_seg -range 0x00001000 -offset 0xA0040000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uioreg_io_0/S00_AXI/S00_AXI_reg] SEG_uioreg_io_0_S00_AXI_reg
+  create_bd_addr_seg -range 0x00001000 -offset 0xA0000000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uioreg_io_1/S00_AXI/S00_AXI_reg] SEG_uioreg_io_1_S00_AXI_reg
 
 
   # Restore current instance

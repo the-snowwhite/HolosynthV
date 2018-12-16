@@ -1572,6 +1572,12 @@
   maxigp1_rready,
   maxigp1_awqos,
   maxigp1_arqos,
+  emio_uart0_ctsn,
+  emio_uart0_rtsn,
+  emio_uart0_dsrn,
+  emio_uart0_dcdn,
+  emio_uart0_rin,
+  emio_uart0_dtrn,
   pl_ps_irq0,
   pl_resetn0,
   pl_clk0
@@ -1699,6 +1705,12 @@
       output  maxigp1_rready;
       output  [3 : 0] maxigp1_awqos;
       output  [3 : 0] maxigp1_arqos;
+      input  emio_uart0_ctsn;
+      output  emio_uart0_rtsn;
+      input  emio_uart0_dsrn;
+      input  emio_uart0_dcdn;
+      input  emio_uart0_rin;
+      output  emio_uart0_dtrn;
       input  [0 : 0] pl_ps_irq0;
       output  pl_resetn0;
       output  pl_clk0;
@@ -1761,6 +1773,8 @@
       reg maxigp1_rready;
       reg [3 : 0] maxigp1_awqos;
       reg [3 : 0] maxigp1_arqos;
+      reg emio_uart0_rtsn;
+      reg emio_uart0_dtrn;
       reg pl_resetn0;
       reg pl_clk0;
       string ip_name;

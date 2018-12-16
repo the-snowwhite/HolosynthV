@@ -108,6 +108,12 @@ design_1_zynq_ultra_ps_e_0_0::design_1_zynq_ultra_ps_e_0_0(const sc_module_name&
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
   mp_impl->maxihpm1_fpd_aclk(maxihpm1_fpd_aclk);
+  mp_impl->emio_uart0_ctsn(emio_uart0_ctsn);
+  mp_impl->emio_uart0_rtsn(emio_uart0_rtsn);
+  mp_impl->emio_uart0_dsrn(emio_uart0_dsrn);
+  mp_impl->emio_uart0_dcdn(emio_uart0_dcdn);
+  mp_impl->emio_uart0_rin(emio_uart0_rin);
+  mp_impl->emio_uart0_dtrn(emio_uart0_dtrn);
   mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);

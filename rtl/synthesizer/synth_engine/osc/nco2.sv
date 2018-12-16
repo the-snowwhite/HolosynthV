@@ -34,10 +34,10 @@ parameter x_offset = 6
     wire [25:0]        phase_accum_b; // 36 bits phase accumulator
     reg [25:0]         reg_phase_accum; // 36 bits phase accumulator
     integer o1,d1;
- 
+
     assign phase_acc = phase_accum_b[24:14];
     assign reset = osc_accum_zero[{ox_dly[0],1'b0}];
-    
+
     nco_ram #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH))nco_ram_inst
     (
         .qa({reset_a,phase_accum_a,osc_pitch_val_a}) ,  // output [16+37+37+8+21+9-1:0] q_sig

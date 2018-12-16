@@ -50,11 +50,11 @@
 // IP VLNV: xilinx.com:ip:zynq_ultra_ps_e:3.2
 // IP Revision: 1
 
-(* X_CORE_INFO = "zynq_ultra_ps_e_v3_2_1_zynq_ultra_ps_e,Vivado 2018.2.2" *)
+(* X_CORE_INFO = "zynq_ultra_ps_e_v3_2_1_zynq_ultra_ps_e,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_zynq_ultra_ps_e_0_0,zynq_ultra_ps_e_v3_2_1_zynq_ultra_ps_e,{}" *)
-(* CORE_GENERATION_INFO = "design_1_zynq_ultra_ps_e_0_0,zynq_ultra_ps_e_v3_2_1_zynq_ultra_ps_e,{x_ipProduct=Vivado 2018.2.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=zynq_ultra_ps_e,x_ipVersion=3.2,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,C_DP_USE_AUDIO=0,C_DP_USE_VIDEO=0,C_MAXIGP0_DATA_WIDTH=128,C_MAXIGP1_DATA_WIDTH=128,C_MAXIGP2_DATA_WIDTH=32,C_SAXIGP0_DATA_WIDTH=128,C_SAXIGP1_DATA_WIDTH=128,C_SAXIGP2_DATA_WIDTH=128,C_SAXIGP3_DATA_WIDTH=128,C_SAXIGP4_DATA_WIDTH=128,C_SAXIGP5_DATA_WIDTH=128,C_S\
-AXIGP6_DATA_WIDTH=128,C_USE_DIFF_RW_CLK_GP0=0,C_USE_DIFF_RW_CLK_GP1=0,C_USE_DIFF_RW_CLK_GP2=0,C_USE_DIFF_RW_CLK_GP3=0,C_USE_DIFF_RW_CLK_GP4=0,C_USE_DIFF_RW_CLK_GP5=0,C_USE_DIFF_RW_CLK_GP6=0,C_EN_FIFO_ENET0=0,C_EN_FIFO_ENET1=0,C_EN_FIFO_ENET2=0,C_EN_FIFO_ENET3=0,C_PL_CLK0_BUF=TRUE,C_PL_CLK1_BUF=FALSE,C_PL_CLK2_BUF=FALSE,C_PL_CLK3_BUF=FALSE,C_TRACE_PIPELINE_WIDTH=8,C_EN_EMIO_TRACE=0,C_TRACE_DATA_WIDTH=32,C_USE_DEBUG_TEST=0,C_SD0_INTERNAL_BUS_WIDTH=4,C_SD1_INTERNAL_BUS_WIDTH=4,C_NUM_F2P_0_INTR_INPU\
-TS=1,C_NUM_F2P_1_INTR_INPUTS=1,C_EMIO_GPIO_WIDTH=1,C_NUM_FABRIC_RESETS=1}" *)
+(* CORE_GENERATION_INFO = "design_1_zynq_ultra_ps_e_0_0,zynq_ultra_ps_e_v3_2_1_zynq_ultra_ps_e,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=zynq_ultra_ps_e,x_ipVersion=3.2,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=VERILOG,C_DP_USE_AUDIO=0,C_DP_USE_VIDEO=0,C_MAXIGP0_DATA_WIDTH=128,C_MAXIGP1_DATA_WIDTH=128,C_MAXIGP2_DATA_WIDTH=32,C_SAXIGP0_DATA_WIDTH=128,C_SAXIGP1_DATA_WIDTH=128,C_SAXIGP2_DATA_WIDTH=128,C_SAXIGP3_DATA_WIDTH=128,C_SAXIGP4_DATA_WIDTH=128,C_SAXIGP5_DATA_WIDTH=128,C_SAX\
+IGP6_DATA_WIDTH=128,C_USE_DIFF_RW_CLK_GP0=0,C_USE_DIFF_RW_CLK_GP1=0,C_USE_DIFF_RW_CLK_GP2=0,C_USE_DIFF_RW_CLK_GP3=0,C_USE_DIFF_RW_CLK_GP4=0,C_USE_DIFF_RW_CLK_GP5=0,C_USE_DIFF_RW_CLK_GP6=0,C_EN_FIFO_ENET0=0,C_EN_FIFO_ENET1=0,C_EN_FIFO_ENET2=0,C_EN_FIFO_ENET3=0,C_PL_CLK0_BUF=TRUE,C_PL_CLK1_BUF=FALSE,C_PL_CLK2_BUF=FALSE,C_PL_CLK3_BUF=FALSE,C_TRACE_PIPELINE_WIDTH=8,C_EN_EMIO_TRACE=0,C_TRACE_DATA_WIDTH=32,C_USE_DEBUG_TEST=0,C_SD0_INTERNAL_BUS_WIDTH=4,C_SD1_INTERNAL_BUS_WIDTH=4,C_NUM_F2P_0_INTR_INPUTS\
+=1,C_NUM_F2P_1_INTR_INPUTS=1,C_EMIO_GPIO_WIDTH=1,C_NUM_FABRIC_RESETS=1}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_zynq_ultra_ps_e_0_0 (
   maxihpm0_fpd_aclk,
@@ -137,6 +137,12 @@ module design_1_zynq_ultra_ps_e_0_0 (
   maxigp1_rready,
   maxigp1_awqos,
   maxigp1_arqos,
+  emio_uart0_ctsn,
+  emio_uart0_rtsn,
+  emio_uart0_dsrn,
+  emio_uart0_dcdn,
+  emio_uart0_rin,
+  emio_uart0_dtrn,
   pl_ps_irq0,
   pl_resetn0,
   pl_clk0
@@ -308,6 +314,18 @@ output wire [3 : 0] maxigp1_awqos;
 HREADS 4, NUM_WRITE_THREADS 4, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI_HPM1_FPD ARQOS" *)
 output wire [3 : 0] maxigp1_arqos;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 CTSn" *)
+input wire emio_uart0_ctsn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 RTSn" *)
+output wire emio_uart0_rtsn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 DSRn" *)
+input wire emio_uart0_dsrn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 DCDn" *)
+input wire emio_uart0_dcdn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 RI" *)
+input wire emio_uart0_rin;
+(* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 UART_0 DTRn" *)
+output wire emio_uart0_dtrn;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME PL_PS_IRQ0, SENSITIVITY LEVEL_HIGH, PortWidth 1" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 PL_PS_IRQ0 INTERRUPT" *)
 input wire [0 : 0] pl_ps_irq0;
@@ -1144,12 +1162,12 @@ output wire pl_clk0;
     .emio_i2c1_sda_t(),
     .emio_uart0_txd(),
     .emio_uart0_rxd(1'B0),
-    .emio_uart0_ctsn(1'B0),
-    .emio_uart0_rtsn(),
-    .emio_uart0_dsrn(1'B0),
-    .emio_uart0_dcdn(1'B0),
-    .emio_uart0_rin(1'B0),
-    .emio_uart0_dtrn(),
+    .emio_uart0_ctsn(emio_uart0_ctsn),
+    .emio_uart0_rtsn(emio_uart0_rtsn),
+    .emio_uart0_dsrn(emio_uart0_dsrn),
+    .emio_uart0_dcdn(emio_uart0_dcdn),
+    .emio_uart0_rin(emio_uart0_rin),
+    .emio_uart0_dtrn(emio_uart0_dtrn),
     .emio_uart1_txd(),
     .emio_uart1_rxd(1'B0),
     .emio_uart1_ctsn(1'B0),

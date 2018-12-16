@@ -1,23 +1,27 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
-//Date        : Tue Oct  9 22:57:25 2018
-//Host        : neon-ws running 64-bit KDE neon Developer Edition
+//Tool Version: Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
+//Date        : Fri Dec 14 23:09:31 2018
+//Host        : kdeneon-ws running 64-bit KDE neon User Edition 5.14
 //Command     : generate_target design_1.bd
 //Design      : design_1
 //Purpose     : IP block netlist
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=21,numReposBlks=15,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=4,da_clkrst_cnt=4,da_zynq_ultra_ps_e_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=21,numReposBlks=15,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=7,da_clkrst_cnt=6,da_zynq_ultra_ps_e_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
-   (Led_out,
+   (BT_ctsn,
+    BT_rtsn,
+    Led_out,
     ext_AUD_ADCLR_CLK_0,
     ext_AUD_B_CLK_0,
     ext_AUD_DACLR_CLK_0,
     midi_rxd_0,
     midi_txd_0,
     oAUD_DACDAT_0);
+  input BT_ctsn;
+  output BT_rtsn;
   output [3:0]Led_out;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.EXT_AUD_ADCLR_CLK_0 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.EXT_AUD_ADCLR_CLK_0, FREQ_HZ 100000000, PHASE 0.000" *) inout ext_AUD_ADCLR_CLK_0;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.EXT_AUD_B_CLK_0 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.EXT_AUD_B_CLK_0, FREQ_HZ 100000000, PHASE 0.000" *) inout ext_AUD_B_CLK_0;
@@ -35,20 +39,13 @@ module design_1
   wire clk_wiz_0_clk_out1;
   wire clk_wiz_0_clk_out2;
   wire clk_wiz_0_clk_out3;
-  wire [15:2]hm2_axilite_int_0_ADDR;
-  wire [31:0]hm2_axilite_int_0_IBUS;
-  wire hm2_axilite_int_0_READSTB;
-  wire hm2_axilite_int_0_WRITESTB;
-  wire [15:2]hm2_axilite_int_1_ADDR;
-  wire [31:0]hm2_axilite_int_1_IBUS;
-  wire hm2_axilite_int_1_READSTB;
-  wire hm2_axilite_int_1_WRITESTB;
-  wire [31:0]holosynth_0_cpu_data_out;
+  wire emio_uart0_ctsn_0_1;
+  wire [7:0]holosynth_0_data_to_cpu;
   wire [31:0]holosynth_0_keys_on;
   wire [23:0]holosynth_0_lsound_out;
   wire holosynth_0_midi_txd;
   wire [23:0]holosynth_0_rsound_out;
-  wire [7:0]holosynth_0_socmidi_data_out;
+  wire [7:0]holosynth_0_socmidi_data_to_cpu;
   wire midi_rxd_0_1;
   wire [39:0]ps8_0_axi_periph_M00_AXI_ARADDR;
   wire [2:0]ps8_0_axi_periph_M00_AXI_ARPROT;
@@ -109,6 +106,14 @@ module design_1
   wire ps8_0_axi_periph_M02_AXI_WVALID;
   wire [0:0]rst_ps8_0_99M_interconnect_aresetn;
   wire [0:0]rst_ps8_0_99M_peripheral_aresetn;
+  wire [11:2]uioreg_io_0_con_adrout;
+  wire [7:0]uioreg_io_0_con_dataout;
+  wire uioreg_io_0_con_read_out;
+  wire uioreg_io_0_con_write_out;
+  wire [4:2]uioreg_io_1_con_adrout;
+  wire [7:0]uioreg_io_1_con_dataout;
+  wire uioreg_io_1_con_read_out;
+  wire uioreg_io_1_con_write_out;
   wire [0:0]xlconstant_0_dout;
   wire [3:0]xlslice_0_Dout;
   wire [39:0]zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR;
@@ -185,10 +190,13 @@ module design_1
   wire zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WREADY;
   wire [15:0]zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WSTRB;
   wire zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WVALID;
+  wire zynq_ultra_ps_e_0_emio_uart0_rtsn;
   wire zynq_ultra_ps_e_0_pl_clk0;
   wire zynq_ultra_ps_e_0_pl_resetn0;
 
+  assign BT_rtsn = zynq_ultra_ps_e_0_emio_uart0_rtsn;
   assign Led_out[3:0] = xlslice_0_Dout;
+  assign emio_uart0_ctsn_0_1 = BT_ctsn;
   assign midi_rxd_0_1 = midi_rxd_0;
   assign midi_txd_0 = holosynth_0_midi_txd;
   assign oAUD_DACDAT_0 = audio_i2s_driver_0_oAUD_DACDAT;
@@ -233,69 +241,15 @@ module design_1
         .clk_out1(clk_wiz_0_clk_out1),
         .clk_out2(clk_wiz_0_clk_out2),
         .clk_out3(clk_wiz_0_clk_out3));
-  design_1_hm2_axilite_int_0_0 hm2_axilite_int_0
-       (.ADDR(hm2_axilite_int_0_ADDR),
-        .IBUS(hm2_axilite_int_0_IBUS),
-        .OBUS(holosynth_0_cpu_data_out),
-        .READSTB(hm2_axilite_int_0_READSTB),
-        .S_AXI_ACLK(zynq_ultra_ps_e_0_pl_clk0),
-        .S_AXI_ARADDR(ps8_0_axi_periph_M01_AXI_ARADDR[15:0]),
-        .S_AXI_ARESETN(rst_ps8_0_99M_peripheral_aresetn),
-        .S_AXI_ARPROT(ps8_0_axi_periph_M01_AXI_ARPROT),
-        .S_AXI_ARREADY(ps8_0_axi_periph_M01_AXI_ARREADY),
-        .S_AXI_ARVALID(ps8_0_axi_periph_M01_AXI_ARVALID),
-        .S_AXI_AWADDR(ps8_0_axi_periph_M01_AXI_AWADDR[15:0]),
-        .S_AXI_AWPROT(ps8_0_axi_periph_M01_AXI_AWPROT),
-        .S_AXI_AWREADY(ps8_0_axi_periph_M01_AXI_AWREADY),
-        .S_AXI_AWVALID(ps8_0_axi_periph_M01_AXI_AWVALID),
-        .S_AXI_BREADY(ps8_0_axi_periph_M01_AXI_BREADY),
-        .S_AXI_BRESP(ps8_0_axi_periph_M01_AXI_BRESP),
-        .S_AXI_BVALID(ps8_0_axi_periph_M01_AXI_BVALID),
-        .S_AXI_RDATA(ps8_0_axi_periph_M01_AXI_RDATA),
-        .S_AXI_RREADY(ps8_0_axi_periph_M01_AXI_RREADY),
-        .S_AXI_RRESP(ps8_0_axi_periph_M01_AXI_RRESP),
-        .S_AXI_RVALID(ps8_0_axi_periph_M01_AXI_RVALID),
-        .S_AXI_WDATA(ps8_0_axi_periph_M01_AXI_WDATA),
-        .S_AXI_WREADY(ps8_0_axi_periph_M01_AXI_WREADY),
-        .S_AXI_WSTRB(ps8_0_axi_periph_M01_AXI_WSTRB),
-        .S_AXI_WVALID(ps8_0_axi_periph_M01_AXI_WVALID),
-        .WRITESTB(hm2_axilite_int_0_WRITESTB));
-  design_1_hm2_axilite_int_1_0 hm2_axilite_int_1
-       (.ADDR(hm2_axilite_int_1_ADDR),
-        .IBUS(hm2_axilite_int_1_IBUS),
-        .OBUS(holosynth_0_socmidi_data_out),
-        .READSTB(hm2_axilite_int_1_READSTB),
-        .S_AXI_ACLK(zynq_ultra_ps_e_0_pl_clk0),
-        .S_AXI_ARADDR(ps8_0_axi_periph_M02_AXI_ARADDR[15:0]),
-        .S_AXI_ARESETN(rst_ps8_0_99M_peripheral_aresetn),
-        .S_AXI_ARPROT(ps8_0_axi_periph_M02_AXI_ARPROT),
-        .S_AXI_ARREADY(ps8_0_axi_periph_M02_AXI_ARREADY),
-        .S_AXI_ARVALID(ps8_0_axi_periph_M02_AXI_ARVALID),
-        .S_AXI_AWADDR(ps8_0_axi_periph_M02_AXI_AWADDR[15:0]),
-        .S_AXI_AWPROT(ps8_0_axi_periph_M02_AXI_AWPROT),
-        .S_AXI_AWREADY(ps8_0_axi_periph_M02_AXI_AWREADY),
-        .S_AXI_AWVALID(ps8_0_axi_periph_M02_AXI_AWVALID),
-        .S_AXI_BREADY(ps8_0_axi_periph_M02_AXI_BREADY),
-        .S_AXI_BRESP(ps8_0_axi_periph_M02_AXI_BRESP),
-        .S_AXI_BVALID(ps8_0_axi_periph_M02_AXI_BVALID),
-        .S_AXI_RDATA(ps8_0_axi_periph_M02_AXI_RDATA),
-        .S_AXI_RREADY(ps8_0_axi_periph_M02_AXI_RREADY),
-        .S_AXI_RRESP(ps8_0_axi_periph_M02_AXI_RRESP),
-        .S_AXI_RVALID(ps8_0_axi_periph_M02_AXI_RVALID),
-        .S_AXI_WDATA(ps8_0_axi_periph_M02_AXI_WDATA),
-        .S_AXI_WREADY(ps8_0_axi_periph_M02_AXI_WREADY),
-        .S_AXI_WSTRB(ps8_0_axi_periph_M02_AXI_WSTRB),
-        .S_AXI_WVALID(ps8_0_axi_periph_M02_AXI_WVALID),
-        .WRITESTB(hm2_axilite_int_1_WRITESTB));
   design_1_holosynth_0_0 holosynth_0
        (.AUDIO_CLK(clk_wiz_0_clk_out1),
         .AUD_DACLRCK(audio_clk_mux_ip_0_ext_playback_lrclk),
-        .cpu_addr(hm2_axilite_int_0_ADDR[11:2]),
+        .cpu_addr(uioreg_io_0_con_adrout),
         .cpu_chip_sel(xlconstant_0_dout),
-        .cpu_data_in(hm2_axilite_int_0_IBUS),
-        .cpu_data_out(holosynth_0_cpu_data_out),
-        .cpu_read(hm2_axilite_int_0_READSTB),
-        .cpu_write(hm2_axilite_int_0_WRITESTB),
+        .cpu_read(uioreg_io_0_con_read_out),
+        .cpu_write(uioreg_io_0_con_write_out),
+        .data_from_cpu(uioreg_io_0_con_dataout),
+        .data_to_cpu(holosynth_0_data_to_cpu),
         .fpga_clk(zynq_ultra_ps_e_0_pl_clk0),
         .keys_on(holosynth_0_keys_on),
         .lsound_out(holosynth_0_lsound_out),
@@ -303,11 +257,11 @@ module design_1
         .midi_txd(holosynth_0_midi_txd),
         .reset_n(rst_ps8_0_99M_peripheral_aresetn),
         .rsound_out(holosynth_0_rsound_out),
-        .socmidi_addr(hm2_axilite_int_1_ADDR[4:2]),
-        .socmidi_data_in(hm2_axilite_int_1_IBUS[7:0]),
-        .socmidi_data_out(holosynth_0_socmidi_data_out),
-        .socmidi_read(hm2_axilite_int_1_READSTB),
-        .socmidi_write(hm2_axilite_int_1_WRITESTB),
+        .socmidi_addr(uioreg_io_1_con_adrout),
+        .socmidi_data_from_cpu(uioreg_io_1_con_dataout),
+        .socmidi_data_to_cpu(holosynth_0_socmidi_data_to_cpu),
+        .socmidi_read(uioreg_io_1_con_read_out),
+        .socmidi_write(uioreg_io_1_con_write_out),
         .uart_usb_sel(xlconstant_0_dout));
   design_1_ps8_0_axi_periph_0 ps8_0_axi_periph
        (.ACLK(zynq_ultra_ps_e_0_pl_clk0),
@@ -461,13 +415,72 @@ module design_1
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_ps8_0_99M_peripheral_aresetn),
         .slowest_sync_clk(zynq_ultra_ps_e_0_pl_clk0));
+  design_1_uioreg_io_0_0 uioreg_io_0
+       (.con_adrout(uioreg_io_0_con_adrout),
+        .con_datain(holosynth_0_data_to_cpu),
+        .con_dataout(uioreg_io_0_con_dataout),
+        .con_read_out(uioreg_io_0_con_read_out),
+        .con_write_out(uioreg_io_0_con_write_out),
+        .s00_axi_aclk(zynq_ultra_ps_e_0_pl_clk0),
+        .s00_axi_araddr(ps8_0_axi_periph_M01_AXI_ARADDR[15:0]),
+        .s00_axi_aresetn(rst_ps8_0_99M_peripheral_aresetn),
+        .s00_axi_arprot(ps8_0_axi_periph_M01_AXI_ARPROT),
+        .s00_axi_arready(ps8_0_axi_periph_M01_AXI_ARREADY),
+        .s00_axi_arvalid(ps8_0_axi_periph_M01_AXI_ARVALID),
+        .s00_axi_awaddr(ps8_0_axi_periph_M01_AXI_AWADDR[15:0]),
+        .s00_axi_awprot(ps8_0_axi_periph_M01_AXI_AWPROT),
+        .s00_axi_awready(ps8_0_axi_periph_M01_AXI_AWREADY),
+        .s00_axi_awvalid(ps8_0_axi_periph_M01_AXI_AWVALID),
+        .s00_axi_bready(ps8_0_axi_periph_M01_AXI_BREADY),
+        .s00_axi_bresp(ps8_0_axi_periph_M01_AXI_BRESP),
+        .s00_axi_bvalid(ps8_0_axi_periph_M01_AXI_BVALID),
+        .s00_axi_rdata(ps8_0_axi_periph_M01_AXI_RDATA),
+        .s00_axi_rready(ps8_0_axi_periph_M01_AXI_RREADY),
+        .s00_axi_rresp(ps8_0_axi_periph_M01_AXI_RRESP),
+        .s00_axi_rvalid(ps8_0_axi_periph_M01_AXI_RVALID),
+        .s00_axi_wdata(ps8_0_axi_periph_M01_AXI_WDATA),
+        .s00_axi_wready(ps8_0_axi_periph_M01_AXI_WREADY),
+        .s00_axi_wstrb(ps8_0_axi_periph_M01_AXI_WSTRB),
+        .s00_axi_wvalid(ps8_0_axi_periph_M01_AXI_WVALID));
+  design_1_uioreg_io_0_1 uioreg_io_1
+       (.con_adrout(uioreg_io_1_con_adrout),
+        .con_datain(holosynth_0_socmidi_data_to_cpu),
+        .con_dataout(uioreg_io_1_con_dataout),
+        .con_read_out(uioreg_io_1_con_read_out),
+        .con_write_out(uioreg_io_1_con_write_out),
+        .s00_axi_aclk(zynq_ultra_ps_e_0_pl_clk0),
+        .s00_axi_araddr(ps8_0_axi_periph_M02_AXI_ARADDR[15:0]),
+        .s00_axi_aresetn(rst_ps8_0_99M_peripheral_aresetn),
+        .s00_axi_arprot(ps8_0_axi_periph_M02_AXI_ARPROT),
+        .s00_axi_arready(ps8_0_axi_periph_M02_AXI_ARREADY),
+        .s00_axi_arvalid(ps8_0_axi_periph_M02_AXI_ARVALID),
+        .s00_axi_awaddr(ps8_0_axi_periph_M02_AXI_AWADDR[15:0]),
+        .s00_axi_awprot(ps8_0_axi_periph_M02_AXI_AWPROT),
+        .s00_axi_awready(ps8_0_axi_periph_M02_AXI_AWREADY),
+        .s00_axi_awvalid(ps8_0_axi_periph_M02_AXI_AWVALID),
+        .s00_axi_bready(ps8_0_axi_periph_M02_AXI_BREADY),
+        .s00_axi_bresp(ps8_0_axi_periph_M02_AXI_BRESP),
+        .s00_axi_bvalid(ps8_0_axi_periph_M02_AXI_BVALID),
+        .s00_axi_rdata(ps8_0_axi_periph_M02_AXI_RDATA),
+        .s00_axi_rready(ps8_0_axi_periph_M02_AXI_RREADY),
+        .s00_axi_rresp(ps8_0_axi_periph_M02_AXI_RRESP),
+        .s00_axi_rvalid(ps8_0_axi_periph_M02_AXI_RVALID),
+        .s00_axi_wdata(ps8_0_axi_periph_M02_AXI_WDATA),
+        .s00_axi_wready(ps8_0_axi_periph_M02_AXI_WREADY),
+        .s00_axi_wstrb(ps8_0_axi_periph_M02_AXI_WSTRB),
+        .s00_axi_wvalid(ps8_0_axi_periph_M02_AXI_WVALID));
   design_1_xlconstant_0_0 xlconstant_0
        (.dout(xlconstant_0_dout));
   design_1_xlslice_0_0 xlslice_0
        (.Din(holosynth_0_keys_on),
         .Dout(xlslice_0_Dout));
   design_1_zynq_ultra_ps_e_0_0 zynq_ultra_ps_e_0
-       (.maxigp0_araddr(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR),
+       (.emio_uart0_ctsn(emio_uart0_ctsn_0_1),
+        .emio_uart0_dcdn(1'b0),
+        .emio_uart0_dsrn(1'b0),
+        .emio_uart0_rin(1'b0),
+        .emio_uart0_rtsn(zynq_ultra_ps_e_0_emio_uart0_rtsn),
+        .maxigp0_araddr(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR),
         .maxigp0_arburst(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARBURST),
         .maxigp0_arcache(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARCACHE),
         .maxigp0_arid(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARID),

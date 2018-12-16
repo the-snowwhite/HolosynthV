@@ -26,7 +26,7 @@ parameter AUD_BIT_DEPTH = 24
     output reg [AUD_BIT_DEPTH-1:0]  rsound_out
 );
 
-    parameter output_volume_scaling = 53-AUD_BIT_DEPTH;
+    localparam output_volume_scaling = 53-AUD_BIT_DEPTH;
 
 /**	@brief output mixed sounddata to out register
 */
