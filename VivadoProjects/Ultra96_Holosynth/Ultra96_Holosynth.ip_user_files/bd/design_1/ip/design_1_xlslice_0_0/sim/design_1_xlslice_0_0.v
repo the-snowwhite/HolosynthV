@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:ip:xlslice:1.0
-// IP Revision: 1
+// IP Revision: 2
 
 `timescale 1ns/1ps
 
@@ -61,7 +61,7 @@ module design_1_xlslice_0_0 (
 input wire [31 : 0] Din;
 output wire [3 : 0] Dout;
 
-  xlslice_v1_0_1_xlslice #(
+  xlslice_v1_0_2_xlslice #(
     .DIN_WIDTH(32),
     .DIN_FROM(3),
     .DIN_TO(0)

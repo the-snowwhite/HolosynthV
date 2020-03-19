@@ -1,3 +1,229 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Thu Mar 19 18:27:52 2020
+| Host         : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+--------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_zynq_ultra_ps_e_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_zynq_ultra_ps_e_0_0 from xilinx.com:ip:zynq_ultra_ps_e:3.2 (Rev. 2) to xilinx.com:ip:zynq_ultra_ps_e:3.3 (Rev. 1)
+
+2. Upgrade messages
+-------------------
+
+Set parameter PSU__GPIO_EMIO__PERIPHERAL__IO to value 95 (source 'default')
+WARNING: upgrade cannot add parameter PSU__USE__USB3_0_HUB with default value 0 : a parameter called PSU__USE__USB3_0_HUB already exists in zynq_ultra_ps_e_v3_3
+WARNING: upgrade cannot add parameter PSU__USE__USB3_1_HUB with default value 0 : a parameter called PSU__USE__USB3_1_HUB already exists in zynq_ultra_ps_e_v3_3
+Set parameter PSU__PROTECTION__FPD_SEGMENTS to value SA:0xFD1A0000 ;SIZE:1280;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD000000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD010000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD020000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD030000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD040000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD050000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD610000 ;SIZE:512;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware  |  SA:0xFD5D0000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware (source 'default')
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Thu Mar 19 18:27:52 2020
+| Host         : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+--------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_xlslice_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_xlslice_0_0 (xilinx.com:ip:xlslice:1.0) from (Rev. 1) to (Rev. 2)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Thu Mar 19 18:27:52 2020
+| Host         : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+--------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_xlconstant_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1) from (Rev. 5) to (Rev. 6)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Thu Mar 19 18:27:52 2020
+| Host         : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+--------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_ps8_0_axi_periph_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 19) to (Rev. 21)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Thu Mar 19 18:27:52 2020
+| Host         : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+--------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_clk_wiz_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 2) to (Rev. 4)
+
+
+
+
+
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
+| Date         : Thu Sep  5 23:29:35 2019
+| Host         : debian10-ws running 64-bit Ubuntu 16.04.6 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_zynq_ultra_ps_e_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_zynq_ultra_ps_e_0_0 (xilinx.com:ip:zynq_ultra_ps_e:3.2) from (Rev. 1) to (Rev. 2)
+
+2. Upgrade messages
+-------------------
+
+Set parameter PSU__GPIO_EMIO__PERIPHERAL__IO to value 95 (source 'default')
+WARNING: upgrade cannot add parameter PSU__USE__USB3_0_HUB with default value 0 : a parameter called PSU__USE__USB3_0_HUB already exists in zynq_ultra_ps_e_v3_2
+WARNING: upgrade cannot add parameter PSU__USE__USB3_1_HUB with default value 0 : a parameter called PSU__USE__USB3_1_HUB already exists in zynq_ultra_ps_e_v3_2
+Set parameter PSU__PROTECTION__FPD_SEGMENTS to value SA:0xFD1A0000 ;SIZE:1280;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD000000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD010000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD020000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD030000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD040000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD050000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD610000 ;SIZE:512;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware | SA:0xFD5D0000 ;SIZE:64;UNIT:KB ;RegionTZ:Secure ;WrAllowed:Read/Write;subsystemId:PMU Firmware (source 'default')
+
+
+
+
+
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
+| Date         : Thu Sep  5 23:29:35 2019
+| Host         : debian10-ws running 64-bit Ubuntu 16.04.6 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_xlconstant_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1 (Rev. 5)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
+| Date         : Thu Sep  5 23:29:35 2019
+| Host         : debian10-ws running 64-bit Ubuntu 16.04.6 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_rst_ps8_0_99M_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_rst_ps8_0_99M_0 (xilinx.com:ip:proc_sys_reset:5.0) from (Rev. 12) to (Rev. 13)
+
+
+
+
+
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
+| Date         : Thu Sep  5 23:29:35 2019
+| Host         : debian10-ws running 64-bit Ubuntu 16.04.6 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_ps8_0_axi_periph_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 18) to (Rev. 19)
+
+
+
+
+
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
+| Date         : Thu Sep  5 23:29:35 2019
+| Host         : debian10-ws running 64-bit Ubuntu 16.04.6 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_clk_wiz_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 1) to (Rev. 2)
+
+
+
+
+
+
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018

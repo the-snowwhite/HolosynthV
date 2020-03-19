@@ -50,17 +50,19 @@
 // IP VLNV: xilinx.com:ip:xlconstant:1.1
 // IP Revision: 1
 
-#ifndef _design_1_xlconstant_0_0_H_
-#define _design_1_xlconstant_0_0_H_
+#ifndef _xlconstant_v1_1_5_H_
+#define _xlconstant_v1_1_5_H_
 
-#include "xlconstant_v1_1_6.h"
 #include "systemc.h"
-class design_1_xlconstant_0_0 : public sc_module {
+template<int CONST_WIDTH,int CONST_VAL>
+SC_MODULE(xlconstant_v1_1_5) {
   public:
-xlconstant_v1_1_6<1,1> mod;
-  sc_out< sc_bv<1> > dout;
-design_1_xlconstant_0_0 (sc_core::sc_module_name name) :sc_module(name), mod("mod") {
-    mod.dout(dout);
+  sc_out< sc_bv<CONST_WIDTH> > dout;
+  void init() {
+    dout.write(CONST_VAL);
+  }
+  SC_CTOR(xlconstant_v1_1_5) {
+    SC_METHOD(init);  
   }
 };
 

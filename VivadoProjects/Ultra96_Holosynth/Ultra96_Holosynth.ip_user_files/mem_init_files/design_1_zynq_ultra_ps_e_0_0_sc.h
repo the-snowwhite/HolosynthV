@@ -1,4 +1,7 @@
-// (c) Copyright 1995-2014 Xilinx, Inc. All rights reserved.
+#ifndef IP_DESIGN_1_ZYNQ_ULTRA_PS_E_0_0_SC_H_
+#define IP_DESIGN_1_ZYNQ_ULTRA_PS_E_0_0_SC_H_
+
+// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -46,22 +49,47 @@
 // 
 // DO NOT MODIFY THIS FILE.
 
+#ifndef XTLM
+#include "xtlm.h"
+#endif
 
-// IP VLNV: xilinx.com:ip:xlconstant:1.1
-// IP Revision: 1
+#ifndef SYSTEMC_INCLUDED
+#include <systemc>
+#endif
 
-#ifndef _design_1_xlconstant_0_0_H_
-#define _design_1_xlconstant_0_0_H_
+#if defined(_MSC_VER)
+#define DllExport __declspec(dllexport)
+#elif defined(__GNUC__)
+#define DllExport __attribute__ ((visibility("default")))
+#else
+#define DllExport
+#endif
 
-#include "xlconstant_v1_1_6.h"
-#include "systemc.h"
-class design_1_xlconstant_0_0 : public sc_module {
-  public:
-xlconstant_v1_1_6<1,1> mod;
-  sc_out< sc_bv<1> > dout;
-design_1_xlconstant_0_0 (sc_core::sc_module_name name) :sc_module(name), mod("mod") {
-    mod.dout(dout);
-  }
+class zynq_ultra_ps_e_tlm;
+
+class DllExport design_1_zynq_ultra_ps_e_0_0_sc : public sc_core::sc_module
+{
+public:
+
+  design_1_zynq_ultra_ps_e_0_0_sc(const sc_core::sc_module_name& nm);
+  virtual ~design_1_zynq_ultra_ps_e_0_0_sc();
+
+public: // module socket-to-socket TLM interface
+
+  xtlm::xtlm_aximm_initiator_socket* M_AXI_HPM0_FPD_rd_socket;
+  xtlm::xtlm_aximm_initiator_socket* M_AXI_HPM0_FPD_wr_socket;
+  xtlm::xtlm_aximm_initiator_socket* M_AXI_HPM1_FPD_rd_socket;
+  xtlm::xtlm_aximm_initiator_socket* M_AXI_HPM1_FPD_wr_socket;
+
+protected:
+
+  zynq_ultra_ps_e_tlm* mp_impl;
+
+private:
+
+  design_1_zynq_ultra_ps_e_0_0_sc(const design_1_zynq_ultra_ps_e_0_0_sc&);
+  const design_1_zynq_ultra_ps_e_0_0_sc& operator=(const design_1_zynq_ultra_ps_e_0_0_sc&);
+
 };
 
-#endif
+#endif // IP_DESIGN_1_ZYNQ_ULTRA_PS_E_0_0_SC_H_
