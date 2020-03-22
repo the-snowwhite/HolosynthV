@@ -1,65 +1,66 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.405312",
-   "Default View_TopLeft":"-131,-866",
+   "Default View_ScaleFactor":"0.631777",
+   "Default View_TopLeft":"-127,-662",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0.21  2019-05-29 bk=1.5064 VDI=41 GEI=36 GUI=JA:9.0 TLS
 #  -string -flagsOSRD
-preplace port ext_AUD_B_CLK_0 -pg 1 -lvl 6 -x 2260 -y 630 -defaultsOSRD
-preplace port ext_AUD_DACLR_CLK_0 -pg 1 -lvl 6 -x 2260 -y 660 -defaultsOSRD
-preplace port ext_AUD_ADCLR_CLK_0 -pg 1 -lvl 6 -x 2260 -y 690 -defaultsOSRD
-preplace port oAUD_DACDAT_0 -pg 1 -lvl 6 -x 2260 -y 450 -defaultsOSRD
-preplace port midi_rxd_0 -pg 1 -lvl 0 -x -10 -y 180 -defaultsOSRD
-preplace port midi_txd_0 -pg 1 -lvl 6 -x 2260 -y 120 -defaultsOSRD
-preplace portBus Led_out -pg 1 -lvl 6 -x 2260 -y 180 -defaultsOSRD
-preplace inst hm2_axilite_int_0 -pg 1 -lvl 3 -x 1200 -y 490 -defaultsOSRD
-preplace inst hm2_axilite_int_1 -pg 1 -lvl 3 -x 1200 -y 330 -defaultsOSRD
-preplace inst audio_clk_mux_ip_0 -pg 1 -lvl 3 -x 1200 -y 710 -defaultsOSRD
-preplace inst audio_i2s_driver_0 -pg 1 -lvl 5 -x 2070 -y 450 -defaultsOSRD
-preplace inst holosynth_0 -pg 1 -lvl 4 -x 1660 -y 200 -defaultsOSRD
-preplace inst rst_ps8_0_99M -pg 1 -lvl 1 -x 330 -y 540 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 820 -y 100 -defaultsOSRD
-preplace inst ps8_0_axi_periph -pg 1 -lvl 2 -x 820 -y 460 -defaultsOSRD
-preplace inst xlconstant_0 -pg 1 -lvl 3 -x 1200 -y 170 -defaultsOSRD
-preplace inst xlslice_0 -pg 1 -lvl 5 -x 2070 -y 180 -defaultsOSRD
-preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 330 -y 360 -defaultsOSRD
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 4 10 260 640 20 1000 60 NJ
-preplace netloc clk_wiz_0_clk_out2 1 2 1 1010 100n
-preplace netloc clk_wiz_0_clk_out3 1 2 1 980 120n
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 20 270 630
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 4 660 650 1020 230 1440 410 NJ
-preplace netloc rst_ps8_0_99M_interconnect_aresetn 1 1 1 650 390n
-preplace netloc Net 1 3 3 1430J 630 NJ 630 NJ
-preplace netloc Net1 1 3 3 NJ 660 NJ 660 NJ
-preplace netloc Net2 1 3 3 1350J 690 NJ 690 NJ
-preplace netloc audio_i2s_driver_0_oAUD_DACDAT 1 5 1 NJ 450
-preplace netloc audio_clk_mux_ip_0_ext_shift_b_clk 1 3 2 1450J 450 N
-preplace netloc audio_clk_mux_ip_0_ext_playback_lrclk 1 3 2 1390 430 NJ
-preplace netloc clk_wiz_0_clk_out1 1 2 2 N 80 NJ
-preplace netloc midi_rxd_0_1 1 0 4 NJ 180 NJ 180 970J 110 1450J
-preplace netloc holosynth_0_midi_txd 1 4 2 NJ 120 NJ
-preplace netloc hm2_axilite_int_0_READSTB 1 3 1 1350 160n
-preplace netloc hm2_axilite_int_0_WRITESTB 1 3 1 1400 180n
-preplace netloc hm2_axilite_int_0_ADDR 1 3 1 1360 220n
-preplace netloc hm2_axilite_int_0_IBUS 1 3 1 1410 240n
-preplace netloc hm2_axilite_int_1_READSTB 1 3 1 1370 260n
-preplace netloc hm2_axilite_int_1_WRITESTB 1 3 1 1420 280n
-preplace netloc hm2_axilite_int_1_ADDR 1 3 1 N 300
-preplace netloc hm2_axilite_int_1_IBUS 1 3 1 N 320
-preplace netloc holosynth_0_socmidi_data_out 1 2 3 1040 240 1380J 400 1850
-preplace netloc holosynth_0_cpu_data_out 1 2 3 1040 580 NJ 580 1860
-preplace netloc xlslice_0_Dout 1 5 1 NJ 180
-preplace netloc holosynth_0_keys_on 1 4 1 1890J 140n
-preplace netloc xlconstant_0_dout 1 3 1 1430 170n
-preplace netloc holosynth_0_lsound_out 1 4 1 1880 180n
-preplace netloc holosynth_0_rsound_out 1 4 1 1870 200n
-preplace netloc ps8_0_axi_periph_M00_AXI 1 2 1 990 440n
-preplace netloc ps8_0_axi_periph_M01_AXI 1 2 1 N 460
-preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1030 300n
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 350
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 330
-levelinfo -pg 1 -10 330 820 1200 1660 2070 2260
-pagesize -pg 1 -db -bbox -sgen -140 0 2470 840
+preplace port ext_AUD_B_CLK_0 -pg 1 -lvl 6 -x 2310 -y 590 -defaultsOSRD
+preplace port ext_AUD_DACLR_CLK_0 -pg 1 -lvl 6 -x 2310 -y 610 -defaultsOSRD
+preplace port ext_AUD_ADCLR_CLK_0 -pg 1 -lvl 6 -x 2310 -y 630 -defaultsOSRD
+preplace port oAUD_DACDAT_0 -pg 1 -lvl 6 -x 2310 -y 480 -defaultsOSRD
+preplace port midi_rxd_0 -pg 1 -lvl 0 -x 0 -y 40 -defaultsOSRD
+preplace port midi_txd_0 -pg 1 -lvl 6 -x 2310 -y 100 -defaultsOSRD
+preplace port clk_out -pg 1 -lvl 6 -x 2310 -y 20 -defaultsOSRD
+preplace portBus Led_out -pg 1 -lvl 6 -x 2310 -y 160 -defaultsOSRD
+preplace inst hm2_axilite_int_0 -pg 1 -lvl 3 -x 1220 -y 430 -defaultsOSRD
+preplace inst hm2_axilite_int_1 -pg 1 -lvl 3 -x 1220 -y 270 -defaultsOSRD
+preplace inst audio_clk_mux_ip_0 -pg 1 -lvl 3 -x 1220 -y 660 -defaultsOSRD
+preplace inst audio_i2s_driver_0 -pg 1 -lvl 5 -x 2120 -y 480 -defaultsOSRD
+preplace inst rst_ps8_0_99M -pg 1 -lvl 1 -x 340 -y 490 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 830 -y 130 -defaultsOSRD
+preplace inst ps8_0_axi_periph -pg 1 -lvl 2 -x 830 -y 400 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 3 -x 1220 -y 110 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 5 -x 2120 -y 160 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 300 -defaultsOSRD
+preplace inst holosynth_0 -pg 1 -lvl 4 -x 1710 -y 220 -defaultsOSRD
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 20 210 660 50 1010 50 1470 20 NJ 20 NJ
+preplace netloc clk_wiz_0_clk_out2 1 2 1 1000 130n
+preplace netloc clk_wiz_0_clk_out3 1 2 1 980 150n
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 390 650
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 4 670 210 1020 180 1400 440 NJ
+preplace netloc rst_ps8_0_99M_interconnect_aresetn 1 1 1 680 330n
+preplace netloc Net 1 3 3 NJ 590 NJ 590 NJ
+preplace netloc Net1 1 3 3 NJ 610 NJ 610 NJ
+preplace netloc Net2 1 3 3 NJ 630 NJ 630 NJ
+preplace netloc audio_i2s_driver_0_oAUD_DACDAT 1 5 1 NJ 480
+preplace netloc audio_clk_mux_ip_0_ext_shift_b_clk 1 3 2 1470J 480 N
+preplace netloc audio_clk_mux_ip_0_ext_playback_lrclk 1 3 2 1450 460 NJ
+preplace netloc clk_wiz_0_clk_out1 1 2 2 1030 170 1380J
+preplace netloc midi_rxd_0_1 1 0 4 NJ 40 NJ 40 NJ 40 1460J
+preplace netloc holosynth_0_midi_txd 1 4 2 1940J 100 NJ
+preplace netloc hm2_axilite_int_0_READSTB 1 3 1 1430 180n
+preplace netloc hm2_axilite_int_0_WRITESTB 1 3 1 1420 200n
+preplace netloc hm2_axilite_int_0_ADDR 1 3 1 1440 240n
+preplace netloc hm2_axilite_int_0_IBUS 1 3 1 1470 260n
+preplace netloc hm2_axilite_int_1_READSTB 1 3 1 N 280
+preplace netloc hm2_axilite_int_1_WRITESTB 1 3 1 N 300
+preplace netloc hm2_axilite_int_1_ADDR 1 3 1 1410 240n
+preplace netloc hm2_axilite_int_1_IBUS 1 3 1 1380 260n
+preplace netloc holosynth_0_socmidi_data_out 1 2 3 1040 10 NJ 10 1920
+preplace netloc holosynth_0_cpu_data_out 1 2 3 1040 520 NJ 520 1910
+preplace netloc xlslice_0_Dout 1 5 1 NJ 160
+preplace netloc holosynth_0_keys_on 1 4 1 NJ 160
+preplace netloc xlconstant_0_dout 1 3 1 1390 110n
+preplace netloc holosynth_0_lsound_out 1 4 1 1940 200n
+preplace netloc holosynth_0_rsound_out 1 4 1 1930 220n
+preplace netloc ps8_0_axi_periph_M01_AXI 1 2 1 N 400
+preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1030 240n
+preplace netloc ps8_0_axi_periph_M00_AXI 1 2 1 990 380n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 290
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 270
+levelinfo -pg 1 0 340 830 1220 1710 2120 2310
+pagesize -pg 1 -db -bbox -sgen -130 0 2530 790
 "
 }
 {

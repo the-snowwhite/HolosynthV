@@ -29,7 +29,7 @@ end
 // comment out for debug
     reg startbit_d;
     reg [4:0]revcnt;
-    reg [8:0] counter;
+    reg [9:0] counter;
     reg midi_clk;
     reg reset_mod_cnt;
 
@@ -48,11 +48,11 @@ end
     reg[7:0]	cur_status_r;
 
     always @(negedge reset_reg_N or posedge CLOCK_50)begin //! divide clock by 200
-        if(!reset_reg_N)begin counter <= 8'h00; carry <=1'b0; end
+        if(!reset_reg_N)begin counter <= 10'h00; carry <=1'b0; end
         else if (CLOCK_50)
-            if(reset_mod_cnt)begin carry <= 1'b0; counter <= 8'h00;end
-            else if(counter == 9'd400)begin carry <= 1'b1; counter <= 8'h00;end
-            else begin counter <= counter + 8'h1;carry <= 1'b0;end
+            if(reset_mod_cnt)begin carry <= 1'b0; counter <= 10'h00;end
+            else if(counter == 10'd800)begin carry <= 1'b1; counter <= 10'h00;end
+            else begin counter <= counter + 10'h1;carry <= 1'b0;end
     end
     always @(negedge reset_reg_N or posedge CLOCK_50)begin//! divide by 2 more so we get 62500 hz midi clock
         if(!reset_reg_N) midi_clk <= 1'b0;

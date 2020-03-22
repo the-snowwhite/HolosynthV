@@ -1,8 +1,8 @@
 //Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
-//Date        : Thu Mar 19 18:30:09 2020
-//Host        : kdeneon-ws running 64-bit KDE neon User Edition 5.18
+//Tool Version: Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+//Date        : Sun Mar 22 15:03:48 2020
+//Host        : kdeneon-ws running 64-bit Ubuntu 18.04.4 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
 //Purpose     : IP block netlist
@@ -11,6 +11,7 @@
 
 module design_1_wrapper
    (Led_out,
+    clk_out,
     ext_AUD_ADCLR_CLK_0,
     ext_AUD_B_CLK_0,
     ext_AUD_DACLR_CLK_0,
@@ -18,6 +19,7 @@ module design_1_wrapper
     midi_txd_0,
     oAUD_DACDAT_0);
   output [3:0]Led_out;
+  output clk_out;
   inout ext_AUD_ADCLR_CLK_0;
   inout ext_AUD_B_CLK_0;
   inout ext_AUD_DACLR_CLK_0;
@@ -26,6 +28,7 @@ module design_1_wrapper
   output oAUD_DACDAT_0;
 
   wire [3:0]Led_out;
+  wire clk_out;
   wire ext_AUD_ADCLR_CLK_0;
   wire ext_AUD_B_CLK_0;
   wire ext_AUD_DACLR_CLK_0;
@@ -35,6 +38,7 @@ module design_1_wrapper
 
   design_1 design_1_i
        (.Led_out(Led_out),
+        .clk_out(clk_out),
         .ext_AUD_ADCLR_CLK_0(ext_AUD_ADCLR_CLK_0),
         .ext_AUD_B_CLK_0(ext_AUD_B_CLK_0),
         .ext_AUD_DACLR_CLK_0(ext_AUD_DACLR_CLK_0),
