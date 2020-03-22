@@ -357,7 +357,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM0_FPD.FREQ_HZ">50000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM0_FPD.FREQ_HZ">100000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>simulation.tlm</xilinx:parameterUsage>
@@ -959,7 +959,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM1_FPD.FREQ_HZ">50000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM1_FPD.FREQ_HZ">100000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>simulation.tlm</xilinx:parameterUsage>
@@ -7306,7 +7306,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM0_FPD_ACLK.FREQ_HZ">50000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM0_FPD_ACLK.FREQ_HZ">100000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -7380,7 +7380,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM1_FPD_ACLK.FREQ_HZ">50000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXI_HPM1_FPD_ACLK.FREQ_HZ">100000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13646,7 +13646,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.PL_CLK0.FREQ_HZ">50000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.PL_CLK0.FREQ_HZ">100000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -65901,7 +65901,7 @@
     <spirit:parameter>
       <spirit:name>PSU__ACT_DDR_FREQ_MHZ</spirit:name>
       <spirit:displayName>PSU UIPARAM ACT DDR FREQ MHZ</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__ACT_DDR_FREQ_MHZ" spirit:minimum="-2" spirit:maximum="-1">533.333313</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__ACT_DDR_FREQ_MHZ" spirit:minimum="-2" spirit:maximum="-1">525.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__ENET0__GRP_MDIO__IO</spirit:name>
@@ -74081,7 +74081,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APLL_CTRL__FRACDATA</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__APLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__APLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.000000</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -74092,11 +74092,18 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__VPLL_CTRL__FRACDATA</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.2871</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.000000</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__VPLL_CTRL__FRACDATA">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DPLL_CTRL__FRACDATA</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.000000</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -74107,7 +74114,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__IOPLL_CTRL__FRACDATA</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.000000</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -74118,67 +74125,165 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__RPLL_CTRL__FRACDATA</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.779</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_CTRL__FRACDATA" spirit:choiceRef="choice_list_efecb9ff">0.000000</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__RPLL_CTRL__FRACDATA">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DPLL_CTRL__DIV2</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DPLL_CTRL__DIV2">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APLL_CTRL__DIV2</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__APLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__APLL_CTRL__DIV2">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__VPLL_CTRL__DIV2</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__VPLL_CTRL__DIV2">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__IOPLL_CTRL__DIV2</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__IOPLL_CTRL__DIV2">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__RPLL_CTRL__DIV2</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_CTRL__DIV2" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__RPLL_CTRL__DIV2">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APLL_CTRL__FBDIV</spirit:name>
       <spirit:displayName>APLL</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__APLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">72</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__APLL_CTRL__FBDIV">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DPLL_CTRL__FBDIV</spirit:name>
       <spirit:displayName>DPLL</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">64</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">63</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DPLL_CTRL__FBDIV">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__VPLL_CTRL__FBDIV</spirit:name>
       <spirit:displayName>VPLL</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">71</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">90</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__VPLL_CTRL__FBDIV">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APLL_TO_LPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>APLL_TO_LPD</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__APLL_TO_LPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__APLL_TO_LPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DPLL_TO_LPD</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__VPLL_TO_LPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>VPLL_TO_LPD</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__VPLL_TO_LPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__VPLL_TO_LPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__ACPU_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>ACPU DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__ACPU_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__ACPU_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DBG TRACE DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__DISPLAYPORT__PERIPHERAL__ENABLE</spirit:name>
@@ -74209,6 +74314,13 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRF_APB__DBG_FPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DBG FPD DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DBG_FPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DBG_FPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APM_CTRL__DIVISOR0</spirit:name>
@@ -74218,42 +74330,98 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DP VIDEO DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>DP VIDEO DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DP AUDIO DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">16</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">20</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>DP AUDIO DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DP STC DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">19</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>DP STC DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DDR_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DDR DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DDR_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DDR_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__GPU_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GPU DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__GPU_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__GPU_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__AFI0_REF_CTRL__DIVISOR0</spirit:name>
@@ -74318,7 +74486,14 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>SATA DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__SATA__PERIPHERAL__ENABLE</spirit:name>
@@ -74376,67 +74551,158 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PCIE DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PL0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PL1 DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PL2 DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL3_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PL3 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>PL0 DIV1</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>PL1 DIV1</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>PL2 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL3_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>PL3 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__AMS_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>AMS DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AMS_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">29</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AMS_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">30</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__AMS_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__AMS_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>AMS DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AMS_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__AMS_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__TIMESTAMP_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>TIMESTAMP DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__TIMESTAMP_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__TIMESTAMP_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__AFI6_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>AFI6 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AFI6_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__AFI6_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__AFI6__ENABLE</spirit:name>
@@ -74446,12 +74712,26 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>USB3 DUAL DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">25</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>USB3 DUAL DIV1</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_USB3__DUAL_CLOCK_ENABLE</spirit:name>
@@ -74467,6 +74747,13 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRF_APB__GDMA_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GDMA DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__GDMA_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__GDMA_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__USE__CLK</spirit:name>
@@ -74477,16 +74764,37 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRF_APB__DPDMA_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DPDMA DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DPDMA_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DPDMA_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__TOPSW_MAIN_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>TOPSW MAIN DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__TOPSW_MAIN_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__TOPSW_MAIN_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__TOPSW_LSBUS_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>TOPSW LSBUS DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__TOPSW_LSBUS_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__TOPSW_LSBUS_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__GTGREF0_REF_CTRL__DIVISOR0</spirit:name>
@@ -74502,206 +74810,493 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRF_APB__DBG_TSTMP_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DBG TSTMP DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DBG_TSTMP_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">2</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRF_APB__DBG_TSTMP_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__IOPLL_CTRL__FBDIV</spirit:name>
       <spirit:displayName>IOPLL</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">45</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">90</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__IOPLL_CTRL__FBDIV">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__RPLL_CTRL__FBDIV</spirit:name>
       <spirit:displayName>RPLL</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">70</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_CTRL__FBDIV" spirit:choiceRef="choice_list_efecb9ff">90</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__RPLL_CTRL__FBDIV">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__IOPLL_TO_FPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>IOPLL_TO_FPD</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOPLL_TO_FPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__IOPLL_TO_FPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>RPLL_TO_FPD</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GEM0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">12</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GEM1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">12</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GEM2 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">12</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GEM3 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">12</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>GEM0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>GEM1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>GEM2 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>GEM3 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>GEM TSU DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">4</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>GEM TSU DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>USB0 BUS DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>USB0 BUS DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>USB1 BUS DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>USB1 BUS DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>QSPI DIV0</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">12</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">5</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>QSPI DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>SDIO0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">8</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>SDIO0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>SDIO1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">8</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>SDIO1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__UART0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>UART0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__UART0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__UART0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__UART0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>UART0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__UART0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__UART0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__UART1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>UART1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__UART1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__UART1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__UART1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>UART1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__UART1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__UART1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>I2C0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>I2C0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>I2C1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>I2C1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>SPI0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">8</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>SPI0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>SPI1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">8</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>SPI1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>CAN0 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>CAN0 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>CAN1 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>CAN1 DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__DEBUG_R5_ATCLK_CTRL__DIVISOR0</spirit:name>
@@ -74712,6 +75307,13 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRL_APB__CPU_R5_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>CPU R5 DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__CPU_R5_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__CPU_R5_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__OCM_MAIN_CTRL__DIVISOR0</spirit:name>
@@ -74722,6 +75324,13 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>IOU SWITCH DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__CSU_PLL_CTRL__DIVISOR0</spirit:name>
@@ -74732,36 +75341,85 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
       <spirit:name>PSU__CRL_APB__PCAP_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>PCAP DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PCAP_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">8</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__PCAP_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__LPD_LSBUS_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>LPD LSBUS DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__LPD_LSBUS_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__LPD_LSBUS_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__LPD_SWITCH_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>LPD SWITCH DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__LPD_SWITCH_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__LPD_SWITCH_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__DBG_LPD_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>DBG LPD DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__DBG_LPD_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">6</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__DBG_LPD_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__NAND_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>NAND DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__NAND_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">15</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__NAND_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__NAND_REF_CTRL__DIVISOR1</spirit:name>
       <spirit:displayName>NAND DIV1</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__NAND_REF_CTRL__DIVISOR1" spirit:choiceRef="choice_list_efecb9ff">1</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__NAND_REF_CTRL__DIVISOR1">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__ADMA_REF_CTRL__DIVISOR0</spirit:name>
       <spirit:displayName>ADMA DIV0</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__ADMA_REF_CTRL__DIVISOR0" spirit:choiceRef="choice_list_efecb9ff">3</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU__CRL_APB__ADMA_REF_CTRL__DIVISOR0">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__APLL_CTRL__SRCSEL</spirit:name>
@@ -75228,7 +75886,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__OVERRIDE__BASIC_CLOCK</spirit:name>
       <spirit:displayName>Enable Manual Mode</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__OVERRIDE__BASIC_CLOCK" spirit:choiceRef="choice_list_8af5a703">1</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__OVERRIDE__BASIC_CLOCK" spirit:choiceRef="choice_list_8af5a703">0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__DLL__ISUSED</spirit:name>
@@ -75361,22 +76019,22 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_VIDEO_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT DP VIDEO</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_VIDEO_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">297.029572</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_VIDEO_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">300.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_AUDIO_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT DP AUDIO</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_AUDIO_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">24.576040</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_AUDIO_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">25.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DP_STC_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT DP STC</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_STC_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">26.214443</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DP_STC_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">26.315790</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__DDR_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT DDR</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DDR_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">266.666656</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__DDR_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">262.500000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__DDR__INTERFACE__FREQMHZ</spirit:name>
@@ -75431,7 +76089,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT PL0</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">50.000000</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">100.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ</spirit:name>
@@ -75461,7 +76119,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__TOPSW_MAIN_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT TOPSW_MAIN</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__TOPSW_MAIN_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">533.333313</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRF_APB__TOPSW_MAIN_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">525.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRF_APB__TOPSW_LSBUS_CTRL__ACT_FREQMHZ</spirit:name>
@@ -75631,7 +76289,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__AMS_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT AMS_REF</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AMS_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">51.724136</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__AMS_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">50.000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__TIMESTAMP_REF_CTRL__ACT_FREQMHZ</spirit:name>
@@ -77808,7 +78466,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__M_AXI_GP0__FREQMHZ</spirit:name>
       <spirit:displayName>M AXI GP0 FREQMHZ</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__M_AXI_GP0__FREQMHZ">50.0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__M_AXI_GP0__FREQMHZ">100.0</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -77820,7 +78478,7 @@ _DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;0|LPD;CRL_APB;FF5E0000;FF85FF
     <spirit:parameter>
       <spirit:name>PSU__M_AXI_GP1__FREQMHZ</spirit:name>
       <spirit:displayName>M AXI GP1 FREQMHZ</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__M_AXI_GP1__FREQMHZ">50.0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__M_AXI_GP1__FREQMHZ">100.0</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>

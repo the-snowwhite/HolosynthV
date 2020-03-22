@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xFC38312FF38FF032",
+      "boundary_crc": "0xFC38312F879E5738",
       "device": "xczu3eg-sbva484-1-e",
       "name": "design_1",
       "synth_flow_mode": "None",
@@ -111,7 +111,7 @@
             "value_src": "default_prop"
           },
           "FREQ_HZ": {
-            "value": "50000000",
+            "value": "100000000",
             "value_src": "user_prop"
           },
           "PHASE": {
@@ -200,28 +200,28 @@
             "value": "MMCM"
           },
           "CLKIN1_JITTER_PS": {
-            "value": "200.0"
+            "value": "100.0"
           },
           "CLKOUT1_DRIVES": {
             "value": "Buffer"
           },
           "CLKOUT1_JITTER": {
-            "value": "127.007"
+            "value": "224.890"
           },
           "CLKOUT1_PHASE_ERROR": {
-            "value": "141.876"
+            "value": "299.000"
           },
           "CLKOUT1_REQUESTED_OUT_FREQ": {
-            "value": "90.416666"
+            "value": "90.41667"
           },
           "CLKOUT2_DRIVES": {
             "value": "Buffer"
           },
           "CLKOUT2_JITTER": {
-            "value": "151.717"
+            "value": "261.830"
           },
           "CLKOUT2_PHASE_ERROR": {
-            "value": "141.876"
+            "value": "299.000"
           },
           "CLKOUT2_REQUESTED_OUT_FREQ": {
             "value": "33.90625"
@@ -233,10 +233,10 @@
             "value": "Buffer"
           },
           "CLKOUT3_JITTER": {
-            "value": "163.461"
+            "value": "279.178"
           },
           "CLKOUT3_PHASE_ERROR": {
-            "value": "141.876"
+            "value": "299.000"
           },
           "CLKOUT3_REQUESTED_OUT_FREQ": {
             "value": "24.675"
@@ -260,28 +260,28 @@
             "value": "FDBK_AUTO"
           },
           "MMCM_CLKFBOUT_MULT_F": {
-            "value": "27.125"
+            "value": "54.250"
           },
           "MMCM_CLKIN1_PERIOD": {
-            "value": "20.000"
+            "value": "10.000"
           },
           "MMCM_CLKIN2_PERIOD": {
-            "value": "10.0"
+            "value": "10.000"
           },
           "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "15.000"
+            "value": "12.000"
           },
           "MMCM_CLKOUT1_DIVIDE": {
-            "value": "40"
+            "value": "32"
           },
           "MMCM_CLKOUT2_DIVIDE": {
-            "value": "55"
+            "value": "44"
           },
           "MMCM_COMPENSATION": {
             "value": "AUTO"
           },
           "MMCM_DIVCLK_DIVIDE": {
-            "value": "1"
+            "value": "5"
           },
           "NUM_OUT_CLKS": {
             "value": "3"
@@ -293,7 +293,7 @@
             "value": "Auto"
           },
           "PRIM_IN_FREQ": {
-            "value": "50.000"
+            "value": "100.000"
           },
           "PRIM_SOURCE": {
             "value": "Global_buffer"
@@ -630,16 +630,16 @@
               }
             },
             "interface_nets": {
-              "auto_ds_to_auto_pc": {
-                "interface_ports": [
-                  "auto_ds/M_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s01_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "auto_ds_to_auto_pc": {
+                "interface_ports": [
+                  "auto_ds/M_AXI",
+                  "auto_pc/S_AXI"
                 ]
               },
               "s01_couplers_to_auto_ds": {
@@ -830,10 +830,22 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_xbar": {
+          "m01_couplers_to_ps8_0_axi_periph": {
             "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
+              "M01_AXI",
+              "m01_couplers/M_AXI"
+            ]
+          },
+          "xbar_to_m01_couplers": {
+            "interface_ports": [
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
+            ]
+          },
+          "s01_couplers_to_xbar": {
+            "interface_ports": [
+              "s01_couplers/M_AXI",
+              "xbar/S01_AXI"
             ]
           },
           "m00_couplers_to_ps8_0_axi_periph": {
@@ -848,22 +860,10 @@
               "m00_couplers/S_AXI"
             ]
           },
-          "s01_couplers_to_xbar": {
+          "xbar_to_m02_couplers": {
             "interface_ports": [
-              "s01_couplers/M_AXI",
-              "xbar/S01_AXI"
-            ]
-          },
-          "m01_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
-          "ps8_0_axi_periph_to_s00_couplers": {
-            "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
+              "xbar/M02_AXI",
+              "m02_couplers/S_AXI"
             ]
           },
           "ps8_0_axi_periph_to_s01_couplers": {
@@ -872,22 +872,22 @@
               "s01_couplers/S_AXI"
             ]
           },
-          "xbar_to_m02_couplers": {
-            "interface_ports": [
-              "xbar/M02_AXI",
-              "m02_couplers/S_AXI"
-            ]
-          },
           "m02_couplers_to_ps8_0_axi_periph": {
             "interface_ports": [
               "M02_AXI",
               "m02_couplers/M_AXI"
             ]
           },
-          "xbar_to_m01_couplers": {
+          "s00_couplers_to_xbar": {
             "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
+            ]
+          },
+          "ps8_0_axi_periph_to_s00_couplers": {
+            "interface_ports": [
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           }
         },
@@ -2005,7 +2005,7 @@
             "value": "1"
           },
           "PSU__ACT_DDR_FREQ_MHZ": {
-            "value": "533.333313"
+            "value": "525.000000"
           },
           "PSU__AUX_REF_CLK__FREQMHZ": {
             "value": "33.333"
@@ -2021,9 +2021,6 @@
           },
           "PSU__CRF_APB__ACPU_CTRL__ACT_FREQMHZ": {
             "value": "1200.000000"
-          },
-          "PSU__CRF_APB__ACPU_CTRL__DIVISOR0": {
-            "value": "1"
           },
           "PSU__CRF_APB__ACPU_CTRL__FREQMHZ": {
             "value": "1200"
@@ -2124,20 +2121,11 @@
           "PSU__CRF_APB__AFI5_REF__ENABLE": {
             "value": "0"
           },
-          "PSU__CRF_APB__APLL_CTRL__DIV2": {
-            "value": "1"
-          },
-          "PSU__CRF_APB__APLL_CTRL__FBDIV": {
-            "value": "72"
-          },
           "PSU__CRF_APB__APLL_CTRL__FRACFREQ": {
             "value": "27.138"
           },
           "PSU__CRF_APB__APLL_CTRL__SRCSEL": {
             "value": "PSS_REF_CLK"
-          },
-          "PSU__CRF_APB__APLL_TO_LPD_CTRL__DIVISOR0": {
-            "value": "3"
           },
           "PSU__CRF_APB__APM_CTRL__ACT_FREQMHZ": {
             "value": "1"
@@ -2151,9 +2139,6 @@
           "PSU__CRF_APB__DBG_FPD_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
           },
-          "PSU__CRF_APB__DBG_FPD_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__DBG_FPD_CTRL__FREQMHZ": {
             "value": "250"
           },
@@ -2162,9 +2147,6 @@
           },
           "PSU__CRF_APB__DBG_TRACE_CTRL__ACT_FREQMHZ": {
             "value": "250"
-          },
-          "PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0": {
-            "value": "2"
           },
           "PSU__CRF_APB__DBG_TRACE_CTRL__FREQMHZ": {
             "value": "250"
@@ -2175,9 +2157,6 @@
           "PSU__CRF_APB__DBG_TSTMP_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
           },
-          "PSU__CRF_APB__DBG_TSTMP_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__DBG_TSTMP_CTRL__FREQMHZ": {
             "value": "250"
           },
@@ -2185,10 +2164,7 @@
             "value": "IOPLL"
           },
           "PSU__CRF_APB__DDR_CTRL__ACT_FREQMHZ": {
-            "value": "266.666656"
-          },
-          "PSU__CRF_APB__DDR_CTRL__DIVISOR0": {
-            "value": "4"
+            "value": "262.500000"
           },
           "PSU__CRF_APB__DDR_CTRL__FREQMHZ": {
             "value": "533"
@@ -2199,20 +2175,11 @@
           "PSU__CRF_APB__DPDMA_REF_CTRL__ACT_FREQMHZ": {
             "value": "600.000000"
           },
-          "PSU__CRF_APB__DPDMA_REF_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__DPDMA_REF_CTRL__FREQMHZ": {
             "value": "600"
           },
           "PSU__CRF_APB__DPDMA_REF_CTRL__SRCSEL": {
             "value": "APLL"
-          },
-          "PSU__CRF_APB__DPLL_CTRL__DIV2": {
-            "value": "1"
-          },
-          "PSU__CRF_APB__DPLL_CTRL__FBDIV": {
-            "value": "64"
           },
           "PSU__CRF_APB__DPLL_CTRL__FRACFREQ": {
             "value": "27.138"
@@ -2220,17 +2187,8 @@
           "PSU__CRF_APB__DPLL_CTRL__SRCSEL": {
             "value": "PSS_REF_CLK"
           },
-          "PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0": {
-            "value": "3"
-          },
           "PSU__CRF_APB__DP_AUDIO_REF_CTRL__ACT_FREQMHZ": {
-            "value": "24.576040"
-          },
-          "PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0": {
-            "value": "16"
-          },
-          "PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR1": {
-            "value": "1"
+            "value": "25.000000"
           },
           "PSU__CRF_APB__DP_AUDIO_REF_CTRL__FREQMHZ": {
             "value": "25"
@@ -2242,13 +2200,7 @@
             "value": "1"
           },
           "PSU__CRF_APB__DP_STC_REF_CTRL__ACT_FREQMHZ": {
-            "value": "26.214443"
-          },
-          "PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR1": {
-            "value": "1"
+            "value": "26.315790"
           },
           "PSU__CRF_APB__DP_STC_REF_CTRL__FREQMHZ": {
             "value": "27"
@@ -2257,13 +2209,7 @@
             "value": "RPLL"
           },
           "PSU__CRF_APB__DP_VIDEO_REF_CTRL__ACT_FREQMHZ": {
-            "value": "297.029572"
-          },
-          "PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0": {
-            "value": "4"
-          },
-          "PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR1": {
-            "value": "1"
+            "value": "300.000000"
           },
           "PSU__CRF_APB__DP_VIDEO_REF_CTRL__FREQMHZ": {
             "value": "300"
@@ -2277,9 +2223,6 @@
           "PSU__CRF_APB__GDMA_REF_CTRL__ACT_FREQMHZ": {
             "value": "600.000000"
           },
-          "PSU__CRF_APB__GDMA_REF_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__GDMA_REF_CTRL__FREQMHZ": {
             "value": "600"
           },
@@ -2288,9 +2231,6 @@
           },
           "PSU__CRF_APB__GPU_REF_CTRL__ACT_FREQMHZ": {
             "value": "500.000000"
-          },
-          "PSU__CRF_APB__GPU_REF_CTRL__DIVISOR0": {
-            "value": "1"
           },
           "PSU__CRF_APB__GPU_REF_CTRL__FREQMHZ": {
             "value": "600"
@@ -2316,20 +2256,11 @@
           "PSU__CRF_APB__PCIE_REF_CTRL__ACT_FREQMHZ": {
             "value": "250"
           },
-          "PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__SATA_REF_CTRL__ACT_FREQMHZ": {
             "value": "250"
           },
-          "PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0": {
-            "value": "2"
-          },
           "PSU__CRF_APB__TOPSW_LSBUS_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
-          },
-          "PSU__CRF_APB__TOPSW_LSBUS_CTRL__DIVISOR0": {
-            "value": "5"
           },
           "PSU__CRF_APB__TOPSW_LSBUS_CTRL__FREQMHZ": {
             "value": "100"
@@ -2338,25 +2269,13 @@
             "value": "IOPLL"
           },
           "PSU__CRF_APB__TOPSW_MAIN_CTRL__ACT_FREQMHZ": {
-            "value": "533.333313"
-          },
-          "PSU__CRF_APB__TOPSW_MAIN_CTRL__DIVISOR0": {
-            "value": "2"
+            "value": "525.000000"
           },
           "PSU__CRF_APB__TOPSW_MAIN_CTRL__FREQMHZ": {
             "value": "533.333"
           },
           "PSU__CRF_APB__TOPSW_MAIN_CTRL__SRCSEL": {
             "value": "DPLL"
-          },
-          "PSU__CRF_APB__VPLL_CTRL__DIV2": {
-            "value": "1"
-          },
-          "PSU__CRF_APB__VPLL_CTRL__FBDIV": {
-            "value": "71"
-          },
-          "PSU__CRF_APB__VPLL_CTRL__FRACDATA": {
-            "value": "0.2871"
           },
           "PSU__CRF_APB__VPLL_CTRL__FRACFREQ": {
             "value": "300"
@@ -2367,14 +2286,8 @@
           "PSU__CRF_APB__VPLL_FRAC_CFG__ENABLED": {
             "value": "1"
           },
-          "PSU__CRF_APB__VPLL_TO_LPD_CTRL__DIVISOR0": {
-            "value": "3"
-          },
           "PSU__CRL_APB__ADMA_REF_CTRL__ACT_FREQMHZ": {
             "value": "500.000000"
-          },
-          "PSU__CRL_APB__ADMA_REF_CTRL__DIVISOR0": {
-            "value": "3"
           },
           "PSU__CRL_APB__ADMA_REF_CTRL__FREQMHZ": {
             "value": "500"
@@ -2384,9 +2297,6 @@
           },
           "PSU__CRL_APB__AFI6_REF_CTRL__ACT_FREQMHZ": {
             "value": "500"
-          },
-          "PSU__CRL_APB__AFI6_REF_CTRL__DIVISOR0": {
-            "value": "3"
           },
           "PSU__CRL_APB__AFI6_REF_CTRL__FREQMHZ": {
             "value": "500"
@@ -2398,13 +2308,7 @@
             "value": "0"
           },
           "PSU__CRL_APB__AMS_REF_CTRL__ACT_FREQMHZ": {
-            "value": "51.724136"
-          },
-          "PSU__CRL_APB__AMS_REF_CTRL__DIVISOR0": {
-            "value": "29"
-          },
-          "PSU__CRL_APB__AMS_REF_CTRL__DIVISOR1": {
-            "value": "1"
+            "value": "50.000000"
           },
           "PSU__CRL_APB__AMS_REF_CTRL__FREQMHZ": {
             "value": "50"
@@ -2415,12 +2319,6 @@
           "PSU__CRL_APB__CAN0_REF_CTRL__ACT_FREQMHZ": {
             "value": "100"
           },
-          "PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__CAN0_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__CAN0_REF_CTRL__FREQMHZ": {
             "value": "100"
           },
@@ -2430,12 +2328,6 @@
           "PSU__CRL_APB__CAN1_REF_CTRL__ACT_FREQMHZ": {
             "value": "100"
           },
-          "PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__CAN1_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__CAN1_REF_CTRL__FREQMHZ": {
             "value": "100"
           },
@@ -2444,9 +2336,6 @@
           },
           "PSU__CRL_APB__CPU_R5_CTRL__ACT_FREQMHZ": {
             "value": "500.000000"
-          },
-          "PSU__CRL_APB__CPU_R5_CTRL__DIVISOR0": {
-            "value": "3"
           },
           "PSU__CRL_APB__CPU_R5_CTRL__FREQMHZ": {
             "value": "500"
@@ -2468,9 +2357,6 @@
           },
           "PSU__CRL_APB__DBG_LPD_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
-          },
-          "PSU__CRL_APB__DBG_LPD_CTRL__DIVISOR0": {
-            "value": "6"
           },
           "PSU__CRL_APB__DBG_LPD_CTRL__FREQMHZ": {
             "value": "250"
@@ -2502,12 +2388,6 @@
           "PSU__CRL_APB__GEM0_REF_CTRL__ACT_FREQMHZ": {
             "value": "125"
           },
-          "PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR0": {
-            "value": "12"
-          },
-          "PSU__CRL_APB__GEM0_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__GEM0_REF_CTRL__FREQMHZ": {
             "value": "125"
           },
@@ -2516,12 +2396,6 @@
           },
           "PSU__CRL_APB__GEM1_REF_CTRL__ACT_FREQMHZ": {
             "value": "125"
-          },
-          "PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR0": {
-            "value": "12"
-          },
-          "PSU__CRL_APB__GEM1_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__GEM1_REF_CTRL__FREQMHZ": {
             "value": "125"
@@ -2532,12 +2406,6 @@
           "PSU__CRL_APB__GEM2_REF_CTRL__ACT_FREQMHZ": {
             "value": "125"
           },
-          "PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR0": {
-            "value": "12"
-          },
-          "PSU__CRL_APB__GEM2_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__GEM2_REF_CTRL__FREQMHZ": {
             "value": "125"
           },
@@ -2546,12 +2414,6 @@
           },
           "PSU__CRL_APB__GEM3_REF_CTRL__ACT_FREQMHZ": {
             "value": "125"
-          },
-          "PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR0": {
-            "value": "12"
-          },
-          "PSU__CRL_APB__GEM3_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__GEM3_REF_CTRL__FREQMHZ": {
             "value": "125"
@@ -2562,12 +2424,6 @@
           "PSU__CRL_APB__GEM_TSU_REF_CTRL__ACT_FREQMHZ": {
             "value": "250"
           },
-          "PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR0": {
-            "value": "6"
-          },
-          "PSU__CRL_APB__GEM_TSU_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__GEM_TSU_REF_CTRL__FREQMHZ": {
             "value": "250"
           },
@@ -2576,12 +2432,6 @@
           },
           "PSU__CRL_APB__I2C0_REF_CTRL__ACT_FREQMHZ": {
             "value": "100"
-          },
-          "PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__I2C0_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__I2C0_REF_CTRL__FREQMHZ": {
             "value": "100"
@@ -2592,23 +2442,11 @@
           "PSU__CRL_APB__I2C1_REF_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
           },
-          "PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__I2C1_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__I2C1_REF_CTRL__FREQMHZ": {
             "value": "100"
           },
           "PSU__CRL_APB__I2C1_REF_CTRL__SRCSEL": {
             "value": "IOPLL"
-          },
-          "PSU__CRL_APB__IOPLL_CTRL__DIV2": {
-            "value": "0"
-          },
-          "PSU__CRL_APB__IOPLL_CTRL__FBDIV": {
-            "value": "45"
           },
           "PSU__CRL_APB__IOPLL_CTRL__FRACFREQ": {
             "value": "27.138"
@@ -2616,14 +2454,8 @@
           "PSU__CRL_APB__IOPLL_CTRL__SRCSEL": {
             "value": "PSS_REF_CLK"
           },
-          "PSU__CRL_APB__IOPLL_TO_FPD_CTRL__DIVISOR0": {
-            "value": "3"
-          },
           "PSU__CRL_APB__IOU_SWITCH_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
-          },
-          "PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0": {
-            "value": "6"
           },
           "PSU__CRL_APB__IOU_SWITCH_CTRL__FREQMHZ": {
             "value": "267"
@@ -2634,9 +2466,6 @@
           "PSU__CRL_APB__LPD_LSBUS_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
           },
-          "PSU__CRL_APB__LPD_LSBUS_CTRL__DIVISOR0": {
-            "value": "15"
-          },
           "PSU__CRL_APB__LPD_LSBUS_CTRL__FREQMHZ": {
             "value": "100"
           },
@@ -2646,9 +2475,6 @@
           "PSU__CRL_APB__LPD_SWITCH_CTRL__ACT_FREQMHZ": {
             "value": "500.000000"
           },
-          "PSU__CRL_APB__LPD_SWITCH_CTRL__DIVISOR0": {
-            "value": "3"
-          },
           "PSU__CRL_APB__LPD_SWITCH_CTRL__FREQMHZ": {
             "value": "500"
           },
@@ -2657,12 +2483,6 @@
           },
           "PSU__CRL_APB__NAND_REF_CTRL__ACT_FREQMHZ": {
             "value": "100"
-          },
-          "PSU__CRL_APB__NAND_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__NAND_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__NAND_REF_CTRL__FREQMHZ": {
             "value": "100"
@@ -2685,9 +2505,6 @@
           "PSU__CRL_APB__PCAP_CTRL__ACT_FREQMHZ": {
             "value": "187.500000"
           },
-          "PSU__CRL_APB__PCAP_CTRL__DIVISOR0": {
-            "value": "8"
-          },
           "PSU__CRL_APB__PCAP_CTRL__FREQMHZ": {
             "value": "200"
           },
@@ -2695,13 +2512,7 @@
             "value": "IOPLL"
           },
           "PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ": {
-            "value": "50.000000"
-          },
-          "PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1": {
-            "value": "2"
+            "value": "100.000000"
           },
           "PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ": {
             "value": "100"
@@ -2712,53 +2523,20 @@
           "PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ": {
             "value": "24.999975"
           },
-          "PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1": {
-            "value": "4"
-          },
           "PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ": {
             "value": "299.999700"
-          },
-          "PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0": {
-            "value": "5"
-          },
-          "PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__PL3_REF_CTRL__ACT_FREQMHZ": {
             "value": "374.999625"
           },
-          "PSU__CRL_APB__PL3_REF_CTRL__DIVISOR0": {
-            "value": "4"
-          },
-          "PSU__CRL_APB__PL3_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__QSPI_REF_CTRL__ACT_FREQMHZ": {
             "value": "300"
-          },
-          "PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0": {
-            "value": "12"
-          },
-          "PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__QSPI_REF_CTRL__FREQMHZ": {
             "value": "300"
           },
           "PSU__CRL_APB__QSPI_REF_CTRL__SRCSEL": {
             "value": "IOPLL"
-          },
-          "PSU__CRL_APB__RPLL_CTRL__DIV2": {
-            "value": "1"
-          },
-          "PSU__CRL_APB__RPLL_CTRL__FBDIV": {
-            "value": "70"
-          },
-          "PSU__CRL_APB__RPLL_CTRL__FRACDATA": {
-            "value": "0.779"
           },
           "PSU__CRL_APB__RPLL_CTRL__FRACFREQ": {
             "value": "25"
@@ -2769,17 +2547,8 @@
           "PSU__CRL_APB__RPLL_FRAC_CFG__ENABLED": {
             "value": "1"
           },
-          "PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0": {
-            "value": "3"
-          },
           "PSU__CRL_APB__SDIO0_REF_CTRL__ACT_FREQMHZ": {
             "value": "187.500000"
-          },
-          "PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR0": {
-            "value": "8"
-          },
-          "PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__SDIO0_REF_CTRL__FREQMHZ": {
             "value": "200"
@@ -2790,12 +2559,6 @@
           "PSU__CRL_APB__SDIO1_REF_CTRL__ACT_FREQMHZ": {
             "value": "187.500000"
           },
-          "PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR0": {
-            "value": "8"
-          },
-          "PSU__CRL_APB__SDIO1_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__SDIO1_REF_CTRL__FREQMHZ": {
             "value": "200"
           },
@@ -2804,12 +2567,6 @@
           },
           "PSU__CRL_APB__SPI0_REF_CTRL__ACT_FREQMHZ": {
             "value": "187.500000"
-          },
-          "PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR0": {
-            "value": "8"
-          },
-          "PSU__CRL_APB__SPI0_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__SPI0_REF_CTRL__FREQMHZ": {
             "value": "200"
@@ -2820,12 +2577,6 @@
           "PSU__CRL_APB__SPI1_REF_CTRL__ACT_FREQMHZ": {
             "value": "187.500000"
           },
-          "PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR0": {
-            "value": "8"
-          },
-          "PSU__CRL_APB__SPI1_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__SPI1_REF_CTRL__FREQMHZ": {
             "value": "200"
           },
@@ -2834,9 +2585,6 @@
           },
           "PSU__CRL_APB__TIMESTAMP_REF_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
-          },
-          "PSU__CRL_APB__TIMESTAMP_REF_CTRL__DIVISOR0": {
-            "value": "15"
           },
           "PSU__CRL_APB__TIMESTAMP_REF_CTRL__FREQMHZ": {
             "value": "100"
@@ -2847,12 +2595,6 @@
           "PSU__CRL_APB__UART0_REF_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
           },
-          "PSU__CRL_APB__UART0_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__UART0_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__UART0_REF_CTRL__FREQMHZ": {
             "value": "100"
           },
@@ -2861,12 +2603,6 @@
           },
           "PSU__CRL_APB__UART1_REF_CTRL__ACT_FREQMHZ": {
             "value": "100.000000"
-          },
-          "PSU__CRL_APB__UART1_REF_CTRL__DIVISOR0": {
-            "value": "15"
-          },
-          "PSU__CRL_APB__UART1_REF_CTRL__DIVISOR1": {
-            "value": "1"
           },
           "PSU__CRL_APB__UART1_REF_CTRL__FREQMHZ": {
             "value": "100"
@@ -2877,12 +2613,6 @@
           "PSU__CRL_APB__USB0_BUS_REF_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
           },
-          "PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR0": {
-            "value": "6"
-          },
-          "PSU__CRL_APB__USB0_BUS_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__USB0_BUS_REF_CTRL__FREQMHZ": {
             "value": "250"
           },
@@ -2892,12 +2622,6 @@
           "PSU__CRL_APB__USB1_BUS_REF_CTRL__ACT_FREQMHZ": {
             "value": "250.000000"
           },
-          "PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR0": {
-            "value": "6"
-          },
-          "PSU__CRL_APB__USB1_BUS_REF_CTRL__DIVISOR1": {
-            "value": "1"
-          },
           "PSU__CRL_APB__USB1_BUS_REF_CTRL__FREQMHZ": {
             "value": "250"
           },
@@ -2906,12 +2630,6 @@
           },
           "PSU__CRL_APB__USB3_DUAL_REF_CTRL__ACT_FREQMHZ": {
             "value": "20.000000"
-          },
-          "PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR0": {
-            "value": "5"
-          },
-          "PSU__CRL_APB__USB3_DUAL_REF_CTRL__DIVISOR1": {
-            "value": "15"
           },
           "PSU__CRL_APB__USB3_DUAL_REF_CTRL__FREQMHZ": {
             "value": "20"
@@ -3748,7 +3466,7 @@
             "value": "1"
           },
           "PSU__OVERRIDE__BASIC_CLOCK": {
-            "value": "1"
+            "value": "0"
           },
           "PSU__PCIE__ACS_VIOLAION": {
             "value": "0"
@@ -4391,7 +4109,7 @@
                 "value_src": "default_prop"
               },
               "FREQ_HZ": {
-                "value": "50000000",
+                "value": "100000000",
                 "value_src": "user_prop"
               }
             }
@@ -4511,12 +4229,6 @@
       }
     },
     "interface_nets": {
-      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
-        "interface_ports": [
-          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
-          "ps8_0_axi_periph/S00_AXI"
-        ]
-      },
       "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
         "interface_ports": [
           "zynq_ultra_ps_e_0/M_AXI_HPM1_FPD",
@@ -4539,6 +4251,12 @@
         "interface_ports": [
           "ps8_0_axi_periph/M00_AXI",
           "audio_clk_mux_ip_0/S00_AXI"
+        ]
+      },
+      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
+        "interface_ports": [
+          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
+          "ps8_0_axi_periph/S00_AXI"
         ]
       }
     },
