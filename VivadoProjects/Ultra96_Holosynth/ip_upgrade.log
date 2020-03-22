@@ -1,4 +1,46 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Sun Mar 22 18:24:16 2020
+| Host         : kdeneon-ws running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_hm2_axilite_int_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_hm2_axilite_int_1_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Sun Mar 22 18:24:16 2020
+| Host         : kdeneon-ws running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xczu3eg-sbva484-1-e
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_hm2_axilite_int_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_hm2_axilite_int_0_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
 | Date         : Thu Mar 19 18:27:52 2020

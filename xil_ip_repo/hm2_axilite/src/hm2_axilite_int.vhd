@@ -68,6 +68,7 @@ use ieee.numeric_std.all;
 entity hm2_axilite_int is
 	generic (
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;		-- Width of S_AXI data bus
+		IO_DATA_WIDTH	    : integer	:= 32;		-- Width of S_AXI data bus
 		C_S_AXI_ADDR_WIDTH	: integer	:= 16 		-- Width of S_AXI address bus
 	);
 	port (
@@ -77,8 +78,8 @@ entity hm2_axilite_int is
 		ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 2);
 		-- These names are backwards from their logical direction so
 		-- we can have a 1:1 mapping with the hostmot2 component
-		IBUS : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-		OBUS : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		IBUS : out std_logic_vector(IO_DATA_WIDTH-1 downto 0);
+		OBUS : in std_logic_vector(IO_DATA_WIDTH-1 downto 0);
 		READSTB : out std_logic;
 		WRITESTB : out std_logic;
         
@@ -174,7 +175,7 @@ architecture arch_imp of hm2_axilite_int is
 begin
 	-- The generic bus interface has two data busses. Just link them
 	-- with the AXI counterparts
-	IBUS <= S_AXI_WDATA;	-- The AXI write bus is the input bus for the hm2
+	IBUS <= S_AXI_WDATA(IO_DATA_WIDTH-1 downto 0);	-- The AXI write bus is the input bus for the hm2
 	ADDR <= latched_addr;	-- Pass out the latched address to the hm2
 
     -- hm2 has it's own address latch also. This signal burns a clock to sync
@@ -210,9 +211,9 @@ begin
 			else
 				if(current_state = idle) then
 					if (read_go = '1') then
-						latched_addr <= S_AXI_ARADDR(15 downto 2);	-- Latch the address from the read bus
+						latched_addr <= S_AXI_ARADDR(C_S_AXI_ADDR_WIDTH-1 downto 2);	-- Latch the address from the read bus
 					elsif (write_go = '1') then
-						latched_addr <= S_AXI_AWADDR(15 downto 2); -- Latch the address from the write bus
+						latched_addr <= S_AXI_AWADDR(C_S_AXI_ADDR_WIDTH-1 downto 2); -- Latch the address from the write bus
 					end if;
 				end if;
 			end if;
@@ -263,7 +264,7 @@ begin
 				axi_rresp <= "00"; -- 'OKAY' response by default
 			else
 				if (read_enable = '1') then
-					axi_rdata <= OBUS;     -- register read data
+					axi_rdata(IO_DATA_WIDTH-1 downto 0) <= OBUS;     -- register read data
 					axi_rvalid <= '1';
 					axi_rresp <= "00";
 				elsif (read_done = '1') then

@@ -3,9 +3,9 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Sun Mar 22 17:33:54 2020">
+<application name="pa" timeStamp="Sun Mar 22 19:22:50 2020">
 <section name="Project Information" visible="false">
-<property name="ProjectID" value="28c1e355c4c24ef6b3adef66562494fc" type="ProjectID"/>
+<property name="ProjectID" value="25ba111d6aef4fa6b7c0a19796fbb0bd" type="ProjectID"/>
 <property name="ProjectIteration" value="1" type="ProjectIteration"/>
 </section>
 <section name="PlanAhead Usage" visible="true">
@@ -20,17 +20,17 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ManageCompositeTargets" value="1" type="JavaHandler"/>
 </item>
 <item name="Gui Handlers">
-<property name="BaseDialog_CANCEL" value="1" type="GuiHandlerData"/>
-<property name="CmdMsgDialog_OK" value="1" type="GuiHandlerData"/>
 <property name="CommandsInput_TYPE_TCL_COMMAND_HERE" value="1" type="GuiHandlerData"/>
-<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="1" type="GuiHandlerData"/>
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="2" type="GuiHandlerData"/>
+<property name="MsgView_CLEAR_MESSAGES_RESULTING_FROM_USER_EXECUTED" value="1" type="GuiHandlerData"/>
 <property name="PACommandNames_RESET_COMPOSITE_FILE" value="1" type="GuiHandlerData"/>
 <property name="SimpleOutputProductDialog_RESET_OUTPUT_PRODUCTS" value="1" type="GuiHandlerData"/>
+<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="1" type="GuiHandlerData"/>
 </item>
 <item name="Other">
-<property name="GuiMode" value="145" type="GuiMode"/>
+<property name="GuiMode" value="147" type="GuiMode"/>
 <property name="BatchMode" value="0" type="BatchMode"/>
-<property name="TclMode" value="128" type="TclMode"/>
+<property name="TclMode" value="130" type="TclMode"/>
 </item>
 </section>
 </application>
