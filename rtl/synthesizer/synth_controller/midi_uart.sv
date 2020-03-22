@@ -17,7 +17,7 @@ module MIDI_UART(
     reg midi_dat;
     reg [1:0]md;
     wire md_ok;
-    assign md_ok = (midi_rxd && md[0] && md[1]) ? 1'b1 : 1'b0;
+    assign md_ok = (~midi_rxd && ~md[0] && ~md[1]) ? 1'b0 : 1'b1;
 
 // -------------- Midi receiver  ------------- //
     always @(posedge CLOCK_50)begin
