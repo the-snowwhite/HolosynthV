@@ -44,8 +44,8 @@ AUD_BIT_DEPTH = 24
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    input wire  [31:0]      writedata,
-    output reg  [31:0]  readdata,
+    output reg  [31:0]      writedata,
+    input wire  [31:0]      readdata,
     input wire              socmidi_read,
     input wire              socmidi_write,
     input wire              socmidi_cs,
@@ -148,7 +148,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     wire		sysex_data_patch_send;
     wire		dec_read_write;
 
-    reg [7:0] midi_ch;
+    reg [3:0] midi_ch;
     reg [7:0] out_data;
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
@@ -158,7 +158,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
     .dec_addr(dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
-    .cpu_addr(address) ,	// input [addr_width-1:0] cpu_addr_sig
+    .cpu_addr(address[6:0]) ,	// input [addr_width-1:0] cpu_addr_sig
     .cpu_sel({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
     .dec_sel(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
     .syx_out (sysex_data_patch_send),
@@ -171,10 +171,10 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 */
     always@(negedge reset_reg_N or negedge write)begin
         if(!reset_reg_N) begin
-            midi_ch <= 8'h00;
+            midi_ch <= 4'h0;
         end else begin
             if(com_sel) begin
-                if(adr == 2) midi_ch <= synth_data;
+                if(adr == 2) midi_ch <= synth_data[30];
             end
         end
     end
@@ -194,13 +194,13 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     
     always @(posedge CLOCK_50) begin
         if (io_reset) begin
-            readdata[7:0] <= 8'b0;
+            writedata[7:0] <= 8'b0;
         end
         else if (read) begin
-                readdata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+                writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
         end
         else if    (write) begin
-            indata <= writedata[7:0];
+            indata <= readdata[7:0];
         end
     end
 

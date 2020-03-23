@@ -201,7 +201,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
     assign osc_ct_64 = (osc_ct[ox_dly[0]] <= 8'd64) ?
             (64-osc_ct[ox_dly[0]]+1):(osc_ct[ox_dly[0]][5:0]+1);
 
-    wire [23:0] osc_res_div, osc_res_l_div, osc_res_h_div;
+    wire signed [24:0] osc_res_div, osc_res_l_div, osc_res_h_div;
 
     pitchdiv	pitchdiv_inst (
         .denom ( osc_ct_64 ),
@@ -209,18 +209,18 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         .quotient ( osc_res_div )
     );
     pitchdiv	pitchdiv_l_inst (
-        .denom ( osc_ct_64+1 ),
+        .denom ( osc_ct_64+8'd1 ),
         .numer ( base_pitch_val ),
         .quotient ( osc_res_l_div )
     );
     pitchdiv	pitchdiv_h_inst (
-        .denom ( osc_ct_64-1 ),
+        .denom ( osc_ct_64-8'd1 ),
         .numer ( base_pitch_val ),
         .quotient ( osc_res_h_div )
     );
 
     reg [7:0]	osc_ct_64_r;
-    reg [23:0] 	osc_res_div_r, osc_res_l_div_r, osc_res_h_div_r, base_pitch_val_r;
+    reg signed [24:0] 	osc_res_div_r, osc_res_l_div_r, osc_res_h_div_r, base_pitch_val_r;
 
     always @(posedge sCLK_XVXOSC)begin
         osc_ct_64_r <= osc_ct_64;

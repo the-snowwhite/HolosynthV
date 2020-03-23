@@ -16,11 +16,12 @@ output  [num_lines-1:0]     sel_out
 );
 
     logic read_write_act;
+    reg reg_dataready[4:0];
+    reg in_select;
+
     assign read_write_act = (dataready || reg_dataready[0] || reg_dataready[1] || reg_dataready[2]
             || reg_dataready[3] || reg_dataready[4]);
 
-    reg reg_dataready[4:0];
-    reg in_select;
 
     always @(posedge clk) begin
         in_select <= read_write_act;

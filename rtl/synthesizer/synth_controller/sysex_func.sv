@@ -16,12 +16,6 @@ module sysex_func (
     output wire [6:0]       dec_addr
 );
 
-
-
-    assign bank_adr = (sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
-    assign dec_addr = (sysex_data_patch_send) ? adr_s : adr_l;
-	assign synth_data = write_dataenable ? out_data : 8'bz;
-
     reg [6:0]     adr_l;
     reg [2:0]    bank_adr_s, bank_adr_l;
     reg [7:0 ]     out_data, adr_s;
@@ -29,6 +23,10 @@ module sysex_func (
     reg [7:0]addr_cnt;
 
     reg Educational_Use,sysex_data_bank_load,sysex_data_patch_load,sysex_ctrl_data,sysex_data_patch_send_end;
+
+    assign bank_adr = (sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
+    assign dec_addr = (sysex_data_patch_send) ? adr_s : adr_l;
+	assign synth_data = write_dataenable ? out_data : 8'bz;
 
     always @(negedge reset_reg_N or negedge seq_trigger) begin
         if (!reset_reg_N) begin // init values

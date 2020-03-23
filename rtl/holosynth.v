@@ -28,8 +28,8 @@ parameter AUD_BIT_DEPTH = 24
     input  wire          cpu_write,
     input  wire          cpu_chip_sel,
     input  wire [9:0]    cpu_addr,
-    input  wire [31:0]   cpu_data_in,
-    output wire [31:0]   cpu_data_out,
+    input  wire [31:0]   readdata,
+    output wire [31:0]   writedata,
     input  wire          socmidi_read,
     input  wire          socmidi_write,
 //    input                socmidi_cs,
@@ -46,20 +46,20 @@ parameter AUD_BIT_DEPTH = 24
         .reset_n                (reset_n),
         .trig                   (AUD_DACLRCK),
         .MIDI_Rx_DAT            (~midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-        .midi_txd               (~midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
+        .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
          .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
         .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
         .keys_on                (keys_on),				//  LED [7:0]
         .voice_free             (voice_free) , 			//  Red LED [4:1]
-//        .io_reset_n             (reset_n) ,	// input  io_reset_sig
+        .io_reset_n             (reset_n) ,	// input  io_reset_sig
         .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig
         .chipselect             (cpu_chip_sel) ,	// input  chipselect_sig
-        .readdata               (cpu_data_in) ,	// input [31:0] writedata_sig
-        .writedata              (cpu_data_out), 	// output [31:0] readdata_sig
+        .readdata               (readdata) ,	// input [31:0] writedata_sig
+        .writedata              (writedata), 	// output [31:0] readdata_sig
         .socmidi_addr           (socmidi_addr) ,	// input [9:0] address_sig
         .socmidi_write          (socmidi_write) ,	// input  cpu_write_sig
         .socmidi_read           (socmidi_read) ,	// input  cpu_read_sig

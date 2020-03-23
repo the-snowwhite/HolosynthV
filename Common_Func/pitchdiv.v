@@ -2,7 +2,7 @@ module pitchdiv
 (
 input  wire [7:0]denom ,
 input  wire [24:0]numer ,
-output wire [24:0]quotient
+output wire signed [24:0] quotient
 );
 
 wire signed [7:0]d = denom;

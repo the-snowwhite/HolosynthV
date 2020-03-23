@@ -62,6 +62,7 @@ parameter num_mul = 22;
     reg signed [7:0]l[3:0];
     wire signed[36:0]level_m;
     reg signed[36:0]level;
+    wire signed[36:0]quotient;
     wire signed[36:0]cur_level = level_m + quotient;
     wire signed[7:0]oldlevel_m;
     reg signed[7:0]oldlevel;
@@ -69,7 +70,6 @@ parameter num_mul = 22;
     reg [15:0]next_denom;
     wire signed [36:0]cur_numer_m;
     reg signed [36:0]next_numer;
-    wire signed[36:0]quotient;
 
     reg [E_WIDTH-1:0] oi;
     reg [V_WIDTH-1:0] vi;
