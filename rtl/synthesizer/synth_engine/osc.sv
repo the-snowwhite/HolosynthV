@@ -13,7 +13,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     input wire                          reset_data_N,
     input wire                          sCLK_XVXENVS,
     input wire                          sCLK_XVXOSC,
-    inout wire                          [7:0] synth_data_out,
+    wire                             [7:0] synth_data_out,
     input wire                          [7:0] synth_data_in,
     input wire                          [6:0] adr,
     input wire                          write,

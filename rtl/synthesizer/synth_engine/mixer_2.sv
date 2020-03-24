@@ -21,7 +21,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire signed [7:0]             level_mul_vel,    // envgen output
     input wire signed [16:0]            sine_lut_out, // sine
 
-    inout wire signed [7:0]             synth_data_out,
+    wire    signed [7:0]             synth_data_out,
     input wire signed [7:0]             synth_data_in,
     input wire [6:0]                    adr,
     input wire                          write,

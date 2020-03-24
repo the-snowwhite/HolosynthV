@@ -63,7 +63,9 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         end
     endgenerate
 
-    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
+//    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
+//    assign synth_data_out = (sysex_data_patch_send && ((osc_adr_data != 0) && osc_sel)) ? data_out : 8'bz;
+    assign synth_data_out = ((osc_adr_data != 0) && osc_sel) ? data_out : 8'bz;
 
     integer v1,loop,o1,o2,kloop;
 

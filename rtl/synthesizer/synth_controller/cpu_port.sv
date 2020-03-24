@@ -2,7 +2,7 @@ module cpu_port (
 	input wire               reset_reg_N,
 	input wire              data_clk,
     input wire [2:0]         socmidi_addr,
-    inout wire [7:0]         socmidi_data_out,
+    input wire [7:0]         socmidi_data_in,
 //    input               cpu_com_sel,
     input wire              socmidi_write,
 	output reg          byteready,
@@ -40,7 +40,7 @@ module cpu_port (
             cpu_midi_in_data <= 8'h00;
         end else begin
             if(socmidi_addr == 0) begin
-                cpu_midi_in_data <= socmidi_data_out;
+                cpu_midi_in_data <= socmidi_data_in;
             end
             else begin
                 cpu_midi_in_data <= cpu_midi_in_data;

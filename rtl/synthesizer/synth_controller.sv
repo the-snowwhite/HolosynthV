@@ -6,7 +6,7 @@ parameter V_WIDTH = 3
     input wire                  data_clk,
 // cpu:
     input wire [2:0]            socmidi_addr,
-    input wire [7:0]            socmidi_data_out,
+    input wire [7:0]            socmidi_data_in,
     input wire                  socmidi_write,
 // uart:
     input wire                  midi_rxd,
@@ -34,7 +34,7 @@ parameter V_WIDTH = 3
     output wire                 read_write,
     output wire                 sysex_data_patch_send,
     output wire [6:0]           dec_addr,
-    inout  wire [7:0]           synth_data_out,
+    wire [7:0]           synth_data_out,
     input  wire [7:0]           synth_data_in,
     output wire [6:0]           dec_sel_bus,
 // status data
@@ -112,7 +112,7 @@ cpu_port cpu_port_inst
 	.reset_reg_N(reset_reg_N) ,
 	.data_clk(data_clk) ,
 	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
-	.socmidi_data_out(socmidi_data_out) ,	// input [7:0] cpu_data_sig
+	.socmidi_data_in(socmidi_data_in) ,	// input [7:0] cpu_data_sig
 //	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
 	.socmidi_write(socmidi_write) ,	    // input  cpu_write_sig
 

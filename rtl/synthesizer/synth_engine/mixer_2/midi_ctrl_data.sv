@@ -38,7 +38,8 @@ parameter V_OSC		= 4 // oscs per Voice
     endgenerate
 
 
-    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
+//    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
+    assign synth_data_out = ((((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
 
     byte unsigned loop,oloop,iloop,inloop,osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
 

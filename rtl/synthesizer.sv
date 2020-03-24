@@ -50,8 +50,8 @@ AUD_BIT_DEPTH = 24
     input wire              socmidi_write,
     input wire              socmidi_cs,
     input wire  [2:0]       socmidi_addr,
-    input wire  [7:0]       socmidi_data_out,
-    output reg [7:0]        socmidi_data_in,
+    input wire  [7:0]       socmidi_data_in,
+    output reg [7:0]        socmidi_data_out,
     output wire             run,
     input wire              uart_usb_sel
 );
@@ -61,7 +61,7 @@ AUD_BIT_DEPTH = 24
 
     reg                 write_delay;
     reg                 reg_w_act;
-    reg signed [7:0]    indata;
+//    reg signed [7:0]    indata;
     wire [5:0]          cpu_sel;
     wire signed [7:0]   synth_data_out;
     wire signed [7:0]   synth_data_in;
@@ -72,7 +72,8 @@ AUD_BIT_DEPTH = 24
     assign write_active = (cpu_write | reg_w_act);
     assign io_reset = ~io_reset_n;
 
-    assign synth_data_out = (!cpu_read && write_active) ? indata : 8'bz;
+ //   assign synth_data_in = (!cpu_read && write_active) ? indata : 8'bz;
+    assign synth_data_in = cpu_readdata[7:0];
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -200,9 +201,9 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
         else if (read) begin
                 cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data_out;
         end
-        else if    (write) begin
-            indata <= cpu_readdata[7:0];
-        end
+ //       else if    (write) begin
+ //           indata <= cpu_readdata[7:0];
+ //       end
     end
 
 ////////////	Init Reset sig Gen	////////////
@@ -231,7 +232,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .reset_reg_N(reg_reset_N) ,
     .data_clk(data_clk) ,
     .socmidi_addr(socmidi_addr) ,
-    .socmidi_data_out(socmidi_data_out) ,
+    .socmidi_data_in(socmidi_data_in) ,
     .socmidi_write(socmidi_write) ,
     .midi_rxd(midi_rxd) ,
     .midi_txd(midi_txd) ,
@@ -281,7 +282,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .AUDIO_CLK              ( AUDIO_CLK ),              // input
     .data_clk               ( data_clk ),
     .reset_reg_N            ( reg_reset_N ) ,           // input  reset_sig
-    .reset_data_N           ( reset_data_n ),
+    .reset_data_N           ( reg_reset_N ),
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data

@@ -81,7 +81,8 @@ parameter num_mul = 22;
 
     reg [7:0] data_out;
 
-    assign synth_data_out = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
+//    assign synth_data_out = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
+    assign synth_data_out = (env_sel) ? data_out : 8'bz;
 
     wire       [E_WIDTH-1:0]   e_env_sel;
     wire       [V_WIDTH-1:0]   e_voice_sel;

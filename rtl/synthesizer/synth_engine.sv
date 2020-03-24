@@ -30,7 +30,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire                  read,
     input wire                  sysex_data_patch_send,
     input wire  [6:0]           adr,
-    inout wire  [7:0]           synth_data_out,
+    wire     [7:0]           synth_data_out,
     input wire  [7:0]           synth_data_in,
     input wire                  env_sel,
     input wire                  osc_sel,

@@ -5,7 +5,7 @@ module address_decoder (
     input wire  [2:0]       bank_adr,
     input wire  [7:0]       out_data,
     output  reg             read_write ,
-	inout wire [7:0]        data_out,
+	wire    [7:0]        data_out,
     output wire [5:0]       dec_sel,
     output reg          write_dataenable
 );
