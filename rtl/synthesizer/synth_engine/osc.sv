@@ -8,11 +8,13 @@ parameter OE_WIDTH = 1,
 parameter E_WIDTH = O_WIDTH + OE_WIDTH,
 parameter ox_offset = (V_OSC * VOICES ) - 1
 ) (
+    input wire                          data_clk,
     input wire                          reset_reg_N,
     input wire                          reset_data_N,
     input wire                          sCLK_XVXENVS,
     input wire                          sCLK_XVXOSC,
-    inout wire                          [7:0] synth_data,
+    inout wire                          [7:0] synth_data_out,
+    input wire                          [7:0] synth_data_in,
     input wire                          [6:0] adr,
     input wire                          write,
     input wire                          read,
@@ -49,7 +51,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         end
     endgenerate
 
-    assign synth_data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
+    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
 
     assign mod = modulation;
 
@@ -61,15 +63,15 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         ox_dly[d1+1] <= ox_dly[d1];
     end
 
-    always@(negedge reset_data_N or negedge write)begin
+    always@(negedge reset_data_N or posedge data_clk )begin
         if(!reset_data_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 o_offs[loop] <= 8'h00;
             end
         end else begin
-            if(osc_sel)begin
+            if(osc_sel && write)begin
                 for (o1=0;o1<V_OSC;o1=o1+1)begin
-                    if (adr == (7'd6+(o1<<4))) o_offs[o1] <= synth_data;
+                    if (adr == (7'd6+(o1<<4))) o_offs[o1] <= synth_data_in;
                 end
             end
         end
@@ -78,8 +80,8 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
 /** @brief read data
 */
 
-    always @(posedge read) begin
-        if(osc_sel)begin
+    always @(posedge data_clk) begin
+        if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 if (adr == (7'd6+(o2<<4))) data_out <= o_offs[o2];
             end

@@ -10,10 +10,12 @@ parameter V_ENVS = 8,
 parameter V_WIDTH = 3,
 parameter E_WIDTH = 3
 ) (
+    input wire                      data_clk,
     input wire                      reset_reg_N,
     input wire                      reset_data_N,
     input wire                      sCLK_XVXENVS,
-    inout wire      [7:0]           synth_data,
+    inout wire      [7:0]           synth_data_out,
+    input wire      [7:0]           synth_data_in,
     input wire      [6:0]           adr,
     input wire                      write,
     input wire                      read,
@@ -79,7 +81,7 @@ parameter num_mul = 22;
 
     reg [7:0] data_out;
 
-    assign synth_data = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
+    assign synth_data_out = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
 
     wire       [E_WIDTH-1:0]   e_env_sel;
     wire       [V_WIDTH-1:0]   e_voice_sel;
@@ -90,7 +92,7 @@ parameter num_mul = 22;
 
     integer oloop, iloop,v1,e1,d1,r1;
 
-    always@(negedge reset_data_N or negedge write )begin
+    always@(negedge reset_data_N or posedge data_clk)begin
     if(!reset_data_N) begin
         for (oloop=0;oloop<V_ENVS;oloop=oloop+1)begin
             for(iloop=0;iloop<=3;iloop=iloop+1)begin
@@ -100,23 +102,23 @@ parameter num_mul = 22;
             end
             end
     end else begin
-        if(env_sel)begin
+        if(env_sel &&  write)begin
             for(v1=0;v1<V_ENVS;v1=v1+1) begin
-                if(adr == 0+(v1<<3)) r_r[v1][0] <= synth_data  ;
-                else if(adr == 1+(v1<<3)) r_r[v1][1] <= synth_data  ;
-                else if(adr == 2+(v1<<3)) r_r[v1][2] <= synth_data  ;
-                else if(adr == 3+(v1<<3)) r_r[v1][3] <= synth_data  ;
-                else if(adr == 4+(v1<<3)) l_r[v1][0] <= synth_data  ;
-                else if(adr == 5+(v1<<3)) l_r[v1][1] <= synth_data  ;
-                else if(adr == 6+(v1<<3)) l_r[v1][2] <= synth_data  ;
-                else if(adr == 7+(v1<<3)) l_r[v1][3] <= synth_data  ;
+                if(adr == 0+(v1<<3)) r_r[v1][0] <= synth_data_in  ;
+                else if(adr == 1+(v1<<3)) r_r[v1][1] <= synth_data_in  ;
+                else if(adr == 2+(v1<<3)) r_r[v1][2] <= synth_data_in  ;
+                else if(adr == 3+(v1<<3)) r_r[v1][3] <= synth_data_in  ;
+                else if(adr == 4+(v1<<3)) l_r[v1][0] <= synth_data_in  ;
+                else if(adr == 5+(v1<<3)) l_r[v1][1] <= synth_data_in  ;
+                else if(adr == 6+(v1<<3)) l_r[v1][2] <= synth_data_in  ;
+                else if(adr == 7+(v1<<3)) l_r[v1][3] <= synth_data_in  ;
             end
         end
     end
     end
 
-    always @(posedge read)begin
-        if(env_sel)begin
+    always @(posedge data_clk)begin
+        if(env_sel && read)begin
             for(r1=0;r1<V_ENVS;r1=r1+1) begin
                 if(adr == 0+(r1<<3)) data_out <= r_r[r1][0];
                 else if(adr == 1+(r1<<3)) data_out <= r_r[r1][1];

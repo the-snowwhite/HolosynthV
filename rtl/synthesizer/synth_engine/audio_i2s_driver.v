@@ -3,7 +3,7 @@ parameter AUD_BIT_DEPTH = 24
 ) (
     input wire              reset_reg_N,
     input wire              iAUD_DACLRCK,
-    input wire              iAUD_BCLK,
+    input wire              iAUDB_CLK,
     input wire [AUD_BIT_DEPTH-1:0]  i_lsound_out,
     input wire [AUD_BIT_DEPTH-1:0]  i_rsound_out,
     output wire             oAUD_DACDAT
@@ -17,11 +17,11 @@ parameter AUD_BIT_DEPTH = 24
     wire edge_detected = reg_lrck_dly ^ iAUD_DACLRCK;
 
 ////////////        SoundOut        ///////////////
-    always@(posedge iAUD_BCLK)begin
+    always@(posedge iAUDB_CLK)begin
         reg_edge_detected <= edge_detected;
     end
 
-    always@(negedge iAUD_BCLK or negedge reset_reg_N)begin
+    always@(negedge iAUDB_CLK or negedge reset_reg_N)begin
         if(!reset_reg_N)begin
             SEL_Cont    <=  5'h0;
         end

@@ -21,7 +21,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH,
 AUD_BIT_DEPTH = 24
 ) (
 // Clock
-    input wire          CLOCK_50,
+    input wire              data_clk,
     input wire              AUDIO_CLK,
 // reset
     input wire              reset_n,
@@ -63,7 +63,8 @@ AUD_BIT_DEPTH = 24
     reg                 reg_w_act;
     reg signed [7:0]    indata;
     wire [5:0]          cpu_sel;
-    wire signed [7:0]   synth_data;
+    wire signed [7:0]   synth_data_out;
+    wire signed [7:0]   synth_data_in;
     wire w_act;
     wire write_active;
     wire io_reset;
@@ -71,11 +72,11 @@ AUD_BIT_DEPTH = 24
     assign write_active = (cpu_write | reg_w_act);
     assign io_reset = ~io_reset_n;
 
-    assign synth_data = (!cpu_read && write_active) ? indata : 8'bz;
+    assign synth_data_out = (!cpu_read && write_active) ? indata : 8'bz;
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
-    .clk(CLOCK_50) ,	// input  clk_sig
+    .clk(data_clk) ,	// input  clk_sig
     .reset(io_reset) ,	// input  reset_sig
     .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
@@ -153,7 +154,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
-    .clk(CLOCK_50) ,	// input  in_select_sig
+    .clk(data_clk) ,	// input  in_select_sig
     .dataready(dataready) ,	// input  in_select_sig
     .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
@@ -169,35 +170,35 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 
 /** @brief write data
 */
-    always@(negedge reset_reg_N or negedge write)begin
-        if(!reset_reg_N) begin
+    always@(negedge reg_reset_N or posedge data_clk)begin
+        if(!reg_reset_N) begin
             midi_ch <= 4'h0;
         end else begin
-            if(com_sel) begin
-                if(adr == 2) midi_ch <= synth_data[30];
+            if(com_sel && write) begin
+                if(adr == 2) midi_ch <= synth_data_in[3:0];
             end
         end
     end
 
 /** @brief read data
 */
-    always @(posedge read) begin
-        if(com_sel) begin
+    always @(posedge data_clk) begin
+        if(com_sel &&  read) begin
             if(adr == 2) out_data <= midi_ch;
         end
     end
 
-    always @(posedge CLOCK_50) begin
+    always @(posedge data_clk) begin
         write_delay <= cpu_write;
         reg_w_act <= w_act;
     end
     
-    always @(posedge CLOCK_50) begin
+    always @(posedge data_clk) begin
         if (io_reset) begin
             cpu_writedata[7:0] <= 8'b0;
         end
         else if (read) begin
-                cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+                cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data_out;
         end
         else if    (write) begin
             indata <= cpu_readdata[7:0];
@@ -208,7 +209,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 // system reset  //
 
 reset_delay	reset_reg_delay_inst  (
-    .iCLK(CLOCK_50),
+    .iCLK(data_clk),
     .reset_reg_N(reg_reset_N),
     .oRST_0(reg_DLY0),
     .oRST_1(reg_DLY1),
@@ -216,7 +217,7 @@ reset_delay	reset_reg_delay_inst  (
 );
 
 reset_delay	reset_data_delay_inst  (
-    .iCLK(CLOCK_50),
+    .iCLK(data_clk),
     .reset_reg_N(data_reset_N),
     .oRST_0(data_DLY0),
     .oRST_1(data_DLY1),
@@ -227,8 +228,8 @@ reset_delay	reset_data_delay_inst  (
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
-    .reset_reg_N(reset_reg_N) ,
-    .CLOCK_50(CLOCK_50) ,
+    .reset_reg_N(reg_reset_N) ,
+    .data_clk(data_clk) ,
     .socmidi_addr(socmidi_addr) ,
     .socmidi_data_out(socmidi_data_out) ,
     .socmidi_write(socmidi_write) ,
@@ -253,7 +254,8 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .read_write (dec_read_write),
     .sysex_data_patch_send (dec_sysex_data_patch_send),
     .dec_addr(dec_addr) ,
-    .synth_data (synth_data) ,
+    .synth_data_out (synth_data_out) ,
+    .synth_data_in (synth_data_in) ,
     .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
     .uart_usb_sel(uart_usb_sel)
@@ -261,7 +263,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
 
 rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
-    .CLOCK_50       ( CLOCK_50 ),
+    .data_clk       ( data_clk ),
     .reset_data_N   ( reset_data_n ),
 // from synth_controller
     .ictrl          ( octrl ),
@@ -277,7 +279,8 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
     .AUDIO_CLK              ( AUDIO_CLK ),              // input
-    .reset_reg_N            ( reset_reg_N ) ,           // input  reset_sig
+    .data_clk               ( data_clk ),
+    .reset_reg_N            ( reg_reset_N ) ,           // input  reset_sig
     .reset_data_N           ( reset_data_n ),
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
@@ -299,7 +302,8 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .read                   ( read),                    // input read synth_data signal
     .sysex_data_patch_send  ( sysex_data_patch_send),   // input
     .adr                    ( adr) ,                    // input [6:0] adr_sig
-    .synth_data                   ( synth_data ) ,
+    .synth_data_out         ( synth_data_out ) ,
+    .synth_data_in          ( synth_data_in ) ,
     .env_sel                ( env_sel ) ,
     .osc_sel                ( osc_sel ) ,
     .m1_sel                 ( m1_sel ) ,

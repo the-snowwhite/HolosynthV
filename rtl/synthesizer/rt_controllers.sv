@@ -6,7 +6,7 @@ parameter O_WIDTH = 2,
 parameter B_WIDTH = O_WIDTH+3
 ) (
     input wire          reset_data_N,
-    input wire          CLOCK_50,
+    input wire          data_clk,
 //@name from synth_controller
     input wire  [7:0]   ictrl,
     input wire  [7:0]   ictrl_data,
@@ -20,7 +20,7 @@ parameter B_WIDTH = O_WIDTH+3
     reg [6:0]pitch_lsb;
 
 
-    always @(posedge CLOCK_50)begin
+    always @(posedge data_clk)begin
         pitch_cmd_r <= pitch_cmd;
     end
 

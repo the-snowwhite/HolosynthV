@@ -1,5 +1,5 @@
 module seq_trigger (
-    input wire                  CLOCK_50,
+    input wire                  data_clk,
     input wire                  reset_reg_N,
     input wire  [3:0]           midi_ch,
     input wire                  byteready,
@@ -30,13 +30,13 @@ module seq_trigger (
 
     assign midi_send_byte = (midi_send_byte_req[1] && ~midi_send_byte_req[2]) ? 1'b1 : 1'b0;
 
-    always @(posedge CLOCK_50)begin
+    always @(posedge data_clk)begin
         syx_cmd_r[0] <= syx_cmd;
         syx_cmd_r[1] <= syx_cmd_r[0];
         data_ready   <= (syx_cmd_r[0] & ~syx_cmd_r[1]) | ((sysex_data_patch_send | auto_syx_cmd) & (seq_trigger_r_dly[1] & ~seq_trigger_r_dly[2]));
     end
 
-    always @(negedge reset_reg_N or posedge CLOCK_50)begin
+    always @(negedge reset_reg_N or posedge data_clk)begin
         if (!reset_reg_N) begin
         end
         else begin

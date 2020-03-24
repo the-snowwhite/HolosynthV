@@ -6,7 +6,7 @@ parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
 parameter AUD_BIT_DEPTH = 24
 ) (
 // Clock
-    input  wire         fpga_clk,
+    input  wire         data_clk,
     input  wire         AUDIO_CLK,
 // reset
     input  wire         reset_n,
@@ -41,7 +41,7 @@ parameter AUD_BIT_DEPTH = 24
 );
     
     synthesizer #(.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
-        .CLOCK_50               (fpga_clk) ,
+        .data_clk               (data_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_n                (reset_n),
         .trig                   (AUD_DACLRCK),

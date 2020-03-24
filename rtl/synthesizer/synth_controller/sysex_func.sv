@@ -1,7 +1,8 @@
 module sysex_func (
     input wire              reset_reg_N,
     input wire              write_dataenable,
-    inout wire  [7:0]       synth_data,
+    inout wire  [7:0]       synth_data_out,
+    input wire  [7:0]       synth_data_in,
     input wire  [3:0]       midi_ch,
     input wire              is_st_sysex,
     input wire              midi_out_ready,
@@ -26,7 +27,7 @@ module sysex_func (
 
     assign bank_adr = (sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
     assign dec_addr = (sysex_data_patch_send) ? adr_s : adr_l;
-	assign synth_data = write_dataenable ? out_data : 8'bz;
+	assign synth_data_out = write_dataenable ? out_data : 8'bz;
 
     always @(negedge reset_reg_N or negedge seq_trigger) begin
         if (!reset_reg_N) begin // init values
@@ -97,7 +98,7 @@ module sysex_func (
                 else if(addr_cnt == 8'd1) midi_out_data <= 8'h7D;
                 else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,midi_ch}; adr_s <= 8'h0; bank_adr_s <= 3'h0; end
                 else if(addr_cnt >= 8'd3 && addr_cnt < (16*14+3))begin
-                    adr_s <= adr_s + 1'b1;    midi_out_data <= synth_data;
+                    adr_s <= adr_s + 1'b1;    midi_out_data <= synth_data_in;
                     if (addr_cnt == (16*4+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h1; end
                     if (addr_cnt == (16*8+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h2; end
                     if (addr_cnt == (16*12+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h5; end

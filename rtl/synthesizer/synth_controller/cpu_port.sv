@@ -1,6 +1,6 @@
 module cpu_port (
 	input wire               reset_reg_N,
-	input wire              CLOCK_50,
+	input wire              data_clk,
     input wire [2:0]         socmidi_addr,
     inout wire [7:0]         socmidi_data_out,
 //    input               cpu_com_sel,
@@ -15,7 +15,7 @@ module cpu_port (
     reg [2:0]   data_tap;
 
 
-    always @(posedge CLOCK_50)begin
+    always @(posedge data_clk)begin
         data_tap[0] <= socmidi_write;
         data_tap[1] <= data_tap[0];
         data_tap[2] <= data_tap[1];

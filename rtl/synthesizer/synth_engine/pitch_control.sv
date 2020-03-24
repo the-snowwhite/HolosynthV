@@ -6,6 +6,7 @@ parameter O_WIDTH = 2,
 parameter OE_WIDTH = 1,
 parameter E_WIDTH = O_WIDTH + OE_WIDTH
 ) (
+    input wire                          data_clk,
     input wire                          reset_reg_N,
     input wire                          reset_data_N,
     input wire                          sCLK_XVXOSC,
@@ -14,7 +15,8 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     input wire [7:0]                    cur_key_val,
     input wire [13:0]                   pitch_val,
     input wire                          note_on,
-    inout wire [7:0]                    synth_data,
+    inout wire [7:0]                    synth_data_out,
+    input wire [7:0]                    synth_data_in,
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
@@ -61,7 +63,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         end
     endgenerate
 
-    assign synth_data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
+    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
 
     integer v1,loop,o1,o2,kloop;
 
@@ -75,7 +77,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
             rkey_val[cur_key_adr] <= cur_key_val;
     end
 
-    always@(negedge reset_data_N or negedge write)begin
+    always@(negedge reset_data_N or posedge data_clk )begin
         if(!reset_data_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 osc_ct[loop] <= 8'h40;
@@ -86,28 +88,28 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
             end
             pb_range <= 8'h03;
         end else begin
-            if(osc_sel)begin
+            if(osc_sel && write)begin
                 for (o1=0;o1<V_OSC;o1=o1+1)begin
                     case (adr)
-                        7'd0 +(o1<<4): osc_ct[o1] <= synth_data;
-                        7'd1 +(o1<<4): osc_ft[o1] <= synth_data;
-                        7'd5 +(o1<<4): k_scale[o1] <= synth_data;
-                        7'd8 +(o1<<4): b_ct[o1] <= synth_data;
-                        7'd9 +(o1<<4): b_ft[o1] <= synth_data;
+                        7'd0 +(o1<<4): osc_ct[o1] <= synth_data_in;
+                        7'd1 +(o1<<4): osc_ft[o1] <= synth_data_in;
+                        7'd5 +(o1<<4): k_scale[o1] <= synth_data_in;
+                        7'd8 +(o1<<4): b_ct[o1] <= synth_data_in;
+                        7'd9 +(o1<<4): b_ft[o1] <= synth_data_in;
                         default:;
                     endcase
                 end
             end
-            else if(com_sel) begin
-                if(adr == 0) pb_range <= synth_data;
+            else if(com_sel && write) begin
+                if(adr == 0) pb_range <= synth_data_in;
             end
         end
     end
 
 /** @brief read data
 */
-    always @(posedge read) begin
-        if(osc_sel)begin
+    always @(posedge data_clk) begin
+        if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 case (adr)
                     7'd0 +(o2<<4): data_out <= osc_ct[o2];
@@ -119,7 +121,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
                 endcase
             end
         end
-        else if(com_sel) begin
+        else if(com_sel && read) begin
             if(adr == 0) data_out <= pb_range;
         end
     end

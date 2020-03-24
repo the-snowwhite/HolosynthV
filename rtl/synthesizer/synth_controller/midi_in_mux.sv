@@ -1,6 +1,6 @@
 module midi_in_mux (
 	input wire              reset_reg_N,
-	input wire              CLOCK_50,
+	input wire              data_clk,
     input wire              sel,
     input wire              byteready_u,
     input wire      [7:0]   cur_status_u,
@@ -16,7 +16,7 @@ module midi_in_mux (
 	output reg  [7:0]   midi_in_data
 );
 
-    always @(negedge reset_reg_N or posedge CLOCK_50) begin
+    always @(negedge reset_reg_N or posedge data_clk) begin
         if(!reset_reg_N) begin
             byteready    <= 1'b0;
             cur_status   <= 8'h00;

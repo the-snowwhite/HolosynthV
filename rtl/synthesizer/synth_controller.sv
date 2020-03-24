@@ -3,7 +3,7 @@ parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
     input wire                  reset_reg_N,
-    input wire                  CLOCK_50,
+    input wire                  data_clk,
 // cpu:
     input wire [2:0]            socmidi_addr,
     input wire [7:0]            socmidi_data_out,
@@ -34,7 +34,8 @@ parameter V_WIDTH = 3
     output wire                 read_write,
     output wire                 sysex_data_patch_send,
     output wire [6:0]           dec_addr,
-    inout  wire [7:0]           synth_data,
+    inout  wire [7:0]           synth_data_out,
+    input  wire [7:0]           synth_data_in,
     output wire [6:0]           dec_sel_bus,
 // status data
     output wire [V_WIDTH:0]     active_keys,
@@ -92,7 +93,7 @@ parameter V_WIDTH = 3
 
 MIDI_UART MIDI_UART_inst (
     .reset_reg_N        (reset_reg_N),
-    .CLOCK_50           (CLOCK_50),
+    .data_clk           (data_clk),
     .midi_rxd           (midi_rxd),         // input  midi serial data in
     .midi_txd           (midi_txd),         // output midi serial data output
 
@@ -109,7 +110,7 @@ MIDI_UART MIDI_UART_inst (
 cpu_port cpu_port_inst
 (
 	.reset_reg_N(reset_reg_N) ,
-	.CLOCK_50(CLOCK_50) ,
+	.data_clk(data_clk) ,
 	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
 	.socmidi_data_out(socmidi_data_out) ,	// input [7:0] cpu_data_sig
 //	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
@@ -124,7 +125,7 @@ cpu_port cpu_port_inst
 
 midi_in_mux midi_in_mux_inst
 (    .reset_reg_N        (reset_reg_N),
-    .CLOCK_50           (CLOCK_50),
+    .data_clk           (data_clk),
 
 	.sel(uart_usb_sel) ,	// input  sel_sig
 
@@ -145,14 +146,14 @@ midi_in_mux midi_in_mux_inst
 );
 
 
-address_decoder adr_dec_inst (
-    .CLOCK_50 ( CLOCK_50 ),
+address_decoder address_decoder_inst (
+    .data_clk ( data_clk ),
     .reset_reg_N ( reset_reg_N ),
     .data_ready ( data_ready ),
     .bank_adr ( bank_adr ),
     .out_data ( midi_out_data ),
     .read_write  ( read_write  ),
-    .data_out ( synth_data ),
+    .data_out ( synth_data_out ),
     .dec_sel ( dec_sel ),
     .write_dataenable ( write_dataenable )
 );
@@ -174,7 +175,7 @@ midi_status midi_statusinst
 
 note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 (
-	.CLOCK_50(CLOCK_50) ,
+	.data_clk(data_clk) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.voice_free(voice_free) ,	// input [VOICES-1:0] voice_free_sig
 	.is_data_byte(is_data_byte) ,	// input  is_data_byte_sig
@@ -197,7 +198,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 
 seq_trigger seq_trigger_inst
 (
-	.CLOCK_50(CLOCK_50) ,
+	.data_clk(data_clk) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
 	.midibyte_nr(midibyte_nr) ,	// input [7:0] midibyte_nr_sig
@@ -222,7 +223,8 @@ sysex_func sysex_func_inst
 (
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
     .write_dataenable ( write_dataenable ),
-	.synth_data(synth_data) ,	// input [7:0] data_sig
+	.synth_data_out(synth_data_out) ,	// output [7:0] data_sig
+	.synth_data_in(synth_data_in) ,	// input [7:0] data_sig
 	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
 	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
 	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
