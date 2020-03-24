@@ -10,7 +10,7 @@ parameter V_OSC		= 4 // oscs per Voice
     input wire                  com_sel,
     input wire                  m1_sel,
     input wire                  m2_sel,
-    inout wire signed   [7:0]   data,
+    inout wire signed   [7:0]   synth_data,
     output reg  signed  [7:0]   osc_lvl         [V_OSC-1:0],
     output reg  signed  [7:0]   osc_mod_out     [V_OSC-1:0],
     output reg  signed  [7:0]   osc_feedb_out   [V_OSC-1:0],
@@ -36,7 +36,7 @@ parameter V_OSC		= 4 // oscs per Voice
     endgenerate
 
 
-    assign data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
+    assign synth_data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
 
     byte unsigned loop,oloop,iloop,inloop,osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
 
@@ -67,35 +67,35 @@ parameter V_OSC		= 4 // oscs per Voice
             if(osc_sel)begin
                 for (osc1=0;osc1<V_OSC;osc1=osc1+1)begin
                     case (adr)
-                        7'd2 +(osc1<<4): osc_lvl[osc1] <= data;
-                        7'd3 +(osc1<<4): osc_mod_out[osc1] <= data;
-                        7'd4 +(osc1<<4): osc_feedb_out[osc1] <= data;
-                        7'd7 +(osc1<<4): osc_pan[osc1] <= data;
-                        7'd10 +(osc1<<4): osc_mod_in[osc1] <= data;
-                        7'd11 +(osc1<<4): osc_feedb_in[osc1] <= data;
+                        7'd2 +(osc1<<4): osc_lvl[osc1] <= synth_data;
+                        7'd3 +(osc1<<4): osc_mod_out[osc1] <= synth_data;
+                        7'd4 +(osc1<<4): osc_feedb_out[osc1] <= synth_data;
+                        7'd7 +(osc1<<4): osc_pan[osc1] <= synth_data;
+                        7'd10 +(osc1<<4): osc_mod_in[osc1] <= synth_data;
+                        7'd11 +(osc1<<4): osc_feedb_in[osc1] <= synth_data;
                         default:;
                     endcase
                 end
             end
             else if(com_sel) begin
-                if(adr == 1) m_vol <= data;
+                if(adr == 1) m_vol <= synth_data;
                     else if(adr >= 16 && adr < 32)begin
                         for(innam=0;innam<16;innam=innam+1)begin
-                            if(adr == (innam + 16)) patch_name[innam] <= data;
+                            if(adr == (innam + 16)) patch_name[innam] <= synth_data;
                         end
                     end
             end
             else if (m1_sel) begin
             for (ol1=0;ol1<16;ol1=ol1+1)begin
                 for(il1=0;il1<V_OSC;il1=il1+1)begin
-                    if (adr == (il1 << 4)+ol1) mat_buf1[ol1][il1] <= data;
+                    if (adr == (il1 << 4)+ol1) mat_buf1[ol1][il1] <= synth_data;
                 end
                 end
             end
             else if (m2_sel) begin
                 for (ol2=0;ol2<16;ol2=ol2+1)begin
                     for(il2=0;il2<V_OSC;il2=il2+1)begin
-                        if (adr == (il2 << 4)+ol2)mat_buf2[ol2][il2] <= data;
+                        if (adr == (il2 << 4)+ol2)mat_buf2[ol2][il2] <= synth_data;
                     end
                 end
             end

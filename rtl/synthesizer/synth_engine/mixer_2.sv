@@ -20,7 +20,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire signed [7:0]             level_mul_vel,    // envgen output
     input wire signed [16:0]            sine_lut_out, // sine
 
-    inout wire signed [7:0]             data,
+    inout wire signed [7:0]             synth_data,
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
@@ -73,7 +73,7 @@ parameter AUD_BIT_DEPTH = 24
     .com_sel( com_sel ),                                // output
     .m1_sel( m1_sel ),                                  // output
     .m2_sel( m2_sel ),                                  // output
-    .data( data ),                                      // inout
+    .synth_data( synth_data ),                                      // inout
     .osc_lvl( osc_lvl ),                                // output
     .osc_mod_out( osc_mod_out ),                        // output
     .osc_feedb_out( osc_feedb_out ),                    // output

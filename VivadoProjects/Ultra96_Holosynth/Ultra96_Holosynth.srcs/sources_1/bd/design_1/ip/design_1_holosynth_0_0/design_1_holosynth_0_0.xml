@@ -389,7 +389,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>readdata</spirit:name>
+        <spirit:name>cpu_readdata</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -405,7 +405,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>writedata</spirit:name>
+        <spirit:name>cpu_writedata</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>

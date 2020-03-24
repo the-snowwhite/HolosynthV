@@ -13,7 +13,7 @@ parameter E_WIDTH = 3
     input wire                      reset_reg_N,
     input wire                      reset_data_N,
     input wire                      sCLK_XVXENVS,
-    inout wire      [7:0]           data,
+    inout wire      [7:0]           synth_data,
     input wire      [6:0]           adr,
     input wire                      write,
     input wire                      read,
@@ -79,7 +79,7 @@ parameter num_mul = 22;
 
     reg [7:0] data_out;
 
-    assign data = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
+    assign synth_data = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
 
     wire       [E_WIDTH-1:0]   e_env_sel;
     wire       [V_WIDTH-1:0]   e_voice_sel;
@@ -102,14 +102,14 @@ parameter num_mul = 22;
     end else begin
         if(env_sel)begin
             for(v1=0;v1<V_ENVS;v1=v1+1) begin
-                if(adr == 0+(v1<<3)) r_r[v1][0] <= data  ;
-                else if(adr == 1+(v1<<3)) r_r[v1][1] <= data  ;
-                else if(adr == 2+(v1<<3)) r_r[v1][2] <= data  ;
-                else if(adr == 3+(v1<<3)) r_r[v1][3] <= data  ;
-                else if(adr == 4+(v1<<3)) l_r[v1][0] <= data  ;
-                else if(adr == 5+(v1<<3)) l_r[v1][1] <= data  ;
-                else if(adr == 6+(v1<<3)) l_r[v1][2] <= data  ;
-                else if(adr == 7+(v1<<3)) l_r[v1][3] <= data  ;
+                if(adr == 0+(v1<<3)) r_r[v1][0] <= synth_data  ;
+                else if(adr == 1+(v1<<3)) r_r[v1][1] <= synth_data  ;
+                else if(adr == 2+(v1<<3)) r_r[v1][2] <= synth_data  ;
+                else if(adr == 3+(v1<<3)) r_r[v1][3] <= synth_data  ;
+                else if(adr == 4+(v1<<3)) l_r[v1][0] <= synth_data  ;
+                else if(adr == 5+(v1<<3)) l_r[v1][1] <= synth_data  ;
+                else if(adr == 6+(v1<<3)) l_r[v1][2] <= synth_data  ;
+                else if(adr == 7+(v1<<3)) l_r[v1][3] <= synth_data  ;
             end
         end
     end

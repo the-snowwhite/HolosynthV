@@ -44,14 +44,14 @@ AUD_BIT_DEPTH = 24
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    output reg  [31:0]      writedata,
-    input wire  [31:0]      readdata,
+    output reg  [31:0]      cpu_writedata,
+    input wire  [31:0]      cpu_readdata,
     input wire              socmidi_read,
     input wire              socmidi_write,
     input wire              socmidi_cs,
     input wire  [2:0]       socmidi_addr,
     input wire  [7:0]       socmidi_data_out,
-    output reg [7:0]    socmidi_data_in,
+    output reg [7:0]        socmidi_data_in,
     output wire             run,
     input wire              uart_usb_sel
 );
@@ -194,13 +194,13 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     
     always @(posedge CLOCK_50) begin
         if (io_reset) begin
-            writedata[7:0] <= 8'b0;
+            cpu_writedata[7:0] <= 8'b0;
         end
         else if (read) begin
-                writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
+                cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data;
         end
         else if    (write) begin
-            indata <= readdata[7:0];
+            indata <= cpu_readdata[7:0];
         end
     end
 
@@ -299,7 +299,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .read                   ( read),                    // input read synth_data signal
     .sysex_data_patch_send  ( sysex_data_patch_send),   // input
     .adr                    ( adr) ,                    // input [6:0] adr_sig
-    .data                   ( synth_data ) ,
+    .synth_data                   ( synth_data ) ,
     .env_sel                ( env_sel ) ,
     .osc_sel                ( osc_sel ) ,
     .m1_sel                 ( m1_sel ) ,

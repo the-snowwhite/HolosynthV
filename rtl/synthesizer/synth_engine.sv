@@ -29,7 +29,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire                  read,
     input wire                  sysex_data_patch_send,
     input wire  [6:0]           adr,
-    inout wire  [7:0]           data,
+    inout wire  [7:0]           synth_data,
     input wire                  env_sel,
     input wire                  osc_sel,
     input wire                  m1_sel,
@@ -112,7 +112,7 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
     .read ( read ),
     .sysex_data_patch_send (sysex_data_patch_send),
     .adr( adr ),
-    .data( data ),
+    .synth_data( synth_data ),
     .osc_sel( osc_sel ),
     .com_sel( com_sel ),
     .osc_pitch_val( osc_pitch_val )
@@ -133,7 +133,7 @@ osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O
     .read ( read ),
     .sysex_data_patch_send (sysex_data_patch_send),
     .adr( adr ),
-    .data( data ),
+    .synth_data( synth_data ),
     .osc_sel( osc_sel ),
     .sine_lut_out( sine_lut_out )
 );
@@ -166,7 +166,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .read ( read ),
     .sysex_data_patch_send (sysex_data_patch_send),
     .adr( adr ),
-    .data( data ),
+    .synth_data( synth_data ),
     .osc_sel( osc_sel ),
     .m1_sel( m1_sel ),
     .m2_sel( m2_sel ),
@@ -186,7 +186,7 @@ env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_W
     .read ( read ),
     .sysex_data_patch_send (sysex_data_patch_send),
     .adr( adr ),                 // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-adr[6..0]
-    .data( data ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
+    .synth_data( synth_data ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
     .env_sel( env_sel ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-env_sel
     .level_mul( level_mul ),  	         // output
     .osc_accum_zero( osc_accum_zero ),  // output

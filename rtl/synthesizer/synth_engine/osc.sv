@@ -12,7 +12,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     input wire                          reset_data_N,
     input wire                          sCLK_XVXENVS,
     input wire                          sCLK_XVXOSC,
-    inout wire                          [7:0] data,
+    inout wire                          [7:0] synth_data,
     input wire                          [6:0] adr,
     input wire                          write,
     input wire                          read,
@@ -49,7 +49,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         end
     endgenerate
 
-    assign data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
+    assign synth_data = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
 
     assign mod = modulation;
 
@@ -69,7 +69,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         end else begin
             if(osc_sel)begin
                 for (o1=0;o1<V_OSC;o1=o1+1)begin
-                    if (adr == (7'd6+(o1<<4))) o_offs[o1] <= data;
+                    if (adr == (7'd6+(o1<<4))) o_offs[o1] <= synth_data;
                 end
             end
         end

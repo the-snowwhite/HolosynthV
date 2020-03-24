@@ -28,8 +28,8 @@ parameter AUD_BIT_DEPTH = 24
     input  wire          cpu_write,
     input  wire          cpu_chip_sel,
     input  wire [9:0]    cpu_addr,
-    input  wire [31:0]   readdata,
-    output wire [31:0]   writedata,
+    input  wire [31:0]   cpu_readdata,
+    output wire [31:0]   cpu_writedata,
     input  wire          socmidi_read,
     input  wire          socmidi_write,
 //    input                socmidi_cs,
@@ -58,8 +58,8 @@ parameter AUD_BIT_DEPTH = 24
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig
         .chipselect             (cpu_chip_sel) ,	// input  chipselect_sig
-        .readdata               (readdata) ,	// input [31:0] writedata_sig
-        .writedata              (writedata), 	// output [31:0] readdata_sig
+        .cpu_readdata           (cpu_readdata) ,	// input [31:0] writedata_sig
+        .cpu_writedata          (cpu_writedata), 	// output [31:0] readdata_sig
         .socmidi_addr           (socmidi_addr) ,	// input [9:0] address_sig
         .socmidi_write          (socmidi_write) ,	// input  cpu_write_sig
         .socmidi_read           (socmidi_read) ,	// input  cpu_read_sig
