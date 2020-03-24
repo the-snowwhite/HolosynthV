@@ -44,7 +44,7 @@ AUD_BIT_DEPTH = 24
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    output reg  [31:0]      cpu_writedata,
+    output wire [31:0]      cpu_writedata,
     input wire  [31:0]      cpu_readdata,
     input wire              socmidi_read,
     input wire              socmidi_write,
@@ -59,17 +59,17 @@ AUD_BIT_DEPTH = 24
 //-----		Registers		-----//
 // io:
 
-    reg                 write_delay;
-    reg                 reg_w_act;
+//    reg                 write_delay;
+//    reg                 reg_w_act;
 //    reg signed [7:0]    indata;
     wire [5:0]          cpu_sel;
     wire signed [7:0]   synth_data_out;
     wire signed [7:0]   synth_data_in;
-    wire w_act;
-    wire write_active;
+//    wire w_act;
+//    wire write_active;
     wire io_reset;
-    assign w_act = (cpu_write | write_delay);
-    assign write_active = (cpu_write | reg_w_act);
+//    assign w_act = (cpu_write | write_delay);
+//    assign write_active = (cpu_write | reg_w_act);
     assign io_reset = ~io_reset_n;
 
  //   assign synth_data_in = (!cpu_read && write_active) ? indata : 8'bz;
@@ -181,30 +181,33 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
         end
     end
 
+
 /** @brief read data
 */
-    always @(posedge data_clk) begin
+    always @(negedge data_clk) begin
         if(com_sel &&  read) begin
             if(adr == 2) out_data <= midi_ch;
         end
     end
 
-    always @(posedge data_clk) begin
-        write_delay <= cpu_write;
-        reg_w_act <= w_act;
-    end
+    assign cpu_writedata = (com_sel && adr == 2) ? out_data : synth_data_out;
+
+//    always @(posedge data_clk) begin
+//        write_delay <= cpu_write;
+//        reg_w_act <= w_act;
+//    end
     
-    always @(posedge data_clk) begin
-        if (io_reset) begin
-            cpu_writedata[7:0] <= 8'b0;
-        end
-        else if (read) begin
-                cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data_out;
-        end
- //       else if    (write) begin
- //           indata <= cpu_readdata[7:0];
- //       end
-    end
+//    always @(posedge data_clk) begin
+//        if (io_reset) begin
+//            cpu_writedata[7:0] <= 8'b0;
+//        end
+//        else if (read) begin
+//            cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data_out;
+//        end
+//        else if    (write) begin
+//            indata <= cpu_readdata[7:0];
+//        end
+//    end
 
 ////////////	Init Reset sig Gen	////////////
 // system reset  //

@@ -110,7 +110,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
 /** @brief read data
 */
-    always @(posedge data_clk) begin
+    always @(negedge data_clk) begin
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 case (adr)

@@ -118,7 +118,7 @@ parameter num_mul = 22;
     end
     end
 
-    always @(posedge data_clk)begin
+    always @(negedge data_clk)begin
         if(env_sel && read)begin
             for(r1=0;r1<V_ENVS;r1=r1+1) begin
                 if(adr == 0+(r1<<3)) data_out <= r_r[r1][0];

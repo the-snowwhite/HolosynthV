@@ -32,6 +32,7 @@ end
     reg [9:0] counter;
     reg midi_clk;
     reg reset_mod_cnt;
+    reg reset_mid_n;
 
 //// Clock gen ////
 
@@ -87,10 +88,14 @@ always @(negedge data_clk or negedge reset_reg_N)begin
     end
 end
 
+always @(posedge midi_clk)begin
+    reset_mid_n <= reset_reg_N;
+end
+
 ///// sequence generator /////
 
-    always @(posedge midi_clk or negedge reset_reg_N)begin
-        if(!reset_reg_N) revcnt <= 0;
+    always @(posedge midi_clk or negedge reset_mid_n)begin
+        if(!reset_mid_n) revcnt <= 0;
         else begin
             if (!startbit_d) revcnt <= 0;
             else if (revcnt >= 18) revcnt <= 0;
@@ -100,8 +105,8 @@ end
 
 // Serial data in
 
-    always @(negedge midi_clk or negedge reset_reg_N) begin
-        if(!reset_reg_N)begin samplebyte <= 0; midi_in_data <= 0;end
+    always @(negedge midi_clk or negedge reset_mid_n) begin
+        if(!reset_mid_n)begin samplebyte <= 0; midi_in_data <= 0;end
         else begin
             case (revcnt[4:0])
             5'd3:samplebyte[0] <= midi_dat;
@@ -118,16 +123,16 @@ end
         end
     end
 
-    always @(negedge midi_clk or negedge reset_reg_N) begin
-        if(!reset_reg_N) byteready <= 0;
+    always @(negedge midi_clk or negedge reset_mid_n) begin
+        if(!reset_mid_n) byteready <= 0;
         else begin
             byteready <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
         end
     end
 
 // DataByte counter -- Status byte logger //
-    always @(negedge startbit_d or negedge reset_reg_N)begin
-        if(!reset_reg_N)begin midibyte_nr <= 0; cur_status_r <= 0;end
+    always @(negedge startbit_d or negedge reset_mid_n)begin
+        if(!reset_mid_n)begin midibyte_nr <= 0; cur_status_r <= 0;end
         else begin
             if((samplebyte & 8'h80) && (samplebyte != 8'hf7))begin
 //            if(samplebyte & 8'h80)begin
@@ -139,8 +144,8 @@ end
     end
 
 // -------------- Midi transmitter ----------- //
-    always @(posedge midi_clk or negedge reset_reg_N)begin
-        if(!reset_reg_N) begin out_cnt <= 0; midi_out_ready <= 1'b1; end
+    always @(posedge midi_clk or negedge reset_mid_n)begin
+        if(!reset_mid_n) begin out_cnt <= 0; midi_out_ready <= 1'b1; end
         else begin
             if (!transmit) begin out_cnt <= 0; midi_out_ready <= 1'b1;  midi_txd <= 1'b1; end
             else if (out_cnt == 18)begin out_cnt <= out_cnt + 1'b1; midi_out_ready <= 1'b1; midi_txd <= 1'b1; end

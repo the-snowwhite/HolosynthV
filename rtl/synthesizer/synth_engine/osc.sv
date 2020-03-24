@@ -80,7 +80,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
 /** @brief read data
 */
 
-    always @(posedge data_clk) begin
+    always @(negedge data_clk) begin
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 if (adr == (7'd6+(o2<<4))) data_out <= o_offs[o2];
