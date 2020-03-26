@@ -8,11 +8,11 @@ input                       dec_syx,
 input   [1:0]               cpu_and,
 input   [addr_width-1:0]    dec_addr,
 input   [addr_width-1:0]    cpu_addr,
-input   [num_lines-1:0]     cpu_sel,
-input   [num_lines-1:0]     dec_sel,
-output                      syx_out,
+input   [num_lines-1:0]     cpu_sel_bus,
+input   [num_lines-1:0]     dec_sel_bus,
+output                      read_select,
 output  [addr_width-1:0]    addr_out,
-output  [num_lines-1:0]     sel_out
+output  [num_lines-1:0]     sel_out_bus
 );
 
     logic read_write_act;
@@ -34,8 +34,8 @@ output  [num_lines-1:0]     sel_out
 
     assign  addr_out[addr_width-1:0]    = in_select ? dec_addr[addr_width-1:0] : cpu_addr[addr_width-1:0];
 
-    assign  sel_out[num_lines-1:0]      = in_select ? dec_sel[num_lines-1:0] : cpu_sel[num_lines-1:0];
+    assign  sel_out_bus[num_lines-1:0]      = in_select ? dec_sel_bus[num_lines-1:0] : cpu_sel_bus[num_lines-1:0];
 
-    assign  syx_out                     = in_select ? dec_syx : (cpu_and[1] & cpu_and[0]);
+    assign  read_select                 = in_select ? dec_syx : (cpu_and[1] & cpu_and[0]);
 
 endmodule

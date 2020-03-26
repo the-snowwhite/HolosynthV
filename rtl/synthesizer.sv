@@ -147,7 +147,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     wire		com_sel;
     wire		read;
     wire		write;
-    wire		sysex_data_patch_send;
+    wire		read_select;
     wire		dec_read_write;
 
     reg [3:0] midi_ch;
@@ -161,11 +161,11 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
     .dec_addr(dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
     .cpu_addr(address[6:0]) ,	// input [addr_width-1:0] cpu_addr_sig
-    .cpu_sel({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
-    .dec_sel(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
-    .syx_out (sysex_data_patch_send),
+    .cpu_sel_bus({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
+    .dec_sel_bus(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
+    .read_select (read_select),
     .addr_out(adr) ,	// output [addr_width-1:0] addr_out_sig
-    .sel_out({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
+    .sel_out_bus({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
 );
 
 
@@ -256,7 +256,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 // controller data bus
     .data_ready(dataready) ,
     .read_write (dec_read_write),
-    .sysex_data_patch_send (dec_sysex_data_patch_send),
+    .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
     .dec_addr(dec_addr) ,
     .synth_data_out (synth_data_out) ,
     .synth_data_in (synth_data_in) ,
@@ -304,7 +304,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
 // controller data bus
     .write                  ( write) ,                  // input  write_sig
     .read                   ( read),                    // input read synth_data signal
-    .sysex_data_patch_send  ( sysex_data_patch_send),   // input
+    .read_select  ( read_select),   // input
     .adr                    ( adr) ,                    // input [6:0] adr_sig
     .synth_data_out         ( synth_data_out ) ,
     .synth_data_in          ( synth_data_in ) ,

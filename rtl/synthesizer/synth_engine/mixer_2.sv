@@ -26,7 +26,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
-    input wire                          sysex_data_patch_send,
+    input wire                          read_select,
     input wire                          osc_sel,
     input wire                          com_sel,
     input wire                          m1_sel,
@@ -71,7 +71,7 @@ parameter AUD_BIT_DEPTH = 24
     .adr( adr ),                                        // input
     .write( write ),                                    // input
     .read( read ),                                      // input
-    .sysex_data_patch_send( sysex_data_patch_send ),    // input
+    .read_select( read_select ),    // input
     .osc_sel( osc_sel ),                                // output
     .com_sel( com_sel ),                                // output
     .m1_sel( m1_sel ),                                  // output

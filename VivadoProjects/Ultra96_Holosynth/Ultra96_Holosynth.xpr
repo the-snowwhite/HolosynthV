@@ -375,6 +375,7 @@
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="ProcessingOrder" Val="EARLY"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/constrs_1/new/timing.xdc">
@@ -385,7 +386,6 @@
       </File>
       <File Path="$PSRCDIR/constrs_1/new/debug.xdc">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
@@ -409,6 +409,12 @@
     </FileSet>
     <FileSet Name="utils_1" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
       <Filter Type="Utils"/>
+      <File Path="$PSRCDIR/tcl/bitfile2tftp.tcl">
+        <FileInfo>
+          <Attr Name="UsedInSteps" Val="impl_1;WRITE_BITSTREAM;TCL.POST"/>
+          <Attr Name="ProcessingOrder" Val="LATE"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
@@ -459,7 +465,7 @@
         <Step Id="phys_opt_design" EnableStepBool="1"/>
         <Step Id="route_design"/>
         <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
+        <Step Id="write_bitstream" PostStepTclHook="$PSRCDIR/tcl/bitfile2tftp.tcl"/>
       </Strategy>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2019"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>

@@ -29,8 +29,8 @@
       "xlconstant_0": "",
       "xlslice_0": "",
       "zynq_ultra_ps_e_0": "",
-      "hm2_axilite_int_0": "",
-      "hm2_axilite_int_1": "",
+      "holosynth_uio": "",
+      "holosynth_midi": "",
       "audio_i2s_driver_0": "",
       "holosynth_0": ""
     },
@@ -460,16 +460,16 @@
               }
             },
             "interface_nets": {
-              "auto_pc_to_s00_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "auto_ds_to_auto_pc": {
                 "interface_ports": [
                   "auto_ds/M_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s00_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               },
               "s00_couplers_to_auto_ds": {
@@ -574,16 +574,16 @@
                   "auto_ds/S_AXI"
                 ]
               },
-              "auto_pc_to_s01_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "auto_ds_to_auto_pc": {
                 "interface_ports": [
                   "auto_ds/M_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s01_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               }
             },
@@ -768,40 +768,10 @@
           }
         },
         "interface_nets": {
-          "xbar_to_m01_couplers": {
+          "ps8_0_axi_periph_to_s00_couplers": {
             "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
-            ]
-          },
-          "m00_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
-            ]
-          },
-          "m01_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
-          "xbar_to_m02_couplers": {
-            "interface_ports": [
-              "xbar/M02_AXI",
-              "m02_couplers/S_AXI"
-            ]
-          },
-          "m02_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M02_AXI",
-              "m02_couplers/M_AXI"
-            ]
-          },
-          "xbar_to_m00_couplers": {
-            "interface_ports": [
-              "xbar/M00_AXI",
-              "m00_couplers/S_AXI"
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           },
           "s00_couplers_to_xbar": {
@@ -810,10 +780,10 @@
               "xbar/S00_AXI"
             ]
           },
-          "ps8_0_axi_periph_to_s00_couplers": {
+          "s01_couplers_to_xbar": {
             "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
+              "s01_couplers/M_AXI",
+              "xbar/S01_AXI"
             ]
           },
           "ps8_0_axi_periph_to_s01_couplers": {
@@ -822,10 +792,40 @@
               "s01_couplers/S_AXI"
             ]
           },
-          "s01_couplers_to_xbar": {
+          "xbar_to_m01_couplers": {
             "interface_ports": [
-              "s01_couplers/M_AXI",
-              "xbar/S01_AXI"
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
+            ]
+          },
+          "m01_couplers_to_ps8_0_axi_periph": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
+            ]
+          },
+          "m00_couplers_to_ps8_0_axi_periph": {
+            "interface_ports": [
+              "M00_AXI",
+              "m00_couplers/M_AXI"
+            ]
+          },
+          "xbar_to_m00_couplers": {
+            "interface_ports": [
+              "xbar/M00_AXI",
+              "m00_couplers/S_AXI"
+            ]
+          },
+          "m02_couplers_to_ps8_0_axi_periph": {
+            "interface_ports": [
+              "M02_AXI",
+              "m02_couplers/M_AXI"
+            ]
+          },
+          "xbar_to_m02_couplers": {
+            "interface_ports": [
+              "xbar/M02_AXI",
+              "m02_couplers/S_AXI"
             ]
           }
         },
@@ -4029,7 +4029,7 @@
           }
         }
       },
-      "hm2_axilite_int_0": {
+      "holosynth_uio": {
         "vlnv": "machinekit.io:user:hm2_axilite_int:1.0",
         "xci_name": "design_1_hm2_axilite_int_0_0",
         "parameters": {
@@ -4038,7 +4038,7 @@
           }
         }
       },
-      "hm2_axilite_int_1": {
+      "holosynth_midi": {
         "vlnv": "machinekit.io:user:hm2_axilite_int:1.0",
         "xci_name": "design_1_hm2_axilite_int_1_0",
         "parameters": {
@@ -4241,16 +4241,16 @@
           "ps8_0_axi_periph/S00_AXI"
         ]
       },
-      "ps8_0_axi_periph_M02_AXI": {
-        "interface_ports": [
-          "ps8_0_axi_periph/M02_AXI",
-          "hm2_axilite_int_1/S_AXI"
-        ]
-      },
       "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
         "interface_ports": [
           "zynq_ultra_ps_e_0/M_AXI_HPM1_FPD",
           "ps8_0_axi_periph/S01_AXI"
+        ]
+      },
+      "ps8_0_axi_periph_M01_AXI": {
+        "interface_ports": [
+          "ps8_0_axi_periph/M01_AXI",
+          "holosynth_uio/S_AXI"
         ]
       },
       "ps8_0_axi_periph_M00_AXI": {
@@ -4259,10 +4259,10 @@
           "audio_clk_mux_ip_0/S00_AXI"
         ]
       },
-      "ps8_0_axi_periph_M01_AXI": {
+      "ps8_0_axi_periph_M02_AXI": {
         "interface_ports": [
-          "ps8_0_axi_periph/M01_AXI",
-          "hm2_axilite_int_0/S_AXI"
+          "ps8_0_axi_periph/M02_AXI",
+          "holosynth_midi/S_AXI"
         ]
       }
     },
@@ -4282,8 +4282,8 @@
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "zynq_ultra_ps_e_0/maxihpm1_fpd_aclk",
           "clk_out",
-          "hm2_axilite_int_0/S_AXI_ACLK",
-          "hm2_axilite_int_1/S_AXI_ACLK",
+          "holosynth_uio/S_AXI_ACLK",
+          "holosynth_midi/S_AXI_ACLK",
           "holosynth_0/data_clk"
         ]
       },
@@ -4314,8 +4314,8 @@
           "ps8_0_axi_periph/M00_ARESETN",
           "ps8_0_axi_periph/M01_ARESETN",
           "ps8_0_axi_periph/M02_ARESETN",
-          "hm2_axilite_int_0/S_AXI_ARESETN",
-          "hm2_axilite_int_1/S_AXI_ARESETN",
+          "holosynth_uio/S_AXI_ARESETN",
+          "holosynth_midi/S_AXI_ARESETN",
           "audio_i2s_driver_0/reset_reg_N",
           "holosynth_0/reset_n"
         ]
@@ -4377,50 +4377,50 @@
       },
       "hm2_axilite_int_0_READSTB": {
         "ports": [
-          "hm2_axilite_int_0/READSTB",
+          "holosynth_uio/READSTB",
           "holosynth_0/cpu_read"
         ]
       },
       "hm2_axilite_int_0_WRITESTB": {
         "ports": [
-          "hm2_axilite_int_0/WRITESTB",
+          "holosynth_uio/WRITESTB",
           "holosynth_0/cpu_write"
         ]
       },
       "hm2_axilite_int_0_ADDR": {
         "ports": [
-          "hm2_axilite_int_0/ADDR",
+          "holosynth_uio/ADDR",
           "holosynth_0/cpu_addr"
         ]
       },
       "hm2_axilite_int_1_READSTB": {
         "ports": [
-          "hm2_axilite_int_1/READSTB",
+          "holosynth_midi/READSTB",
           "holosynth_0/socmidi_read"
         ]
       },
       "hm2_axilite_int_1_WRITESTB": {
         "ports": [
-          "hm2_axilite_int_1/WRITESTB",
+          "holosynth_midi/WRITESTB",
           "holosynth_0/socmidi_write"
         ]
       },
       "hm2_axilite_int_1_ADDR": {
         "ports": [
-          "hm2_axilite_int_1/ADDR",
+          "holosynth_midi/ADDR",
           "holosynth_0/socmidi_addr"
         ]
       },
       "hm2_axilite_int_1_IBUS": {
         "ports": [
-          "hm2_axilite_int_1/IBUS",
+          "holosynth_midi/IBUS",
           "holosynth_0/socmidi_data_in"
         ]
       },
       "holosynth_0_socmidi_data_out": {
         "ports": [
           "holosynth_0/socmidi_data_out",
-          "hm2_axilite_int_1/OBUS"
+          "holosynth_midi/OBUS"
         ]
       },
       "xlslice_0_Dout": {
@@ -4456,14 +4456,14 @@
       },
       "hm2_axilite_int_0_IBUS": {
         "ports": [
-          "hm2_axilite_int_0/IBUS",
+          "holosynth_uio/IBUS",
           "holosynth_0/cpu_readdata"
         ]
       },
       "holosynth_0_cpu_writedata": {
         "ports": [
           "holosynth_0/cpu_writedata",
-          "hm2_axilite_int_0/OBUS"
+          "holosynth_uio/OBUS"
         ]
       },
       "audio_clk_mux_ip_0_ext_shift_b_clk": {
@@ -4486,12 +4486,12 @@
                 "range": "4K"
               },
               "SEG_hm2_axilite_int_0_reg0": {
-                "address_block": "/hm2_axilite_int_0/S_AXI/reg0",
+                "address_block": "/holosynth_uio/S_AXI/reg0",
                 "offset": "0x00A0040000",
                 "range": "64K"
               },
               "SEG_hm2_axilite_int_1_reg0": {
-                "address_block": "/hm2_axilite_int_1/S_AXI/reg0",
+                "address_block": "/holosynth_midi/S_AXI/reg0",
                 "offset": "0x00A0000000",
                 "range": "64K"
               }

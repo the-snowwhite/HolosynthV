@@ -32,7 +32,7 @@ parameter V_WIDTH = 3
 //synth memory controller
     output wire                 data_ready,
     output wire                 read_write,
-    output wire                 sysex_data_patch_send,
+    output wire                 dec_sysex_data_patch_send,
     output wire [6:0]           dec_addr,
     wire [7:0]           synth_data_out,
     input  wire [7:0]           synth_data_in,
@@ -53,8 +53,8 @@ parameter V_WIDTH = 3
 
     reg [3:0]    midi_cha_num, sysex_type;
 
-    assign  write = (read_write && ~sysex_data_patch_send) ? 1'b1 : 1'b0;
-    assign  read = (read_write && sysex_data_patch_send) ? 1'b1 : 1'b0;
+    assign  write = (read_write && ~dec_sysex_data_patch_send) ? 1'b1 : 1'b0;
+    assign  read = (read_write && dec_sysex_data_patch_send) ? 1'b1 : 1'b0;
 
 //  uart:
     wire       byteready_u;
@@ -206,7 +206,7 @@ seq_trigger seq_trigger_inst
 	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
 	.midi_in_data(midi_in_data) ,	// input [7:0] midi_in_data_sig
 	.syx_cmd(syx_cmd) ,	// input  syx_cmd_sig
-	.sysex_data_patch_send(sysex_data_patch_send) ,	// input  sysex_data_patch_send_sig
+	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// input  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// input  auto_syx_cmd_sig
 	.byteready(byteready) ,	// input  byteready_sig
 	.cur_midi_ch(cur_midi_ch) ,	// output [3:0] cur_midi_ch_sig
@@ -232,7 +232,7 @@ sysex_func sysex_func_inst
 	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
 	.seq_trigger(seq_trigger) ,	// input  seq_trigger_sig
 	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
-	.sysex_data_patch_send(sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
+	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// output  auto_syx_cmd_sig
 	.midi_out_data(midi_out_data) ,	// output [7:0] midi_out_data_sig
 	.bank_adr(bank_adr) ,	// output [2:0] bank_adr_sig

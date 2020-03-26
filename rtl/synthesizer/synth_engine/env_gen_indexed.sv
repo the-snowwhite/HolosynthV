@@ -19,7 +19,7 @@ parameter E_WIDTH = 3
     input wire      [6:0]           adr,
     input wire                      write,
     input wire                      read,
-    input wire                      sysex_data_patch_send,
+    input wire                      read_select,
     input wire                      env_sel,
     input wire      [VOICES-1:0]    keys_on,
     input wire [V_WIDTH+E_WIDTH-1:0] xxxx,
@@ -81,7 +81,7 @@ parameter num_mul = 22;
 
     reg [7:0] data_out;
 
-//    assign synth_data_out = (sysex_data_patch_send && env_sel) ? data_out : 8'bz;
+//    assign synth_data_out = (read_select && env_sel) ? data_out : 8'bz;
     assign synth_data_out = (env_sel) ? data_out : 8'bz;
 
     wire       [E_WIDTH-1:0]   e_env_sel;

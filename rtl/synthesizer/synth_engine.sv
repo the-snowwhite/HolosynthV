@@ -28,7 +28,7 @@ parameter AUD_BIT_DEPTH = 24
 // midi data events
     input wire                  write,
     input wire                  read,
-    input wire                  sysex_data_patch_send,
+    input wire                  read_select,
     input wire  [6:0]           adr,
     wire     [7:0]           synth_data_out,
     input wire  [7:0]           synth_data_in,
@@ -113,7 +113,7 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
     .pitch_val              ( pitch_val ),
     .write                  ( write ),
     .read                   ( read ),
-    .sysex_data_patch_send  ( sysex_data_patch_send ),
+    .read_select  ( read_select ),
     .adr                    ( adr ),
     .synth_data_out         ( synth_data_out ),
     .synth_data_in          ( synth_data_in ),
@@ -136,7 +136,7 @@ osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O
     .voice_free             ( voice_free ),
     .write                  ( write ),
     .read                   ( read ),
-    .sysex_data_patch_send  (sysex_data_patch_send),
+    .read_select  (read_select),
     .adr                    ( adr ),
     .synth_data_out         ( synth_data_out ),
     .synth_data_in          ( synth_data_in ),
@@ -171,7 +171,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .modulation( modulation ),
     .write( write ),
     .read ( read ),
-    .sysex_data_patch_send (sysex_data_patch_send),
+    .read_select (read_select),
     .adr( adr ),
     .synth_data_out( synth_data_out ),
     .synth_data_in( synth_data_in ),
@@ -193,7 +193,7 @@ env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_W
     .keys_on( reg_keys_on ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-keys_on[7..0]
     .write( write ),             // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-write
     .read ( read ),
-    .sysex_data_patch_send (sysex_data_patch_send),
+    .read_select (read_select),
     .adr( adr ),                 // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-adr[6..0]
     .synth_data_out( synth_data_out ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
     .synth_data_in( synth_data_in ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]

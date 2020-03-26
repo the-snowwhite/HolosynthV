@@ -18,7 +18,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     input wire                          [6:0] adr,
     input wire                          write,
     input wire                          read,
-    input wire                          sysex_data_patch_send,
+    input wire                          read_select,
     input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
     input wire                          osc_sel,
     input wire [23:0]                   osc_pitch_val,
@@ -51,7 +51,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         end
     endgenerate
 
-    assign synth_data_out = (sysex_data_patch_send && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
+    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
 
     assign mod = modulation;
 
