@@ -29,10 +29,9 @@ end
 // comment out for debug
     reg startbit_d;
     reg [4:0]revcnt;
-    reg [9:0] counter;
-    reg midi_clk;
+    reg [10:0] counter;
+//    reg midi_clk;
     reg reset_mod_cnt;
-    reg reset_mid_n;
 
 //// Clock gen ////
 
@@ -47,7 +46,8 @@ end
     assign byte_end = (revcnt[4:0]==18)? 1'b1 : 1'b0;
 
     reg[7:0]	cur_status_r;
-
+    reg clk_enable;
+/*
     always @(negedge reset_reg_N or posedge reg_clk)begin //! divide clock by 200
         if(!reset_reg_N)begin counter <= 10'h00; carry <=1'b0; end
         else if (reg_clk)
@@ -60,43 +60,51 @@ end
         else if (reset_mod_cnt) midi_clk <= 1'b0;
         else if(carry)midi_clk <= ~(midi_clk);
     end
-
-
-always @(posedge reg_clk or negedge reset_reg_N)begin
-    if (!reset_reg_N)begin startbit_d <= 0; cur_status_u <= 0; end
-    else begin
-        cur_status_u <= cur_status_r;
-        if(revcnt>=18) startbit_d <= 0;
-        else if (!startbit_d)begin
-            if(midi_dat) startbit_d <= 0;
-            else startbit_d <= 1;
+*/
+    always@(posedge reg_clk or negedge reset_reg_N) begin
+        if (!reset_reg_N)begin 
+            counter <=11'h0; 
+        end else begin
+            if (counter == 11'd1600) begin
+                clk_enable <= 1'b1; counter <=11'h0;
+            end
+            else begin
+                clk_enable <= 1'b0;counter <= counter +11'h1;
+            end
         end
     end
-end
-
+        
+    always @(posedge reg_clk or negedge reset_reg_N)begin
+        if (!reset_reg_N)begin startbit_d <= 0; cur_status_u <= 0; end
+        else begin
+            cur_status_u <= cur_status_r;
+            if(revcnt>=18) startbit_d <= 0;
+            else if (!startbit_d)begin
+                if(midi_dat) startbit_d <= 0;
+                else startbit_d <= 1;
+            end
+        end
+    end
+    
 // Clk gen reset circuit /////
-always @(negedge reg_clk or negedge reset_reg_N)begin
-    if(!reset_reg_N)begin reset_cnt <= 0;reset_mod_cnt <= 0;end
-    else begin
-        if (!startbit_d)
-            reset_cnt <= 0;
-        else if(reset_cnt <= 1 && startbit_d)begin
-            reset_cnt <= reset_cnt+1'b1;
-            reset_mod_cnt <= 1;
+    always @(posedge reg_clk or negedge reset_reg_N)begin
+        if(!reset_reg_N)begin reset_cnt <= 0;reset_mod_cnt <= 0;end
+        else begin
+            if (!startbit_d)
+                reset_cnt <= 0;
+            else if(reset_cnt <= 1 && startbit_d)begin
+                reset_cnt <= reset_cnt+1'b1;
+                reset_mod_cnt <= 1;
+            end
+            else reset_mod_cnt <= 0;
         end
-        else reset_mod_cnt <= 0;
     end
-end
-
-always @(posedge midi_clk)begin
-    reset_mid_n <= reset_reg_N;
-end
-
+    
 ///// sequence generator /////
 
-    always @(posedge midi_clk or negedge reset_mid_n)begin
-        if(!reset_mid_n) revcnt <= 0;
-        else begin
+    always @(posedge reg_clk or negedge reset_reg_N)begin
+        if(!reset_reg_N) revcnt <= 0;
+        else if (clk_enable) begin
             if (!startbit_d) revcnt <= 0;
             else if (revcnt >= 18) revcnt <= 0;
             else revcnt <= revcnt+1'b1;
@@ -105,9 +113,9 @@ end
 
 // Serial data in
 
-    always @(negedge midi_clk or negedge reset_mid_n) begin
-        if(!reset_mid_n)begin samplebyte <= 0; midi_in_data_u <= 0;end
-        else begin
+    always @(negedge reg_clk or negedge reset_reg_N) begin
+        if(!reset_reg_N)begin samplebyte <= 0; midi_in_data_u <= 0;end
+        else if (clk_enable) begin
             case (revcnt[4:0])
             5'd3:samplebyte[0] <= midi_dat;
             5'd5:samplebyte[1] <= midi_dat;
@@ -123,16 +131,16 @@ end
         end
     end
 
-    always @(negedge midi_clk or negedge reset_mid_n) begin
-        if(!reset_mid_n) byteready_u <= 0;
-        else begin
+    always @(negedge reg_clk or negedge reset_reg_N) begin
+        if(!reset_reg_N) byteready_u <= 0;
+        else if (clk_enable) begin
             byteready_u <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
         end
     end
 
 // DataByte counter -- Status byte logger //
-    always @(negedge startbit_d or negedge reset_mid_n)begin
-        if(!reset_mid_n)begin midibyte_nr_u <= 0; cur_status_r <= 0;end
+    always @(negedge startbit_d or negedge reset_reg_N)begin
+        if(!reset_reg_N)begin midibyte_nr_u <= 0; cur_status_r <= 0;end
         else begin
             if((samplebyte & 8'h80) && (samplebyte != 8'hf7))begin
 //            if(samplebyte & 8'h80)begin
@@ -144,9 +152,9 @@ end
     end
 
 // -------------- Midi transmitter ----------- //
-    always @(posedge midi_clk or negedge reset_mid_n)begin
-        if(!reset_mid_n) begin out_cnt <= 0; midi_out_ready <= 1'b1; midi_txd <=1'b0; end
-        else begin
+    always @(posedge reg_clk or negedge reset_reg_N)begin
+        if(!reset_reg_N) begin out_cnt <= 0; midi_out_ready <= 1'b1; midi_txd <=1'b0; out_buff <= 8'h00; end
+        else if (clk_enable) begin
             if (!transmit) begin out_cnt <= 0; midi_out_ready <= 1'b1;  midi_txd <= 1'b1; end
             else if (out_cnt == 18)begin out_cnt <= out_cnt + 1'b1; midi_out_ready <= 1'b1; midi_txd <= 1'b1; end
             else if (out_cnt >= 19)begin out_cnt <= 0; midi_out_ready <= 1'b1; end

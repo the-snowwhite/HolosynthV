@@ -1,17 +1,17 @@
 module cpu_port (
-	input wire               reset_reg_N,
-	input wire              reg_clk,
-    input wire [2:0]         socmidi_addr,
-    input wire [7:0]         socmidi_data_in,
+    input wire          reset_reg_N,
+    input wire          reg_clk,
+    input wire [2:0]    socmidi_addr,
+    input wire [7:0]    socmidi_data_in,
 //    input               cpu_com_sel,
-    input wire              socmidi_write,
-	output reg          byteready_c,
-	output reg  [7:0]	cur_status_c,
-	output reg  [7:0]	midibyte_nr_c,
-	output reg  [7:0]	midi_in_data_c
+    input wire          socmidi_write,
+    output reg          byteready_c,
+    output reg [7:0]    cur_status_c,
+    output reg [7:0]    midibyte_nr_c,
+    output reg [7:0]    midi_in_data_c
 );
 
-    reg [7:0]	cpu_midi_in_data;
+    reg [7:0]   cpu_midi_in_data;
     reg [2:0]   data_tap;
 
 

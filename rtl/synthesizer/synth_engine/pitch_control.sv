@@ -48,7 +48,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
     reg [O_WIDTH-1:0] ox_dly[3:0];
 
-    always @(posedge sCLK_XVXOSC)begin
+    always @(posedge reg_clk)begin
         ox_dly[0] <= ox;
         ox_dly[1] <= ox_dly[0];
         ox_dly[2] <= ox_dly[1];
@@ -226,7 +226,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
     reg [7:0]	osc_ct_64_r;
     reg signed [24:0] 	osc_res_div_r, osc_res_l_div_r, osc_res_h_div_r, base_pitch_val_r;
 
-    always @(posedge sCLK_XVXOSC)begin
+    always @(negedge reg_clk)begin
         osc_ct_64_r <= osc_ct_64;
         osc_res_div_r <= osc_res_div;
         osc_res_l_div_r <= osc_res_l_div;
