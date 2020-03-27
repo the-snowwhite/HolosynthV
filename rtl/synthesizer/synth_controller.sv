@@ -87,61 +87,61 @@ parameter V_WIDTH = 3
 // seq_trigger
     wire is_data_byte;
     wire is_velocity;
-    wire seq_trigger;
+    wire trig_seq;
 
 
 MIDI_UART MIDI_UART_inst (
-    .reset_reg_N        (reset_reg_N),
-    .reg_clk           (reg_clk),
-    .midi_rxd           (midi_rxd),         // input  midi serial data in
-    .midi_txd           (midi_txd),         // output midi serial data output
+    .reset_reg_N    (reset_reg_N),
+    .reg_clk        (reg_clk),
+    .midi_rxd       (midi_rxd),         // input  midi serial data in
+    .midi_txd       (midi_txd),         // output midi serial data output
 
-    .byteready          (byteready_u),      // output  byteready_sig
-    .cur_status         (cur_status_u),     // output [7:0] cur_status_sig
-    .midibyte_nr        (midibyte_nr_u),    // output [7:0] midibyte_nr_sig
-    .midi_in_data       (midi_in_data_u),   // output [7:0] midi_data_byte_sig
+    .byteready_u    (byteready_u),      // output  byteready_sig
+    .cur_status_u   (cur_status_u),     // output [7:0] cur_status_sig
+    .midibyte_nr_u  (midibyte_nr_u),    // output [7:0] midibyte_nr_sig
+    .midi_in_data_u (midi_in_data_u),   // output [7:0] midi_data_byte_sig
 
-    .midi_out_ready     (midi_out_ready),   // output midi out buffer ready
-    .midi_send_byte     (midi_send_byte),   // input midi_send_byte_sig
-    .midi_out_data      (midi_out_data)     // input midi_out_data_sig
+    .midi_out_ready (midi_out_ready),   // output midi out buffer ready
+    .midi_send_byte (midi_send_byte),   // input midi_send_byte_sig
+    .midi_out_data  (midi_out_data)     // input midi_out_data_sig
 );
 
 cpu_port cpu_port_inst
 (
-	.reset_reg_N(reset_reg_N) ,
-	.reg_clk(reg_clk) ,
-	.socmidi_addr(socmidi_addr) ,	    // input [2:0] cpu_addr_sig
-	.socmidi_data_in(socmidi_data_in) ,	// input [7:0] cpu_data_sig
+	.reset_reg_N( reset_reg_N ) ,
+	.reg_clk( reg_clk ) ,
+	.socmidi_addr( socmidi_addr ) ,	    // input [2:0] cpu_addr_sig
+	.socmidi_data_in( socmidi_data_in ) ,	// input [7:0] cpu_data_sig
 //	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
-	.socmidi_write(socmidi_write) ,	    // input  cpu_write_sig
+	.socmidi_write( socmidi_write ) ,	    // input  cpu_write_sig
 
-	.byteready(byteready_c) ,	        // output  byteready_sig
-	.cur_status(cur_status_c) ,	        // output [7:0] cur_status_sig
-	.midibyte_nr(midibyte_nr_c) ,	    // output [7:0] midibyte_nr_sig
-	.midi_in_data(midi_in_data_c) 	    // output [7:0] midibyte_sig
+	.byteready_c( byteready_c ) ,	        // output  byteready_sig
+	.cur_status_c( cur_status_c ) ,	        // output [7:0] cur_status_sig
+	.midibyte_nr_c( midibyte_nr_c ) ,	    // output [7:0] midibyte_nr_sig
+	.midi_in_data_c( midi_in_data_c ) 	    // output [7:0] midibyte_sig
 );
 
 
 midi_in_mux midi_in_mux_inst
-(   .reset_reg_N        (reset_reg_N),
-    .reg_clk           (reg_clk),
+(   .reset_reg_N( reset_reg_N ),
+    .reg_clk( reg_clk ),
 
-	.sel(uart_usb_sel) ,	// input  sel_sig
+	.sel( uart_usb_sel ) ,	// input  sel_sig
 
-	.byteready_u(byteready_u) ,	// input  byteready_u_sig
-	.cur_status_u(cur_status_u) ,	// input [7:0] cur_status_u_sig
-	.midibyte_nr_u(midibyte_nr_u) ,	// input [7:0] midibyte_nr_u_sig
-	.midi_in_data_u(midi_in_data_u) ,	// input [7:0] midi_in_data_u_sig
+	.byteready_u( byteready_u ) ,	// input  byteready_u_sig
+	.cur_status_u( cur_status_u ) ,	// input [7:0] cur_status_u_sig
+	.midibyte_nr_u( midibyte_nr_u ) ,	// input [7:0] midibyte_nr_u_sig
+	.midi_in_data_u( midi_in_data_u ) ,	// input [7:0] midi_in_data_u_sig
 
-	.byteready_c(byteready_c) ,	// input  byteready_c_sig
-	.cur_status_c(cur_status_c) ,	// input [7:0] cur_status_c_sig
-	.midibyte_nr_c(midibyte_nr_c) ,	// input [7:0] midibyte_nr_c_sig
-	.midi_in_data_c(midi_in_data_c) ,	// input [7:0] midi_in_data_c_sig
+	.byteready_c( byteready_c ) ,	// input  byteready_c_sig
+	.cur_status_c( cur_status_c ) ,	// input [7:0] cur_status_c_sig
+	.midibyte_nr_c( midibyte_nr_c ) ,	// input [7:0] midibyte_nr_c_sig
+	.midi_in_data_c( midi_in_data_c ) ,	// input [7:0] midi_in_data_c_sig
 
-	.byteready(byteready) ,	// output  byteready_sig
-	.cur_status(cur_status) ,	// output [7:0] cur_status_sig
-	.midibyte_nr(midibyte_nr) ,	// output [7:0] midibyte_nr_sig
-	.midi_in_data(midi_in_data) 	// output [7:0] midi_in_data_sig
+	.byteready( byteready ) ,	// output  byteready_sig
+	.cur_status( cur_status ) ,	// output [7:0] cur_status_sig
+	.midibyte_nr( midibyte_nr ) ,	// output [7:0] midibyte_nr_sig
+	.midi_in_data( midi_in_data ) 	// output [7:0] midi_in_data_sig
 );
 
 
@@ -182,8 +182,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.is_st_note_on(is_st_note_on) ,	// input  is_st_note_on_sig
 	.is_st_note_off(is_st_note_off) ,	// input  is_st_note_off_sig
 	.is_st_ctrl(is_st_ctrl) ,	// input  is_st_ctrl_sig
-//	.byteready(byteready) ,	// input  byteready_sig
-	.byteready(seq_trigger) ,	// input  byteready_sig
+	.trig_seq(trig_seq) ,	// input  byteready_sig
 	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
 
 	.active_keys(active_keys) ,	// output [V_WIDTH:0] active_keys_sig
@@ -215,7 +214,7 @@ seq_trigger seq_trigger_inst
 	.seq_databyte(seq_databyte) ,	// output [7:0] seq_databyte_sig
 	.is_data_byte(is_data_byte) ,	// output  data_ready_sig
 	.is_velocity(is_velocity) ,	// output  data_ready_sig
-	.seq_trigger(seq_trigger) 	// output  seq_trigger_sig
+	.trig_seq(trig_seq) 	// output  seq_trigger_sig
 );
 
 sysex_func sysex_func_inst
@@ -229,7 +228,7 @@ sysex_func sysex_func_inst
 	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
 	.midi_bytes(midi_bytes) ,	// input [7:0] midi_bytes_sig
 	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
-	.seq_trigger(seq_trigger) ,	// input  seq_trigger_sig
+	.trig_seq(trig_seq) ,	// input  seq_trigger_sig
 	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// output  auto_syx_cmd_sig
@@ -240,7 +239,7 @@ sysex_func sysex_func_inst
 
 controller_cmd_inst controller_cmd_inst_inst (
    // Input Ports - Single Bit
-   .seq_trigger       (seq_trigger),    
+   .trig_seq       (trig_seq),    
    .reset_reg_N       (reset_reg_N),    
    .is_data_byte      (is_data_byte),   
    .is_st_pitch       (is_st_pitch),    

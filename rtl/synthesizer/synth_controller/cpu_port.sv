@@ -5,10 +5,10 @@ module cpu_port (
     input wire [7:0]         socmidi_data_in,
 //    input               cpu_com_sel,
     input wire              socmidi_write,
-	output reg          byteready,
-	output reg  [7:0]	cur_status,
-	output reg  [7:0]	midibyte_nr,
-	output reg  [7:0]	midi_in_data
+	output reg          byteready_c,
+	output reg  [7:0]	cur_status_c,
+	output reg  [7:0]	midibyte_nr_c,
+	output reg  [7:0]	midi_in_data_c
 );
 
     reg [7:0]	cpu_midi_in_data;
@@ -19,19 +19,19 @@ module cpu_port (
         data_tap[0] <= socmidi_write;
         data_tap[1] <= data_tap[0];
         data_tap[2] <= data_tap[1];
-        byteready <= (!socmidi_write && ((data_tap[2] || data_tap[1]))) ? 1'b1 : 1'b0;
+        byteready_c <= (!socmidi_write && ((data_tap[2] || data_tap[1]))) ? 1'b1 : 1'b0;
     end
 
 // DataByte counter -- Status byte logger //
     always @(negedge data_tap[0]  or negedge reset_reg_N)begin
-        if(!reset_reg_N)begin midibyte_nr <= 0; cur_status <= 0; midi_in_data <= 0; end
+        if(!reset_reg_N)begin midibyte_nr_c <= 0; cur_status_c <= 0; midi_in_data_c <= 0; end
         else begin
-            midi_in_data <= cpu_midi_in_data;
+            midi_in_data_c <= cpu_midi_in_data;
             if((cpu_midi_in_data & 8'h80) && (cpu_midi_in_data != 8'hf7))begin
-                midibyte_nr <= 0;
-                cur_status <= cpu_midi_in_data;
+                midibyte_nr_c <= 0;
+                cur_status_c <= cpu_midi_in_data;
             end
-            else begin midibyte_nr <= midibyte_nr+1'b1; cur_status <= cur_status; end
+            else begin midibyte_nr_c <= midibyte_nr_c+1'b1; cur_status_c <= cur_status_c; end
         end
     end
 

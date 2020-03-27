@@ -17,7 +17,7 @@ module seq_trigger (
     output reg [7:0]            seq_databyte,
     output wire                 is_data_byte,
     output wire                 is_velocity,
-    output reg                  seq_trigger
+    output reg                  trig_seq
 );
 
     reg seq_trigger_r_dly[2:0], syx_cmd_r[1:0];
@@ -40,7 +40,7 @@ module seq_trigger (
     always @(posedge reg_clk)begin
         if (!reset_reg_N) begin
             cur_midi_ch <= 4'h0;
-            seq_trigger <= 1'b0 ;
+            trig_seq <= 1'b0 ;
             seq_trigger_r_dly <= '{default:0};
             midi_bytes <= 8'h00;
             seq_databyte <= 8'h00;
@@ -48,13 +48,13 @@ module seq_trigger (
        end
         else begin
             cur_midi_ch <= midi_ch;
-            seq_trigger <= (is_cur_midi_ch | is_st_sysex) ? (byteready | midi_send_byte) : 1'b0 ;
-            seq_trigger_r_dly[0] <= seq_trigger;
+            trig_seq <= (is_cur_midi_ch | is_st_sysex) ? (byteready | midi_send_byte) : 1'b0 ;
+            seq_trigger_r_dly[0] <= trig_seq;
             seq_trigger_r_dly[1] <= seq_trigger_r_dly[0];
             seq_trigger_r_dly[2] <= seq_trigger_r_dly[1];
             midi_bytes <= (is_cur_midi_ch | is_st_sysex) ? midibyte_nr : 8'h00;
             seq_databyte <= (is_cur_midi_ch | is_st_sysex) ? midi_in_data : 8'h00;
-            midi_send_byte_req[0] <= ( dec_sysex_data_patch_send && seq_trigger ) ? 1'b1 : 1'b0;
+            midi_send_byte_req[0] <= ( dec_sysex_data_patch_send && trig_seq ) ? 1'b1 : 1'b0;
             midi_send_byte_req[1] <= midi_send_byte_req[0];
             midi_send_byte_req[2] <= midi_send_byte_req[1];
        end

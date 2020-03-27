@@ -51,7 +51,6 @@ wire [V_WIDTH+E_WIDTH-1:0]  xxxx;
 wire [7:0]                  level_mul;
 wire [7:0]                  level_mul_vel;
 
-wire                        byteready;
 wire [7:0]                  cur_status;
 wire [7:0]                  octrl;
 wire [7:0]                  octrl_data;

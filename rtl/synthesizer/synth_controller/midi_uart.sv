@@ -1,16 +1,16 @@
 module MIDI_UART(
-    input wire              reset_reg_N,
-    input wire              reg_clk,
+    input wire          reset_reg_N,
+    input wire          reg_clk,
 // receiver
-    input wire              midi_rxd,
+    input wire          midi_rxd,
 // data out
-    output	reg         byteready,
-    output	reg[7:0]    cur_status,
-    output	reg[7:0]    midibyte_nr,
-    output	reg[7:0]    midi_in_data,
+    output	reg         byteready_u,
+    output	reg [7:0]   cur_status_u,
+    output	reg [7:0]   midibyte_nr_u,
+    output	reg [7:0]   midi_in_data_u,
 // Transmitter
-    input wire              midi_send_byte,
-    input wire      [7:0]   midi_out_data,
+    input wire          midi_send_byte,
+    input wire  [7:0]   midi_out_data,
     output	reg         midi_txd,
     output	reg         midi_out_ready
 );
@@ -63,9 +63,9 @@ end
 
 
 always @(posedge reg_clk or negedge reset_reg_N)begin
-    if (!reset_reg_N)begin startbit_d <= 0; cur_status <= 0; end
+    if (!reset_reg_N)begin startbit_d <= 0; cur_status_u <= 0; end
     else begin
-        cur_status <= cur_status_r;
+        cur_status_u <= cur_status_r;
         if(revcnt>=18) startbit_d <= 0;
         else if (!startbit_d)begin
             if(midi_dat) startbit_d <= 0;
@@ -106,7 +106,7 @@ end
 // Serial data in
 
     always @(negedge midi_clk or negedge reset_mid_n) begin
-        if(!reset_mid_n)begin samplebyte <= 0; midi_in_data <= 0;end
+        if(!reset_mid_n)begin samplebyte <= 0; midi_in_data_u <= 0;end
         else begin
             case (revcnt[4:0])
             5'd3:samplebyte[0] <= midi_dat;
@@ -117,29 +117,29 @@ end
             5'd13:samplebyte[5] <= midi_dat;
             5'd15:samplebyte[6] <= midi_dat;
             5'd17:samplebyte[7] <= midi_dat;
-            5'd18:midi_in_data <= samplebyte;
+            5'd18:midi_in_data_u <= samplebyte;
             default:;
             endcase
         end
     end
 
     always @(negedge midi_clk or negedge reset_mid_n) begin
-        if(!reset_mid_n) byteready <= 0;
+        if(!reset_mid_n) byteready_u <= 0;
         else begin
-            byteready <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
+            byteready_u <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
         end
     end
 
 // DataByte counter -- Status byte logger //
     always @(negedge startbit_d or negedge reset_mid_n)begin
-        if(!reset_mid_n)begin midibyte_nr <= 0; cur_status_r <= 0;end
+        if(!reset_mid_n)begin midibyte_nr_u <= 0; cur_status_r <= 0;end
         else begin
             if((samplebyte & 8'h80) && (samplebyte != 8'hf7))begin
 //            if(samplebyte & 8'h80)begin
-                midibyte_nr <= 0;
+                midibyte_nr_u <= 0;
                 cur_status_r <= samplebyte;
             end
-            else midibyte_nr <= midibyte_nr+1'b1;
+            else midibyte_nr_u <= midibyte_nr_u+1'b1;
         end
     end
 

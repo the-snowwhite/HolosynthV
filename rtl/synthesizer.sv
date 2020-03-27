@@ -94,7 +94,6 @@ AUD_BIT_DEPTH = 24
 //outputs
     wire midi_out_ready,midi_send_byte;
     wire [7:0] midi_out_data;
-    wire byteready;
     wire [7:0] cur_status,midibyte_nr,midi_data_byte;
 
 //---	Midi	Decoder ---//

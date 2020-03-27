@@ -21,7 +21,7 @@
 
 
 module controller_cmd_inst(
-    input wire          seq_trigger,
+    input wire          trig_seq,
     input wire          reset_reg_N,
     input wire          is_st_pitch,
     input wire          is_st_prg_change,
@@ -38,7 +38,7 @@ module controller_cmd_inst(
     );
     
 
-    always @(negedge reset_reg_N or negedge seq_trigger) begin
+    always @(negedge reset_reg_N or negedge trig_seq) begin
         if (!reset_reg_N) begin // init values
             pitch_cmd <= 1'b0;
         end
@@ -58,7 +58,7 @@ module controller_cmd_inst(
     end
 
 
-    always @(negedge reset_reg_N or negedge seq_trigger) begin
+    always @(negedge reset_reg_N or negedge trig_seq) begin
         if (!reset_reg_N) begin // init values
             prg_ch_cmd <=1'b0;
         end
