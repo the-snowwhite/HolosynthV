@@ -38,10 +38,15 @@ module seq_trigger (
 
 //    always @(negedge reset_reg_N or posedge reg_clk)begin
     always @(posedge reg_clk)begin
-//        if (!reset_reg_N) begin
-//        end
-//        else begin
-        begin
+        if (!reset_reg_N) begin
+            cur_midi_ch <= 4'h0;
+            seq_trigger <= 1'b0 ;
+            seq_trigger_r_dly <= {'0};
+            midi_bytes <= 8'h00;
+            seq_databyte <= 8'h00;
+            midi_send_byte_req <= {'0};
+       end
+        else begin
             cur_midi_ch <= midi_ch;
             seq_trigger <= (is_cur_midi_ch | is_st_sysex) ? (byteready | midi_send_byte) : 1'b0 ;
             seq_trigger_r_dly[0] <= seq_trigger;
