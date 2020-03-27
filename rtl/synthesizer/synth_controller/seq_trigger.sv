@@ -36,10 +36,12 @@ module seq_trigger (
         data_ready   <= (syx_cmd_r[0] & ~syx_cmd_r[1]) | ((dec_sysex_data_patch_send | auto_syx_cmd) & (seq_trigger_r_dly[1] & ~seq_trigger_r_dly[2]));
     end
 
-    always @(negedge reset_reg_N or posedge reg_clk)begin
-        if (!reset_reg_N) begin
-        end
-        else begin
+//    always @(negedge reset_reg_N or posedge reg_clk)begin
+    always @(posedge reg_clk)begin
+//        if (!reset_reg_N) begin
+//        end
+//        else begin
+        begin
             cur_midi_ch <= midi_ch;
             seq_trigger <= (is_cur_midi_ch | is_st_sysex) ? (byteready | midi_send_byte) : 1'b0 ;
             seq_trigger_r_dly[0] <= seq_trigger;

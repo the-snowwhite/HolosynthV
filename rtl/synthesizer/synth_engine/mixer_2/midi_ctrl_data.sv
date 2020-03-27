@@ -89,10 +89,10 @@ parameter V_OSC		= 4 // oscs per Voice
                     end
             end
             else if (m1_sel) begin
-            for (ol1=0;ol1<16;ol1=ol1+1)begin
-                for(il1=0;il1<V_OSC;il1=il1+1)begin
-                    if (adr == (il1 << 4)+ol1) mat_buf1[ol1][il1] <= synth_data_in;
-                end
+                for (ol1=0;ol1<16;ol1=ol1+1)begin
+                    for(il1=0;il1<V_OSC;il1=il1+1)begin
+                        if (adr == (il1 << 4)+ol1) mat_buf1[ol1][il1] <= synth_data_in;
+                    end
                 end
             end
             else if (m2_sel) begin

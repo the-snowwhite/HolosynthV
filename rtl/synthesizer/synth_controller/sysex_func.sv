@@ -1,7 +1,7 @@
 module sysex_func (
     input wire          reset_reg_N,
     input wire          write_dataenable,
-    wire     [7:0]      synth_data_out,
+    inout wire  [7:0]   synth_data_out,
     input wire  [7:0]   synth_data_in,
     input wire  [3:0]   midi_ch,
     input wire          is_st_sysex,

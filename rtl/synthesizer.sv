@@ -25,6 +25,7 @@ AUD_BIT_DEPTH = 24
     input wire              AUDIO_CLK,
 // reset
     input wire              reset_reg_n,
+    input wire              reset_data_n,
     input wire              trig,
 // MIDI uart
     input wire              MIDI_Rx_DAT,
@@ -39,17 +40,16 @@ AUD_BIT_DEPTH = 24
 
     output wire             xxxx_zero,
 
-    input wire              reset_data_n,
     input wire              cpu_read,
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    output wire [31:0]      cpu_writedata,
     input wire  [31:0]      cpu_readdata,
+    output wire [31:0]      cpu_writedata,
+    input wire  [2:0]       socmidi_addr,
     input wire              socmidi_read,
     input wire              socmidi_write,
-    input wire              socmidi_cs,
-    input wire  [2:0]       socmidi_addr,
+//    input wire              socmidi_cs,
     input wire  [7:0]       socmidi_data_in,
     output reg [7:0]        socmidi_data_out,
     output wire             run,
@@ -90,7 +90,7 @@ AUD_BIT_DEPTH = 24
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
     .clk(reg_clk) ,	// input  clk_sig
-    .reset(reg_reset_N) ,	// input  reset_sig
+    .reset_n(reg_reset_N) ,	// input  reset_sig
     .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );

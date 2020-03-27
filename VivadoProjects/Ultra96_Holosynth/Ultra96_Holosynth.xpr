@@ -374,9 +374,8 @@
       <Filter Type="Constrs"/>
       <File Path="$PSRCDIR/constrs_1/new/ioports.xdc">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="ProcessingOrder" Val="EARLY"/>
+          <Attr Name="ProcessingOrder" Val="LATE"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/constrs_1/new/timing.xdc">

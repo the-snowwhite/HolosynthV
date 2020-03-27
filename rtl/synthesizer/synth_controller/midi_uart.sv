@@ -145,7 +145,7 @@ end
 
 // -------------- Midi transmitter ----------- //
     always @(posedge midi_clk or negedge reset_mid_n)begin
-        if(!reset_mid_n) begin out_cnt <= 0; midi_out_ready <= 1'b1; end
+        if(!reset_mid_n) begin out_cnt <= 0; midi_out_ready <= 1'b1; midi_txd <=1'b0; end
         else begin
             if (!transmit) begin out_cnt <= 0; midi_out_ready <= 1'b1;  midi_txd <= 1'b1; end
             else if (out_cnt == 18)begin out_cnt <= out_cnt + 1'b1; midi_out_ready <= 1'b1; midi_txd <= 1'b1; end

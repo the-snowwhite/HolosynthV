@@ -10,7 +10,7 @@ parameter V_WIDTH = 3
     input wire                  is_st_note_on,
     input wire                  is_st_note_off,
     input wire                  is_st_ctrl,
-    input wire                  auto_syx_cmd,
+//    input wire                  auto_syx_cmd,
     input wire                  byteready,
     input wire  [7:0]           databyte,
     output reg [V_WIDTH:0]      active_keys,

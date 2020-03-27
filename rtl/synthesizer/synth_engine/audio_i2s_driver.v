@@ -24,6 +24,8 @@ parameter AUD_BIT_DEPTH = 24
     always@(negedge iAUDB_CLK or negedge reset_reg_N)begin
         if(!reset_reg_N)begin
             SEL_Cont    <=  5'h0;
+            reg_lrck_dly <= 1'b0;
+            sound_out <= 'b0;
         end
         else begin
             reg_lrck_dly <= iAUD_DACLRCK;
