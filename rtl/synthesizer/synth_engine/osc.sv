@@ -8,12 +8,12 @@ parameter OE_WIDTH = 1,
 parameter E_WIDTH = O_WIDTH + OE_WIDTH,
 parameter ox_offset = (V_OSC * VOICES ) - 1
 ) (
-    input wire                          data_clk,
+    input wire                          reg_clk,
     input wire                          reset_reg_N,
     input wire                          reset_data_N,
     input wire                          sCLK_XVXENVS,
     input wire                          sCLK_XVXOSC,
-    wire                             [7:0] synth_data_out,
+    inout wire [7:0]                    synth_data_out,
     input wire                          [7:0] synth_data_in,
     input wire                          [6:0] adr,
     input wire                          write,
@@ -63,8 +63,8 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         ox_dly[d1+1] <= ox_dly[d1];
     end
 
-    always@(negedge reset_data_N or posedge data_clk )begin
-        if(!reset_data_N) begin
+    always@(negedge reset_reg_N or posedge reg_clk )begin
+        if(!reset_reg_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 o_offs[loop] <= 8'h00;
             end
@@ -80,7 +80,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
 /** @brief read data
 */
 
-    always @(negedge data_clk) begin
+    always @(negedge reg_clk) begin
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 if (adr == (7'd6+(o2<<4))) data_out <= o_offs[o2];
@@ -89,7 +89,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     end
 
     nco2 #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.V_ENVS(V_ENVS),.O_WIDTH(O_WIDTH))  nco_inst (
-        .reset_reg_N(reset_reg_N) ,   // input  reset_reg_N_sig
+        .reset_reg_N(reset_data_N) ,   // input  reset_reg_N_sig
         .sCLK_XVXOSC (sCLK_XVXOSC ),
         .sCLK_XVXENVS (sCLK_XVXENVS ),
         .osc_pitch_val ( osc_pitch_val ),

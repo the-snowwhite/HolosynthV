@@ -11,17 +11,17 @@ parameter x_offset = (V_OSC * VOICES ) - 2,
 parameter AUD_BIT_DEPTH = 24
 ) (
 // Inputs -- //
-    input wire                          data_clk,
+    input wire                          reg_clk,
+    input wire                          reset_reg_N,        // reset
     input wire                          sCLK_XVXENVS,  // clk
     input wire                          sCLK_XVXOSC,  // clk
-    input wire                          reset_data_N,        // reset
     input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
     input wire                          xxxx_zero,
 //  env gen
     input wire signed [7:0]             level_mul_vel,    // envgen output
     input wire signed [16:0]            sine_lut_out, // sine
 
-    wire    signed [7:0]             synth_data_out,
+    inout wire signed [7:0]             synth_data_out,
     input wire signed [7:0]             synth_data_in,
     input wire [6:0]                    adr,
     input wire                          write,
@@ -66,8 +66,8 @@ parameter AUD_BIT_DEPTH = 24
 
  midi_ctrl_data #(.V_OSC(V_OSC))midi_ctrl_data_inst
 (
-    .data_clk( data_clk ),
-    .reset_data_N(reset_data_N),                        // input
+    .reg_clk( reg_clk ),
+    .reset_reg_N(reset_reg_N),                        // input
     .adr( adr ),                                        // input
     .write( write ),                                    // input
     .read( read ),                                      // input

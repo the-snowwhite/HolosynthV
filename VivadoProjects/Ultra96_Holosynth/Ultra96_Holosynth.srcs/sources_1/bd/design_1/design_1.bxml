@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="design_1" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1585264052"/>
-    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1585264052"/>
-    <Generation Name="SIMULATION" State="RESET" Timestamp="1585264052"/>
-    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1585264052"/>
+    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1585275290"/>
+    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1585275290"/>
+    <Generation Name="SIMULATION" State="RESET" Timestamp="1585275290"/>
+    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1585275290"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0.xci" Type="IP">
         <Instance HierarchyPath="zynq_ultra_ps_e_0"/>
@@ -32,6 +32,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/design_1_ps8_0_axi_periph_0/design_1_ps8_0_axi_periph_0.xci" Type="IP">
+        <Instance HierarchyPath="ps8_0_axi_periph"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

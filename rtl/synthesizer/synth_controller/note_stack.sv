@@ -2,7 +2,7 @@ module note_stack #(
 parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
-    input wire                  data_clk,
+    input wire                  reg_clk,
     input wire                  reset_reg_N,
     input wire  [VOICES-1:0]    voice_free,
     input wire                  is_data_byte,
@@ -68,7 +68,7 @@ parameter V_WIDTH = 3
 
 
 
-    always @(posedge data_clk)begin
+    always @(posedge reg_clk)begin
         for(i0=0; i0 < VOICES ; i0=i0+1) begin
             voice_free_r[i0] <= voice_free[i0];
             free_voice_found_r <= free_voice_found;

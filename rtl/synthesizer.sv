@@ -21,10 +21,10 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH,
 AUD_BIT_DEPTH = 24
 ) (
 // Clock
-    input wire              data_clk,
+    input wire              reg_clk,
     input wire              AUDIO_CLK,
 // reset
-    input wire              reset_n,
+    input wire              reset_reg_n,
     input wire              trig,
 // MIDI uart
     input wire              MIDI_Rx_DAT,
@@ -39,7 +39,7 @@ AUD_BIT_DEPTH = 24
 
     output wire             xxxx_zero,
 
-    input wire              io_reset_n,
+    input wire              reset_data_n,
     input wire              cpu_read,
     input wire              cpu_write,
     input wire              chipselect,
@@ -67,33 +67,33 @@ AUD_BIT_DEPTH = 24
     wire signed [7:0]   synth_data_in;
 //    wire w_act;
 //    wire write_active;
-    wire io_reset;
+    wire reset_data;
 //    assign w_act = (cpu_write | write_delay);
 //    assign write_active = (cpu_write | reg_w_act);
-    assign io_reset = ~io_reset_n;
+    assign reset_data = ~reset_data_n;
 
  //   assign synth_data_in = (!cpu_read && write_active) ? indata : 8'bz;
     assign synth_data_in = cpu_readdata[7:0];
 
+//    wire data_DLY0, data_DLY1, data_DLY2, reg_DLY0, reg_DLY1, reg_DLY2;
+
+    wire reg_reset_N;
+//    wire data_reset_N;
+//    wire reset_data_n;
+
+    assign reg_reset_N = button[1] & reset_reg_n;
+ //   assign data_reset_N = button[2];
+
+//    wire reset_reg_N = reg_DLY2;
+//    assign reset_data_n = data_DLY1;
+
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
-    .clk(data_clk) ,	// input  clk_sig
-    .reset(io_reset) ,	// input  reset_sig
+    .clk(reg_clk) ,	// input  clk_sig
+    .reset(reg_reset_N) ,	// input  reset_sig
     .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );
-
-    wire data_DLY0, data_DLY1, data_DLY2, reg_DLY0, reg_DLY1, reg_DLY2;
-
-    wire reg_reset_N;
-    wire data_reset_N;
-    wire reset_data_n;
-
-    assign reg_reset_N = button[1] & reset_n;
-    assign data_reset_N = button[2];
-
-    wire reset_reg_N = reg_DLY2;
-    assign reset_data_n = data_DLY1;
 
 //---	Midi	---//
 // inputs
@@ -155,7 +155,7 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
-    .clk(data_clk) ,	// input  in_select_sig
+    .clk(reg_clk) ,	// input  in_select_sig
     .dataready(dataready) ,	// input  in_select_sig
     .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
@@ -171,7 +171,7 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 
 /** @brief write data
 */
-    always@(negedge reg_reset_N or posedge data_clk)begin
+    always@(negedge reg_reset_N or posedge reg_clk)begin
         if(!reg_reset_N) begin
             midi_ch <= 4'h0;
         end else begin
@@ -184,20 +184,24 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 
 /** @brief read data
 */
-    always @(negedge data_clk) begin
-        if(com_sel &&  read) begin
-            if(adr == 2) out_data <= midi_ch;
+    always @(negedge reg_reset_N or negedge reg_clk) begin
+        if(!reg_reset_N) begin
+            out_data <= 8'h0;
+        end else begin
+            if(com_sel &&  read) begin
+                if(adr == 2) out_data <= midi_ch;
+            end
         end
     end
 
     assign cpu_writedata = (com_sel && adr == 2) ? out_data : synth_data_out;
 
-//    always @(posedge data_clk) begin
+//    always @(posedge reg_clk) begin
 //        write_delay <= cpu_write;
 //        reg_w_act <= w_act;
 //    end
     
-//    always @(posedge data_clk) begin
+//    always @(posedge reg_clk) begin
 //        if (io_reset) begin
 //            cpu_writedata[7:0] <= 8'b0;
 //        end
@@ -211,9 +215,9 @@ addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 
 ////////////	Init Reset sig Gen	////////////
 // system reset  //
-
+/*
 reset_delay	reset_reg_delay_inst  (
-    .iCLK(data_clk),
+    .iCLK(reg_clk),
     .reset_reg_N(reg_reset_N),
     .oRST_0(reg_DLY0),
     .oRST_1(reg_DLY1),
@@ -221,19 +225,19 @@ reset_delay	reset_reg_delay_inst  (
 );
 
 reset_delay	reset_data_delay_inst  (
-    .iCLK(data_clk),
+    .iCLK(reg_clk),
     .reset_reg_N(data_reset_N),
     .oRST_0(data_DLY0),
     .oRST_1(data_DLY1),
     .oRST_2(data_DLY2)
 );
-
+*/
     // Sound clk gen //
 
 synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
     .reset_reg_N(reg_reset_N) ,
-    .data_clk(data_clk) ,
+    .reg_clk(reg_clk) ,
     .socmidi_addr(socmidi_addr) ,
     .socmidi_data_in(socmidi_data_in) ,
     .socmidi_write(socmidi_write) ,
@@ -267,8 +271,8 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
 
 
 rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
-    .data_clk       ( data_clk ),
-    .reset_data_N   ( reset_data_n ),
+    .reg_clk        ( reg_clk ),
+    .reset_reg_N    ( reg_reset_N ),
 // from synth_controller
     .ictrl          ( octrl ),
     .ictrl_data     ( octrl_data ),
@@ -283,9 +287,9 @@ rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
 synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
     .AUDIO_CLK              ( AUDIO_CLK ),              // input
-    .data_clk               ( data_clk ),
+    .reg_clk                ( reg_clk ),
     .reset_reg_N            ( reg_reset_N ) ,           // input  reset_sig
-    .reset_data_N           ( reg_reset_N ),
+    .reset_data_N           ( reset_data_n ),
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
@@ -304,7 +308,7 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
 // controller data bus
     .write                  ( write) ,                  // input  write_sig
     .read                   ( read),                    // input read synth_data signal
-    .read_select  ( read_select),   // input
+    .read_select            ( read_select),   // input
     .adr                    ( adr) ,                    // input [6:0] adr_sig
     .synth_data_out         ( synth_data_out ) ,
     .synth_data_in          ( synth_data_in ) ,

@@ -1,5 +1,5 @@
 module address_decoder (
-    input wire              data_clk,
+    input wire              reg_clk,
     input wire              reset_reg_N,
     input wire              data_ready,
     input wire  [2:0]       bank_adr,
@@ -15,7 +15,7 @@ module address_decoder (
 
     assign data_out = write_dataenable ? out_data : 8'bz;
 
-    always @(posedge data_clk)begin
+    always @(posedge reg_clk)begin
         syx_bank_adr_r <= bank_adr;
         syx_data_rdy_r[0] <= data_ready;
         syx_data_rdy_r[1] <= syx_data_rdy_r[0];

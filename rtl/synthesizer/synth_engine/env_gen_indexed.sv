@@ -10,7 +10,7 @@ parameter V_ENVS = 8,
 parameter V_WIDTH = 3,
 parameter E_WIDTH = 3
 ) (
-    input wire                      data_clk,
+    input wire                      reg_clk,
     input wire                      reset_reg_N,
     input wire                      reset_data_N,
     input wire                      sCLK_XVXENVS,
@@ -81,8 +81,8 @@ parameter num_mul = 22;
 
     reg [7:0] data_out;
 
-//    assign synth_data_out = (read_select && env_sel) ? data_out : 8'bz;
-    assign synth_data_out = (env_sel) ? data_out : 8'bz;
+    assign synth_data_out = (read_select && env_sel) ? data_out : 8'bz;
+//    assign synth_data_out = (env_sel) ? data_out : 8'bz;
 
     wire       [E_WIDTH-1:0]   e_env_sel;
     wire       [V_WIDTH-1:0]   e_voice_sel;
@@ -93,8 +93,8 @@ parameter num_mul = 22;
 
     integer oloop, iloop,v1,e1,d1,r1;
 
-    always@(negedge reset_data_N or posedge data_clk)begin
-    if(!reset_data_N) begin
+    always@(negedge reset_reg_N or posedge reg_clk)begin
+    if(!reset_reg_N) begin
         for (oloop=0;oloop<V_ENVS;oloop=oloop+1)begin
             for(iloop=0;iloop<=3;iloop=iloop+1)begin
                 r_r[oloop][iloop] <= 0;
@@ -118,7 +118,7 @@ parameter num_mul = 22;
     end
     end
 
-    always @(negedge data_clk)begin
+    always @(negedge reg_clk)begin
         if(env_sel && read)begin
             for(r1=0;r1<V_ENVS;r1=r1+1) begin
                 if(adr == 0+(r1<<3)) data_out <= r_r[r1][0];
@@ -150,8 +150,8 @@ parameter num_mul = 22;
     .quotient ( quotient )
     );
 
-    always @(posedge sCLK_XVXENVS   or negedge reset_reg_N)begin
-        if(!reset_reg_N )begin
+    always @(posedge sCLK_XVXENVS   or negedge reset_data_N)begin
+        if(!reset_data_N )begin
             cur_voice <= 0;
             cur_env <= 0;
                 save_voice <= VOICES-1;

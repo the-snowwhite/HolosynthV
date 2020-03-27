@@ -6,10 +6,11 @@ parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
 parameter AUD_BIT_DEPTH = 24
 ) (
 // Clock
-    input  wire         data_clk,
+    input  wire         reg_clk,
     input  wire         AUDIO_CLK,
 // reset
-    input  wire         reset_n,
+    input  wire         reset_reg_n,
+    input  wire         reset_data_n,
     input  wire         AUD_DACLRCK,
 // MIDI uart
     input  wire         midi_rxd,
@@ -41,9 +42,9 @@ parameter AUD_BIT_DEPTH = 24
 );
     
     synthesizer #(.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
-        .data_clk               (data_clk) ,
+        .reg_clk               (reg_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
-        .reset_n                (reset_n),
+        .reset_reg_n            (reset_reg_n),
         .trig                   (AUD_DACLRCK),
         .MIDI_Rx_DAT            (~midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
         .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
@@ -53,7 +54,7 @@ parameter AUD_BIT_DEPTH = 24
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
         .keys_on                (keys_on),				//  LED [7:0]
         .voice_free             (voice_free) , 			//  Red LED [4:1]
-        .io_reset_n             (reset_n) ,	// input  io_reset_sig
+        .reset_data_n           (reset_data_n) ,	// input  io_reset_sig
         .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig

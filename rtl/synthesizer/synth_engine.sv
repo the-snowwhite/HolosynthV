@@ -10,7 +10,7 @@ parameter E_WIDTH   = O_WIDTH + OE_WIDTH,   // = 4
 parameter AUD_BIT_DEPTH = 24
 ) (
     input wire                  AUDIO_CLK,
-    input wire                  data_clk,
+    input wire                  reg_clk,
     input wire                  reset_reg_N,
     input wire                  reset_data_N,
     input wire                  trig,
@@ -30,7 +30,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire                  read,
     input wire                  read_select,
     input wire  [6:0]           adr,
-    wire     [7:0]           synth_data_out,
+    inout wire  [7:0]           synth_data_out,
     input wire  [7:0]           synth_data_in,
     input wire                  env_sel,
     input wire                  osc_sel,
@@ -102,7 +102,7 @@ note_key_vel_sync #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) key_sync_inst
 
 pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) pitch_control_inst
 (
-    .data_clk               ( data_clk ),
+    .reg_clk                ( reg_clk ),
     .reset_reg_N            ( reset_reg_N ),
     .reset_data_N           ( reset_data_N ),
     .xxxx                   ( xxxx ),
@@ -124,7 +124,7 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
 
 osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) osc_inst
 (
-    .data_clk               ( data_clk ),
+    .reg_clk                ( reg_clk ),
     .reset_reg_N            ( reset_reg_N ),
     .reset_data_N           ( reset_data_N ),
     .sCLK_XVXENVS           ( sCLK_XVXENVS ),
@@ -146,7 +146,7 @@ osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O
 
 velocity velocity_inst
 (
-    .reset_reg_N(reset_reg_N) ,             // input
+    .reset_reg_N(reset_data_N) ,             // input
     .vx(xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH]) ,  // input
     .reg_note_on(reg_note_on) ,             // input
     .reg_cur_vel_on(reg_cur_vel_on) ,       // input
@@ -160,8 +160,8 @@ defparam velocity_inst.V_WIDTH = V_WIDTH;
 
 mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) mixer_2_inst
 (
-    .data_clk( data_clk ),
-    .reset_data_N( reset_data_N ),
+    .reg_clk( reg_clk ),
+    .reset_reg_N( reset_reg_N ),
     .sCLK_XVXENVS( sCLK_XVXENVS ),
     .sCLK_XVXOSC( sCLK_XVXOSC ),
     .xxxx( xxxx ),
@@ -185,7 +185,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
 
 env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH)) env_gen_indexed_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_env_gen_indexed
 (
-    .data_clk( data_clk ),
+    .reg_clk( reg_clk ),
     .reset_reg_N( reset_reg_N ),		// ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-reset_reg_N
     .reset_data_N( reset_data_N ),	// ObjectKind=Sheet Entry|PrimaryId=pitch_control.v-reset_reg_N
     .sCLK_XVXENVS( sCLK_XVXENVS ),

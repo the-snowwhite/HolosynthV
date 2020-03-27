@@ -6,7 +6,7 @@ parameter O_WIDTH = 2,
 parameter OE_WIDTH = 1,
 parameter E_WIDTH = O_WIDTH + OE_WIDTH
 ) (
-    input wire                          data_clk,
+    input wire                          reg_clk,
     input wire                          reset_reg_N,
     input wire                          reset_data_N,
     input wire                          sCLK_XVXOSC,
@@ -63,14 +63,14 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         end
     endgenerate
 
-//    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
+    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
 //    assign synth_data_out = (read_select && ((osc_adr_data != 0) && osc_sel)) ? data_out : 8'bz;
-    assign synth_data_out = ((osc_adr_data != 0) && osc_sel) ? data_out : 8'bz;
+//    assign synth_data_out = ((osc_adr_data != 0) && osc_sel) ? data_out : 8'bz;
 
     integer v1,loop,o1,o2,kloop;
 
-    always @(negedge reset_reg_N or posedge note_on)begin
-        if(!reset_reg_N)begin
+    always @(negedge reset_data_N or posedge note_on)begin
+        if(!reset_data_N)begin
             for (kloop=0;kloop<VOICES;kloop=kloop+1)begin
                 rkey_val[kloop] <= 8'hff;
             end
@@ -79,8 +79,8 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
             rkey_val[cur_key_adr] <= cur_key_val;
     end
 
-    always@(negedge reset_data_N or posedge data_clk )begin
-        if(!reset_data_N) begin
+    always@(negedge reset_reg_N or posedge reg_clk )begin
+        if(!reset_reg_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 osc_ct[loop] <= 8'h40;
                 osc_ft[loop] <= 8'h40;
@@ -110,7 +110,7 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
 /** @brief read data
 */
-    always @(negedge data_clk) begin
+    always @(negedge reg_clk) begin
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 case (adr)

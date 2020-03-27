@@ -1,8 +1,8 @@
 module midi_ctrl_data #(
 parameter V_OSC		= 4 // oscs per Voice
 ) (
-    input wire                  data_clk,
-    input wire                  reset_data_N,        // reset
+    input wire                  reg_clk,
+    input wire                  reset_reg_N,        // reset
     input wire          [6:0]   adr,
     input wire                  write,
     input wire                  read,
@@ -38,15 +38,15 @@ parameter V_OSC		= 4 // oscs per Voice
     endgenerate
 
 
-//    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
-    assign synth_data_out = ((((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
+    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
+//    assign synth_data_out = ((((osc_adr_data != 0) && osc_sel) || (com_sel && (adr == 1 || adr >=10)) || m1_sel || m2_sel)) ? data_out : 8'bz;
 
     byte unsigned loop,oloop,iloop,inloop,osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
 
 /**		@brief get midi controller data from midi decoder
 */
-    always@(negedge reset_data_N or posedge data_clk)begin : receive_midi_controller_data
-        if(!reset_data_N) begin
+    always@(negedge reset_reg_N or posedge reg_clk)begin : receive_midi_controller_data
+        if(!reset_reg_N) begin
             for (loop=0;loop<V_OSC;loop=loop+1)begin
                 if(loop <= 1)osc_lvl[loop] <= 8'h40;
                 else osc_lvl[loop] <= 8'h00;
@@ -66,7 +66,7 @@ parameter V_OSC		= 4 // oscs per Voice
                 for(inloop=0;inloop<16;inloop=inloop+1)begin
                     patch_name[inloop] <= 8'd32;
                 end
-        end else if(!write) begin
+        end else if(write) begin
             if(osc_sel)begin
                 for (osc1=0;osc1<V_OSC;osc1=osc1+1)begin
                     case (adr)
@@ -108,7 +108,7 @@ parameter V_OSC		= 4 // oscs per Voice
 /** @brief read data
 */
 
-    always @(negedge data_clk) begin
+    always @(negedge reg_clk) begin
         if(osc_sel && read)begin
             for (osc2=0;osc2<V_OSC;osc2=osc2+1)begin
                 case (adr)
