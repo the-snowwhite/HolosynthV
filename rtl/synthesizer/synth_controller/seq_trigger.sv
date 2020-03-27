@@ -41,10 +41,10 @@ module seq_trigger (
         if (!reset_reg_N) begin
             cur_midi_ch <= 4'h0;
             seq_trigger <= 1'b0 ;
-            seq_trigger_r_dly <= '{0};
+            seq_trigger_r_dly <= '{default:0};
             midi_bytes <= 8'h00;
             seq_databyte <= 8'h00;
-            midi_send_byte_req <= '{0};
+            midi_send_byte_req <= '{default:0};
        end
         else begin
             cur_midi_ch <= midi_ch;
