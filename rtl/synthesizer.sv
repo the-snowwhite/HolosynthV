@@ -87,14 +87,6 @@ AUD_BIT_DEPTH = 24
 //    wire reset_reg_N = reg_DLY2;
 //    assign reset_data_n = data_DLY1;
 
-addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
-(
-    .clk(reg_clk) ,	// input  clk_sig
-    .reset_n(reg_reset_N) ,	// input  reset_sig
-    .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
-    .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
-);
-
 //---	Midi	---//
 // inputs
     wire midi_rxd;
@@ -152,6 +144,14 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 
     reg [3:0] midi_ch;
     reg [7:0] out_data;
+
+addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
+(
+    .clk(reg_clk) ,	// input  clk_sig
+    .reset_n(reg_reset_N) ,	// input  reset_sig
+    .address(address[9:7]) ,	// input [addr_width-1:0] address_sig
+    .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
+);
 
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (

@@ -23,12 +23,11 @@ parameter V_WIDTH = 3
     output wire [7:0]           cur_vel_on,
     output wire [7:0]           cur_vel_off,
 // controller data
-//    output reg                   octrl_cmd,
-    output reg                  prg_ch_cmd,
-    output reg                  pitch_cmd,
-    output reg [7:0]            octrl,
-    output reg [7:0]            octrl_data,
-    output reg [7:0]            prg_ch_data,
+    output wire                 prg_ch_cmd,
+    output wire                 pitch_cmd,
+    output wire [7:0]           octrl,
+    output wire [7:0]           octrl_data,
+    output wire [7:0]           prg_ch_data,
 //synth memory controller
     output wire                 data_ready,
     output wire                 read_write,
@@ -239,42 +238,24 @@ sysex_func sysex_func_inst
 	.dec_addr(dec_addr) 	// output [6:0] dec_addr_sig
 );
 
-
-    always @(negedge reset_reg_N or negedge seq_trigger) begin
-        if (!reset_reg_N) begin // init values
-            pitch_cmd <= 1'b0;
-        end
-        else begin
-            pitch_cmd <= 1'b0;
-            if(is_st_pitch)begin // Control Change omni
-                if(is_data_byte)begin
-                    octrl<=seq_databyte;
-                    pitch_cmd<=1'b1;
-                end
-                else if(is_velocity)begin
-                    octrl_data<=seq_databyte;
-                    pitch_cmd<=1'b0;
-                end
-            end
-        end
-    end
-
-
-    always @(negedge reset_reg_N or negedge seq_trigger) begin
-        if (!reset_reg_N) begin // init values
-            prg_ch_cmd <=1'b0;
-        end
-        else begin
-            prg_ch_cmd <=1'b0;
-            if(is_st_prg_change)begin // Control Change omni
-                    prg_ch_cmd <= 1'b1;
-                if(is_data_byte)begin
-                    prg_ch_data<=seq_databyte;
-                    prg_ch_cmd <= 1'b0;
-                end
-            end
-        end
-    end
+controller_cmd_inst controller_cmd_inst_inst (
+   // Input Ports - Single Bit
+   .seq_trigger       (seq_trigger),    
+   .reset_reg_N       (reset_reg_N),    
+   .is_data_byte      (is_data_byte),   
+   .is_st_pitch       (is_st_pitch),    
+   .is_st_prg_change  (is_st_prg_change),
+   .is_velocity       (is_velocity),    
+   // Input Ports - Busses
+   .seq_databyte (seq_databyte),
+   // Output Ports - Single Bit
+   .pitch_cmd         (pitch_cmd),      
+   .prg_ch_cmd        (prg_ch_cmd),     
+   // Output Ports - Busses
+   .octrl        (octrl),     
+   .octrl_data   (octrl_data),
+   .prg_ch_data  (prg_ch_data)
+);
 
 
 endmodule
