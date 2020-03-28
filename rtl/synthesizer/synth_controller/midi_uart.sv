@@ -47,6 +47,7 @@ end
 
     reg[7:0]	cur_status_r;
     reg clk_enable;
+    reg clk_enable_dly;
 /*
     always @(negedge reset_reg_N or posedge reg_clk)begin //! divide clock by 200
         if(!reset_reg_N)begin counter <= 10'h00; carry <=1'b0; end
@@ -64,9 +65,16 @@ end
     always@(posedge reg_clk or negedge reset_reg_N) begin
         if (!reset_reg_N)begin 
             counter <=11'h0; 
+            clk_enable <=1'b0; 
+            clk_enable_dly <=1'b0; 
         end else begin
-            if (counter == 11'd1600) begin
-                clk_enable <= 1'b1; counter <=11'h0;
+            if (counter == 11'd400) begin 
+                clk_enable_dly <= 1'b1;
+                clk_enable <= 1'b0;counter <= counter +11'h1;
+            end
+            else if (counter == 11'd800) begin
+                clk_enable_dly <= 1'b0;
+                clk_enable <= 1'b1; counter <= 11'h0;
             end
             else begin
                 clk_enable <= 1'b0;counter <= counter +11'h1;
@@ -113,9 +121,9 @@ end
 
 // Serial data in
 
-    always @(negedge reg_clk or negedge reset_reg_N) begin
+    always @(posedge clk_enable_dly or negedge reset_reg_N) begin
         if(!reset_reg_N)begin samplebyte <= 0; midi_in_data_u <= 0;end
-        else if (clk_enable) begin
+        else if (clk_enable_dly) begin
             case (revcnt[4:0])
             5'd3:samplebyte[0] <= midi_dat;
             5'd5:samplebyte[1] <= midi_dat;
@@ -131,9 +139,9 @@ end
         end
     end
 
-    always @(negedge reg_clk or negedge reset_reg_N) begin
+    always @(posedge clk_enable_dly or negedge reset_reg_N) begin
         if(!reset_reg_N) byteready_u <= 0;
-        else if (clk_enable) begin
+        else if (clk_enable_dly) begin
             byteready_u <= (byte_end || out_cnt == 19) ?  1'b1 : 1'b0;
         end
     end
