@@ -1,0 +1,8 @@
+/include/ "system-conf.dtsi"
+/ {
+};
+    &holosynth_uio {
+    compatible = "generic-uio";
+    address_width = <16>;
+    data_width = <32>;
+};

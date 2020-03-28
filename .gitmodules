@@ -1,0 +1,9 @@
+[submodule "VivadoProjects/ultra96v1-holosynthv-petalinux/components/ext_sources/u-boot-xlnx"]
+    path = VivadoProjects/ultra96v1-holosynthv-petalinux/components/ext_sources/u-boot-xlnx
+    url = git@github.com:Xilinx/u-boot-xlnx.git
+
+[submodule "VivadoProjects/ultra96v1-holosynthv-petalinux/components/ext_sources/linux-xlnx"]
+    path = VivadoProjects/ultra96v1-holosynthv-petalinux/components/ext_sources/linux-xlnx
+    url = git@github.com:the-snowwhite/linux-xlnx.git
+
+
