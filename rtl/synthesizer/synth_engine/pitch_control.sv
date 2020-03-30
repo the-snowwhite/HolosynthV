@@ -205,7 +205,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
         .quotient ( osc_res_h_div )
     );
 
-    always @(posedge reg_clk)begin
+    always @(posedge sCLK_XVXOSC)begin
         osc_ct_64_r <= osc_ct_64;
         osc_res_div_r <= osc_res_div;
         osc_res_l_div_r <= osc_res_l_div;
@@ -225,7 +225,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
         (osc_res_h_div_r):
         (base_pitch_val_r * (osc_ct_64_r+1));
 
-    always @(posedge reg_clk)begin
+    always @(posedge sCLK_XVXOSC)begin
         osc_res_r <= osc_res;
         osc_res_l_r <= osc_res_l;
         osc_res_h_r <= osc_res_h;
