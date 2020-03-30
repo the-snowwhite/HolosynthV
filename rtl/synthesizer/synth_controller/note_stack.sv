@@ -64,6 +64,27 @@ parameter V_WIDTH = 3
     reg [V_WIDTH-1:0]slot_off;
 
     wire is_allnotesoff;
+    
+    initial begin
+        free_voice_found = 1'b1;
+        first_free_voice = 0;
+        active_keys = 0;
+        cur_key_val = 8'hff;
+        cur_vel_on = 0;
+        cur_vel_off = 0;
+       for(i5=0;i5<VOICES-1;i5=i5+1)begin
+            key_on[i5] = 1'b0;
+            cur_key_adr = i5;
+            key_val[i5] = 8'hff;
+            on_slot[i5] = 0;
+            off_slot[i5] = 0;
+        end
+        slot_off = 0;
+        cur_note = 0;
+        cur_slot = 0;
+        note_on = 1'b0;
+    end
+    
     assign is_allnotesoff    =   ((databyte==8'h7b)?1'b1:1'b0);
 
 
@@ -77,44 +98,20 @@ parameter V_WIDTH = 3
 
 //    assign free_voice_found = (free_voices_found > 0) ? 1'b1: 1'b0;
 
-    always @(negedge reset_reg_N or posedge is_data_byte)begin
-        if (!reset_reg_N) begin
-            free_voice_found = 1'b1;
-            first_free_voice = 0;
-        end
-        else begin
-            for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
-                free_voice_found = 1'b0;
-                if(voice_free_r[i3])begin
-                    free_voices_found = free_voices_found +1;
-                    first_free_voice = i3;
-                end
-                if (free_voices_found > 0) free_voice_found = 1'b1;
+    always @(posedge is_data_byte)begin
+        for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
+            free_voice_found = 1'b0;
+            if(voice_free_r[i3])begin
+                free_voices_found = free_voices_found +1;
+                first_free_voice = i3;
             end
+            if (free_voices_found > 0) free_voice_found = 1'b1;
         end
     end
 
 
-    always @(negedge reset_reg_N or posedge reg_clk) begin
-        if (!reset_reg_N) begin // init values
-            active_keys <= 0;
-            cur_key_val <= 8'hff;
-            cur_vel_on <= 0;
-            cur_vel_off <= 0;
-           for(i5=0;i5<VOICES-1;i5=i5+1)begin
-                key_on[i5] <= 1'b0;
-                cur_key_adr <= i5;
-                key_val[i5] <= 8'hff;
-                on_slot[i5] <= 0;
-                off_slot[i5] <= 0;
-            end
-            slot_off<=0;
-            cur_note<=0;
-            cur_slot<=0;
-//            active_keys<=0;
-            note_on <= 1'b0;
-        end
-        else if (trig__note_stack)begin
+    always @(posedge reg_clk) begin
+        if (trig__note_stack)begin
             note_on <= 1'b0;
             if(is_st_note_on)begin // Note on omni
                 if(is_data_byte)begin

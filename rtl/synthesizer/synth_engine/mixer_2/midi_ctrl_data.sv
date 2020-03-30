@@ -2,7 +2,6 @@ module midi_ctrl_data #(
 parameter V_OSC		= 4 // oscs per Voice
 ) (
     input wire                  reg_clk,
-    input wire                  reset_reg_N,        // reset
     input wire          [6:0]   adr,
     input wire                  write,
     input wire                  read,
@@ -26,33 +25,37 @@ parameter V_OSC		= 4 // oscs per Voice
     output reg          [7:0]   patch_name      [15:0]
 );
 
-    byte unsigned loop,oloop,iloop,inloop,osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
+    byte unsigned osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
+
+    byte unsigned loop,oloop,iloop,inloop;
+    
+    initial begin
+        for (loop=0;loop<V_OSC;loop=loop+1)begin
+            if(loop <= 1)osc_lvl[loop] = 8'h40;
+            else osc_lvl[loop] = 8'h00;
+            osc_mod_out[loop] = 8'h00;
+            osc_feedb_out[loop] = 8'h00;
+            osc_pan[loop] = 8'h40;
+            osc_mod_in[loop] = 8'h00;
+            osc_feedb_in[loop] = 8'h00;
+        end
+        for (oloop=0;oloop<16;oloop=oloop+1)begin
+            for(iloop=0;iloop<V_OSC;iloop=iloop+1)begin
+                mat_buf1[oloop][iloop] = 8'h00;
+                mat_buf2[oloop][iloop] = 8'h00;
+            end
+        end
+        m_vol = 8'h40;
+        midi_ch = 4'h0;
+        for(inloop=0;inloop<16;inloop=inloop+1)begin
+            patch_name[inloop] = 8'd32;
+        end    
+    end
 
 /**		@brief get midi controller data from midi decoder
 */
-    always@(negedge reset_reg_N or posedge reg_clk)begin : receive_midi_controller_data
-        if(!reset_reg_N) begin
-            for (loop=0;loop<V_OSC;loop=loop+1)begin
-                if(loop <= 1)osc_lvl[loop] <= 8'h40;
-                else osc_lvl[loop] <= 8'h00;
-                osc_mod_out[loop] <= 8'h00;
-                osc_feedb_out[loop] <= 8'h00;
-                osc_pan[loop] <= 8'h40;
-                osc_mod_in[loop] <= 8'h00;
-                osc_feedb_in[loop] <= 8'h00;
-            end
-            for (oloop=0;oloop<16;oloop=oloop+1)begin
-                for(iloop=0;iloop<V_OSC;iloop=iloop+1)begin
-                    mat_buf1[oloop][iloop] <= 8'h00;
-                    mat_buf2[oloop][iloop] <= 8'h00;
-                end
-            end
-            m_vol <= 8'h40;
-            midi_ch <= 4'h0;
-                for(inloop=0;inloop<16;inloop=inloop+1)begin
-                    patch_name[inloop] <= 8'd32;
-                end
-        end else if(write) begin
+    always@(posedge reg_clk)begin : receive_midi_controller_data
+        if(write) begin
             if(osc_sel)begin
                 for (osc1=0;osc1<V_OSC;osc1=osc1+1)begin
                     case (adr)

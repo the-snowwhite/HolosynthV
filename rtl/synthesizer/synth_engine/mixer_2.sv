@@ -12,7 +12,6 @@ parameter AUD_BIT_DEPTH = 24
 ) (
 // Inputs -- //
     input wire                          reg_clk,
-    input wire                          reset_reg_N,        // reset
     input wire                          sCLK_XVXENVS,  // clk
     input wire                          sCLK_XVXOSC,  // clk
     input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
@@ -68,7 +67,6 @@ parameter AUD_BIT_DEPTH = 24
  midi_ctrl_data #(.V_OSC(V_OSC))midi_ctrl_data_inst
 (
     .reg_clk( reg_clk ),
-    .reset_reg_N(reset_reg_N),                        // input
     .adr( adr ),                                        // input
     .write( write ),                                    // input
     .read( read ),                                      // input
@@ -120,7 +118,7 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
     .sh_osc_reg( sh_osc_reg ),      // input
     .m_vol( m_vol ),                // input
     .osc_lvl( osc_lvl ),            // input
-    .level_mul_vel( level_mul_vel ),        // input
+    .level_mul_vel( level_mul_vel ),// input
     .osc_pan( osc_pan ),            // input
     .sine_lut_out( sine_lut_out ),  // output
     .lsound_out( lsound_out ),      // output

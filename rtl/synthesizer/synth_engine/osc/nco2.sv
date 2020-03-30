@@ -7,7 +7,6 @@ parameter O_WIDTH = 2,
 //parameter x_offset = (V_OSC * VOICES ) - 2;
 parameter x_offset = 6
 ) (
-    input wire      reset_reg_N,
     input wire      sCLK_XVXOSC,
     input wire      sCLK_XVXENVS,
     input wire      [23:0]osc_pitch_val,
@@ -35,6 +34,10 @@ parameter x_offset = 6
     reg [25:0]         reg_phase_accum; // 36 bits phase accumulator
     integer o1,d1;
  
+    initial begin
+        reg_phase_accum = 25'b0;
+    end
+ 
     assign phase_acc = phase_accum_b[24:14];
     assign reset = osc_accum_zero[{ox_dly[0],1'b0}];
     
@@ -52,9 +55,8 @@ parameter x_offset = 6
         .rbclk(sCLK_XVXOSC )     // input  clk_sig
     );
 
-    always @(posedge sCLK_XVXENVS or negedge reset_reg_N)begin
-        if ( !reset_reg_N)  reg_phase_accum <= 25'b0;
-        else  begin reg_phase_accum <= reset_a ? 25'b0 : (phase_accum_a + osc_pitch_val_a); end
+    always @(posedge sCLK_XVXENVS)begin
+        reg_phase_accum <= reset_a ? 25'b0 : (phase_accum_a + osc_pitch_val_a);
     end
 
     always @(posedge sCLK_XVXOSC)begin
