@@ -21,22 +21,23 @@ parameter AUD_BIT_DEPTH = 24
     input wire signed [7:0]             level_mul_vel,    // envgen output
     input wire signed [16:0]            sine_lut_out, // sine
 
-    inout wire signed [7:0]             synth_data_out,
+    output wire signed [7:0]            mixer_regdata_out,
     input wire signed [7:0]             synth_data_in,
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
-    input wire                          read_select,
+//    input wire                          read_select,
     input wire                          osc_sel,
     input wire                          com_sel,
     input wire                          m1_sel,
     input wire                          m2_sel,
 // Outputs -- //
 // osc
-    output reg signed [10:0]    modulation,
+    output reg signed [10:0]            modulation,
+    output wire [3:0]                   midi_ch,
 // sound data out
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out
+    output wire [AUD_BIT_DEPTH-1:0]     lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0]     rsound_out
 
 );
 
@@ -71,12 +72,12 @@ parameter AUD_BIT_DEPTH = 24
     .adr( adr ),                                        // input
     .write( write ),                                    // input
     .read( read ),                                      // input
-    .read_select( read_select ),    // input
+//    .read_select( read_select ),    // input
     .osc_sel( osc_sel ),                                // output
     .com_sel( com_sel ),                                // output
     .m1_sel( m1_sel ),                                  // output
     .m2_sel( m2_sel ),                                  // output
-    .synth_data_out( synth_data_out ),                  // inout
+    .mixer_regdata_out( mixer_regdata_out ),            // inout
     .synth_data_in( synth_data_in ),                    // input
     .osc_lvl( osc_lvl ),                                // output
     .osc_mod_out( osc_mod_out ),                        // output
@@ -85,6 +86,7 @@ parameter AUD_BIT_DEPTH = 24
     .osc_mod_in( osc_mod_in ),                          // output
     .osc_feedb_in( osc_feedb_in ),                      // output
     .m_vol( m_vol ),                                    // output
+    .midi_ch( midi_ch ),                                // output
     .mat_buf1( mat_buf1 ),                              // output
     .mat_buf2( mat_buf2 ),                              // output
     .patch_name( patch_name )                           // output

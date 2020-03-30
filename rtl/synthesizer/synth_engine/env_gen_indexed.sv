@@ -14,12 +14,12 @@ parameter E_WIDTH = 3
     input wire                      reset_reg_N,
     input wire                      reset_data_N,
     input wire                      sCLK_XVXENVS,
-    inout wire      [7:0]           synth_data_out,
+    output reg      [7:0]           env_regdata_out,
     input wire      [7:0]           synth_data_in,
     input wire      [6:0]           adr,
     input wire                      write,
     input wire                      read,
-    input wire                      read_select,
+//    input wire                      read_select,
     input wire                      env_sel,
     input wire      [VOICES-1:0]    keys_on,
     input wire [V_WIDTH+E_WIDTH-1:0] xxxx,
@@ -79,30 +79,39 @@ parameter num_mul = 22;
 
     reg [VOICES-1:0] go_rate1;
 
-    reg [7:0] data_out;
-
-    assign synth_data_out = (read_select && env_sel) ? data_out : 8'bz;
-//    assign synth_data_out = (env_sel) ? data_out : 8'bz;
-
     wire       [E_WIDTH-1:0]   e_env_sel;
     wire       [V_WIDTH-1:0]   e_voice_sel;
+
+    integer oloop, iloop,v1,e1,d1,r1;
+
+    initial begin
+        for (oloop=0;oloop<V_ENVS;oloop=oloop+1)begin
+            for(iloop=0;iloop<=3;iloop=iloop+1)begin
+                r_r[oloop][iloop] = 0;
+                if (iloop == 2 && oloop <= 2) l_r[oloop][2] = 8'h7f;
+                else l_r[oloop][iloop] = 0;
+            end
+        end
+    end
+
     assign e_voice_sel = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
     assign e_env_sel = xxxx[E_WIDTH-1:0]; // 2 env's pr osc
 
     assign level_mul = level[36:29];
 
-    integer oloop, iloop,v1,e1,d1,r1;
 
-    always@(negedge reset_reg_N or posedge reg_clk)begin
-    if(!reset_reg_N) begin
-        for (oloop=0;oloop<V_ENVS;oloop=oloop+1)begin
-            for(iloop=0;iloop<=3;iloop=iloop+1)begin
-                r_r[oloop][iloop] <= 0;
-                if (iloop == 2 && oloop <= 2) l_r[oloop][2] <= 8'h7f;
-                else l_r[oloop][iloop] <= 0;
-            end
-            end
-    end else begin
+    always@(posedge reg_clk)begin
+//    always@(negedge reset_reg_N or posedge reg_clk)begin
+//    if(!reset_reg_N) begin
+//        for (oloop=0;oloop<V_ENVS;oloop=oloop+1)begin
+//            for(iloop=0;iloop<=3;iloop=iloop+1)begin
+//                r_r[oloop][iloop] <= 0;
+//                if (iloop == 2 && oloop <= 2) l_r[oloop][2] <= 8'h7f;
+//                else l_r[oloop][iloop] <= 0;
+//            end
+//        end
+//    end else begin
+    begin
         if(env_sel &&  write)begin
             for(v1=0;v1<V_ENVS;v1=v1+1) begin
                 if(adr == 0+(v1<<3)) r_r[v1][0] <= synth_data_in  ;
@@ -121,14 +130,14 @@ parameter num_mul = 22;
     always @(negedge reg_clk)begin
         if(env_sel && read)begin
             for(r1=0;r1<V_ENVS;r1=r1+1) begin
-                if(adr == 0+(r1<<3)) data_out <= r_r[r1][0];
-                else if(adr == 1+(r1<<3)) data_out <= r_r[r1][1];
-                else if(adr == 2+(r1<<3)) data_out <= r_r[r1][2];
-                else if(adr == 3+(r1<<3)) data_out <= r_r[r1][3];
-                else if(adr == 4+(r1<<3)) data_out <= l_r[r1][0];
-                else if(adr == 5+(r1<<3)) data_out <= l_r[r1][1];
-                else if(adr == 6+(r1<<3)) data_out <= l_r[r1][2];
-                else if(adr == 7+(r1<<3)) data_out <= l_r[r1][3];
+                if(adr == 0+(r1<<3)) env_regdata_out <= r_r[r1][0];
+                else if(adr == 1+(r1<<3)) env_regdata_out <= r_r[r1][1];
+                else if(adr == 2+(r1<<3)) env_regdata_out <= r_r[r1][2];
+                else if(adr == 3+(r1<<3)) env_regdata_out <= r_r[r1][3];
+                else if(adr == 4+(r1<<3)) env_regdata_out <= l_r[r1][0];
+                else if(adr == 5+(r1<<3)) env_regdata_out <= l_r[r1][1];
+                else if(adr == 6+(r1<<3)) env_regdata_out <= l_r[r1][2];
+                else if(adr == 7+(r1<<3)) env_regdata_out <= l_r[r1][3];
             end
         end
     end

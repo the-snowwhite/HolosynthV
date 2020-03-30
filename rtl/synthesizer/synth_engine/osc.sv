@@ -13,12 +13,12 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     input wire                          reset_data_N,
     input wire                          sCLK_XVXENVS,
     input wire                          sCLK_XVXOSC,
-    inout wire [7:0]                    synth_data_out,
+    output reg [7:0]                    osc_regdata_out,
     input wire                          [7:0] synth_data_in,
     input wire                          [6:0] adr,
     input wire                          write,
     input wire                          read,
-    input wire                          read_select,
+//    input wire                          read_select,
     input wire [V_WIDTH+E_WIDTH-1:0]    xxxx,
     input wire                          osc_sel,
     input wire [23:0]                   osc_pitch_val,
@@ -39,19 +39,6 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
 
     reg signed [7:0] o_offs [V_OSC-1:0];
     reg [O_WIDTH-1:0] ox_dly[ox_offset:0]; // All Voices 2 osc's
-
-    reg [7:0] data_out;
-
-    wire [V_OSC-1:0] osc_adr_data;
-
-    generate
-        genvar osc3;
-        for (osc3=0;osc3<V_OSC;osc3=osc3+1)begin : oscdataloop
-            assign osc_adr_data[osc3] = (adr == (7'd6 +(osc3<<4))) ? 1'b1 : 1'b0;
-        end
-    endgenerate
-
-    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel))) ? data_out : 8'bz;
 
     assign mod = modulation;
 
@@ -83,7 +70,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
     always @(negedge reg_clk) begin
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
-                if (adr == (7'd6+(o2<<4))) data_out <= o_offs[o2];
+                if (adr == (7'd6+(o2<<4))) osc_regdata_out <= o_offs[o2];
             end
         end
     end

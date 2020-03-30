@@ -15,12 +15,12 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     input wire [7:0]                    cur_key_val,
     input wire [13:0]                   pitch_val,
     input wire                          note_on,
-    inout wire [7:0]                    synth_data_out,
+    output reg [7:0]                    pitch_regdata_out,
     input wire [7:0]                    synth_data_in,
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
-    input wire                          read_select,
+//    input wire                          read_select,
     input wire                          osc_sel,
     input wire                          com_sel,
     output wire [23:0]                  osc_pitch_val
@@ -41,8 +41,6 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire [O_WIDTH-1:0] ox;
     wire [V_WIDTH-1:0] vx;
 
-    wire [V_OSC-1:0] osc_adr_data;
-
     assign ox = xxxx[E_WIDTH-1:OE_WIDTH];
 assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
 
@@ -54,18 +52,6 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         ox_dly[2] <= ox_dly[1];
         ox_dly[3] <= ox_dly[2];
     end
-
-    generate
-        genvar osc3;
-        for (osc3=0;osc3<V_OSC;osc3=osc3+1)begin : oscdataloop
-            assign osc_adr_data[osc3] = (adr == (7'd0 +(osc3<<4)) || (adr == 7'd1 +(osc3<<4)) || (adr == 7'd5 +(osc3<<4)) ||
-            (adr == 7'd8 +(osc3<<4)) || (adr == 7'd9 +(osc3<<4))) ? 1'b1 : 1'b0;
-        end
-    endgenerate
-
-    assign synth_data_out = (read_select && (((osc_adr_data != 0) && osc_sel) || (com_sel && adr == 0))) ? data_out : 8'bz;
-//    assign synth_data_out = (read_select && ((osc_adr_data != 0) && osc_sel)) ? data_out : 8'bz;
-//    assign synth_data_out = ((osc_adr_data != 0) && osc_sel) ? data_out : 8'bz;
 
     integer v1,loop,o1,o2,kloop;
 
@@ -114,17 +100,17 @@ assign vx = xxxx[V_WIDTH+E_WIDTH-1:E_WIDTH];
         if(osc_sel && read)begin
             for (o2=0;o2<V_OSC;o2=o2+1)begin
                 case (adr)
-                    7'd0 +(o2<<4): data_out <= osc_ct[o2];
-                    7'd1 +(o2<<4): data_out <= osc_ft[o2];
-                    7'd5 +(o2<<4): data_out <= k_scale[o2];
-                    7'd8 +(o2<<4): data_out <= b_ct[o2];
-                    7'd9 +(o2<<4): data_out <= b_ft[o2];
+                    7'd0 +(o2<<4): pitch_regdata_out <= osc_ct[o2];
+                    7'd1 +(o2<<4): pitch_regdata_out <= osc_ft[o2];
+                    7'd5 +(o2<<4): pitch_regdata_out <= k_scale[o2];
+                    7'd8 +(o2<<4): pitch_regdata_out <= b_ct[o2];
+                    7'd9 +(o2<<4): pitch_regdata_out <= b_ft[o2];
                     default:;
                 endcase
             end
         end
         else if(com_sel && read) begin
-            if(adr == 0) data_out <= pb_range;
+            if(adr == 0) pitch_regdata_out <= pb_range;
         end
     end
 

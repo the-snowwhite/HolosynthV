@@ -11,7 +11,7 @@ parameter V_WIDTH = 3
     input wire                  is_st_note_off,
     input wire                  is_st_ctrl,
 //    input wire                  auto_syx_cmd,
-    input wire                  trig_seq,
+    input wire                  trig__note_stack,
     input wire  [7:0]           databyte,
     output reg [V_WIDTH:0]      active_keys,
     output reg                  note_on,
@@ -95,7 +95,7 @@ parameter V_WIDTH = 3
     end
 
 
-    always @(negedge reset_reg_N or negedge trig_seq) begin
+    always @(negedge reset_reg_N or posedge reg_clk) begin
         if (!reset_reg_N) begin // init values
             active_keys <= 0;
             cur_key_val <= 8'hff;
@@ -114,7 +114,7 @@ parameter V_WIDTH = 3
 //            active_keys<=0;
             note_on <= 1'b0;
         end
-        else begin
+        else if (trig__note_stack)begin
             note_on <= 1'b0;
             if(is_st_note_on)begin // Note on omni
                 if(is_data_byte)begin

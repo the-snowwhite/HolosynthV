@@ -18,6 +18,7 @@ parameter AUD_BIT_DEPTH = 24
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
     output wire                 xxxx_zero,
 // from synth_controller
+    output wire                 midi_ch,
 // note events
     input wire  [VOICES-1:0]    keys_on,
     input wire                  note_on,
@@ -28,9 +29,9 @@ parameter AUD_BIT_DEPTH = 24
 // midi data events
     input wire                  write,
     input wire                  read,
-    input wire                  read_select,
+    input wire                  syx_read_select,
     input wire  [6:0]           adr,
-    inout wire  [7:0]           synth_data_out,
+    output wire [7:0]           synth_data_out,
     input wire  [7:0]           synth_data_in,
     input wire                  env_sel,
     input wire                  osc_sel,
@@ -67,6 +68,44 @@ wire [V_WIDTH-1:0]          reg_cur_key_adr;
 wire [7:0]                  reg_cur_key_val;
 wire [7:0]                  reg_cur_vel_on;
 wire [VOICES-1:0]           reg_keys_on;
+    
+    
+wire [V_OSC-1:0] osc_adr_data;
+wire [V_OSC-1:0] pitch_adr_data;
+wire [V_OSC-1:0] midictrl_adr_data;
+wire [7:0]env_regdata_out;
+wire [7:0]osc_regdata_out;
+wire [7:0]pitch_regdata_out;
+wire [7:0]mixer_regdata_out;
+
+    generate
+        genvar osc3;
+        for (osc3=0;osc3<V_OSC;osc3=osc3+1)begin : oscdataloop
+            assign osc_adr_data[osc3] = (adr == (7'd6 +(osc3<<4))) ? 1'b1 : 1'b0;
+        end
+    endgenerate
+
+   generate
+        genvar pitch3;
+        for (pitch3=0;pitch3<V_OSC;pitch3=pitch3+1)begin : pitchdataloop
+            assign pitch_adr_data[pitch3] = (adr == (7'd0 +(pitch3<<4)) || (adr == 7'd1 +(pitch3<<4)) || (adr == 7'd5 +(pitch3<<4)) ||
+            (adr == 7'd8 +(pitch3<<4)) || (adr == 7'd9 +(pitch3<<4))) ? 1'b1 : 1'b0;
+        end
+    endgenerate
+
+    generate
+        genvar mctrl3;
+        for (mctrl3=0;mctrl3<V_OSC;mctrl3=mctrl3+1)begin : midictrldataloop
+            assign midictrl_adr_data[mctrl3] = (adr == (7'd2 +(mctrl3<<4)) || (adr == 7'd3 +(mctrl3<<4)) || (adr == 7'd4 +(mctrl3<<4)) ||
+            (adr == 7'd7 +(mctrl3<<4)) || (adr == 7'd10 +(mctrl3<<4)) || (adr == 7'd11 +(mctrl3<<4)) || (adr == 7'd12 +(mctrl3<<4))
+            || (adr == 7'd13 +(mctrl3<<4)) || (adr == 7'd14 +(mctrl3<<4)) || (adr == 7'd15 +(mctrl3<<4))) ? 1'b1 : 1'b0;
+        end
+    endgenerate
+
+    assign synth_data_out = (env_sel) ? env_regdata_out : 
+    (((osc_adr_data != 0) && osc_sel)) ? osc_regdata_out :
+    (((pitch_adr_data != 0) && osc_sel) || (com_sel && adr == 0)) ? pitch_regdata_out :
+    (((midictrl_adr_data != 0) && osc_sel) || ((com_sel && (adr == 1 || adr == 2 || adr >=10)) || m1_sel || m2_sel)) ? mixer_regdata_out : 8'h00;
 
 synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
@@ -112,9 +151,9 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
     .pitch_val              ( pitch_val ),
     .write                  ( write ),
     .read                   ( read ),
-    .read_select  ( read_select ),
+//    .read_select            ( syx_read_select ),
     .adr                    ( adr ),
-    .synth_data_out         ( synth_data_out ),
+    .pitch_regdata_out      ( pitch_regdata_out ),
     .synth_data_in          ( synth_data_in ),
     .osc_sel                ( osc_sel ),
     .com_sel                ( com_sel ),
@@ -135,9 +174,9 @@ osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O
     .voice_free             ( voice_free ),
     .write                  ( write ),
     .read                   ( read ),
-    .read_select  (read_select),
+//    .read_select  (syx_read_select),
     .adr                    ( adr ),
-    .synth_data_out         ( synth_data_out ),
+    .osc_regdata_out        ( osc_regdata_out ),
     .synth_data_in          ( synth_data_in ),
     .osc_sel                ( osc_sel ),
     .sine_lut_out           ( sine_lut_out )
@@ -168,11 +207,12 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .level_mul_vel( level_mul_vel ),
     .sine_lut_out( sine_lut_out ),
     .modulation( modulation ),
+    .midi_ch( midi_ch ),
     .write( write ),
     .read ( read ),
-    .read_select (read_select),
+//    .read_select (syx_read_select),
     .adr( adr ),
-    .synth_data_out( synth_data_out ),
+    .mixer_regdata_out( mixer_regdata_out ),
     .synth_data_in( synth_data_in ),
     .osc_sel( osc_sel ),
     .m1_sel( m1_sel ),
@@ -192,9 +232,9 @@ env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_W
     .keys_on( reg_keys_on ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-keys_on[7..0]
     .write( write ),             // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-write
     .read ( read ),
-    .read_select (read_select),
+//    .read_select (syx_read_select),
     .adr( adr ),                 // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-adr[6..0]
-    .synth_data_out( synth_data_out ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
+    .env_regdata_out( env_regdata_out ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
     .synth_data_in( synth_data_in ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
     .env_sel( env_sel ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-env_sel
     .level_mul( level_mul ),  	         // output

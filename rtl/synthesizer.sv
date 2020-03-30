@@ -59,21 +59,11 @@ AUD_BIT_DEPTH = 24
 //-----		Registers		-----//
 // io:
 
-//    reg                 write_delay;
-//    reg                 reg_w_act;
-//    reg signed [7:0]    indata;
     wire [5:0]          cpu_sel;
     wire signed [7:0]   synth_data_out;
     wire signed [7:0]   synth_data_in;
-//    wire w_act;
-//    wire write_active;
     wire reset_data;
-//    assign w_act = (cpu_write | write_delay);
-//    assign write_active = (cpu_write | reg_w_act);
     assign reset_data = ~reset_data_n;
-
- //   assign synth_data_in = (!cpu_read && write_active) ? indata : 8'bz;
-    assign synth_data_in = cpu_readdata[7:0];
 
 //    wire data_DLY0, data_DLY1, data_DLY2, reg_DLY0, reg_DLY1, reg_DLY2;
 
@@ -81,7 +71,6 @@ AUD_BIT_DEPTH = 24
 //    wire data_reset_N;
 //    wire reset_data_n;
 
-    assign reg_reset_N = button[1] & reset_reg_n;
  //   assign data_reset_N = button[2];
 
 //    wire reset_reg_N = reg_DLY2;
@@ -90,14 +79,13 @@ AUD_BIT_DEPTH = 24
 //---	Midi	---//
 // inputs
     wire midi_rxd;
-    assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 //outputs
     wire midi_out_ready,midi_send_byte;
     wire [7:0] midi_out_data;
     wire [7:0] cur_status,midibyte_nr,midi_data_byte;
 
 //---	Midi	Decoder ---//
-    wire dataready;
+    wire syx_data_ready;
     wire dec_sysex_data_patch_send;
 // note events
     wire               	note_on;
@@ -138,11 +126,19 @@ AUD_BIT_DEPTH = 24
     wire		com_sel;
     wire		read;
     wire		write;
-    wire		read_select;
+    wire		syx_read_select;
     wire		dec_read_write;
+    wire [7:0]  sysex_data_out;
 
-    reg [3:0] midi_ch;
+    wire [3:0] midi_ch;
     reg [7:0] out_data;
+
+    assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
+
+    assign reg_reset_N = button[1] & reset_reg_n;
+
+    assign cpu_writedata[7:0] = synth_data_out;
+    assign synth_data_in = syx_read_select ? sysex_data_out : cpu_readdata[7:0];
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -155,62 +151,18 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
     .clk(reg_clk) ,	// input  in_select_sig
-    .dataready(dataready) ,	// input  in_select_sig
+//    .dataready(syx_data_ready) ,	// input  in_select_sig
+    .syx_data_ready(1'b0) ,	// input  in_select_sig
     .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
     .dec_addr(dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
     .cpu_addr(address[6:0]) ,	// input [addr_width-1:0] cpu_addr_sig
     .cpu_sel_bus({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
     .dec_sel_bus(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
-    .read_select (read_select),
+    .syx_read_select (syx_read_select), // output
     .addr_out(adr) ,	// output [addr_width-1:0] addr_out_sig
     .sel_out_bus({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
 );
-
-
-/** @brief write data
-*/
-    always@(negedge reg_reset_N or posedge reg_clk)begin
-        if(!reg_reset_N) begin
-            midi_ch <= 4'h0;
-        end else begin
-            if(com_sel && write) begin
-                if(adr == 2) midi_ch <= synth_data_in[3:0];
-            end
-        end
-    end
-
-
-/** @brief read data
-*/
-    always @(negedge reg_reset_N or negedge reg_clk) begin
-        if(!reg_reset_N) begin
-            out_data <= 8'h0;
-        end else begin
-            if(com_sel &&  read) begin
-                if(adr == 2) out_data <= midi_ch;
-            end
-        end
-    end
-
-    assign cpu_writedata = (com_sel && adr == 2) ? out_data : synth_data_out;
-
-//    always @(posedge reg_clk) begin
-//        write_delay <= cpu_write;
-//        reg_w_act <= w_act;
-//    end
-    
-//    always @(posedge reg_clk) begin
-//        if (io_reset) begin
-//            cpu_writedata[7:0] <= 8'b0;
-//        end
-//        else if (read) begin
-//            cpu_writedata[7:0] <= (com_sel && adr == 2) ? out_data : synth_data_out;
-//        end
-//        else if    (write) begin
-//            indata <= cpu_readdata[7:0];
-//        end
-//    end
 
 ////////////	Init Reset sig Gen	////////////
 // system reset  //
@@ -243,8 +195,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .midi_rxd(midi_rxd) ,
     .midi_txd(midi_txd) ,
     .voice_free(voice_free) ,
-    .midi_ch(midi_ch) ,
-
+    .midi_ch( midi_ch), 
     .note_on(note_on) ,
     .keys_on(keys_on) ,
     .cur_key_adr(cur_key_adr) ,
@@ -257,12 +208,12 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .prg_ch_cmd(prg_ch_cmd) ,
     .prg_ch_data(prg_ch_data) ,
 // controller data bus
-    .data_ready(dataready) ,
+    .syx_data_ready(syx_data_ready) ,   //output
     .read_write (dec_read_write),
     .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
     .dec_addr(dec_addr) ,
-    .synth_data_out (synth_data_out) ,
-    .synth_data_in (synth_data_in) ,
+    .sysex_data_out (sysex_data_out) ,
+    .synth_data_out (synth_data_out),  // input
     .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
     .uart_usb_sel(uart_usb_sel)
@@ -292,7 +243,8 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
-    .xxxx_zero              ( xxxx_zero) ,              // output  cycle complete signag
+    .xxxx_zero              ( xxxx_zero ) ,              // output  cycle complete signag
+    .midi_ch                ( midi_ch ) ,                // output  cycle complete signag
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //
@@ -305,11 +257,11 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
 // from midi_controller_unit
     .pitch_val              ( pitch_val ),
 // controller data bus
-    .write                  ( write) ,                  // input  write_sig
-    .read                   ( read),                    // input read synth_data signal
-    .read_select            ( read_select),   // input
-    .adr                    ( adr) ,                    // input [6:0] adr_sig
-    .synth_data_out         ( synth_data_out ) ,
+    .write                  ( write ),                  // input  write_sig
+    .read                   ( read ),                   // input read synth_data signal
+    .syx_read_select        ( syx_read_select ),        // input
+    .adr                    ( adr ) ,                   // input [6:0] adr_sig
+    .synth_data_out         ( synth_data_out ) ,        // output
     .synth_data_in          ( synth_data_in ) ,
     .env_sel                ( env_sel ) ,
     .osc_sel                ( osc_sel ) ,
@@ -320,7 +272,5 @@ synth_engine #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.
     .run                    ( run ),
     .voice_free             ( voice_free )              //output from envgen
 );
-
-
 
 endmodule
