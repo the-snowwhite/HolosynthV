@@ -18,7 +18,7 @@ parameter AUD_BIT_DEPTH = 24
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
     output wire                 xxxx_zero,
 // from synth_controller
-    output wire                 midi_ch,
+    output wire [3:0]           midi_ch,
 // note events
     input wire  [VOICES-1:0]    keys_on,
     input wire                  note_on,
@@ -55,7 +55,6 @@ wire [7:0]                  level_mul_vel;
 wire [7:0]                  cur_status;
 wire [7:0]                  octrl;
 wire [7:0]                  octrl_data;
-wire                        pitch_cmd;
 wire [7:0]                  midibyte;
 wire [7:0]                  midibyte_nr;
 wire [10:0]                 modulation;
@@ -110,7 +109,7 @@ wire [7:0]mixer_regdata_out;
 synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
     .AUDIO_CLK      ( AUDIO_CLK ),      // input
-    .reset_reg_N    ( reset_reg_N ),    // input
+    .reset_reg_N    ( reset_data_N ),    // input
     .trig           ( trig ),           // input
     .sCLK_XVXENVS   ( sCLK_XVXENVS ),   // output
     .sCLK_XVXOSC    ( sCLK_XVXOSC ),    // output
@@ -219,7 +218,6 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
 env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH)) env_gen_indexed_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_env_gen_indexed
 (
     .reg_clk( reg_clk ),
-    .reset_data_N( reset_data_N ),	// ObjectKind=Sheet Entry|PrimaryId=pitch_control.v-reset_reg_N
     .sCLK_XVXENVS( sCLK_XVXENVS ),
     .xxxx( xxxx ),
     .keys_on( reg_keys_on ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-keys_on[7..0]

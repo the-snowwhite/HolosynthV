@@ -11,7 +11,6 @@ parameter V_WIDTH = 3,
 parameter E_WIDTH = 3
 ) (
     input wire                      reg_clk,
-    input wire                      reset_data_N,
     input wire                      sCLK_XVXENVS,
     output reg      [7:0]           env_regdata_out,
     input wire      [7:0]           synth_data_in,
