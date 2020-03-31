@@ -14,7 +14,7 @@ parameter O_WIDTH = utils::clogb2(V_OSC)
 //`include "utils.v"
 
     reg [V_WIDTH+O_WIDTH-1:0] reada_address_reg,readb_address_reg,write_address_reg;
-    reg [50:0] mem [(VOICES*V_OSC)-1:0];
+    reg [48:0] mem [(VOICES*V_OSC)-1:0];
     always @ (posedge wclk) begin
         if (we)
         mem[write_address_reg] <= d;

@@ -97,7 +97,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
         end
     end
 
-    always @(posedge reg_clk)begin
+    always @(posedge sCLK_XVXOSC)begin
         ox_dly[0] <= ox;
         ox_dly[1] <= ox_dly[0];
         ox_dly[2] <= ox_dly[1];

@@ -58,11 +58,11 @@ preplace netloc holosynth_0_cpu_writedata 1 2 3 1080 10 NJ 10 1890
 preplace netloc audio_clk_mux_ip_0_ext_shift_b_clk 1 3 2 1440J 50 1940
 preplace netloc emio_uart0_ctsn_0_1 1 0 2 NJ 220 650
 preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 1 5 670J 30 NJ 30 NJ 30 NJ 30 2290J
-preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1030 390n
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 280
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 300
 preplace netloc ps8_0_axi_periph_M01_AXI 1 2 1 1050 210n
 preplace netloc ps8_0_axi_periph_M00_AXI 1 2 1 1010 390n
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 300
+preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1030 390n
 levelinfo -pg 1 0 340 850 1250 1680 2110 2310
 pagesize -pg 1 -db -bbox -sgen -130 0 2530 850
 "

@@ -19,8 +19,8 @@ parameter x_offset = 6
 //parameter x_offset = (V_OSC * VOICES ) - 5;// osc 2,3
 //parameter x_offset = (V_OSC * VOICES ) - 8;
 
-    reg [V_WIDTH-1:0]  vx_dly[x_offset-1:0];
-    reg [O_WIDTH-1:0]  ox_dly[x_offset-1:0];
+    reg [V_WIDTH-1:0]  vx_dly[x_offset:0];
+    reg [O_WIDTH-1:0]  ox_dly[x_offset:0];
     reg                reset_dly[2:0];
     wire               reset;
     wire               reset_a;
