@@ -24,9 +24,7 @@ parameter V_WIDTH = 3
     output wire [7:0]           cur_vel_off,
 // controller data
     output wire                 prg_ch_cmd,
-    output wire                 pitch_cmd,
-    output wire [7:0]           octrl,
-    output wire [7:0]           octrl_data,
+    output wire [13:0]          pitch_val,
     output wire [7:0]           prg_ch_data,
 //synth memory controller
     output wire                 syx_data_ready,
@@ -87,8 +85,12 @@ parameter V_WIDTH = 3
 // seq_trigger
     wire is_data_byte;
     wire is_velocity;
-    wire trig_seq;
+    wire trig_seq_f;
     wire [7:0] midi_regdata_to_synth;
+
+    wire                 pitch_cmd;
+    wire [7:0]           octrl;
+    wire [7:0]           octrl_data;
 
 MIDI_UART MIDI_UART_inst (
     .reset_reg_N    (reset_reg_N),
@@ -160,6 +162,7 @@ address_decoder address_decoder_inst (
 
 midi_status midi_statusinst
 (
+    .reg_clk(reg_clk),
 	.cur_status(cur_status) ,	// input [6:0] cur_status_sig
 	.cur_midi_ch(cur_midi_ch) ,	// input [7:0] cur_midi_ch_sig
 	.is_cur_midi_ch(is_cur_midi_ch) ,	// output  is_cur_midi_ch_sig
@@ -197,7 +200,6 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 seq_trigger seq_trigger_inst
 (
 	.reg_clk(reg_clk) ,
-	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
 	.midibyte_nr(midibyte_nr) ,	// input [7:0] midibyte_nr_sig
 	.is_cur_midi_ch(is_cur_midi_ch) ,	// input  is_cur_midi_ch_sig
@@ -214,12 +216,13 @@ seq_trigger seq_trigger_inst
 	.seq_databyte(seq_databyte) ,	// output [7:0] seq_databyte_sig
 	.is_data_byte(is_data_byte) ,	// output  data_ready_sig
 	.is_velocity(is_velocity) ,	// output  data_ready_sig
-	.trig_seq(trig_seq), 	// output  seq_trigger_sig
+	.trig_seq_f(trig_seq_f), 	// output  seq_trigger_sig
 	.trig__note_stack(trig__note_stack) 	// output  trig__note_stack_sig
 );
 
 sysex_func sysex_func_inst
 (
+	.reg_clk(reg_clk) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
     .write_dataenable ( write_dataenable ),
 	.sysex_data_out(sysex_data_out) ,	// output [7:0] data_sig
@@ -229,7 +232,7 @@ sysex_func sysex_func_inst
 	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
 	.midi_bytes(midi_bytes) ,	// input [7:0] midi_bytes_sig
 	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
-	.trig_seq(trig_seq) ,	// input  seq_trigger_sig
+	.trig_seq_f(trig_seq_f) ,	// input  seq_trigger_sig
 	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// output  auto_syx_cmd_sig
@@ -240,21 +243,31 @@ sysex_func sysex_func_inst
 
 controller_cmd_inst controller_cmd_inst_inst (
    // Input Ports - Single Bit
-   .trig_seq       (trig_seq),    
-   .reset_reg_N       (reset_reg_N),    
-   .is_data_byte      (is_data_byte),   
-   .is_st_pitch       (is_st_pitch),    
-   .is_st_prg_change  (is_st_prg_change),
-   .is_velocity       (is_velocity),    
+    .reg_clk(reg_clk) ,
+    .trig_seq_f          (trig_seq_f),    
+    .is_data_byte        (is_data_byte),   
+    .is_st_pitch         (is_st_pitch),    
+    .is_st_prg_change    (is_st_prg_change),
+    .is_velocity         (is_velocity),    
    // Input Ports - Busses
-   .seq_databyte (seq_databyte),
+    .seq_databyte        (seq_databyte),
    // Output Ports - Single Bit
-   .pitch_cmd         (pitch_cmd),      
-   .prg_ch_cmd        (prg_ch_cmd),     
+    .pitch_cmd           (pitch_cmd),      
+    .prg_ch_cmd          (prg_ch_cmd),     
    // Output Ports - Busses
-   .octrl        (octrl),     
-   .octrl_data   (octrl_data),
-   .prg_ch_data  (prg_ch_data)
+    .octrl               (octrl),     
+    .octrl_data          (octrl_data),
+    .prg_ch_data         (prg_ch_data)
+);
+
+rt_controllers rt_controllers_inst(
+    .reg_clk        ( reg_clk ),
+// from synth_controller
+    .octrl          ( octrl ),
+    .octrl_data     ( octrl_data ),
+    .pitch_cmd      ( pitch_cmd ),
+// outputs
+    .pitch_val      ( pitch_val )
 );
 
 

@@ -1,4 +1,5 @@
 module sysex_func (
+    input wire          reg_clk,
     input wire          reset_reg_N,
     input wire          write_dataenable,
     inout wire  [7:0]   sysex_data_out,
@@ -8,7 +9,7 @@ module sysex_func (
     input wire          midi_out_ready,
     input wire  [7:0]   midi_bytes,
     input wire  [7:0]   databyte,
-    input wire          trig_seq,
+    input wire          trig_seq_f,
     output  reg         syx_cmd,
     output  reg         dec_sysex_data_patch_send,
     output  reg         auto_syx_cmd,
@@ -29,12 +30,12 @@ module sysex_func (
     assign dec_addr = (dec_sysex_data_patch_send) ? adr_s : adr_l;
 	assign sysex_data_out = write_dataenable ? sysex_regdata_out : 8'bz;
 
-    always @(negedge reset_reg_N or negedge trig_seq) begin
+    always @(negedge reset_reg_N or posedge reg_clk) begin
         if (!reset_reg_N) begin // init values
             syx_cmd <= 1'b0; dec_sysex_data_patch_send <= 1'b0; sysex_data_bank_load <= 1'b0;
             sysex_data_patch_load <= 1'b0; sysex_ctrl_data <= 1'b0; auto_syx_cmd <= 1'b0;
         end
-        else if (!trig_seq)begin
+        else if (trig_seq_f)begin
             if (sysex_data_patch_send_end && addr_cnt == (16*14+4)) begin  dec_sysex_data_patch_send <= 1'b0; end
             syx_cmd <= 1'b0;
             if(is_st_sysex)begin // Sysex

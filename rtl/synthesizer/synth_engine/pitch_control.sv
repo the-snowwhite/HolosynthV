@@ -38,7 +38,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
 
     wire [O_WIDTH-1:0] ox;
     wire [V_WIDTH-1:0] vx;
-    reg [O_WIDTH-1:0] ox_dly[3:0];
+    reg [O_WIDTH-1:0] ox_dly[2:0];
 ////////        Internals       ////////
     wire [8:0] key;
     wire [8:0] ft_ct_key;
@@ -101,7 +101,6 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
         ox_dly[0] <= ox;
         ox_dly[1] <= ox_dly[0];
         ox_dly[2] <= ox_dly[1];
-        ox_dly[3] <= ox_dly[2];
     end
 
 

@@ -235,7 +235,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../rtl/synthesizer/rt_controllers.sv">
+      <File Path="$PPRDIR/../../rtl/synthesizer/synth_controller/rt_controllers.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

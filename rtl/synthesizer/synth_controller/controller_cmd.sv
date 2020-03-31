@@ -21,15 +21,14 @@
 
 
 module controller_cmd_inst(
-    input wire          trig_seq,
-    input wire          reset_reg_N,
+    input wire          reg_clk,
+    input wire          trig_seq_f,
     input wire          is_st_pitch,
     input wire          is_st_prg_change,
     input wire          is_velocity,
     input wire          is_data_byte,
     input wire [7:0]    seq_databyte,
 // controller data
-//    output reg                   octrl_cmd,
     output reg          pitch_cmd,
     output reg          prg_ch_cmd,
     output reg [7:0]    octrl,
@@ -37,13 +36,13 @@ module controller_cmd_inst(
     output reg [7:0]    prg_ch_data
     );
     
+    initial begin
+        pitch_cmd = 1'b0;
+        prg_ch_cmd =1'b0;
+    end
 
-    always @(negedge reset_reg_N or negedge trig_seq) begin
-        if (!reset_reg_N) begin // init values
-            pitch_cmd <= 1'b0;
-        end
-        else begin
-            pitch_cmd <= 1'b0;
+    always @(posedge reg_clk) begin
+        if (trig_seq_f) begin
             if(is_st_pitch)begin // Control Change omni
                 if(is_data_byte)begin
                     octrl<=seq_databyte;
@@ -53,17 +52,14 @@ module controller_cmd_inst(
                     octrl_data<=seq_databyte;
                     pitch_cmd<=1'b0;
                 end
-            end
+            end else pitch_cmd <= 1'b0;
         end
+//        else pitch_cmd <= 1'b0;
     end
 
 
-    always @(negedge reset_reg_N or negedge trig_seq) begin
-        if (!reset_reg_N) begin // init values
-            prg_ch_cmd <=1'b0;
-        end
-        else begin
-            prg_ch_cmd <=1'b0;
+    always @(posedge reg_clk) begin
+        if (trig_seq_f) begin
             if(is_st_prg_change)begin // Control Change omni
                     prg_ch_cmd <= 1'b1;
                 if(is_data_byte)begin
@@ -71,7 +67,9 @@ module controller_cmd_inst(
                     prg_ch_cmd <= 1'b0;
                 end
             end
+            else prg_ch_cmd <=1'b0; 
         end
+ //       else prg_ch_cmd <=1'b0;
     end
    
     

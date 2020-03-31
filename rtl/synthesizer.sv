@@ -99,8 +99,8 @@ AUD_BIT_DEPTH = 24
 
 // inputs
 // outputs
-    wire octrl_cmd,prg_ch_cmd,pitch_cmd;
-    wire[7:0] octrl,octrl_data,prg_ch_data;
+    wire prg_ch_cmd,pitch_cmd;
+    wire[7:0] prg_ch_data;
     wire [V_WIDTH:0]	active_keys;
     wire 	off_note_error;
 
@@ -202,9 +202,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .cur_key_val(cur_key_val) ,
     .cur_vel_on(cur_vel_on) ,
     .cur_vel_off(cur_vel_off) ,
-    .pitch_cmd(pitch_cmd) ,
-    .octrl(octrl) ,
-    .octrl_data(octrl_data) ,
+    .pitch_val(pitch_val) ,
     .prg_ch_cmd(prg_ch_cmd) ,
     .prg_ch_data(prg_ch_data) ,
 // controller data bus
@@ -217,18 +215,6 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
     .uart_usb_sel(uart_usb_sel)
-);
-
-
-rt_controllers #(.VOICES(VOICES),.V_OSC(V_OSC)) rt_controllers_inst(
-    .reg_clk        ( reg_clk ),
-    .reset_reg_N    ( reg_reset_N ),
-// from synth_controller
-    .ictrl          ( octrl ),
-    .ictrl_data     ( octrl_data ),
-    .pitch_cmd      ( pitch_cmd ),
-// outputs
-    .pitch_val      ( pitch_val )
 );
 
     //////////// Sound Generation /////////////
