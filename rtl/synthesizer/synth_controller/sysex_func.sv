@@ -1,8 +1,8 @@
 module sysex_func (
     input wire          reg_clk,
     input wire          reset_reg_N,
-    input wire          write_dataenable,
-    inout wire  [7:0]   sysex_data_out,
+//    input wire          write_dataenable,
+    output wire [7:0]   sysex_data_out,
     input wire  [7:0]   synth_data_out,
     input wire  [3:0]   midi_ch,
     input wire          is_st_sysex,
@@ -14,26 +14,31 @@ module sysex_func (
     output  reg         dec_sysex_data_patch_send,
     output  reg         auto_syx_cmd,
     output reg  [7:0]   midi_out_data,
-    output wire [2:0]   bank_adr,
-    output wire [6:0]   dec_addr
+    output wire [2:0]   syx_bank_addr,
+    output wire [6:0]   syx_dec_addr
+//    output wire [9:0]   sysex_addr
 );
 
-    reg [6:0]   adr_l;
+    reg [6:0]   adr_l,adr_s;
     reg [2:0]   bank_adr_s, bank_adr_l;
-    reg [7:0]   sysex_regdata_out,adr_s;
+    reg [7:0]   sysex_regdata_out;
 
     reg [7:0]addr_cnt;
 
     reg Educational_Use,sysex_data_bank_load,sysex_data_patch_load,sysex_ctrl_data,sysex_data_patch_send_end;
 
-    assign bank_adr = (dec_sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
-    assign dec_addr = (dec_sysex_data_patch_send) ? adr_s : adr_l;
-	assign sysex_data_out = write_dataenable ? sysex_regdata_out : 8'bz;
+//    assign sysex_addr = {syx_bank_adr,syx_dec_adr};
+    
+    assign syx_bank_addr = (dec_sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
+    assign syx_dec_addr = (dec_sysex_data_patch_send) ? adr_s : adr_l;
+//	assign sysex_data_out = write_dataenable ? sysex_regdata_out : 8'bz;
+	assign sysex_data_out = sysex_regdata_out;
 
     always @(negedge reset_reg_N or posedge reg_clk) begin
         if (!reset_reg_N) begin // init values
             syx_cmd <= 1'b0; dec_sysex_data_patch_send <= 1'b0; sysex_data_bank_load <= 1'b0;
-            sysex_data_patch_load <= 1'b0; sysex_ctrl_data <= 1'b0; auto_syx_cmd <= 1'b0;
+            sysex_data_patch_load <= 1'b0; sysex_ctrl_data <= 1'b0; auto_syx_cmd <= 1'b0; Educational_Use <= 1'b0;
+            bank_adr_l <= 3'b0; adr_l <= 7'b0; sysex_regdata_out  <= 8'b0;
         end
         else if (trig_seq_f)begin
             if (sysex_data_patch_send_end && addr_cnt == (16*14+4)) begin  dec_sysex_data_patch_send <= 1'b0; end
@@ -95,14 +100,14 @@ module sysex_func (
         else if (!midi_out_ready) begin
             if (dec_sysex_data_patch_send) begin
                 addr_cnt <= addr_cnt+8'h01; sysex_data_patch_send_end <= 1'b0;
-                if (addr_cnt == 8'b0) begin    midi_out_data <= 8'hF0;    adr_s <= 8'b0; end
+                if (addr_cnt == 8'b0) begin    midi_out_data <= 8'hF0;    adr_s <= 6'b0; end
                 else if(addr_cnt == 8'd1) midi_out_data <= 8'h7D;
-                else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,midi_ch}; adr_s <= 8'h0; bank_adr_s <= 3'h0; end
+                else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,midi_ch}; adr_s <= 6'h0; bank_adr_s <= 3'h0; end
                 else if(addr_cnt >= 8'd3 && addr_cnt < (16*14+3))begin
-                    adr_s <= adr_s + 1'b1;    midi_out_data <= synth_data_out;
-                    if (addr_cnt == (16*4+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h1; end
-                    if (addr_cnt == (16*8+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h2; end
-                    if (addr_cnt == (16*12+2))begin adr_s <= 8'h0; bank_adr_s <= 3'h5; end
+                    adr_s <= adr_s + 6'h01;    midi_out_data <= synth_data_out;
+                    if (addr_cnt == (16*4+2))begin adr_s <= 6'h0; bank_adr_s <= 3'h1; end
+                    if (addr_cnt == (16*8+2))begin adr_s <= 6'h0; bank_adr_s <= 3'h2; end
+                    if (addr_cnt == (16*12+2))begin adr_s <= 6'h0; bank_adr_s <= 3'h5; end
                 end
                 else if (addr_cnt == (16*14+3)) begin midi_out_data <= 8'hF7; sysex_data_patch_send_end <= 1'b1; end
             end

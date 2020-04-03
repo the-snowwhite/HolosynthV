@@ -60,6 +60,7 @@ AUD_BIT_DEPTH = 24
 // io:
 
     wire [5:0]          cpu_sel;
+    wire [5:0]          syx_sel;
     wire signed [7:0]   synth_data_out;
     wire signed [7:0]   synth_data_in;
     wire reset_data;
@@ -86,7 +87,7 @@ AUD_BIT_DEPTH = 24
 
 //---	Midi	Decoder ---//
     wire syx_data_ready;
-    wire dec_sysex_data_patch_send;
+//    wire dec_sysex_data_patch_send;
 // note events
     wire               	note_on;
     wire [V_WIDTH-1:0] 	cur_key_adr;
@@ -116,9 +117,10 @@ AUD_BIT_DEPTH = 24
     wire [63:0] rvoice_out;
 
 //---	Midi	Controllers unit ---//
-    wire [6:0]	dec_addr;
+    wire [6:0]	syx_dec_addr;
+    wire [2:0]	syx_bank_addr;
     wire [6:0]	adr;
-    wire [6:0]	dec_sel_bus;
+//    wire [6:0]	dec_sel_bus;
     wire		env_sel	;
     wire		osc_sel;
     wire		m1_sel;
@@ -126,19 +128,23 @@ AUD_BIT_DEPTH = 24
     wire		com_sel;
     wire		read;
     wire		write;
+    wire		syx_read;
+    wire		syx_write;
     wire		syx_read_select;
-    wire		dec_read_write;
+//    wire		dec_read_write;
     wire [7:0]  sysex_data_out;
 
     wire [3:0] midi_ch;
     reg [7:0] out_data;
+
+    wire    write_dataenable;
 
     assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 
     assign reg_reset_N = button[1] & reset_reg_n;
 
     assign cpu_writedata[7:0] = synth_data_out;
-    assign synth_data_in = syx_read_select ? sysex_data_out : cpu_readdata[7:0];
+    assign synth_data_in = write_dataenable ? sysex_data_out : cpu_readdata[7:0];
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -148,17 +154,25 @@ addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
     .sel(cpu_sel[5:0]) 	// output [num_lines:0] sel_sig
 );
 
+addr_decoder #(.addr_width(3),.num_lines(6)) syx_addr_decoder_inst
+(
+    .clk(reg_clk) ,	// input  clk_sig
+    .reset_n(reg_reset_N) ,	// input  reset_sig
+    .address(syx_bank_addr) ,	// input [addr_width-1:0] address_sig
+    .sel(syx_sel[5:0]) 	// output [num_lines:0] sel_sig
+);
+
 addr_mux #(.addr_width(7),.num_lines(7)) addr_mux_inst
 (
     .clk(reg_clk) ,	// input  in_select_sig
-//    .dataready(syx_data_ready) ,	// input  in_select_sig
-    .syx_data_ready(1'b0) ,	// input  in_select_sig
-    .dec_syx(dec_sysex_data_patch_send) ,	// input  dec_syx_sig
+    .syx_data_ready(write_dataenable) ,	// input  in_select_sig
+    .dec_syx(syx_data_ready) ,	// input  dec_syx_sig
     .cpu_and({chipselect,cpu_read}) ,	// input [1:0] cpu_and_sig
-    .dec_addr(dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
+    .dec_addr(syx_dec_addr) ,	// input [addr_width-1:0] dec_addr_sig
     .cpu_addr(address[6:0]) ,	// input [addr_width-1:0] cpu_addr_sig
     .cpu_sel_bus({cpu_write,cpu_read,cpu_sel[5],cpu_sel[3:0]}) ,	// input [num_lines-1:0] cpu_sel_sig
-    .dec_sel_bus(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
+//    .dec_sel_bus(dec_sel_bus) ,	// input [num_lines-1:0] dec_sel_sig
+    .dec_sel_bus({syx_write,syx_read,syx_sel[5],syx_sel[3:0]}) ,	// input [num_lines-1:0] dec_sel_sig
     .syx_read_select (syx_read_select), // output
     .addr_out(adr) ,	// output [addr_width-1:0] addr_out_sig
     .sel_out_bus({write,read,com_sel,m2_sel,m1_sel,osc_sel,env_sel}) 	// output [num_lines-1:0] sel_out_sig
@@ -207,12 +221,17 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .prg_ch_data(prg_ch_data) ,
 // controller data bus
     .syx_data_ready(syx_data_ready) ,   //output
-    .read_write (dec_read_write),
-    .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
-    .dec_addr(dec_addr) ,
+//    .read_write (dec_read_write),
+//    .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
+    .write_dataenable (write_dataenable),
+//    .dec_addr(dec_addr) ,
+    .syx_dec_addr(syx_dec_addr) ,
+    .syx_bank_addr(syx_bank_addr) ,
+    .syx_read(syx_read) ,
+    .syx_write(syx_write) ,
     .sysex_data_out (sysex_data_out) ,
     .synth_data_out (synth_data_out),  // input
-    .dec_sel_bus( dec_sel_bus) ,
+//    .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
     .uart_usb_sel(uart_usb_sel)
 );

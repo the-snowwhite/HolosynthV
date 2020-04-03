@@ -28,12 +28,14 @@ parameter V_WIDTH = 3
     output wire [7:0]           prg_ch_data,
 //synth memory controller
     output wire                 syx_data_ready,
-    output wire                 read_write,
-    output wire                 dec_sysex_data_patch_send,
-    output wire [6:0]           dec_addr,
+    output wire                 write_dataenable,
+    output wire [6:0]           syx_dec_addr,
+    output wire [2:0]           syx_bank_addr,
+    output wire                 syx_read,
+    output wire                 syx_write,
     output wire [7:0]           sysex_data_out,
     input  wire [7:0]           synth_data_out,
-    output wire [6:0]           dec_sel_bus,
+//    output wire [6:0]           dec_sel_bus,
 // status data
     output wire [V_WIDTH:0]     active_keys,
     input wire                  uart_usb_sel
@@ -46,12 +48,7 @@ parameter V_WIDTH = 3
 
     wire [5:0] dec_sel;
 
-    assign dec_sel_bus = {write,read,dec_sel[5],dec_sel[3:0]};
-
     reg [3:0]    midi_cha_num, sysex_type;
-
-    assign  write = (read_write && ~dec_sysex_data_patch_send) ? 1'b1 : 1'b0;
-    assign  read = (read_write && dec_sysex_data_patch_send) ? 1'b1 : 1'b0;
 
 //  uart:
     wire       byteready_u;
@@ -66,14 +63,14 @@ parameter V_WIDTH = 3
     wire       midi_out_ready;
     wire       midi_send_byte;
     wire [7:0] midi_out_data;
-    wire [2:0] bank_adr;
+//    wire [2:0] syx_bank_addr;
 //  midi_in_mux:
     wire       byteready;
     wire [7:0] cur_status;
     wire [7:0] midibyte_nr;
     wire [7:0] midi_in_data;
 //  address_decoder
-    wire    write_dataenable;
+//    wire    write_dataenable;
 // midi_status
     wire is_cur_midi_ch;
     wire is_st_note_on;
@@ -87,6 +84,7 @@ parameter V_WIDTH = 3
     wire is_velocity;
     wire trig_seq_f;
     wire [7:0] midi_regdata_to_synth;
+    wire dec_sysex_data_patch_send;
 
     wire                 pitch_cmd;
     wire [7:0]           octrl;
@@ -149,13 +147,10 @@ midi_in_mux midi_in_mux_inst
 
 address_decoder address_decoder_inst (
     .reg_clk ( reg_clk ),
-    .reset_reg_N ( reset_reg_N ),
-    .data_ready ( syx_data_ready ),   //input
-    .bank_adr ( bank_adr ),
-//    .out_data ( midi_out_data ),
-    .read_write  ( read_write  ),
-//    .data_out ( midi_regdata_to_synth ),
-    .dec_sel ( dec_sel ),
+    .dec_sysex_data_patch_send ( dec_sysex_data_patch_send ),
+    .syx_data_ready ( syx_data_ready ),   //input
+    .syx_read  ( syx_read  ),
+    .syx_write  ( syx_write  ),
     .write_dataenable ( write_dataenable )
 );
 
@@ -224,7 +219,7 @@ sysex_func sysex_func_inst
 (
 	.reg_clk(reg_clk) ,
 	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
-    .write_dataenable ( write_dataenable ),
+//    .write_dataenable ( write_dataenable ), //input
 	.sysex_data_out(sysex_data_out) ,	// output [7:0] data_sig
 	.synth_data_out(synth_data_out) ,	// input [7:0] data_sig
 	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
@@ -237,8 +232,9 @@ sysex_func sysex_func_inst
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// output  auto_syx_cmd_sig
 	.midi_out_data(midi_out_data) ,	// output [7:0] midi_out_data_sig
-	.bank_adr(bank_adr) ,	// output [2:0] bank_adr_sig
-	.dec_addr(dec_addr) 	// output [6:0] dec_addr_sig
+	.syx_bank_addr(syx_bank_addr) ,	// output [2:0] bank_adr_sig
+	.syx_dec_addr(syx_dec_addr) 	// output [6:0] dec_addr_sig
+//	.sysex_addr(sysex_addr) 	// output [6:0] dec_addr_sig
 );
 
 controller_cmd_inst controller_cmd_inst_inst (
