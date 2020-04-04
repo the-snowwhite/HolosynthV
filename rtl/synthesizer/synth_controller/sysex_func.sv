@@ -95,7 +95,7 @@ module sysex_func (
 
     always @(negedge reset_reg_N or negedge midi_out_ready ) begin
         if (!reset_reg_N) begin
-            addr_cnt <= 8'b0; sysex_data_patch_send_end <= 1'b0;
+            addr_cnt <= 8'b0; sysex_data_patch_send_end <= 1'b0; midi_out_data <= 8'h00;
         end
         else if (!midi_out_ready) begin
             if (dec_sysex_data_patch_send) begin

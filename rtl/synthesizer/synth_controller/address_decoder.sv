@@ -2,12 +2,12 @@ module address_decoder (
     input wire              reg_clk,
     input wire              dec_sysex_data_patch_send,
     input wire              syx_data_ready,
-    output  reg             syx_read ,
-    output  reg             syx_write ,
+    output reg              syx_read ,
+    output reg              syx_write ,
     output reg              write_dataenable
 );
 
-    reg [2:0] syx_data_rdy_r;
+    reg [3:0] syx_data_rdy_r;
 
     initial begin
         syx_data_rdy_r = 3'h0;

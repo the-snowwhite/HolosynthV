@@ -92,7 +92,8 @@ parameter vo_x_offset = x_offset
     assign fb_matrix_out_sum = (reg_fb_matrixl_summed[ox_dly[V_OSC]] * osc_feedb_in[ox_dly[V_OSC]]);// >>> (O_WIDTH + V_WIDTH);
 
     wire signed [10:0] modulation_sum;
-    assign modulation_sum = (( mod_matrix_out_sum + fb_matrix_out_sum ) >>> (26 ));
+//    assign modulation_sum = (( mod_matrix_out_sum + fb_matrix_out_sum ) >>> (26 ));
+    assign modulation_sum = (( mod_matrix_out_sum + fb_matrix_out_sum ) >>> (31 ));
 
     always @(posedge sCLK_XVXOSC)begin : out_gen
         reg_matrix_data[vx_dly[V_OSC]][ox_dly[V_OSC]] <= modulation_sum;

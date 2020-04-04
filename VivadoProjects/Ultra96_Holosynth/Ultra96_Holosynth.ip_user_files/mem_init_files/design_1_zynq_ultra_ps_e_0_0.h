@@ -156,6 +156,12 @@ public:
   sc_core::sc_out< bool > maxigp1_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp1_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp1_arqos;
+  sc_core::sc_in< bool > emio_uart0_ctsn;
+  sc_core::sc_out< bool > emio_uart0_rtsn;
+  sc_core::sc_in< bool > emio_uart0_dsrn;
+  sc_core::sc_in< bool > emio_uart0_dcdn;
+  sc_core::sc_in< bool > emio_uart0_rin;
+  sc_core::sc_out< bool > emio_uart0_dtrn;
   sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;

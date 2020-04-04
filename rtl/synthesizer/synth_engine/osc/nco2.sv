@@ -5,7 +5,7 @@ parameter V_ENVS = 8,
 parameter V_WIDTH = 3,
 parameter O_WIDTH = 2,
 //parameter x_offset = (V_OSC * VOICES ) - 2;
-parameter x_offset = 6
+parameter x_offset = 5
 ) (
     input wire      sCLK_XVXOSC,
     input wire      sCLK_XVXENVS,
