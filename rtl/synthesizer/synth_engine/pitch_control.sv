@@ -85,6 +85,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     integer loop,o1,o2,kloop;
 
     initial begin
+        pb_range = 8'h03;
         for (kloop=0;kloop<VOICES;kloop=kloop+1)begin
             rkey_val[kloop] = 8'hff;
         end
@@ -109,24 +110,24 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     end
 
     always@(posedge reg_clk )begin
-        pb_range <= 8'h03;
-        if(osc_sel && write)begin
-            for (o1=0;o1<V_OSC;o1=o1+1)begin
-                case (adr)
-                    7'd0 +(o1<<4): osc_ct[o1] <= synth_data_in;
-                    7'd1 +(o1<<4): osc_ft[o1] <= synth_data_in;
-                    7'd5 +(o1<<4): k_scale[o1] <= synth_data_in;
-                    7'd8 +(o1<<4): b_ct[o1] <= synth_data_in;
-                    7'd9 +(o1<<4): b_ft[o1] <= synth_data_in;
-                    default:;
-                endcase
+        if (write) begin
+            if(osc_sel)begin
+                for (o1=0;o1<V_OSC;o1=o1+1)begin
+                    case (adr)
+                        7'd0 +(o1<<4): osc_ct[o1] <= synth_data_in;
+                        7'd1 +(o1<<4): osc_ft[o1] <= synth_data_in;
+                        7'd5 +(o1<<4): k_scale[o1] <= synth_data_in;
+                        7'd8 +(o1<<4): b_ct[o1] <= synth_data_in;
+                        7'd9 +(o1<<4): b_ft[o1] <= synth_data_in;
+                        default:;
+                    endcase
+                end
+            end
+            else if(com_sel) begin
+                if(adr == 0) pb_range <= synth_data_in;
             end
         end
-        else if(com_sel && write) begin
-            if(adr == 0) pb_range <= synth_data_in;
-        end
     end
-
 /** @brief read data
 */
     always @(negedge reg_clk) begin

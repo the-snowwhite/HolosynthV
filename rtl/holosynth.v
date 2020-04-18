@@ -1,5 +1,6 @@
 module holosynth #(
 parameter a_NUM_VOICES = 32,
+parameter V_WIDTH = 5-1,
 parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
 parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
@@ -17,8 +18,9 @@ parameter AUD_BIT_DEPTH = 24
     output wire         midi_txd,
 
 //    input   [3:0]        button,
-    output [a_NUM_VOICES-1:0] keys_on,
-    output [a_NUM_VOICES-1:0] voice_free,
+    output wire [a_NUM_VOICES-1:0] keys_on,
+    output wire [a_NUM_VOICES-1:0] voice_free,
+    output wire [V_WIDTH:0]	active_keys,
 
     output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
@@ -41,7 +43,7 @@ parameter AUD_BIT_DEPTH = 24
     input  wire          uart_usb_sel
 );
     
-    synthesizer #(.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
+    synthesizer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
         .reg_clk                (reg_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_reg_n            (reset_reg_n),
@@ -69,7 +71,8 @@ parameter AUD_BIT_DEPTH = 24
         .socmidi_data_out       (socmidi_data_out), 	// output [31:0] readdata_sig
         .run                    (run),
 //        .switch3                (uart_usb_sel)
-        .uart_usb_sel           (1'b1)
+       .active_keys             (active_keys) ,
+       .uart_usb_sel            (1'b1)
     );
     
 endmodule

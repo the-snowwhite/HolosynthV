@@ -1,4 +1,5 @@
 module mixer_2 #(
+parameter AUD_BIT_DEPTH = 24,
 parameter VOICES	= 32,
 parameter V_OSC		= 8, // oscs per Voice
 parameter O_ENVS	= 2, // envs per Oscilator
@@ -7,8 +8,7 @@ parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH	= 1,
 parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
-parameter x_offset = (V_OSC * VOICES ) - 2,
-parameter AUD_BIT_DEPTH = 24
+parameter x_offset = (V_OSC * VOICES ) - 2
 ) (
 // Inputs -- //
     input wire                          reg_clk,
@@ -22,6 +22,7 @@ parameter AUD_BIT_DEPTH = 24
 
     output wire signed [7:0]            mixer_regdata_out,
     input wire signed [7:0]             synth_data_in,
+    input wire  [V_WIDTH:0]             active_keys,
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
@@ -109,7 +110,7 @@ modulation_matrix #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_W
     .modulation( modulation )       // output
 );
 
-vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
+vol_mixer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
 (
     .sCLK_XVXENVS(sCLK_XVXENVS),    // input
     .xxxx( xxxx ),                  // input
@@ -120,6 +121,7 @@ vol_mixer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))vol_mixer_inst
     .osc_lvl( osc_lvl ),            // input
     .level_mul_vel( level_mul_vel ),// input
     .osc_pan( osc_pan ),            // input
+    .active_keys( active_keys ) ,   // input
     .sine_lut_out( sine_lut_out ),  // output
     .lsound_out( lsound_out ),      // output
     .rsound_out( rsound_out )       // output

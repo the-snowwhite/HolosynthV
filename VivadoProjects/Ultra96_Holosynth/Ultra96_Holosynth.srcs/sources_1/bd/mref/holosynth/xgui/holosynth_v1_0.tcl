@@ -5,6 +5,7 @@ proc init_gui { IPINST } {
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
   ipgui::add_param $IPINST -name "AUD_BIT_DEPTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "V_ENVS" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "V_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "a_NUM_VOICES" -parent ${Page_0}
   ipgui::add_param $IPINST -name "b_NUM_OSCS_PER_VOICE" -parent ${Page_0}
   ipgui::add_param $IPINST -name "c_NUM_ENVGENS_PER_OSC" -parent ${Page_0}
@@ -27,6 +28,15 @@ proc update_PARAM_VALUE.V_ENVS { PARAM_VALUE.V_ENVS } {
 
 proc validate_PARAM_VALUE.V_ENVS { PARAM_VALUE.V_ENVS } {
 	# Procedure called to validate V_ENVS
+	return true
+}
+
+proc update_PARAM_VALUE.V_WIDTH { PARAM_VALUE.V_WIDTH } {
+	# Procedure called to update V_WIDTH when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.V_WIDTH { PARAM_VALUE.V_WIDTH } {
+	# Procedure called to validate V_WIDTH
 	return true
 }
 
@@ -61,6 +71,11 @@ proc validate_PARAM_VALUE.c_NUM_ENVGENS_PER_OSC { PARAM_VALUE.c_NUM_ENVGENS_PER_
 proc update_MODELPARAM_VALUE.a_NUM_VOICES { MODELPARAM_VALUE.a_NUM_VOICES PARAM_VALUE.a_NUM_VOICES } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.a_NUM_VOICES}] ${MODELPARAM_VALUE.a_NUM_VOICES}
+}
+
+proc update_MODELPARAM_VALUE.V_WIDTH { MODELPARAM_VALUE.V_WIDTH PARAM_VALUE.V_WIDTH } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.V_WIDTH}] ${MODELPARAM_VALUE.V_WIDTH}
 }
 
 proc update_MODELPARAM_VALUE.b_NUM_OSCS_PER_VOICE { MODELPARAM_VALUE.b_NUM_OSCS_PER_VOICE PARAM_VALUE.b_NUM_OSCS_PER_VOICE } {

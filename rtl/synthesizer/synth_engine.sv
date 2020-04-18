@@ -1,4 +1,5 @@
 module synth_engine #(
+parameter AUD_BIT_DEPTH = 24,
 parameter VOICES    = 32,                   // = 32
 parameter V_OSC     = 8,                    // = 8 number of oscilators pr. voice.
 parameter O_ENVS    = 2,                    // = 2 number of envelope generators pr. oscilator.
@@ -6,8 +7,7 @@ parameter V_ENVS    = O_ENVS * V_OSC,       // = 16 number of envelope generator
 parameter V_WIDTH   = utils::clogb2(VOICES),// = 5
 parameter O_WIDTH   = utils::clogb2(V_OSC), // = 3
 parameter OE_WIDTH  = 1,                    // = 1
-parameter E_WIDTH   = O_WIDTH + OE_WIDTH,   // = 4
-parameter AUD_BIT_DEPTH = 24
+parameter E_WIDTH   = O_WIDTH + OE_WIDTH   // = 4
 ) (
     input wire                  AUDIO_CLK,
     input wire                  reg_clk,
@@ -40,6 +40,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire                  com_sel,
 // from midi_controller_unit
     input wire  [13:0]          pitch_val,
+    input wire  [V_WIDTH:0]     active_keys,
 // from env gen
     output wire                 run,
     output wire [VOICES-1:0]    voice_free
@@ -190,7 +191,7 @@ velocity velocity_inst
 defparam velocity_inst.VOICES = VOICES;
 defparam velocity_inst.V_WIDTH = V_WIDTH;
 
-mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) mixer_2_inst
+mixer_2 #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) mixer_2_inst
 (
     .reg_clk( reg_clk ),
     .sCLK_XVXENVS( sCLK_XVXENVS ),
@@ -201,6 +202,7 @@ mixer_2 #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WID
     .sine_lut_out( sine_lut_out ),
     .modulation( modulation ),
     .midi_ch( midi_ch ),
+    .active_keys( active_keys ) ,
     .write( write ),
     .read ( read ),
 //    .read_select (syx_read_select),
