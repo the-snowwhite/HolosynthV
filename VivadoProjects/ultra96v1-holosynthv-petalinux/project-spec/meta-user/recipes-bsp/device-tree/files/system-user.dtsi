@@ -6,3 +6,8 @@
     address_width = <16>;
     data_width = <32>;
 };
+    &holosynth_midi {
+    compatible = "holotr,socsynth-midi";
+    address_width = <3>;
+    data_width = <8>;
+};

@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"1.36307",
-   "Default View_TopLeft":"1668,-223",
+   "Default View_TopLeft":"1668,-224",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0.21  2019-05-29 bk=1.5064 VDI=41 GEI=36 GUI=JA:9.0 TLS
 #  -string -flagsOSRD
@@ -59,10 +59,10 @@ preplace netloc emio_uart0_ctsn_0_1 1 0 2 NJ 310 650
 preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 1 5 670J 850 NJ 850 1510J 840 NJ 840 NJ
 preplace netloc holosynth_0_active_keys 1 4 1 1960 180n
 preplace netloc ps8_0_axi_periph_M01_AXI 1 2 1 1000 280n
-preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1010 460n
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 390
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 370
 preplace netloc ps8_0_axi_periph_M00_AXI 1 2 1 1030 480n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 370
+preplace netloc ps8_0_axi_periph_M02_AXI 1 2 1 1010 460n
 levelinfo -pg 1 0 340 850 1240 1730 2140 2330
 pagesize -pg 1 -db -bbox -sgen -130 0 2550 860
 "

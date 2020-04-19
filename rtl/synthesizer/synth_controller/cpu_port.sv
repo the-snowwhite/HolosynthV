@@ -35,10 +35,10 @@ module cpu_port (
         end
     end
 
-    always@(negedge reset_reg_N or negedge socmidi_write)begin
+    always@(negedge reset_reg_N or posedge reg_clk)begin
         if(!reset_reg_N) begin
             cpu_midi_in_data <= 8'h00;
-        end else begin
+        end else if (socmidi_write) begin
             if(socmidi_addr == 0) begin
                 cpu_midi_in_data <= socmidi_data_in;
             end
