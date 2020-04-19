@@ -7,12 +7,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_audio_clk_mux_ip_0_0'
+Upgrade Log for IP 'holosynthv_audio_clk_mux_ip_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 12) to (Rev. 13)
+SUCCESS in the upgrade of holosynthv_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 12) to (Rev. 13)
 
 
 
@@ -28,12 +28,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_hm2_axilite_int_1_0'
+Upgrade Log for IP 'holosynthv_hm2_axilite_int_1_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_hm2_axilite_int_1_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
+SUCCESS in the upgrade of holosynthv_hm2_axilite_int_1_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
 
 
 
@@ -49,12 +49,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_hm2_axilite_int_0_0'
+Upgrade Log for IP 'holosynthv_hm2_axilite_int_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_hm2_axilite_int_0_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
+SUCCESS in the upgrade of holosynthv_hm2_axilite_int_0_0 (machinekit.io:user:hm2_axilite_int:1.0) from (Rev. 9) to (Rev. 10)
 
 
 
@@ -70,12 +70,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 --------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_zynq_ultra_ps_e_0_0'
+Upgrade Log for IP 'holosynthv_zynq_ultra_ps_e_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_zynq_ultra_ps_e_0_0 from xilinx.com:ip:zynq_ultra_ps_e:3.2 (Rev. 2) to xilinx.com:ip:zynq_ultra_ps_e:3.3 (Rev. 1)
+SUCCESS in the upgrade of holosynthv_zynq_ultra_ps_e_0_0 from xilinx.com:ip:zynq_ultra_ps_e:3.2 (Rev. 2) to xilinx.com:ip:zynq_ultra_ps_e:3.3 (Rev. 1)
 
 2. Upgrade messages
 -------------------
@@ -99,12 +99,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 --------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_xlslice_0_0'
+Upgrade Log for IP 'holosynthv_xlslice_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_xlslice_0_0 (xilinx.com:ip:xlslice:1.0) from (Rev. 1) to (Rev. 2)
+SUCCESS in the upgrade of holosynthv_xlslice_0_0 (xilinx.com:ip:xlslice:1.0) from (Rev. 1) to (Rev. 2)
 
 
 
@@ -120,12 +120,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 --------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_xlconstant_0_0'
+Upgrade Log for IP 'holosynthv_xlconstant_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1) from (Rev. 5) to (Rev. 6)
+SUCCESS in the upgrade of holosynthv_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1) from (Rev. 5) to (Rev. 6)
 
 
 
@@ -141,12 +141,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 --------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_ps8_0_axi_periph_0'
+Upgrade Log for IP 'holosynthv_ps8_0_axi_periph_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 19) to (Rev. 21)
+SUCCESS in the upgrade of holosynthv_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 19) to (Rev. 21)
 
 
 
@@ -162,12 +162,12 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 --------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_clk_wiz_0_0'
+Upgrade Log for IP 'holosynthv_clk_wiz_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 2) to (Rev. 4)
+SUCCESS in the upgrade of holosynthv_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 2) to (Rev. 4)
 
 
 
@@ -183,12 +183,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_zynq_ultra_ps_e_0_0'
+Upgrade Log for IP 'holosynthv_zynq_ultra_ps_e_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_zynq_ultra_ps_e_0_0 (xilinx.com:ip:zynq_ultra_ps_e:3.2) from (Rev. 1) to (Rev. 2)
+SUCCESS in the upgrade of holosynthv_zynq_ultra_ps_e_0_0 (xilinx.com:ip:zynq_ultra_ps_e:3.2) from (Rev. 1) to (Rev. 2)
 
 2. Upgrade messages
 -------------------
@@ -212,12 +212,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_xlconstant_0_0'
+Upgrade Log for IP 'holosynthv_xlconstant_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the conversion of design_1_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1 (Rev. 5)) to Vivado generation flows.
+SUCCESS in the conversion of holosynthv_xlconstant_0_0 (xilinx.com:ip:xlconstant:1.1 (Rev. 5)) to Vivado generation flows.
 
 
 
@@ -233,12 +233,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_rst_ps8_0_99M_0'
+Upgrade Log for IP 'holosynthv_rst_ps8_0_99M_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_rst_ps8_0_99M_0 (xilinx.com:ip:proc_sys_reset:5.0) from (Rev. 12) to (Rev. 13)
+SUCCESS in the upgrade of holosynthv_rst_ps8_0_99M_0 (xilinx.com:ip:proc_sys_reset:5.0) from (Rev. 12) to (Rev. 13)
 
 
 
@@ -254,12 +254,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_ps8_0_axi_periph_0'
+Upgrade Log for IP 'holosynthv_ps8_0_axi_periph_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 18) to (Rev. 19)
+SUCCESS in the upgrade of holosynthv_ps8_0_axi_periph_0 (xilinx.com:ip:axi_interconnect:2.1) from (Rev. 18) to (Rev. 19)
 
 
 
@@ -275,12 +275,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_clk_wiz_0_0'
+Upgrade Log for IP 'holosynthv_clk_wiz_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 1) to (Rev. 2)
+SUCCESS in the upgrade of holosynthv_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 1) to (Rev. 2)
 
 
 
@@ -296,12 +296,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_rst_ps8_0_99M_0'
+Upgrade Log for IP 'holosynthv_rst_ps8_0_99M_0'
 
 1. Summary
 ----------
 
-SUCCESS in the conversion of design_1_rst_ps8_0_99M_0 (xilinx.com:ip:proc_sys_reset:5.0 (Rev. 12)) to Vivado generation flows.
+SUCCESS in the conversion of holosynthv_rst_ps8_0_99M_0 (xilinx.com:ip:proc_sys_reset:5.0 (Rev. 12)) to Vivado generation flows.
 
 
 
@@ -317,12 +317,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_clk_wiz_0_0'
+Upgrade Log for IP 'holosynthv_clk_wiz_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the conversion of design_1_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0 (Rev. 1)) to Vivado generation flows.
+SUCCESS in the conversion of holosynthv_clk_wiz_0_0 (xilinx.com:ip:clk_wiz:6.0 (Rev. 1)) to Vivado generation flows.
 
 
 
@@ -338,12 +338,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_audio_clk_mux_ip_0_0'
+Upgrade Log for IP 'holosynthv_audio_clk_mux_ip_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 11) to (Rev. 12)
+SUCCESS in the upgrade of holosynthv_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 11) to (Rev. 12)
 
 
 
@@ -359,12 +359,12 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_audio_clk_mux_ip_0_0'
+Upgrade Log for IP 'holosynthv_audio_clk_mux_ip_0_0'
 
 1. Summary
 ----------
 
-SUCCESS in the upgrade of design_1_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 10) to (Rev. 11)
+SUCCESS in the upgrade of holosynthv_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 10) to (Rev. 11)
 
 
 
@@ -380,19 +380,19 @@ Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 | Device       : xczu3eg-sbva484-1-e
 ------------------------------------------------------------------------------------
 
-Upgrade Log for IP 'design_1_audio_clk_mux_ip_0_0'
+Upgrade Log for IP 'holosynthv_audio_clk_mux_ip_0_0'
 
 1. Summary
 ----------
 
-CAUTION (success, with warnings) in the upgrade of design_1_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 9) to (Rev. 10)
+CAUTION (success, with warnings) in the upgrade of holosynthv_audio_clk_mux_ip_0_0 (Holotronic.dk:producer:audio_clk_mux_ip:1.1) from (Rev. 9) to (Rev. 10)
 
 After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
 
 2. Connection Warnings
 ----------------------
 
-Detected external port differences while upgrading 'design_1_audio_clk_mux_ip_0_0'. These changes may impact your design.
+Detected external port differences while upgrading 'holosynthv_audio_clk_mux_ip_0_0'. These changes may impact your design.
 
 
 -Upgrade has added port 'ext_capture_lrclk'
