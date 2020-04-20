@@ -72,7 +72,7 @@ parameter AUD_BIT_DEPTH = 24
         .run                    (run),
 //        .switch3                (uart_usb_sel)
        .active_keys             (active_keys) ,
-       .uart_usb_sel            (1'b1)
+       .uart_usb_sel            (uart_usb_sel)
     );
     
 endmodule

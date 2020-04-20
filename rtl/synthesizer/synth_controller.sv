@@ -123,10 +123,10 @@ cpu_port cpu_port_inst
 
 
 midi_in_mux midi_in_mux_inst
-(   .reset_reg_N( reset_reg_N ),
+(//   .reset_reg_N( reset_reg_N ),
     .reg_clk( reg_clk ),
 
-	.sel( uart_usb_sel ) ,	// input  sel_sig
+	.uart_usb_sel( uart_usb_sel ) ,	// input  sel_sig
 
 	.byteready_u( byteready_u ) ,	// input  byteready_u_sig
 	.cur_status_u( cur_status_u ) ,	// input [7:0] cur_status_u_sig
