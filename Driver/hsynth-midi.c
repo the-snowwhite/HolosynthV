@@ -90,6 +90,7 @@ static void snd_socmidi_transmit(unsigned char data){
         iowrite8(data, midireg_mem);
     } else {
         iowrite8(data, midireg_mem);
+    }
 
 }
 
