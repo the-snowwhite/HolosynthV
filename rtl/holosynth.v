@@ -39,8 +39,7 @@ parameter AUD_BIT_DEPTH = 24
     input  wire [2:0]    socmidi_addr,
     input  wire [7:0]    socmidi_data_in,
     output wire [7:0]    socmidi_data_out,
-    output wire          run,
-    input  wire          uart_usb_sel
+    output wire          run
 );
     
     synthesizer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
@@ -71,8 +70,7 @@ parameter AUD_BIT_DEPTH = 24
         .socmidi_data_out       (socmidi_data_out), 	// output [31:0] readdata_sig
         .run                    (run),
 //        .switch3                (uart_usb_sel)
-       .active_keys             (active_keys) ,
-       .uart_usb_sel            (uart_usb_sel)
+       .active_keys             (active_keys)
     );
     
 endmodule

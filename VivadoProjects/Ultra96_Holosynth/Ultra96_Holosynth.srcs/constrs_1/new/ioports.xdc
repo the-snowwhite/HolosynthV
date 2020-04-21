@@ -11,7 +11,7 @@ set_property PACKAGE_PIN C7 [get_ports {Led_out[1]}]
 set_property PACKAGE_PIN A7 [get_ports {Led_out[2]}]
 set_property PACKAGE_PIN B6 [get_ports {Led_out[3]}]
 
-set_property PACKAGE_PIN C5 [get_ports {uart_usb_sel_0}]
+#set_property PACKAGE_PIN C5 [get_ports {uart_usb_sel_0}]
 
 #set_property PACKAGE_PIN F4   [get_ports {fan_out}];  # "F4.FAN_PWM"
 # Set the bank voltage for IO Bank 26 to 1.8V

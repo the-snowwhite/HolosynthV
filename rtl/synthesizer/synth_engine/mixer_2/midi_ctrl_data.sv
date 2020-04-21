@@ -19,15 +19,21 @@ parameter V_OSC		= 4 // oscs per Voice
     output reg  signed  [7:0]   osc_mod_in      [V_OSC-1:0],
     output reg  signed  [7:0]   osc_feedb_in    [V_OSC-1:0],
     output reg  signed  [7:0]   m_vol,
-    output reg          [3:0]   midi_ch,
+    output wire         [3:0]   midi_ch,
+    output wire                 uart_usb_sel,
     output reg  signed  [7:0]   mat_buf1        [15:0][V_OSC-1:0],
     output reg  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
     output reg          [7:0]   patch_name      [15:0]
 );
 
+    reg [4:0] midi_ch_indata;
+
     byte unsigned osc1,osc2,ol1,il1,ol2,il2,o21,i21,o22,i22,innam,outnam;
 
     byte unsigned loop,oloop,iloop,inloop;
+    
+    assign midi_ch = midi_ch_indata[3:0];
+    assign uart_usb_sel = midi_ch_indata[4] ? 1'b0 : 1'b1;
     
     initial begin
         for (loop=0;loop<V_OSC;loop=loop+1)begin
@@ -46,7 +52,7 @@ parameter V_OSC		= 4 // oscs per Voice
             end
         end
         m_vol = 8'h40;
-        midi_ch = 4'h0;
+        midi_ch_indata = 5'h00;
         for(inloop=0;inloop<16;inloop=inloop+1)begin
             patch_name[inloop] = 8'd32;
         end    
@@ -71,7 +77,7 @@ parameter V_OSC		= 4 // oscs per Voice
             end
             else if(com_sel) begin
                 if(adr == 1) m_vol <= synth_data_in;
-                else if (adr == 2) midi_ch <= synth_data_in[3:0];
+                else if (adr == 2) midi_ch_indata <= synth_data_in[4:0];
                 else if(adr >= 16 && adr < 32)begin
                     for(innam=0;innam<16;innam=innam+1)begin
                         if(adr == (innam + 16)) patch_name[innam] <= synth_data_in;
@@ -118,7 +124,7 @@ parameter V_OSC		= 4 // oscs per Voice
         end
         else if(com_sel && read) begin
             if(adr == 1) mixer_regdata_out <= m_vol;
-            else if (adr == 2) mixer_regdata_out <= midi_ch;
+            else if (adr == 2) mixer_regdata_out <= midi_ch_indata;
             else if(adr > 2 && adr <= 15)mixer_regdata_out <= 0;
             else if (adr >= 16 && adr < 32) begin
                 for(outnam=0;outnam<16;outnam=outnam+1)begin

@@ -53,8 +53,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
 //    input wire              socmidi_cs,
     input wire  [7:0]       socmidi_data_in,
     output reg [7:0]        socmidi_data_out,
-    output wire             run,
-    input wire              uart_usb_sel
+    output wire             run
 );
 
 //-----		Registers		-----//
@@ -136,6 +135,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire [7:0]  sysex_data_out;
 
     wire [3:0] midi_ch;
+    wire uart_usb_sel;
     reg [7:0] out_data;
 
     wire    write_dataenable;
@@ -249,8 +249,9 @@ synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.V_E
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
-    .xxxx_zero              ( xxxx_zero ) ,              // output  cycle complete signag
-    .midi_ch                ( midi_ch ) ,                // output  cycle complete signag
+    .xxxx_zero              ( xxxx_zero ) ,             // output  cycle complete signal
+    .midi_ch                ( midi_ch ) ,               // output  
+    .uart_usb_sel           ( uart_usb_sel ) ,          // output  
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //
