@@ -24,6 +24,7 @@
 #endif
 
 #define CONFIG_CMD_DNS
+#define CONFIG_BOOTP_SEND_HOSTNAME
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 "autoload=yes\0" \
@@ -31,8 +32,16 @@
 "default_bootcmd=mmcinfo && fatload mmc 0 " \
     "10000000 image.ub && bootm 10000000\0" \
 "4.19tftpboot=setenv bootargs console=ttyPS0,115200 " \
-    "root=/dev/mmcblk0p2 rw earlyprintk rootwait;" \
-    "usb start && dhcp 8000000 design_1_wrapper.bit && " \
+    "root=/dev/mmcblk0p2 rw earlyprintk " \
+    "clk_ignore_unused cpuidle.off=1 rootwait;" \
+    "usb start && dhcp 8000000 holosynthv_wrapper.bit && " \
     "fpga load 0 8000000 $filesize && mmcinfo && " \
     "load mmc 0 10000000 Image && load mmc 0 16000000" \
-    " avnet-ultra96-rev1.dtb && booti 10000000 - 16000000\0"
+    " avnet-ultra96-rev1.dtb && booti 10000000 - 16000000\0" \
+"4.19tftpbootu=setenv bootargs console=ttyPS0,115200 " \
+    "root=/dev/mmcblk0p2 rw earlyprintk clk_ignore_unused " \
+    "cpuclk_ignore_unused cpuidle.off=1 rootwait;" \
+    "usb start && run set_serverip && dhcp 8000000 " \
+    "holosynthv_wrapper.bit && fpga load 0 8000000 " \
+    "$filesize && mmcinfo && fatload mmc 0 10000000 " \
+    "image.ub && bootm 10000000\0"

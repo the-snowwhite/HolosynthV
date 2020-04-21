@@ -143,13 +143,13 @@ CONFIG_SUBSYSTEM_ENDIAN_LITTLE=y
 #
 # DTG Settings
 #
-CONFIG_SUBSYSTEM_MACHINE_NAME="zcu100-revc"
+CONFIG_SUBSYSTEM_MACHINE_NAME=" zcu100-revc"
 
 #
 # Kernel Bootargs
 #
 # CONFIG_SUBSYSTEM_BOOTARGS_AUTO is not set
-CONFIG_SUBSYSTEM_USER_CMDLINE="console=ttyPS0,115200 root=/dev/mmcblk0p2 rw earlyprintk rootwait uio_pdrv_genirq.of_id=generic-uio"
+CONFIG_SUBSYSTEM_USER_CMDLINE="console=ttyPS0,115200 root=/dev/mmcblk0p2 rw earlyprintk uio_pdrv_genirq.of_id=generic-uio rootwait"
 CONFIG_SUBSYSTEM_DEVICETREE_FLAGS=""
 # CONFIG_SUBSYSTEM_DTB_OVERLAY is not set
 # CONFIG_SUBSYSTEM_REMOVE_PL_DTB is not set
