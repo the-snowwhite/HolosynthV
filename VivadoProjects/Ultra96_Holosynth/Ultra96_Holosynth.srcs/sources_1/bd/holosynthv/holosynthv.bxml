@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="holosynthv" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1587556569"/>
-    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1587556569"/>
-    <Generation Name="SIMULATION" State="RESET" Timestamp="1587556569"/>
-    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1587556569"/>
+    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1587663384"/>
+    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1587663384"/>
+    <Generation Name="SIMULATION" State="RESET" Timestamp="1587663384"/>
+    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1587663384"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/holosynthv_zynq_ultra_ps_e_0_0/holosynthv_zynq_ultra_ps_e_0_0.xci" Type="IP">
         <Instance HierarchyPath="zynq_ultra_ps_e_0"/>
@@ -96,6 +96,38 @@
       </File>
       <File Name="ip/holosynthv_xbar_0/holosynthv_xbar_0.xci" Type="IP">
         <Instance HierarchyPath="ps8_0_axi_periph/xbar"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_holosynth_audio_0/holosynthv_holosynth_audio_0.xci" Type="IP">
+        <Instance HierarchyPath="holosynth_audio"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_audio_mux_0_0/holosynthv_audio_mux_0_0.xci" Type="IP">
+        <Instance HierarchyPath="audio_mux_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_fifo_generator_0_0/holosynthv_fifo_generator_0_0.xci" Type="IP">
+        <Instance HierarchyPath="fifo_generator_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_fifo_generator_0_1/holosynthv_fifo_generator_0_1.xci" Type="IP">
+        <Instance HierarchyPath="fifo_generator_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

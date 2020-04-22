@@ -11,3 +11,8 @@
     address_width = <3>;
     data_width = <8>;
 };
+    &holosynth_audio {
+    compatible = "generic-uio";
+    address_width = <2>;
+    data_width = <32>;
+};
