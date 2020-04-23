@@ -465,35 +465,35 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
     assign GPIO_1[0] = run;
 
 synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
-    .CLOCK_50               (fpga_clk_50) ,
-    .AUDIO_CLK              ( AUDIO_CLK ),             // input
-    .reset_n                (hps_fpga_reset_n),
-    .trig                   (AUD_DACLRCK),
-    .MIDI_Rx_DAT            ( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
-    .midi_txd               ( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
-    .button                 ( KEY ),            //  Button[3:0]
+    .reg_clk    				(fpga_clk_50) ,
+    .AUDIO_CLK             ( AUDIO_CLK ),             // input
+    .reset_reg_n           (hps_fpga_reset_n),
+    .trig                  (AUD_DACLRCK),
+    .MIDI_Rx_DAT           ( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+    .midi_txd       			( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
+    .button                ( KEY ),            //  Button[3:0]
 `ifdef _Synth
-    .lsound_out             (lsound_out[31:8] ),      //  Audio Raw Data Low
-    .rsound_out             (rsound_out[31:8] ),      //  Audio Raw Data high
-    .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
+    .lsound_out            (lsound_out[31:8] ),      //  Audio Raw Data Low
+    .rsound_out            (rsound_out[31:8] ),      //  Audio Raw Data high
+    .xxxx_zero             (xxxx_zero),                // output  cycle complete signag
 `endif
-    .keys_on                (keys_on),				//  LED [7:0]
-    .voice_free             (voice_free) , 			//  Red LED [4:1]
-    .io_reset_n             (hps_fpga_reset_n) ,	// input  io_reset_sig
-    .cpu_read               (cpu_read) ,	// input  cpu_read_sig
-    .cpu_write              (cpu_write) ,	// input  cpu_write_sig
-    .chipselect             (cpu_chip_sel) ,	// input  chipselect_sig
-    .address                (cpu_adr) ,	// input [9:0] address_sig
-    .writedata              (cpu_data_out) ,	// input [31:0] writedata_sig
-    .readdata               (cpu_data_in), 	// output [31:0] readdata_sig
-    .socmidi_read           (socmidi_read) ,	// input  cpu_read_sig
-    .socmidi_write          (socmidi_write) ,	// input  cpu_write_sig
-    .socmidi_cs             (socmidi_chip_sel) ,	// input  chipselect_sig
-    .socmidi_addr           (socmidi_addr) ,	// input [9:0] address_sig
-    .socmidi_data_out       (socmidi_data_out) ,	// input [31:0] writedata_sig
-    .socmidi_data_in        (socmidi_data_in), 	// output [31:0] readdata_sig
-    .run                    (run),
-    .uart_usb_sel           (SW[2])
+    .keys_on               (keys_on),				//  LED [7:0]
+    .voice_free            (voice_free) , 			//  Red LED [4:1]
+    .reset_data_n          (hps_fpga_reset_n) ,	// input  io_reset_sig
+    .cpu_read              (cpu_read) ,	// input  cpu_read_sig
+    .cpu_write             (cpu_write) ,	// input  cpu_write_sig
+    .chipselect            (cpu_chip_sel) ,	// input  chipselect_sig
+    .address               (cpu_adr) ,	// input [9:0] address_sig
+    .cpu_readdata          (cpu_data_out) ,	// input [31:0] writedata_sig
+    .cpu_writedata         (cpu_data_in), 	// output [31:0] readdata_sig
+    .socmidi_read          (socmidi_read) ,	// input  cpu_read_sig
+    .socmidi_write         (socmidi_write) ,	// input  cpu_write_sig
+//    .socmidi_cs            (socmidi_chip_sel) ,	// input  chipselect_sig
+    .socmidi_addr          (socmidi_addr) ,	// input [9:0] address_sig
+    .socmidi_data_out      (socmidi_data_in) ,	// input [31:0] writedata_sig
+    .socmidi_data_in       (socmidi_data_out), 	// output [31:0] readdata_sig
+    .run                   (run)
+//    .uart_usb_sel          (SW[2])
 );
 
 endmodule

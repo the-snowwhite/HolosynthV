@@ -35,14 +35,16 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engin
 
 # Synth cores:
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/address_decoder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_uart.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/cpu_port.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_in_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/address_decoder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_status.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/midi_uart.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/note_stack.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/seq_trigger.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/sysex_func.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/controller_cmd.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller/rt_controllers.sv
 
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine.sv
 
