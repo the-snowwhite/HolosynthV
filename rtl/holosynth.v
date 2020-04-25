@@ -12,7 +12,7 @@ parameter AUD_BIT_DEPTH = 24
 // reset
     input  wire         reset_reg_n,
     input  wire         reset_data_n,
-    input  wire         AUD_DACLRCK,
+    input  wire         trig,
 // MIDI uart
     input  wire         midi_rxd,
     output wire         midi_txd,
@@ -26,6 +26,7 @@ parameter AUD_BIT_DEPTH = 24
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
 
     output wire          xxxx_zero,
+    output wire          xxxx_top,
 
     input  wire          cpu_read,
     input  wire          cpu_write,
@@ -47,7 +48,7 @@ parameter AUD_BIT_DEPTH = 24
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_reg_n            (reset_reg_n),
         .reset_data_n           (reset_data_n) ,	// input  io_reset_sig
-        .trig                   (AUD_DACLRCK),
+        .trig                   (trig),
         .MIDI_Rx_DAT            (~midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
         .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
@@ -56,6 +57,7 @@ parameter AUD_BIT_DEPTH = 24
         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
         .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
+        .xxxx_top               (xxxx_top),                 // output  cycle complete signag
         .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig

@@ -29,22 +29,22 @@ parameter x_offset = (V_OSC * VOICES ) - 2
     output reg signed [10:0]	modulation
 );
 
-    localparam DATA_WIDTH = 44;
+    localparam MULDATA_WIDTH = 44;
 
-    reg signed [DATA_WIDTH-1:0] sine_mod_data_in[V_OSC-1:0];
-    reg signed [DATA_WIDTH-1:0] sine_fb_data_in[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] sine_mod_data_in[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] sine_fb_data_in[V_OSC-1:0];
 
-    reg signed [DATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
-    reg signed [DATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] mod_matrix_mul_mat[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] fb_matrix_mul_mat[V_OSC-1:0];
 
-    reg signed [DATA_WIDTH-1:0] reg_mod_matrix_mul_mat_sum[V_OSC-1:0];
-    reg signed [DATA_WIDTH-1:0] reg_fb_matrix_mul_mat_sum[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] reg_mod_matrix_mul_mat_sum[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] reg_fb_matrix_mul_mat_sum[V_OSC-1:0];
 
-    reg signed [DATA_WIDTH-1:0] reg_mod_matrix_summed[V_OSC-1:0];
-    reg signed [DATA_WIDTH-1:0] reg_fb_matrixl_summed[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] reg_mod_matrix_summed[V_OSC-1:0];
+    reg signed [MULDATA_WIDTH-1:0] reg_fb_matrixl_summed[V_OSC-1:0];
 
-    wire signed [DATA_WIDTH-1:0] mod_matrix_out_sum;
-    wire signed [DATA_WIDTH-1:0] fb_matrix_out_sum;
+    wire signed [MULDATA_WIDTH-1:0] mod_matrix_out_sum;
+    wire signed [MULDATA_WIDTH-1:0] fb_matrix_out_sum;
 
     reg signed [10:0] reg_matrix_data[VOICES-1:0][V_OSC-1:0];
 

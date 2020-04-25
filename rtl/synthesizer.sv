@@ -40,6 +40,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
 
     output wire             xxxx_zero,
+    output wire             xxxx_top,
 
     input wire              cpu_read,
     input wire              cpu_write,
@@ -249,7 +250,8 @@ synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.V_E
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
-    .xxxx_zero              ( xxxx_zero ) ,             // output  cycle complete signal
+    .xxxx_zero              ( xxxx_zero ) ,             // output  count complete signal
+    .xxxx_top               ( xxxx_top ) ,              // output  cycle complete signal
     .midi_ch                ( midi_ch ) ,               // output  
     .uart_usb_sel           ( uart_usb_sel ) ,          // output  
     // KEY //

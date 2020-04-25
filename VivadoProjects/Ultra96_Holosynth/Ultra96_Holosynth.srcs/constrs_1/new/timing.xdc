@@ -10,4 +10,4 @@ set_false_path -from [get_clocks playback_lrclk44] -to [get_clocks ext_AUD_B_CLK
 set_false_path -from [get_clocks playback_lrclk48] -to [get_clocks ext_AUD_B_CLK_0]
 set_false_path -from [get_clocks bclk48] -to [get_clocks ext_AUD_B_CLK_0]
 #set_false_path -from [get_pins holosynthv_i/holosynth_0/inst/synthesizer_inst/reset_reg_delay_inst/oRST_2_reg/C] -to [get_pins {holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_engine_inst/synth_clk_gen_inst/sCLK_XVXENVS_DIV_reg[0]/CLR}]
-set_false_path -from [get_clocks clk_pl_0] -to [get_clocks -of_objects [get_pins holosynthv_i/clk_wiz_0/inst/mmcme4_adv_inst/CLKOUT0]]
+set_false_path -from [get_clocks clk_pl_0] -to [get_clocks -of_objects [get_pins holosynthv_i/clk_wiz_1/inst/mmcme4_adv_inst/CLKOUT0]]

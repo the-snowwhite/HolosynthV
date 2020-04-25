@@ -17,6 +17,7 @@ parameter E_WIDTH   = O_WIDTH + OE_WIDTH   // = 4
     output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
     output wire                 xxxx_zero,
+    output wire                 xxxx_top,
 // from synth_controller
     output wire [3:0]           midi_ch,
     output wire                 uart_usb_sel,
@@ -111,13 +112,14 @@ wire [7:0]mixer_regdata_out;
 synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
     .AUDIO_CLK      ( AUDIO_CLK ),      // input
-    .reset_reg_N    ( reset_data_N ),    // input
+    .reset_reg_N    ( reset_data_N ),   // input
     .trig           ( trig ),           // input
     .sCLK_XVXENVS   ( sCLK_XVXENVS ),   // output
     .sCLK_XVXOSC    ( sCLK_XVXOSC ),    // output
     .xxxx           ( xxxx ),           // output
     .run            ( run ),
-    .xxxx_zero      ( xxxx_zero )       // output
+    .xxxx_zero      ( xxxx_zero ),      // output
+    .xxxx_top       ( xxxx_top )        // output
 );
 
 // wire SYNC_CLK;
