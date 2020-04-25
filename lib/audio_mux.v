@@ -21,15 +21,16 @@
 
 
 module audio_mux #(
-parameter FIFO_WIDTH = 6
+parameter FIFO_WIDTH = 6,
+parameter AUD_BIT_DEPTH = 24
 ) (
     input wire clk,
     input wire [1:0] address,
     input wire read,
     input wire write,
     input wire [31:0] datain,
-    input wire [23:0] lsound_in,
-    input wire [23:0] rsound_in,
+    input wire [AUD_BIT_DEPTH-1:0] lsound_in,
+    input wire [AUD_BIT_DEPTH-1:0] rsound_in,
 //    input wire [6:0] read_cnt,
 //    input wire [6:0] write_cnt,
     input wire xxxx_top,
@@ -43,7 +44,8 @@ parameter FIFO_WIDTH = 6
 //    output wire jack_cycle_start,
 //    output reg jack_read_act,
 //    output reg signed [6:0] fifo_diff,
-    output wire trig
+    output wire trig,
+    output wire i2s_enable
 );
     
 //    reg read_dly;
@@ -61,6 +63,7 @@ parameter FIFO_WIDTH = 6
     assign jack_cycle_end = (jack_read_act_dly && !jack_read_act) ? 1'b1 : 1'b0;
 
     assign trig = (buffersize == 0) ? lrck : run_trig;
+    assign i2s_enable = (buffersize == 0) ? 1'b1 : 1'b0;
 
     assign sample_ready = 1'b1;
     
@@ -70,7 +73,7 @@ parameter FIFO_WIDTH = 6
 //        read_dly <= read;
         if (read) begin
             if (address == 2'b00) dataout[31:8] <= lsound_in;
-            else if (address == 2'b01) dataout[31:8] <= rsound_in;
+            else if (address == 2'b01) dataout[31:32-AUD_BIT_DEPTH] <= rsound_in;
         end    
     end
  

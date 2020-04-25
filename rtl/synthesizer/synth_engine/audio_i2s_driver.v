@@ -4,6 +4,7 @@ parameter AUD_BIT_DEPTH = 24
     input wire              reset_reg_N,
     input wire              iAUD_DACLRCK,
     input wire              iAUDB_CLK,
+    input wire              i2s_enable,
     input wire [AUD_BIT_DEPTH-1:0]  i_lsound_out,
     input wire [AUD_BIT_DEPTH-1:0]  i_rsound_out,
     output wire             oAUD_DACDAT
@@ -13,7 +14,7 @@ parameter AUD_BIT_DEPTH = 24
     reg signed [AUD_BIT_DEPTH-1:0] sound_out; // 
     reg reg_edge_detected;
     reg reg_lrck_dly;
-
+    reg enable,enable_dly;
     wire edge_detected = reg_lrck_dly ^ iAUD_DACLRCK;
 
 ////////////        SoundOut        ///////////////
@@ -22,6 +23,8 @@ parameter AUD_BIT_DEPTH = 24
     end
 
     always@(negedge iAUDB_CLK or negedge reset_reg_N)begin
+        enable_dly <= i2s_enable;
+        enable <= (enable_dly && i2s_enable) ? 1'b1 : 1'b0;
         if(!reset_reg_N)begin
             SEL_Cont    <=  5'h0;
             reg_lrck_dly <= 1'b0;
@@ -40,12 +43,6 @@ parameter AUD_BIT_DEPTH = 24
         end
     end
 
-// // `ifdef _32BitAudio
-// //     assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1) ? sound_out[(~SEL_Cont)] : 1'b0; // 32-bits
-// `elsif _24BitAudio
-    assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1) ? sound_out[(~SEL_Cont)-(32-AUD_BIT_DEPTH)] : 1'b0; // 24-bits
-// `else
-//     assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1 ) ? sound_out[~SEL_Cont[4:0]] : 1'b0; // 16-bits
-// `endif
+    assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1 && enable) ? sound_out[(~SEL_Cont)-(32-AUD_BIT_DEPTH)] : 1'b0; // 24-bits
 
 endmodule
