@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hsynth Audio
+GenericName=Hsynthaudio
+Comment=Jack Soundport for HolosynthV
+Exec=/home/holosynth/prg/hsynth-audio-gtk
+Icon=/home/holosynth/prg/note.png
+Terminal=false
+Type=Application
+Categories=AudioVideo;AudioEditing;Gtk
