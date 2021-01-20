@@ -7,3 +7,6 @@
     url = git@github.com:the-snowwhite/linux-xlnx.git
 
 
+[submodule "VivadoProjects/VivadoProjects/Ultra96v1-holosynthv-petalinux/components/ext_sources/linux-xlnx"]
+	path = VivadoProjects/VivadoProjects/Ultra96v1-holosynthv-petalinux/components/ext_sources/linux-xlnx
+	url = git@github.com:the-snowwhite/linux-xlnx.git
