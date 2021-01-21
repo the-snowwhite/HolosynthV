@@ -1,8 +1,8 @@
 //Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-//Date        : Sat Apr 25 22:16:18 2020
-//Host        : kdeneon-ws running 64-bit Ubuntu 18.04.4 LTS
+//Date        : Thu Jan 21 22:28:28 2021
+//Host        : kdeneon-ws3 running 64-bit Ubuntu 18.04.4 LTS
 //Command     : generate_target holosynthv_wrapper.bd
 //Design      : holosynthv_wrapper
 //Purpose     : IP block netlist
