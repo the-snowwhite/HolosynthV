@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_ip_v1_1_S00_AXI #
+	module audio_clk_mux_axi_ip_v1_1_S00_AXI #
 	(
 		// Users to add parameters here
 

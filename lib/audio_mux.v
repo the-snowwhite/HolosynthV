@@ -25,7 +25,7 @@ parameter FIFO_WIDTH = 6,
 parameter AUD_BIT_DEPTH = 24
 ) (
     input wire clk,
-    input wire [1:0] address,
+    input wire [2:0] address,
     input wire read,
     input wire write,
     input wire [31:0] datain,
@@ -45,7 +45,8 @@ parameter AUD_BIT_DEPTH = 24
 //    output reg jack_read_act,
 //    output reg signed [6:0] fifo_diff,
     output wire trig,
-    output wire i2s_enable
+    output wire i2s_enable,
+    output reg [31:0] samplerate
 );
     
 //    reg read_dly;
@@ -72,16 +73,17 @@ parameter AUD_BIT_DEPTH = 24
     always @(posedge clk) begin
 //        read_dly <= read;
         if (read) begin
-            if (address == 2'b00) dataout[31:8] <= lsound_in;
-            else if (address == 2'b01) dataout[31:32-AUD_BIT_DEPTH] <= rsound_in;
+            if (address == 3'b000) dataout[31:8] <= lsound_in;
+            else if (address == 3'b001) dataout[31:32-AUD_BIT_DEPTH] <= rsound_in;
         end    
     end
  
     always @(posedge clk) begin
         jack_read_act_dly <= jack_read_act;
         if (write) begin
-            if (address == 2'b10) jack_read_act <= datain[0];
-            else if (address == 2'b11) buffersize <= datain[FIFO_WIDTH:0];
+            if (address == 3'b010) jack_read_act <= datain[0];
+            else if (address == 3'b011) buffersize <= datain[FIFO_WIDTH:0];
+            else if (address == 3'b100) samplerate = datain;
         end    
     end
 /*    

@@ -1,8 +1,8 @@
-# Runtime Tcl commands to interact with - audio_clk_mux_ip_v1_1
+# Runtime Tcl commands to interact with - audio_clk_mux_axi_ip_v1_1
 
 # Sourcing design address info tcl
 set bd_path [get_property DIRECTORY [current_project]]/[current_project].srcs/[current_fileset]/bd
-source ${bd_path}/audio_clk_mux_ip_v1_1_include.tcl
+source ${bd_path}/audio_clk_mux_axi_ip_v1_1_include.tcl
 
 # jtag axi master interface hardware name, change as per your design.
 set jtag_axi_master hw_axi_1

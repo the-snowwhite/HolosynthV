@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_ip_v1_1 #
+	module audio_clk_mux_axi_ip_v1_1 #
 	(
 		// Users to add parameters here
 
@@ -56,10 +56,10 @@
 		input wire  s00_axi_rready
 	);
 // Instantiation of Axi Bus Interface S00_AXI
-	audio_clk_mux_ip_v1_1_S00_AXI # ( 
+	audio_clk_mux_axi_ip_v1_1_S00_AXI # ( 
 		.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
 		.C_S_AXI_ADDR_WIDTH(C_S00_AXI_ADDR_WIDTH)
-	) audio_clk_mux_ip_v1_1_S00_AXI_inst (
+	) audio_clk_mux_axi_ip_v1_1_S00_AXI_inst (
 	    .ext_clk44_clkin(ext_clk44_clkin),
         .ext_clk48_clkin(ext_clk48_clkin),
         .ext_AUD_B_CLK(ext_AUD_B_CLK),

@@ -261,7 +261,7 @@ static void activate (GtkApplication* app,
 
     window = gtk_application_window_new (app);
     gtk_window_set_title (GTK_WINDOW (window), "Hsynth Audio");
-    gtk_window_set_default_size (GTK_WINDOW (window), 300, 189);
+    gtk_window_set_default_size (GTK_WINDOW (window), 300, 209);
     layout = gtk_layout_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER (window), layout);
     gtk_widget_show(layout);

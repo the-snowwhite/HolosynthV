@@ -2,8 +2,8 @@
 #set_false_path -from [get_clocks clk_pl_0] -to [get_clocks clk_pl_3]
 create_clock -period 66 [get_ports ext_AUD_B_CLK]
 
-create_generated_clock -name mclk44 -source [get_ports ext_clk44_clkin] -divide_by 2 [get_pins audio_clk_mux_ip_v1_1_inst/playback_gen44/mclk_divider/q_reg/Q]
-create_generated_clock -name bclk44 -source [get_ports ext_clk44_clkin] -divide_by 12 [get_pins audio_clk_mux_ip_v1_1_inst/playback_gen44/bclk_divider/q_reg/Q]
+create_generated_clock -name mclk44 -source [get_ports ext_clk44_clkin] -divide_by 2 [get_pins audio_clk_mux_axi_ip_v1_1_S00_AXI_inst/playback_gen44/mclk_divider/q_reg/Q]
+create_generated_clock -name bclk44 -source [get_ports ext_clk44_clkin] -divide_by 12 [get_pins audio_clk_mux_axi_ip_v1_1_S00_AXI_inst/playback_gen44/bclk_divider/q_reg/Q]
 create_generated_clock -name playback_lrclk44 -source [get_ports ext_clk44_clkin] -divide_by 768 [get_pins */playback_gen44/lrclk1_divider/q_reg/Q]
 create_generated_clock -name capture_lrclk44 -source [get_ports ext_clk44_clkin] -divide_by 768 [get_pins */playback_gen44/lrclk2_divider/q_reg/Q]
 

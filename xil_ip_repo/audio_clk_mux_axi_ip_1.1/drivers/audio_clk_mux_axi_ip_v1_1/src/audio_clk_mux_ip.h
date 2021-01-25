@@ -1,27 +1,27 @@
 
-#ifndef AUDIO_CLK_MUX_IP_H
-#define AUDIO_CLK_MUX_IP_H
+#ifndef audio_clk_mux_axi_ip_H
+#define audio_clk_mux_axi_ip_H
 
 
 /****************** Include Files ********************/
 #include "xil_types.h"
 #include "xstatus.h"
 
-#define AUDIO_CLK_MUX_IP_S00_AXI_SLV_REG0_OFFSET 0
-#define AUDIO_CLK_MUX_IP_S00_AXI_SLV_REG1_OFFSET 4
-#define AUDIO_CLK_MUX_IP_S00_AXI_SLV_REG2_OFFSET 8
-#define AUDIO_CLK_MUX_IP_S00_AXI_SLV_REG3_OFFSET 12
-#define AUDIO_CLK_MUX_IP_S00_AXI_SLV_REG4_OFFSET 16
+#define audio_clk_mux_axi_ip_S00_AXI_SLV_REG0_OFFSET 0
+#define audio_clk_mux_axi_ip_S00_AXI_SLV_REG1_OFFSET 4
+#define audio_clk_mux_axi_ip_S00_AXI_SLV_REG2_OFFSET 8
+#define audio_clk_mux_axi_ip_S00_AXI_SLV_REG3_OFFSET 12
+#define audio_clk_mux_axi_ip_S00_AXI_SLV_REG4_OFFSET 16
 
 
 /**************************** Type Definitions *****************************/
 /**
  *
- * Write a value to a AUDIO_CLK_MUX_IP register. A 32 bit write is performed.
+ * Write a value to a audio_clk_mux_axi_ip register. A 32 bit write is performed.
  * If the component is implemented in a smaller width, only the least
  * significant data is written.
  *
- * @param   BaseAddress is the base address of the AUDIO_CLK_MUX_IPdevice.
+ * @param   BaseAddress is the base address of the audio_clk_mux_axi_ipdevice.
  * @param   RegOffset is the register offset from the base to write to.
  * @param   Data is the data written to the register.
  *
@@ -29,30 +29,30 @@
  *
  * @note
  * C-style signature:
- * 	void AUDIO_CLK_MUX_IP_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
+ * 	void audio_clk_mux_axi_ip_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
  *
  */
-#define AUDIO_CLK_MUX_IP_mWriteReg(BaseAddress, RegOffset, Data) \
+#define audio_clk_mux_axi_ip_mWriteReg(BaseAddress, RegOffset, Data) \
   	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 
 /**
  *
- * Read a value from a AUDIO_CLK_MUX_IP register. A 32 bit read is performed.
+ * Read a value from a audio_clk_mux_axi_ip register. A 32 bit read is performed.
  * If the component is implemented in a smaller width, only the least
  * significant data is read from the register. The most significant data
  * will be read as 0.
  *
- * @param   BaseAddress is the base address of the AUDIO_CLK_MUX_IP device.
+ * @param   BaseAddress is the base address of the audio_clk_mux_axi_ip device.
  * @param   RegOffset is the register offset from the base to write to.
  *
  * @return  Data is the data from the register.
  *
  * @note
  * C-style signature:
- * 	u32 AUDIO_CLK_MUX_IP_mReadReg(u32 BaseAddress, unsigned RegOffset)
+ * 	u32 audio_clk_mux_axi_ip_mReadReg(u32 BaseAddress, unsigned RegOffset)
  *
  */
-#define AUDIO_CLK_MUX_IP_mReadReg(BaseAddress, RegOffset) \
+#define audio_clk_mux_axi_ip_mReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 
 /************************** Function Prototypes ****************************/
@@ -64,7 +64,7 @@
  * If the hardware system is not built correctly, this function may never
  * return to the caller.
  *
- * @param   baseaddr_p is the base address of the AUDIO_CLK_MUX_IP instance to be worked on.
+ * @param   baseaddr_p is the base address of the audio_clk_mux_axi_ip instance to be worked on.
  *
  * @return
  *
@@ -75,6 +75,6 @@
  * @note    Self test may fail if data memory and device are not on the same bus.
  *
  */
-XStatus AUDIO_CLK_MUX_IP_Reg_SelfTest(void * baseaddr_p);
+XStatus audio_clk_mux_axi_ip_Reg_SelfTest(void * baseaddr_p);
 
-#endif // AUDIO_CLK_MUX_IP_H
+#endif // audio_clk_mux_axi_ip_H

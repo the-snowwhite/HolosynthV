@@ -1,6 +1,6 @@
 
 /***************************** Include Files *******************************/
-#include "audio_clk_mux_ip.h"
+#include "audio_clk_mux_axi_ip.h"
 #include "xparameters.h"
 #include "stdio.h"
 #include "xil_io.h"
@@ -17,7 +17,7 @@
  * If the hardware system is not built correctly, this function may never
  * return to the caller.
  *
- * @param   baseaddr_p is the base address of the AUDIO_CLK_MUX_IPinstance to be worked on.
+ * @param   baseaddr_p is the base address of the audio_clk_mux_axi_ipinstance to be worked on.
  *
  * @return
  *
@@ -28,7 +28,7 @@
  * @note    Self test may fail if data memory and device are not on the same bus.
  *
  */
-XStatus AUDIO_CLK_MUX_IP_Reg_SelfTest(void * baseaddr_p)
+XStatus audio_clk_mux_axi_ip_Reg_SelfTest(void * baseaddr_p)
 {
 	u32 baseaddr;
 	int write_loop_index;
@@ -47,9 +47,9 @@ XStatus AUDIO_CLK_MUX_IP_Reg_SelfTest(void * baseaddr_p)
 	xil_printf("User logic slave module test...\n\r");
 
 	for (write_loop_index = 0 ; write_loop_index < 4; write_loop_index++)
-	  AUDIO_CLK_MUX_IP_mWriteReg (baseaddr, write_loop_index*4, (write_loop_index+1)*READ_WRITE_MUL_FACTOR);
+	  audio_clk_mux_axi_ip_mWriteReg (baseaddr, write_loop_index*4, (write_loop_index+1)*READ_WRITE_MUL_FACTOR);
 	for (read_loop_index = 0 ; read_loop_index < 4; read_loop_index++)
-	  if ( AUDIO_CLK_MUX_IP_mReadReg (baseaddr, read_loop_index*4) != (read_loop_index+1)*READ_WRITE_MUL_FACTOR){
+	  if ( audio_clk_mux_axi_ip_mReadReg (baseaddr, read_loop_index*4) != (read_loop_index+1)*READ_WRITE_MUL_FACTOR){
 	    xil_printf ("Error reading register value at address %x\n", (int)baseaddr + read_loop_index*4);
 	    return XST_FAILURE;
 	  }
