@@ -56,7 +56,7 @@ parameter AUD_BIT_DEPTH = 24
         .voice_free             (voice_free) , 			//  Red LED [4:1]
         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
         .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
-        .xxxx_zero              (xxxx_zero),                // output  cycle complete signag
+        .xxxx_zero          (xxxx_zero),                // output  cycle complete signag
         .xxxx_top               (xxxx_top),                 // output  cycle complete signag
         .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig

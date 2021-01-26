@@ -118,7 +118,7 @@ synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),
     .sCLK_XVXOSC    ( sCLK_XVXOSC ),    // output
     .xxxx           ( xxxx ),           // output
     .run            ( run ),
-    .xxxx_zero      ( xxxx_zero ),      // output
+    .xxxx_zero  ( xxxx_zero ),      // output
     .xxxx_top       ( xxxx_top )        // output
 );
 

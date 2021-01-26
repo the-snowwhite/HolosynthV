@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_ip_v1_1(
+	module audio_clk_mux_ip(
 		// Users to add ports here
         input  wire [31:0] samplerate,		
         input  wire  sync_clk,

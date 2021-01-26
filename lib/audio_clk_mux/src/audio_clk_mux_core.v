@@ -1,49 +1,59 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_ip_v1_1_core
+	module audio_clk_mux_core
 	(
 		// Users to add ports here
 
         // Clock inputs, synthesized in PLL or external TCXOs
+        input  wire  run,
+        input  wire  i2s_enable_i,
         input  wire  [31:0] samplerate,
         input  wire  sync_clk,
-        input  wire  ext_clk44_clkin,
-        input  wire  ext_clk48_clkin, // this clock, divided by mclk_devisor, should be 22.
+        input  wire  aud_44_in_clk,
+        input  wire  aud_48_in_clk, // this clock, divided by mclk_devisor, should be 22.
         input  wire  reset_n,
         // Clock derived outputs
         inout  tri   ext_AUD_B_CLK,
         inout  tri   ext_AUD_DACLR_CLK,
         inout  tri   ext_AUD_ADCLR_CLK,
-        output wire  ext_playback_lrclk,
-        output wire  ext_capture_lrclk,
+        output wire  ext_playback_lr_clk,
+        output wire  ext_shift_remote_clk, // 1 = mclk derived from 44, 0 (default) mclk derived from 48
+        output wire  i2s_enable_o,
         output wire  ext_m_clk,
-        output wire  ext_shift_remote_clk // 1 = mclk derived from 44, 0 (default) mclk derived from 48
+        output wire  ext_capture_lr_clk
 
 		// User ports ends
 		// Do not modify the ports beyond this line
 	);
+
+// Add user logic here
 
 	reg [31:0]	slv_reg0;
     reg [31:0]  slv_reg4;
 
     reg [31:0]  cur_samplerate;
     
-	wire	 slv_reg_wren;
+	wire slv_reg_wren;
 	reg [2:0] wren_dly;
 
-//	assign slv_reg_wren = (wren_dly[0] | wren_dly[1] |wren_dly[2]) ? 1'b1 : 1'b0;
-	assign slv_reg_wren = (wren_dly[0] | wren_dly[1]) ? 1'b1 : 1'b0;
+	wire aud_clk_muxed;
+    reg samplerate_is_48;
 
+    wire bclk;
 
-	// Add user logic here
-	
+    wire play_lrclk;
+    wire cap_lrclk;
+
     wire playback_lrclk;
     wire capture_lrclk;
     // In slave mode, an external master makes the clocks
     wire master_slave_mode; // 1 = master, 0 (default) = slave
-    wire clk_sel_44_48; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
-
+    
+    assign slv_reg_wren = (wren_dly[1] | wren_dly[2]) ? 1'b1 : 1'b0;
+    
+    assign i2s_enable_o = i2s_enable_i;
+/*
     wire cmd_reg2_wr;
     wire mclk44;
     wire bclk44;
@@ -63,7 +73,7 @@
     wire cmd_reg2_44_wr;
     wire reset_48_n;
     wire cmd_reg2_48_wr;
-    
+*/    
     wire ext_AUD_B_CLK_sig;
     wire ext_AUD_DACLR_CLK_sig;
     wire ext_AUD_ADCLR_CLK_sig;
@@ -124,13 +134,14 @@
 
    	always @( posedge sync_clk )
     begin
+        if (samplerate == 32'd48000) begin
+            samplerate_is_48 <= 1'b1;
+        end else begin
+            samplerate_is_48 <= 1'b0;
+        end
         if ( reset_n == 1'b0 ) begin
-            wren_dly <= 2'b0;
-            if (samplerate == 32'd44100) begin
-                slv_reg0 <= 32'h00050003;
-                slv_reg4 <= 32'h00001717;
-            end
-            else if (samplerate == 32'd48000) begin
+            wren_dly <= 3'b0;
+            if (samplerate_is_48) begin
                 slv_reg0 <= 32'h00030003;
                 slv_reg4 <= 32'h00000F0F;
             end
@@ -140,39 +151,71 @@
             end
         end
         else begin
- //           wren_dly[2] <= wren_dly[1];
+            wren_dly[2] <= wren_dly[1];
             wren_dly[1] <= wren_dly[0];
-            if(cur_samplerate != samplerate) begin
+            if(cur_samplerate != samplerate && run == 1'b0 && i2s_enable_i == 1'b1) begin
                 cur_samplerate <= samplerate;
                 wren_dly[0] <= 1'b1; 
             end
             else begin
                 wren_dly[0] = 1'b0;
             end
+            if(wren_dly[0]) begin
+                if (samplerate_is_48) begin
+                    slv_reg0 <= 32'h00030003;
+                    slv_reg4 <= 32'h00000F0F;
+                end
+                else begin
+                    slv_reg0 <= 32'h00050003;
+                    slv_reg4 <= 32'h00001717;
+                end
+            end
         end 
     end  
  
+// input mux
+
+   // BUFGMUX_CTRL: 2-to-1 General Clock MUX Buffer
+   //               Virtex UltraScale+
+   // Xilinx HDL Language Template, version 2019.2
+
+   BUFGMUX_CTRL BUFGMUX_CTRL_inst (
+      .O(aud_clk_muxed),   // 1-bit output: Clock output
+      .I0(aud_44_in_clk), // 1-bit input: Clock input (S=0)
+      .I1(aud_48_in_clk), // 1-bit input: Clock input (S=1)
+      .S(samplerate_is_48)    // 1-bit input: Clock select
+   );
+
+   // End of BUFGMUX_CTRL_inst instantiation
     
-       // Output muxes
+// Output muxes
 
-    assign ext_playback_lrclk   = master_slave_mode ? playback_lrclk    : ext_AUD_DACLR_CLK_sig;
-    assign ext_capture_lrclk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLR_CLK_sig;
+    assign ext_playback_lr_clk   = master_slave_mode ? playback_lrclk    : ext_AUD_DACLR_CLK_sig;
+    assign ext_capture_lr_clk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLR_CLK_sig;
 
-    assign ext_shift_remote_clk = master_slave_mode ? (clk_sel_44_48    ? bclk44 : bclk48) : ext_AUD_B_CLK_sig;
-    assign playback_lrclk       = master_slave_mode ? (clk_sel_44_48    ? playback_lrclk44 : playback_lrclk48) : ext_playback_lrclk;
-    assign capture_lrclk        = master_slave_mode ? (clk_sel_44_48    ? capture_lrclk44  : capture_lrclk48)  : ext_capture_lrclk;
+    assign ext_shift_remote_clk = master_slave_mode ? bclk : ext_AUD_B_CLK_sig;
+    assign playback_lrclk       = master_slave_mode ? play_lrclk : ext_playback_lr_clk;
+    assign capture_lrclk        = master_slave_mode ? cap_lrclk : ext_capture_lr_clk;
 
-    assign ext_m_clk            = clk_sel_44_48     ? mclk44            : mclk48;
-   
     // Register access
 
-
-
     assign master_slave_mode    = slv_reg0[0]; // 1 = master, 0 (default) = slave
-    assign clk_sel_44_48        = slv_reg4[1]; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
+//    assign clk_sel_44_48        = slv_reg4[1]; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
     
 //    assign cmd_reg2_wr          = ( slv_reg_wren ) ? 1'b1 : 1'b0;
     
+    audio_clock_generator playback_gen (
+        .clk_clkin   (aud_clk_muxed),
+        .reset_n     (~slv_reg_wren),
+        .cmd_reg1    (slv_reg0),
+        .cmd_reg2    (slv_reg4),
+        .mclk        (ext_m_clk),
+        .bclk        (bclk48),
+        .lrclk_clear (cmd_reg2_48_wr),
+        .lrclk1      (play_lrclk),
+        .lrclk2      (cap_lrclk)
+    );
+/*    
     syncro sync_inst44 (
         .clka_clkin(sync_clk),
         .clkb_clkin(ext_clk44_clkin),
@@ -246,7 +289,7 @@
         .lrclk1      (playback_lrclk48),
         .lrclk2      (capture_lrclk48)
     );
-
-	// User logic ends
+*/
+    // User logic ends
 
 	endmodule
