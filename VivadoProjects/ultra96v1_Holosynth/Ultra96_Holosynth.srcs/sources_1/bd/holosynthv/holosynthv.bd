@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x830CC5F6D6171065",
+      "boundary_crc": "0x2549A18D2549A18D",
       "device": "xczu3eg-sbva484-1-e",
       "name": "holosynthv",
       "synth_flow_mode": "None",
@@ -61,59 +61,14 @@
       "BT_rtsn": {
         "direction": "O"
       },
-      "ext_AUD_B_CLK_0": {
-        "type": "clk",
-        "direction": "IO",
-        "parameters": {
-          "FREQ_HZ": {
-            "value": "100000000",
-            "value_src": "default"
-          },
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
-          "PHASE": {
-            "value": "0.000",
-            "value_src": "default"
-          }
-        }
+      "ext_AUD_BCLK_0": {
+        "direction": "IO"
       },
-      "ext_AUD_DACLR_CLK_0": {
-        "type": "clk",
-        "direction": "IO",
-        "parameters": {
-          "FREQ_HZ": {
-            "value": "100000000",
-            "value_src": "default"
-          },
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
-          "PHASE": {
-            "value": "0.000",
-            "value_src": "default"
-          }
-        }
+      "ext_AUD_DACLRCLK_0": {
+        "direction": "IO"
       },
-      "ext_AUD_ADCLR_CLK_0": {
-        "type": "clk",
-        "direction": "IO",
-        "parameters": {
-          "FREQ_HZ": {
-            "value": "100000000",
-            "value_src": "default"
-          },
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
-          "PHASE": {
-            "value": "0.000",
-            "value_src": "default"
-          }
-        }
+      "ext_AUD_ADCLRCLK_0": {
+        "direction": "IO"
       }
     },
     "components": {
@@ -486,12 +441,6 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_ds": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_ds/S_AXI"
-                ]
-              },
               "auto_ds_to_auto_pc": {
                 "interface_ports": [
                   "auto_ds/M_AXI",
@@ -502,6 +451,12 @@
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_ds": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_ds/S_AXI"
                 ]
               }
             },
@@ -594,10 +549,10 @@
               }
             },
             "interface_nets": {
-              "auto_ds_to_auto_pc": {
+              "s01_couplers_to_auto_ds": {
                 "interface_ports": [
-                  "auto_ds/M_AXI",
-                  "auto_pc/S_AXI"
+                  "S_AXI",
+                  "auto_ds/S_AXI"
                 ]
               },
               "auto_pc_to_s01_couplers": {
@@ -606,10 +561,10 @@
                   "auto_pc/M_AXI"
                 ]
               },
-              "s01_couplers_to_auto_ds": {
+              "auto_ds_to_auto_pc": {
                 "interface_ports": [
-                  "S_AXI",
-                  "auto_ds/S_AXI"
+                  "auto_ds/M_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -854,28 +809,10 @@
               "m01_couplers/M_AXI"
             ]
           },
-          "xbar_to_m00_couplers": {
+          "xbar_to_m01_couplers": {
             "interface_ports": [
-              "xbar/M00_AXI",
-              "m00_couplers/S_AXI"
-            ]
-          },
-          "m00_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
-            ]
-          },
-          "m03_couplers_to_ps8_0_axi_periph": {
-            "interface_ports": [
-              "M03_AXI",
-              "m03_couplers/M_AXI"
-            ]
-          },
-          "xbar_to_m03_couplers": {
-            "interface_ports": [
-              "xbar/M03_AXI",
-              "m03_couplers/S_AXI"
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
             ]
           },
           "m02_couplers_to_ps8_0_axi_periph": {
@@ -884,16 +821,16 @@
               "m02_couplers/M_AXI"
             ]
           },
-          "xbar_to_m02_couplers": {
-            "interface_ports": [
-              "xbar/M02_AXI",
-              "m02_couplers/S_AXI"
-            ]
-          },
           "ps8_0_axi_periph_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_xbar": {
+            "interface_ports": [
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
             ]
           },
           "s01_couplers_to_xbar": {
@@ -908,16 +845,34 @@
               "s01_couplers/S_AXI"
             ]
           },
-          "s00_couplers_to_xbar": {
+          "m00_couplers_to_ps8_0_axi_periph": {
             "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
+              "M00_AXI",
+              "m00_couplers/M_AXI"
             ]
           },
-          "xbar_to_m01_couplers": {
+          "xbar_to_m00_couplers": {
             "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
+              "xbar/M00_AXI",
+              "m00_couplers/S_AXI"
+            ]
+          },
+          "m03_couplers_to_ps8_0_axi_periph": {
+            "interface_ports": [
+              "M03_AXI",
+              "m03_couplers/M_AXI"
+            ]
+          },
+          "xbar_to_m03_couplers": {
+            "interface_ports": [
+              "xbar/M03_AXI",
+              "m03_couplers/S_AXI"
+            ]
+          },
+          "xbar_to_m02_couplers": {
+            "interface_ports": [
+              "xbar/M02_AXI",
+              "m02_couplers/S_AXI"
             ]
           }
         },
@@ -4632,51 +4587,58 @@
               }
             }
           },
-          "ext_AUD_B_CLK": {
-            "type": "clk",
+          "ext_AUD_BCLK": {
             "direction": "IO"
           },
-          "ext_AUD_DACLR_CLK": {
-            "type": "clk",
+          "ext_AUD_DACLRCLK": {
             "direction": "IO"
           },
-          "ext_AUD_ADCLR_CLK": {
-            "type": "clk",
+          "ext_AUD_ADCLRCLK": {
             "direction": "IO"
           },
-          "ext_playback_lr_clk": {
-            "type": "clk",
-            "direction": "O"
+          "ext_playback_lrclk": {
+            "direction": "O",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "holosynthv_audio_clk_mux_core_0_0_ext_playback_lr_clk",
+                "value_src": "default_prop"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "default_prop"
+              },
+              "PHASE": {
+                "value": "0.000",
+                "value_src": "default_prop"
+              }
+            }
           },
-          "ext_shift_remote_clk": {
-            "type": "clk",
+          "ext_shift_remoteclk": {
             "direction": "O"
           },
           "i2s_enable_o": {
             "direction": "O"
           },
-          "ext_m_clk": {
-            "type": "clk",
+          "ext_mclk": {
             "direction": "O"
           },
-          "ext_capture_lr_clk": {
-            "type": "clk",
+          "ext_capture_lrclk": {
             "direction": "O"
           }
         }
       }
     },
     "interface_nets": {
-      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
-        "interface_ports": [
-          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
-          "ps8_0_axi_periph/S00_AXI"
-        ]
-      },
       "ps8_0_axi_periph_M02_AXI": {
         "interface_ports": [
           "ps8_0_axi_periph/M02_AXI",
           "holosynth_midi/S_AXI"
+        ]
+      },
+      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
+        "interface_ports": [
+          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
+          "ps8_0_axi_periph/S00_AXI"
         ]
       },
       "ps8_0_axi_periph_M01_AXI": {
@@ -4762,7 +4724,7 @@
       },
       "audio_clk_mux_ip_0_ext_playback_lrclk": {
         "ports": [
-          "audio_clk_mux_core_0/ext_playback_lr_clk",
+          "audio_clk_mux_core_0/ext_playback_lrclk",
           "audio_i2s_driver_0/iAUD_DACLRCK",
           "audio_mux_0/lrck"
         ]
@@ -5002,7 +4964,7 @@
       },
       "audio_clk_mux_core_0_ext_shift_remote_clk": {
         "ports": [
-          "audio_clk_mux_core_0/ext_shift_remote_clk",
+          "audio_clk_mux_core_0/ext_shift_remoteclk",
           "audio_i2s_driver_0/iAUDB_CLK"
         ]
       },
@@ -5014,20 +4976,20 @@
       },
       "Net": {
         "ports": [
-          "ext_AUD_B_CLK_0",
-          "audio_clk_mux_core_0/ext_AUD_B_CLK"
+          "ext_AUD_BCLK_0",
+          "audio_clk_mux_core_0/ext_AUD_BCLK"
         ]
       },
       "Net1": {
         "ports": [
-          "ext_AUD_DACLR_CLK_0",
-          "audio_clk_mux_core_0/ext_AUD_DACLR_CLK"
+          "ext_AUD_DACLRCLK_0",
+          "audio_clk_mux_core_0/ext_AUD_DACLRCLK"
         ]
       },
       "Net2": {
         "ports": [
-          "ext_AUD_ADCLR_CLK_0",
-          "audio_clk_mux_core_0/ext_AUD_ADCLR_CLK"
+          "ext_AUD_ADCLRCLK_0",
+          "audio_clk_mux_core_0/ext_AUD_ADCLRCLK"
         ]
       }
     },

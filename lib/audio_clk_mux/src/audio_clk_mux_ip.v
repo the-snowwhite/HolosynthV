@@ -1,46 +1,52 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_ip(
-		// Users to add ports here
-        input  wire [31:0] samplerate,		
+    module audio_clk_mux_ip(
+// Users to add ports here
+        input  wire  run,
+        input  wire  i2s_enable_i,
+        input  wire  [31:0] samplerate,
         input  wire  sync_clk,
-        input  wire  ext_clk44_clkin,
-        input  wire  ext_clk48_clkin, // this clock, divided by mclk_devisor, should be 22.
+        input  wire  aud_44_in_clk,
+        input  wire  aud_48_in_clk,
         input  wire  reset_n,
-        // Clock derived outputs
-        inout  tri   ext_AUD_B_CLK,
-        inout  tri   ext_AUD_DACLR_CLK,
-        inout  tri   ext_AUD_ADCLR_CLK,
-        output wire ext_playback_lrclk,
-        output wire ext_capture_lrclk,
-        output wire  ext_m_clk,
-        output wire  ext_shift_remote_clk // 1 = mclk derived from 44, 0 (default) mclk derived from 48
+// Clock derived outputs
+        inout  tri   ext_AUD_BCLK,
+        inout  tri   ext_AUD_DACLRCLK,
+        inout  tri   ext_AUD_ADCLRCLK,
+        output wire  ext_playback_lrclk,
+        output wire  ext_shift_remoteclk,
+        output wire  i2s_enable_o,
+        output wire  ext_mclk,
+        output wire  ext_capture_lrclk
 
-		// User ports ends
-		// Do not modify the ports beyond this line
+// User ports ends
+// Do not modify the ports beyond this line
 
 
-	);
+    );
 // Instantiation of core
-	audio_clk_mux_ip_v1_1_core # () 
-	audio_clk_mux_ip_v1_1_core_inst (
-	    .samplerate(samplerate),
-	    .sync_clk(sync_clk),
-	    .ext_clk44_clkin(ext_clk44_clkin),
-        .ext_clk48_clkin(ext_clk48_clkin),
+    audio_clk_mux_ip_v1_1_core # () 
+    audio_clk_mux_ip_v1_1_core_inst (
+        .run(run),
+        .samplerate(samplerate),
+        .i2s_enable_i(i2s_enable_i),
+        .sync_clk(sync_clk),
+        .aud_44_in_clk(aud_44_in_clk),
+        .aud_48_in_clk(aud_48_in_clk),
         .reset_n(reset_n),
-        .ext_AUD_B_CLK(ext_AUD_B_CLK),
-        .ext_AUD_DACLR_CLK(ext_AUD_DACLR_CLK),
-        .ext_AUD_ADCLR_CLK(ext_AUD_ADCLR_CLK),
+        .ext_AUD_BCLK(ext_AUD_BCLK),
+        .ext_AUD_DACLRCLK(ext_AUD_DACLRCLK),
+        .ext_AUD_ADCLRCLK(ext_AUD_ADCLRCLK),
         .ext_playback_lrclk(ext_playback_lrclk),
-        .ext_capture_lrclk(ext_capture_lrclk),
-        .ext_m_clk(ext_m_clk),
-        .ext_shift_remote_clk(ext_shift_remote_clk)
-	);
+        .ext_shift_remoteclk(ext_shift_remoteclk),
+        .i2s_enable_o(i2s_enable_o),
+        .ext_mclk(ext_mclk),
+        .ext_capture_lrclk(ext_capture_lrclk)
+    );
 
-	// Add user logic here
+// Add user logic here
 
-	// User logic ends
+// User logic ends
 
-	endmodule
+    endmodule

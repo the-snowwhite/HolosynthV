@@ -1,9 +1,9 @@
 
 `timescale 1 ns / 1 ps
 
-	module audio_clk_mux_core
-	(
-		// Users to add ports here
+    module audio_clk_mux_core
+    (
+        // Users to add ports here
 
         // Clock inputs, synthesized in PLL or external TCXOs
         input  wire  run,
@@ -11,33 +11,33 @@
         input  wire  [31:0] samplerate,
         input  wire  sync_clk,
         input  wire  aud_44_in_clk,
-        input  wire  aud_48_in_clk, // this clock, divided by mclk_devisor, should be 22.
+        input  wire  aud_48_in_clk,
         input  wire  reset_n,
         // Clock derived outputs
-        inout  tri   ext_AUD_B_CLK,
-        inout  tri   ext_AUD_DACLR_CLK,
-        inout  tri   ext_AUD_ADCLR_CLK,
-        output wire  ext_playback_lr_clk,
-        output wire  ext_shift_remote_clk, // 1 = mclk derived from 44, 0 (default) mclk derived from 48
+        inout  tri   ext_AUD_BCLK,
+        inout  tri   ext_AUD_DACLRCLK,
+        inout  tri   ext_AUD_ADCLRCLK,
+        output wire  ext_playback_lrclk,
+        output wire  ext_shift_remoteclk,
         output wire  i2s_enable_o,
-        output wire  ext_m_clk,
-        output wire  ext_capture_lr_clk
+        output wire  ext_mclk,
+        output wire  ext_capture_lrclk
 
-		// User ports ends
-		// Do not modify the ports beyond this line
-	);
+        // User ports ends
+        // Do not modify the ports beyond this line
+    );
 
 // Add user logic here
 
-	reg [31:0]	slv_reg0;
+    reg [31:0]	slv_reg0;
     reg [31:0]  slv_reg4;
 
     reg [31:0]  cur_samplerate;
     
-	wire slv_reg_wren;
-	reg [2:0] wren_dly;
+    wire slv_reg_wren;
+    reg [2:0] wren_dly;
 
-	wire aud_clk_muxed;
+    wire aud_clk_muxed;
     reg samplerate_is_48;
 
     wire bclk;
@@ -74,9 +74,9 @@
     wire reset_48_n;
     wire cmd_reg2_48_wr;
 */    
-    wire ext_AUD_B_CLK_sig;
-    wire ext_AUD_DACLR_CLK_sig;
-    wire ext_AUD_ADCLR_CLK_sig;
+    wire ext_AUD_BCLK_sig;
+    wire ext_AUD_DACLRCLK_sig;
+    wire ext_AUD_ADCLRCLK_sig;
     
     // IOBUF: Single-ended Bi-directional Buffer
     // All devices
@@ -87,9 +87,9 @@
         .IOSTANDARD("DEFAULT"), // Specify the I/O standard
         .SLEW("SLOW") // Specify the output slew rate
     ) IOBUF_inst1 (
-        .O(ext_AUD_B_CLK_sig),// Buffer output
-        .IO(ext_AUD_B_CLK),// Buffer inout port (connect directly to top-level port)
-        .I(ext_shift_remote_clk),  // Buffer input
+        .O(ext_AUD_BCLK_sig),// Buffer output
+        .IO(ext_AUD_BCLK),// Buffer inout port (connect directly to top-level port)
+        .I(ext_shift_remoteclk),  // Buffer input
         .T(~master_slave_mode) // 3-state enable input, high=input, low=output
     );
     // End of IOBUF_inst instantiation
@@ -100,8 +100,8 @@
         .IOSTANDARD("DEFAULT"), // Specify the I/O standard
         .SLEW("SLOW") // Specify the output slew rate
     ) IOBUF_inst2 (
-        .O(ext_AUD_DACLR_CLK_sig),// Buffer output
-        .IO(ext_AUD_DACLR_CLK),// Buffer inout port (connect directly to top-level port)
+        .O(ext_AUD_DACLRCLK_sig),// Buffer output
+        .IO(ext_AUD_DACLRCLK),// Buffer inout port (connect directly to top-level port)
         .I(playback_lrclk),  // Buffer input
         .T(~master_slave_mode) // 3-state enable input, high=input, low=output
     );
@@ -113,8 +113,8 @@
         .IOSTANDARD("DEFAULT"), // Specify the I/O standard
         .SLEW("SLOW") // Specify the output slew rate
     ) IOBUF_inst3 (
-        .O(ext_AUD_ADCLR_CLK_sig),// Buffer output
-        .IO(ext_AUD_ADCLR_CLK),// Buffer inout port (connect directly to top-level port)
+        .O(ext_AUD_ADCLRCLK_sig),// Buffer output
+        .IO(ext_AUD_ADCLRCLK),// Buffer inout port (connect directly to top-level port)
         .I(capture_lrclk),  // Buffer input
         .T(~master_slave_mode) // 3-state enable input, high=input, low=output
     );
@@ -132,7 +132,7 @@
     * lrclk_divisor = 23 (divide by (23*16+15+1)*2=768 => lrclk = 0.0441MHz slv_reg4 --> cmd_reg2[15:8] && cmd_reg2[7:0]
     */
 
-   	always @( posedge sync_clk )
+    always @( posedge sync_clk )
     begin
         if (samplerate == 32'd48000) begin
             samplerate_is_48 <= 1'b1;
@@ -172,30 +172,30 @@
             end
         end 
     end  
- 
+
 // input mux
 
-   // BUFGMUX_CTRL: 2-to-1 General Clock MUX Buffer
-   //               Virtex UltraScale+
-   // Xilinx HDL Language Template, version 2019.2
+// BUFGMUX_CTRL: 2-to-1 General Clock MUX Buffer
+//               Virtex UltraScale+
+// Xilinx HDL Language Template, version 2019.2
 
-   BUFGMUX_CTRL BUFGMUX_CTRL_inst (
-      .O(aud_clk_muxed),   // 1-bit output: Clock output
-      .I0(aud_44_in_clk), // 1-bit input: Clock input (S=0)
-      .I1(aud_48_in_clk), // 1-bit input: Clock input (S=1)
-      .S(samplerate_is_48)    // 1-bit input: Clock select
-   );
+BUFGMUX_CTRL BUFGMUX_CTRL_inst (
+    .O(aud_clk_muxed),   // 1-bit output: Clock output
+    .I0(aud_44_in_clk), // 1-bit input: Clock input (S=0)
+    .I1(aud_48_in_clk), // 1-bit input: Clock input (S=1)
+    .S(samplerate_is_48)    // 1-bit input: Clock select
+);
 
-   // End of BUFGMUX_CTRL_inst instantiation
+// End of BUFGMUX_CTRL_inst instantiation
     
 // Output muxes
 
-    assign ext_playback_lr_clk   = master_slave_mode ? playback_lrclk    : ext_AUD_DACLR_CLK_sig;
-    assign ext_capture_lr_clk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLR_CLK_sig;
+    assign ext_playback_lrclk   = master_slave_mode ? playback_lrclk    : ext_AUD_DACLRCLK_sig;
+    assign ext_capture_lrclk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLRCLK_sig;
 
-    assign ext_shift_remote_clk = master_slave_mode ? bclk : ext_AUD_B_CLK_sig;
-    assign playback_lrclk       = master_slave_mode ? play_lrclk : ext_playback_lr_clk;
-    assign capture_lrclk        = master_slave_mode ? cap_lrclk : ext_capture_lr_clk;
+    assign ext_shift_remoteclk = master_slave_mode ? bclk : ext_AUD_BCLK_sig;
+    assign playback_lrclk       = master_slave_mode ? play_lrclk : ext_playback_lrclk;
+    assign capture_lrclk        = master_slave_mode ? cap_lrclk : ext_capture_lrclk;
 
     // Register access
 
@@ -209,7 +209,7 @@
         .reset_n     (~slv_reg_wren),
         .cmd_reg1    (slv_reg0),
         .cmd_reg2    (slv_reg4),
-        .mclk        (ext_m_clk),
+        .mclk        (ext_mclk),
         .bclk        (bclk48),
         .lrclk_clear (cmd_reg2_48_wr),
         .lrclk1      (play_lrclk),
@@ -292,4 +292,4 @@
 */
     // User logic ends
 
-	endmodule
+    endmodule

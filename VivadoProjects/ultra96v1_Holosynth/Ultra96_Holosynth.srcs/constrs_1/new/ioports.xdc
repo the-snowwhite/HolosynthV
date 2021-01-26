@@ -1,6 +1,6 @@
-set_property PACKAGE_PIN D7 [get_ports ext_AUD_ADCLR_CLK_0]
-set_property PACKAGE_PIN F8 [get_ports ext_AUD_B_CLK_0]
-set_property PACKAGE_PIN F7 [get_ports ext_AUD_DACLR_CLK_0]
+set_property PACKAGE_PIN D7 [get_ports ext_AUD_ADCLRCLK_0]
+set_property PACKAGE_PIN F8 [get_ports ext_AUD_BCLK_0]
+set_property PACKAGE_PIN F7 [get_ports ext_AUD_DACLRCLK_0]
 set_property PACKAGE_PIN G7 [get_ports oAUD_DACDAT_0]
 
 set_property PACKAGE_PIN F6 [get_ports midi_rxd_0]
