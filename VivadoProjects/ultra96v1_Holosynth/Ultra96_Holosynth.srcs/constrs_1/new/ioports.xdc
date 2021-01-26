@@ -27,3 +27,4 @@ set_property IOSTANDARD LVCMOS18 [get_ports BT*]
 # Set the bank voltage for IO Bank 66 to 1.2V
 
 
+
