@@ -1,8 +1,8 @@
 module clk_divider #(parameter N = 8) (
     input            clk_clkin,
     input            reset_n,
-    input    [N-1:0]    max_count,
-    output reg        q
+    input [N-1:0]    max_count,
+    output reg       q
 );
     reg [N-1:0] counter;
     always @(posedge clk_clkin or negedge reset_n)

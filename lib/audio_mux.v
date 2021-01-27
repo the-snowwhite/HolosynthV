@@ -83,7 +83,7 @@ parameter AUD_BIT_DEPTH = 24
         if (write) begin
             if (address == 3'b010) jack_read_act <= datain[0];
             else if (address == 3'b011) buffersize <= datain[FIFO_WIDTH:0];
-            else if (address == 3'b100) samplerate = datain;
+            else if (address == 3'b100) samplerate <= datain;
         end    
     end
 /*    
