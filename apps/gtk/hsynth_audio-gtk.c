@@ -112,14 +112,16 @@ void jack_shutdown (void *arg)
 }
 
 
-void init_jack_client ()
+jack_client_t*  init_jack_client ()
 {
 	const char **ports;
 	const char *client_name = "hsynth_audio";
 	const char *server_name = NULL;
 	jack_options_t options = JackNullOption;
 	jack_status_t status;
+    jack_client_t* client;
     uint32_t buffersize;
+    uint32_t samplerate;
     bool success;
 	
 
@@ -175,14 +177,17 @@ void init_jack_client ()
 	/* display the current sample rate. 
 	 */
 
-	g_print ("engine sample rate: %u\n",
-		jack_get_sample_rate (client));
+	samplerate = jack_get_sample_rate (client);
+    g_print ("engine sample rate: %u\n",
+		samplerate);
 
     buffersize = jack_get_buffer_size (client);
 	g_print ("buffersize (nframes): %u\n",buffersize);
     
+    success = AudioRegSet(4,samplerate);
     success = AudioRegSet(3,buffersize);
-	/* create four ports */
+
+/* create two ports */
    
     g_print ("after AudioRegSet(3,buffersize)\n"); 
 
@@ -233,6 +238,7 @@ void init_jack_client ()
     /* keep running until stopped by the user */
     g_print ("at sleep point\n"); 
 
+    return (client);
 	//sleep (-1);
 //	while (1) {}
 //    getchar();
@@ -258,17 +264,35 @@ static void activate (GtkApplication* app,
     GtkWidget *window;
     GtkWidget *layout;
     GtkWidget *image;
-
+    GtkWidget *label;
+    GtkWidget *box;
+    
+    char msg[32]={0};
+    int samplerate;
+    jack_client_t* client;
+   
     window = gtk_application_window_new (app);
+    
     gtk_window_set_title (GTK_WINDOW (window), "Hsynth Audio");
-    gtk_window_set_default_size (GTK_WINDOW (window), 300, 209);
+    gtk_window_set_default_size (GTK_WINDOW (window), 300, 225);
     layout = gtk_layout_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER (window), layout);
+    
     gtk_widget_show(layout);
+
     image = gtk_image_new_from_file("/home/holosynth/example-clients/Hsynth_ed_tiny.jpeg");
     gtk_layout_put(GTK_LAYOUT(layout), image, 0, 0);
+    
+    client = init_jack_client();
+    samplerate = jack_get_sample_rate (client);
+    
+    g_snprintf(msg, sizeof msg, "Samplerate is \n%d Hz", samplerate);
+    label = gtk_label_new(msg);
+
+    gtk_layout_put(GTK_LAYOUT(layout), label, 0, 190);
+    
+    
     gtk_widget_show_all (window);
-    init_jack_client();
 }
 
 
