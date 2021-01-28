@@ -1,0 +1,90 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.737858",
+   "Default View_TopLeft":"-127,-355",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:9.0 TLS
+#  -string -flagsOSRD
+preplace port oAUD_DACDAT_0 -pg 1 -lvl 7 -x 2810 -y 900 -defaultsOSRD
+preplace port midi_rxd_0 -pg 1 -lvl 0 -x -20 -y 640 -defaultsOSRD
+preplace port midi_txd_0 -pg 1 -lvl 7 -x 2810 -y 140 -defaultsOSRD
+preplace port BT_ctsn -pg 1 -lvl 0 -x -20 -y 440 -defaultsOSRD
+preplace port BT_rtsn -pg 1 -lvl 7 -x 2810 -y 730 -defaultsOSRD
+preplace port ext_AUD_BCLK_0 -pg 1 -lvl 7 -x 2810 -y 750 -defaultsOSRD
+preplace port ext_AUD_DACLRCLK_0 -pg 1 -lvl 7 -x 2810 -y 770 -defaultsOSRD
+preplace port ext_AUD_ADCLRCLK_0 -pg 1 -lvl 7 -x 2810 -y 790 -defaultsOSRD
+preplace portBus Led_out -pg 1 -lvl 7 -x 2810 -y 200 -defaultsOSRD
+preplace inst rst_ps8_0_99M -pg 1 -lvl 1 -x 340 -y 100 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 6 -x 2620 -y 200 -defaultsOSRD
+preplace inst holosynth_uio -pg 1 -lvl 3 -x 1160 -y 120 -defaultsOSRD
+preplace inst holosynth_midi -pg 1 -lvl 3 -x 1160 -y 550 -defaultsOSRD
+preplace inst holosynth_audio -pg 1 -lvl 3 -x 1160 -y 300 -defaultsOSRD
+preplace inst fifo_generator_0 -pg 1 -lvl 6 -x 2620 -y 370 -defaultsOSRD
+preplace inst fifo_generator_1 -pg 1 -lvl 6 -x 2620 -y 610 -defaultsOSRD
+preplace inst audio_i2s_driver_0 -pg 1 -lvl 6 -x 2620 -y 900 -defaultsOSRD
+preplace inst audio_clk_mux_core_0 -pg 1 -lvl 5 -x 2150 -y 820 -defaultsOSRD
+preplace inst audio_mux_0 -pg 1 -lvl 4 -x 1610 -y 300 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1610 -y 860 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 4 -x 1610 -y 750 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 4 -x 1610 -y 510 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 320 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 2 -x 830 -y 290 -defaultsOSRD
+preplace inst holosynth_0 -pg 1 -lvl 5 -x 2150 -y 240 -defaultsOSRD
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 20 460 680 400 1010 400 1400 580 1900 600 2440
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 440 650
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 5 690 140 980 30 1290J 50 1850 950 2380J
+preplace netloc audio_i2s_driver_0_oAUD_DACDAT 1 6 1 NJ 900
+preplace netloc audio_clk_mux_ip_0_ext_playback_lrclk 1 3 3 1430 960 NJ 960 2350
+preplace netloc midi_rxd_0_1 1 0 5 10J 200 NJ 200 1000J 210 1330J 150 1920J
+preplace netloc holosynth_0_midi_txd 1 5 2 NJ 140 NJ
+preplace netloc hm2_axilite_int_0_READSTB 1 3 2 NJ 130 1930
+preplace netloc hm2_axilite_int_0_WRITESTB 1 3 2 1320J 140 1840
+preplace netloc hm2_axilite_int_0_ADDR 1 3 2 1290J 80 1950
+preplace netloc hm2_axilite_int_1_READSTB 1 3 2 1410J 450 1810
+preplace netloc hm2_axilite_int_1_WRITESTB 1 3 2 1380J 120 1860
+preplace netloc hm2_axilite_int_1_ADDR 1 3 2 1340J 100 1870
+preplace netloc hm2_axilite_int_1_IBUS 1 3 2 1350J 110 1910
+preplace netloc holosynth_0_socmidi_data_out 1 2 4 1030 640 NJ 640 NJ 640 2360
+preplace netloc xlslice_0_Dout 1 6 1 NJ 200
+preplace netloc xlconstant_0_dout 1 4 1 1890J 260n
+preplace netloc holosynth_0_lsound_out 1 5 1 2410 220n
+preplace netloc holosynth_0_rsound_out 1 5 1 2390 240n
+preplace netloc hm2_axilite_int_0_IBUS 1 3 2 1300J 90 1940
+preplace netloc holosynth_0_cpu_writedata 1 2 4 1030 20 NJ 20 NJ 20 2360
+preplace netloc emio_uart0_ctsn_0_1 1 0 2 0J 450 660
+preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 1 6 670J 390 NJ 390 1310J 70 1800J 10 NJ 10 2790J
+preplace netloc holosynth_0_active_keys 1 5 1 NJ 200
+preplace netloc holosynth_audio_READSTB 1 3 1 1370 250n
+preplace netloc audio_mux_0_dataout 1 2 3 1020 10 NJ 10 1780
+preplace netloc fifo_generator_0_dout 1 3 3 1420 40 NJ 40 2440J
+preplace netloc fifo_generator_1_dout 1 3 3 1420 620 NJ 620 NJ
+preplace netloc holosynth_0_xxxx_zero 1 4 2 1820 450 2450
+preplace netloc audio_mux_0_l_read 1 4 2 1840 440 2400J
+preplace netloc audio_mux_0_r_read 1 4 2 1830 590 2420J
+preplace netloc holosynth_audio_IBUS 1 3 1 N 290
+preplace netloc holosynth_audio_WRITESTB 1 3 1 1390 270n
+preplace netloc clk_wiz_1_clk_out1 1 4 1 1880 120n
+preplace netloc holosynth_0_xxxx_top 1 3 3 1410 30 NJ 30 2350
+preplace netloc audio_mux_0_trig 1 4 1 1800 180n
+preplace netloc holosynth_0_run 1 3 3 1440 570 1790 610 2350
+preplace netloc audio_mux_0_i2s_enable 1 4 1 1800 340n
+preplace netloc clk_wiz_0_clk_out1 1 4 1 1940 840n
+preplace netloc clk_wiz_0_clk_out2 1 4 1 1940 860n
+preplace netloc audio_mux_0_samplerate 1 4 1 1780 360n
+preplace netloc holosynth_0_xxxx_zero_clk 1 5 1 2430 260n
+preplace netloc audio_clk_mux_core_0_ext_shift_remote_clk 1 5 1 2370 830n
+preplace netloc audio_clk_mux_core_0_i2s_enable_o 1 5 1 2360 850n
+preplace netloc Net 1 5 2 NJ 750 NJ
+preplace netloc Net1 1 5 2 NJ 770 NJ
+preplace netloc Net2 1 5 2 NJ 790 NJ
+preplace netloc holosynth_audio_ADDR 1 3 1 1360 230n
+preplace netloc smartconnect_0_M02_AXI 1 2 1 970 310n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 1 1 N 280
+preplace netloc smartconnect_0_M01_AXI 1 2 1 990 90n
+preplace netloc smartconnect_0_M00_AXI 1 2 1 N 270
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 260
+levelinfo -pg 1 -20 340 830 1160 1610 2150 2620 2810
+pagesize -pg 1 -db -bbox -sgen -150 0 3030 1010
+"
+}
+0

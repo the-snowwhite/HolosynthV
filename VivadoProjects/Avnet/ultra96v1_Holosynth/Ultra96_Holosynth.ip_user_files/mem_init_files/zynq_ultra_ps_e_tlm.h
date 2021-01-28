@@ -59,6 +59,32 @@
 #include <vector>
 #include "genattr.h"
 #include "xilinx_zynqmp.h"
+#include "b_transport_converter.h"
+
+/***************************************************************************************
+*
+* A Simple Converter which converts Remote-port's simplae_intiator_sockets<32>->b_transport()
+* calls to xTLM sockets bn_transport_x() calls..
+* 
+* This is Only specific to remote-port so not creating seperate header for it.
+*
+***************************************************************************************/
+template <int IN_WIDTH, int OUT_WIDTH>
+class rptlm2xtlm_converter : public sc_module{
+    public:
+    tlm::tlm_target_socket<IN_WIDTH> target_socket;
+    xtlm::xtlm_aximm_initiator_socket wr_socket;
+    xtlm::xtlm_aximm_initiator_socket rd_socket;
+    rptlm2xtlm_converter<IN_WIDTH, OUT_WIDTH>(sc_module_name name);//:sc_module(name)
+	void registerUserExtensionHandlerCallback(
+			void (*callback)(xtlm::aximm_payload*,
+					const tlm::tlm_generic_payload*));
+
+    private:
+    b_transport_converter<IN_WIDTH, OUT_WIDTH> m_btrans_conv;
+    xtlm::xaximm_tlm2xtlm_t<OUT_WIDTH> xtlm_bridge;
+};
+
 
 /***************************************************************************************
 *   Global method, get registered with tlm2xtlm bridge
@@ -70,36 +96,7 @@
 *
 *
 ***************************************************************************************/
-void get_extensions_from_tlm(xtlm::aximm_payload* xtlm_pay, const tlm::tlm_generic_payload* gp)
-{
-    if((xtlm_pay == NULL) || (gp == NULL))
-        return;
-    if((gp->get_command() == tlm::TLM_WRITE_COMMAND) && (xtlm_pay->get_awuser_size() > 0))
-    {
-        genattr_extension* ext = NULL;
-        gp->get_extension(ext);
-        if(ext == NULL)
-            return;
-        //Portion of master ID(master_id[5:0]) are transfered on AxUSER bits(refere Zynq UltraScale+ TRM page.no:414)
-        uint32_t val = ext->get_master_id() && 0x3F;
-        unsigned char* ptr = xtlm_pay->get_awuser_ptr();
-        unsigned int size  = xtlm_pay->get_awuser_size();
-        *ptr = (unsigned char)val;
-
-    }
-    else if((gp->get_command() == tlm::TLM_READ_COMMAND) && (xtlm_pay->get_aruser_size() > 0))
-    {
-        genattr_extension* ext = NULL;
-        gp->get_extension(ext);
-        if(ext == NULL)
-            return;
-        //Portion of master ID(master_id[5:0]) are transfered on AxUSER bits(refere Zynq UltraScale+ TRM page.no:414)
-        uint32_t val = ext->get_master_id() && 0x3F;
-        unsigned char* ptr = xtlm_pay->get_aruser_ptr();
-        unsigned int size  = xtlm_pay->get_aruser_size();
-        *ptr = (unsigned char)val;
-    }
-}
+extern void get_extensions_from_tlm(xtlm::aximm_payload* xtlm_pay, const tlm::tlm_generic_payload* gp);
 
 /***************************************************************************************
 *   Global method, get registered with xtlm2tlm bridge
@@ -111,25 +108,7 @@ void get_extensions_from_tlm(xtlm::aximm_payload* xtlm_pay, const tlm::tlm_gener
 *
 *
 ***************************************************************************************/
-void add_extensions_to_tlm(const xtlm::aximm_payload* xtlm_pay, tlm::tlm_generic_payload* gp)
-{
-    if(gp == NULL)
-        return;
-    uint8_t val = 0;
-    if((gp->get_command() != tlm::TLM_WRITE_COMMAND) && (gp->get_command() != tlm::TLM_READ_COMMAND))
-        return;
-    //portion of master ID bits(master_id[5:0]) are derived from the AXI ID(AWID/ARID). (refere Zynq UltraScale+ TRM page.no:414,415)
-    //val = (*(uint8_t*)(xtlm_pay->get_axi_id())) && 0x3F;
-    genattr_extension* ext = new genattr_extension;
-    ext->set_master_id(val);
-    gp->set_extension(ext);    
-    gp->set_streaming_width(gp->get_data_length());
-    if(gp->get_command() != tlm::TLM_WRITE_COMMAND)
-    {
-        gp->set_byte_enable_length(0);
-        gp->set_byte_enable_ptr(0);
-    }
-}
+extern void add_extensions_to_tlm(const xtlm::aximm_payload* xtlm_pay, tlm::tlm_generic_payload* gp);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,6 +133,12 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     // Non-AXI ports are declared here
     sc_core::sc_in<bool> maxihpm0_fpd_aclk;
     sc_core::sc_in<bool> maxihpm1_fpd_aclk;
+    sc_core::sc_in<bool> emio_uart0_ctsn;
+    sc_core::sc_out<bool> emio_uart0_rtsn;
+    sc_core::sc_in<bool> emio_uart0_dsrn;
+    sc_core::sc_in<bool> emio_uart0_dcdn;
+    sc_core::sc_in<bool> emio_uart0_rin;
+    sc_core::sc_out<bool> emio_uart0_dtrn;
     sc_core::sc_in<sc_dt::sc_bv<1> >  pl_ps_irq0;
     sc_core::sc_out<bool> pl_resetn0;
     sc_core::sc_out<bool> pl_clk0;
@@ -174,84 +159,11 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     // 3. reference to map object of name and string value pairs
     // All the model parameters (integer and string) which are configuration parameters 
     // of ZynqUltraScale+ IP propogated from Vivado
-    zynq_ultra_ps_e_tlm(sc_core::sc_module_name name,
-    xsc::common::properties&): sc_module(name)//registering module name with parent
-        ,maxihpm0_fpd_aclk("maxihpm0_fpd_aclk")
-        ,maxihpm1_fpd_aclk("maxihpm1_fpd_aclk")
-        ,pl_ps_irq0("pl_ps_irq0")
-        ,pl_resetn0("pl_resetn0")
-        ,pl_clk0("pl_clk0")
-        ,pl_clk0_clk("pl_clk0_clk", sc_time(20.0,sc_core::SC_NS))//clock period in nanoseconds = 1000/freq(in MZ)
-    {
-        //creating instances of xtlm slave sockets
-
-        //creating instances of xtlm master sockets
-        M_AXI_HPM0_FPD_wr_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_HPM0_FPD_wr_socket", 128);
-        M_AXI_HPM0_FPD_rd_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_HPM0_FPD_rd_socket", 128);
-        M_AXI_HPM1_FPD_wr_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_HPM1_FPD_wr_socket", 128);
-        M_AXI_HPM1_FPD_rd_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_HPM1_FPD_rd_socket", 128);
-
-        char* tcpip_addr = getenv("COSIM_MACHINE_TCPIP_ADDRESS");
-        if(tcpip_addr == NULL)  {
-            tcpip_addr = "NO_IP_ADDRESS";
-            //std::cerr << "ERROR: Environment Variable COSIM_MACHINE_TCPIP_ADDRESS is not specified.\n Please Specify COSIM_MACHINE_TCPIP_ADDRESS for TCP Socket Communication.\n" << std::endl;
-            //exit(0);
-        }
-        char* skt_name = strdup(tcpip_addr);
-        m_zynqmp_tlm_model = new xilinx_zynqmp("xilinx_zynqmp",skt_name);
-
-        m_xtlm2tlm = new xtlm::xaximm_xtlm2tlm*[9];
-        m_tlm2xtlm = new xtlm::xaximm_tlm2xtlm*[3];
-        for(int index = 0; index < 9; index++)  {
-            m_xtlm2tlm[index] = NULL;
-            if(index < 3)
-                m_tlm2xtlm[index] = NULL;
-        }
-
-        
-        //instantiating TLM2XTLM bridge and stiching it between 
-        //s_axi_hpm_fpd[0] initiator socket of zynqmp Qemu tlm wrapper to M_AXI_HPM0_FPD_wr_socket/rd_socket sockets 
-        m_tlm2xtlm[0] = new xtlm::xaximm_tlm2xtlm("M_AXI_HPM0_FPD_tlm2xtlm_bg",128);
-        m_tlm2xtlm[0]->wr_socket->bind(*M_AXI_HPM0_FPD_wr_socket);
-        m_tlm2xtlm[0]->rd_socket->bind(*M_AXI_HPM0_FPD_rd_socket);
-        m_tlm2xtlm[0]->target_socket.bind(*m_zynqmp_tlm_model->s_axi_hpm_fpd[0]);
-
-        //instantiating TLM2XTLM bridge and stiching it between 
-        //s_axi_hpm_fpd[1] initiator socket of zynqmp Qemu tlm wrapper to M_AXI_HPM1_FPD_wr_socket/rd_socket sockets 
-        m_tlm2xtlm[1] = new xtlm::xaximm_tlm2xtlm("M_AXI_HPM1_FPD_tlm2xtlm_bg",128);
-        m_tlm2xtlm[1]->wr_socket->bind(*M_AXI_HPM1_FPD_wr_socket);
-        m_tlm2xtlm[1]->rd_socket->bind(*M_AXI_HPM1_FPD_rd_socket);
-        m_tlm2xtlm[1]->target_socket.bind(*m_zynqmp_tlm_model->s_axi_hpm_fpd[1]);
-
-        m_zynqmp_tlm_model->tie_off();
-
- 
-        SC_METHOD(pl_ps_irq0_method);
-        sensitive << pl_ps_irq0 ;
-        dont_initialize();
-
-        SC_METHOD(trigger_pl_clk0_pin);
-        sensitive << pl_clk0_clk;
-        dont_initialize();
-        
-        m_tlm2xtlm[0]->registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
-        m_tlm2xtlm[1]->registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
-
-        m_zynqmp_tlm_model->rst(qemu_rst);
-
-    }
-    ~zynq_ultra_ps_e_tlm()    {
-        //deleteing dynamically created objects 
-        delete M_AXI_HPM0_FPD_wr_socket;
-        delete M_AXI_HPM0_FPD_rd_socket;
-        delete M_AXI_HPM1_FPD_wr_socket;
-        delete M_AXI_HPM1_FPD_rd_socket;
-        delete m_tlm2xtlm[0];
-        delete m_tlm2xtlm[1];
-        delete[] m_tlm2xtlm;
-        delete[] m_xtlm2tlm;
-    }
-    SC_HAS_PROCESS(zynq_ultra_ps_e_tlm);
+    zynq_ultra_ps_e_tlm (sc_core::sc_module_name name,
+    xsc::common_cpp::properties&);
+    
+    ~zynq_ultra_ps_e_tlm ();
+    SC_HAS_PROCESS( zynq_ultra_ps_e_tlm );
 
     private:
     
@@ -260,21 +172,20 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     //and input/output ports at signal level
     xilinx_zynqmp* m_zynqmp_tlm_model;
 
-    // Array of Xtlm2tlm Bridges
+    // Xtlm2tlm_t Bridges
     // Converts Xtlm transactions to tlm transactions
     // Bridge's Xtlm wr/rd target sockets binds with 
     // xtlm initiator sockets of zynq_ultra_ps_e_tlm and tlm simple initiator 
     // socket with xilinx_zynqmp's target socket
-    // Array of size 9 
-    xtlm::xaximm_xtlm2tlm **m_xtlm2tlm;
 
-    // Array of tlm2xtlm Bridges
-    // Converts tlm transactions to xtlm transactions
+    // This Bridges converts b_transport to nb_transports and also
+    // Converts tlm transactions to xtlm transactions.
     // Bridge's tlm simple target socket binds with 
     // simple initiator socket of xilinx_zynqmp and xtlm 
     // socket with xilinx_zynqmp's simple target socket
-    // Array of size 3
-    xtlm::xaximm_tlm2xtlm **m_tlm2xtlm;
+    rptlm2xtlm_converter<32, 128 > m_rp_bridge_M_AXI_HPM0_FPD;     
+    rptlm2xtlm_converter<32, 128 > m_rp_bridge_M_AXI_HPM1_FPD;     
+    
 
     // sc_clocks for generating pl clocks
     // output pins pl_clk0..3 are drived by these clocks
@@ -283,34 +194,15 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     
     //Method which is sentive to pl_clk0_clk sc_clock object
     //pl_clk0 pin written based on pl_clk0_clk clock value 
-    void trigger_pl_clk0_pin()    {
-        pl_clk0.write(pl_clk0_clk.read());
-    }
+    void trigger_pl_clk0_pin();
 
-    void pl_ps_irq0_method()    {
-        int irq = ((pl_ps_irq0.read().to_uint()) & 0xFF);
-        for(int i = 0; i <8; i++)   {
-            if(irq & (0x1<<i))  {
-                m_zynqmp_tlm_model->pl2ps_irq[i].write(true);
-            }
-            else{
-                m_zynqmp_tlm_model->pl2ps_irq[i].write(false);
-            }
-        }
-    }
+    void pl_ps_irq0_method();
     //pl_resetn0 output reset pin get toggle when emio bank 2's 31th signal gets toggled
     //EMIO[2] bank 31th(GPIO[95] signal)acts as reset signal to the PL(refer Zynq UltraScale+ TRM, page no:761)
-    void pl_resetn0_trigger()   {
-        pl_resetn0.write(m_zynqmp_tlm_model->emio[2]->out[31].read());
-    }
+    void pl_resetn0_trigger();
 
     sc_signal<bool> qemu_rst;
-    void start_of_simulation()
-    {
-    //temporary fix to drive the enabled reset pin 
-        pl_resetn0.write(true);
-        qemu_rst.write(false);
-    }
+    void start_of_simulation();
 
     
 };

@@ -4787,11 +4787,11 @@ set psu_ddr_init_data {
 		# Register : GPR1 @ 0XFD0800C4</p>
 
 		# General Purpose Register 1
-		# PSU_DDR_PHY_GPR1_GPR1                                                           0xe0
+		# PSU_DDR_PHY_GPR1_GPR1                                                           0xe3
 
 		# General Purpose Register 1
-		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E0U)  */
-    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000E0
+		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E3U)  */
+    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000E3
 		# Register : DCR @ 0XFD080100</p>
 
 		# DDR4 Gear Down Timing.
@@ -16213,6 +16213,7 @@ set psu_serdes_init_data {
 		# eq dynamic offset correction
 		#(OFFSET, MASK, VALUE)      (0XFD40D978, 0x00000010U ,0x00000010U)  */
     mask_write 0XFD40D978 0x00000010 0x00000010
+		# : SERDES ILL CALIB
 		# : DISABLE ECO FOR PCIE
 		# : GT LANE SETTINGS
 		# Register : ICM_CFG0 @ 0XFD410010</p>
@@ -17433,7 +17434,7 @@ poll 0xFD070018 0x00000001 0
 mwr -force  0xFD070014 0x00000B36
 mwr -force  0xFD070010 0x80000038
 poll 0xFD070018 0x00000001 0 
-mwr -force  0xFD070014 0x00000C21
+mwr -force  0xFD070014 0x00000C56
 mwr -force  0xFD070010 0x80000038
 poll 0xFD070018 0x00000001 0 
 mwr -force  0xFD070014 0x00000E6F
