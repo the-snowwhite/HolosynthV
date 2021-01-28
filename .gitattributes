@@ -1,4 +1,4 @@
-VivadoProjects/ultra96v1-holosynthv-2019.2.bsp filter=lfs diff=lfs merge=lfs -text
-VivadoProjects/ultra96v1-holosynthv-petalinux.bsp filter=lfs diff=lfs merge=lfs -text
-VivadoProjects/ultra96v1-holosynthv-2019.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
-VivadoProjects/ultra96v1-holosynthv-petalinux.tar.bz2 filter=lfs diff=lfs merge=lfs -text
+**/ultra96v1-holosynthv-2019.2.bsp filter=lfs diff=lfs merge=lfs -text
+**/ultra96v1-holosynthv-petalinux.bsp filter=lfs diff=lfs merge=lfs -text
+**/ultra96v1-holosynthv-2019.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
+**/ultra96v1-holosynthv-petalinux.tar.bz2 filter=lfs diff=lfs merge=lfs -text
