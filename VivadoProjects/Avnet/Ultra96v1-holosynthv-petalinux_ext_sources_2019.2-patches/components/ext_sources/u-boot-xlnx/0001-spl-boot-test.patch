@@ -1,0 +1,43 @@
+From 5e3a31c9640619d073a3ea2d6fd8e20800d2a31d Mon Sep 17 00:00:00 2001
+From: Michael Brown <producer@holotronic.dk>
+Date: Sat, 28 Mar 2020 18:01:27 +0100
+Subject: [PATCH 1/3] spl boot test
+
+Signed-off-by: Michael Brown <producer@holotronic.dk>
+---
+ configs/avnet_ultra96_rev1_defconfig | 4 ++++
+ tools/zynqmp_pm_cfg_obj_convert.py   | 3 +--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/configs/avnet_ultra96_rev1_defconfig b/configs/avnet_ultra96_rev1_defconfig
+index f6d583083b..141391dbeb 100644
+--- a/configs/avnet_ultra96_rev1_defconfig
++++ b/configs/avnet_ultra96_rev1_defconfig
+@@ -86,6 +86,10 @@ CONFIG_USB_ETHER=y
+ CONFIG_USB_ETH_CDC=y
+ CONFIG_USB_HOST_ETHER=y
+ CONFIG_USB_ETHER_ASIX=y
++CONFIG_USB_ETHER_ASIX88179=y
+ CONFIG_SPL_GZIP=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
+ CONFIG_EFI_LOADER_BOUNCE_BUFFER=y
++CONFIG_ZYNQMP_SPL_PM_CFG_OBJ_FILE=/home/mib/Projects/u-boot_build_files/pm_cfg_obj
++CONFIG_CMD_SAVEENV=y
++CONFIG_ENV_IS_IN_FAT=y
+diff --git a/tools/zynqmp_pm_cfg_obj_convert.py b/tools/zynqmp_pm_cfg_obj_convert.py
+index dd27f47921..7bb660f9bc 100755
+--- a/tools/zynqmp_pm_cfg_obj_convert.py
++++ b/tools/zynqmp_pm_cfg_obj_convert.py
+@@ -289,8 +289,7 @@ code = in_file.read()
+ code = re.sub('//.*?\n|/\*.*?\*/', '', code, flags=re.DOTALL)
+ 
+ # remove everything outside the XPm_ConfigObject array definition
+-code = re.search('const u32 XPm_ConfigObject.*= {\n(.*)};',
+-                 code, flags=re.DOTALL).group(1)
++code = re.search('const u32 XPm_ConfigObject.*= {\n(.*)};', code, flags=re.DOTALL).group(1)
+ 
+ # Process each comma-separated array item
+ for item in code.split(','):
+-- 
+2.25.1
+
