@@ -2189,16 +2189,58 @@
               }
             },
             "interface_nets": {
+              "S_SC_B_1": {
+                "interface_ports": [
+                  "S_SC_B",
+                  "i_b_node/S_SC"
+                ]
+              },
               "i_aw_node_M_AXIS_ARB": {
                 "interface_ports": [
                   "i_aw_node/M_AXIS_ARB",
                   "i_w_node/S_AXIS_ARB"
                 ]
               },
-              "S_SC_B_1": {
+              "S_SC_AR_1": {
                 "interface_ports": [
-                  "S_SC_B",
-                  "i_b_node/S_SC"
+                  "S_SC_AR",
+                  "i_ar_node/S_SC"
+                ]
+              },
+              "i_ar_node_M_SC": {
+                "interface_ports": [
+                  "M_SC_AR",
+                  "i_ar_node/M_SC"
+                ]
+              },
+              "i_r_node_M_SC": {
+                "interface_ports": [
+                  "M_SC_R",
+                  "i_r_node/M_SC"
+                ]
+              },
+              "S_SC_R_1": {
+                "interface_ports": [
+                  "S_SC_R",
+                  "i_r_node/S_SC"
+                ]
+              },
+              "i_aw_node_M_SC": {
+                "interface_ports": [
+                  "M_SC_AW",
+                  "i_aw_node/M_SC"
+                ]
+              },
+              "S_SC_AW_1": {
+                "interface_ports": [
+                  "S_SC_AW",
+                  "i_aw_node/S_SC"
+                ]
+              },
+              "i_w_node_M_SC": {
+                "interface_ports": [
+                  "M_SC_W",
+                  "i_w_node/M_SC"
                 ]
               },
               "S_SC_W_1": {
@@ -2211,48 +2253,6 @@
                 "interface_ports": [
                   "M_SC_B",
                   "i_b_node/M_SC"
-                ]
-              },
-              "S_SC_R_1": {
-                "interface_ports": [
-                  "S_SC_R",
-                  "i_r_node/S_SC"
-                ]
-              },
-              "i_w_node_M_SC": {
-                "interface_ports": [
-                  "M_SC_W",
-                  "i_w_node/M_SC"
-                ]
-              },
-              "S_SC_AW_1": {
-                "interface_ports": [
-                  "S_SC_AW",
-                  "i_aw_node/S_SC"
-                ]
-              },
-              "i_aw_node_M_SC": {
-                "interface_ports": [
-                  "M_SC_AW",
-                  "i_aw_node/M_SC"
-                ]
-              },
-              "i_r_node_M_SC": {
-                "interface_ports": [
-                  "M_SC_R",
-                  "i_r_node/M_SC"
-                ]
-              },
-              "i_ar_node_M_SC": {
-                "interface_ports": [
-                  "M_SC_AR",
-                  "i_ar_node/M_SC"
-                ]
-              },
-              "S_SC_AR_1": {
-                "interface_ports": [
-                  "S_SC_AR",
-                  "i_ar_node/S_SC"
                 ]
               }
             },
@@ -2301,76 +2301,58 @@
           }
         },
         "interface_nets": {
-          "b_la_out_swbd_M00_SC": {
-            "interface_ports": [
-              "b_la_out_swbd/M00_SC",
-              "i_nodes/S_SC_B"
-            ]
-          },
-          "r_la_out_swbd_M00_SC": {
-            "interface_ports": [
-              "r_la_out_swbd/M00_SC",
-              "i_nodes/S_SC_R"
-            ]
-          },
-          "i_nodes_M_SC_W": {
-            "interface_ports": [
-              "w_la_out_swbd/S00_SC",
-              "i_nodes/M_SC_W"
-            ]
-          },
-          "i_nodes_M_SC_AW": {
-            "interface_ports": [
-              "aw_la_out_swbd/S00_SC",
-              "i_nodes/M_SC_AW"
-            ]
-          },
-          "i_nodes_M_SC_AR": {
-            "interface_ports": [
-              "ar_la_out_swbd/S00_SC",
-              "i_nodes/M_SC_AR"
-            ]
-          },
-          "i_nodes_M_SC_B": {
-            "interface_ports": [
-              "b_la_in_swbd/S00_SC",
-              "i_nodes/M_SC_B"
-            ]
-          },
-          "i_nodes_M_SC_R": {
-            "interface_ports": [
-              "r_la_in_swbd/S00_SC",
-              "i_nodes/M_SC_R"
-            ]
-          },
-          "w_la_in_swbd_M00_SC": {
-            "interface_ports": [
-              "w_la_in_swbd/M00_SC",
-              "i_nodes/S_SC_W"
-            ]
-          },
-          "aw_la_in_swbd_M00_SC": {
-            "interface_ports": [
-              "aw_la_in_swbd/M00_SC",
-              "i_nodes/S_SC_AW"
-            ]
-          },
-          "ar_la_in_swbd_M00_SC": {
-            "interface_ports": [
-              "ar_la_in_swbd/M00_SC",
-              "i_nodes/S_SC_AR"
-            ]
-          },
-          "w_la_out_swbd_M02_SC": {
-            "interface_ports": [
-              "M02_SC_W",
-              "w_la_out_swbd/M02_SC"
-            ]
-          },
           "w_la_out_swbd_M01_SC": {
             "interface_ports": [
               "M01_SC_W",
               "w_la_out_swbd/M01_SC"
+            ]
+          },
+          "w_la_out_swbd_M00_SC": {
+            "interface_ports": [
+              "M00_SC_W",
+              "w_la_out_swbd/M00_SC"
+            ]
+          },
+          "ar_la_out_swbd_M00_SC": {
+            "interface_ports": [
+              "M00_SC_AR",
+              "ar_la_out_swbd/M00_SC"
+            ]
+          },
+          "ar_la_out_swbd_M01_SC": {
+            "interface_ports": [
+              "M01_SC_AR",
+              "ar_la_out_swbd/M01_SC"
+            ]
+          },
+          "ar_la_out_swbd_M02_SC": {
+            "interface_ports": [
+              "M02_SC_AR",
+              "ar_la_out_swbd/M02_SC"
+            ]
+          },
+          "aw_la_out_swbd_M00_SC": {
+            "interface_ports": [
+              "M00_SC_AW",
+              "aw_la_out_swbd/M00_SC"
+            ]
+          },
+          "aw_la_out_swbd_M01_SC": {
+            "interface_ports": [
+              "M01_SC_AW",
+              "aw_la_out_swbd/M01_SC"
+            ]
+          },
+          "aw_la_out_swbd_M02_SC": {
+            "interface_ports": [
+              "M02_SC_AW",
+              "aw_la_out_swbd/M02_SC"
+            ]
+          },
+          "S01_SC_B_1": {
+            "interface_ports": [
+              "S01_SC_B",
+              "b_la_out_swbd/S01_SC"
             ]
           },
           "S02_SC_B_1": {
@@ -2385,70 +2367,10 @@
               "r_la_out_swbd/S00_SC"
             ]
           },
-          "S01_SC_B_1": {
+          "S01_SC_R_1": {
             "interface_ports": [
-              "S01_SC_B",
-              "b_la_out_swbd/S01_SC"
-            ]
-          },
-          "aw_la_out_swbd_M02_SC": {
-            "interface_ports": [
-              "M02_SC_AW",
-              "aw_la_out_swbd/M02_SC"
-            ]
-          },
-          "aw_la_out_swbd_M01_SC": {
-            "interface_ports": [
-              "M01_SC_AW",
-              "aw_la_out_swbd/M01_SC"
-            ]
-          },
-          "aw_la_out_swbd_M00_SC": {
-            "interface_ports": [
-              "M00_SC_AW",
-              "aw_la_out_swbd/M00_SC"
-            ]
-          },
-          "ar_la_out_swbd_M02_SC": {
-            "interface_ports": [
-              "M02_SC_AR",
-              "ar_la_out_swbd/M02_SC"
-            ]
-          },
-          "ar_la_out_swbd_M01_SC": {
-            "interface_ports": [
-              "M01_SC_AR",
-              "ar_la_out_swbd/M01_SC"
-            ]
-          },
-          "ar_la_out_swbd_M00_SC": {
-            "interface_ports": [
-              "M00_SC_AR",
-              "ar_la_out_swbd/M00_SC"
-            ]
-          },
-          "S01_SC_W_1": {
-            "interface_ports": [
-              "S01_SC_W",
-              "w_la_in_swbd/S01_SC"
-            ]
-          },
-          "S00_SC_W_1": {
-            "interface_ports": [
-              "S00_SC_W",
-              "w_la_in_swbd/S00_SC"
-            ]
-          },
-          "r_la_in_swbd_M01_SC": {
-            "interface_ports": [
-              "M01_SC_R",
-              "r_la_in_swbd/M01_SC"
-            ]
-          },
-          "w_la_out_swbd_M00_SC": {
-            "interface_ports": [
-              "M00_SC_W",
-              "w_la_out_swbd/M00_SC"
+              "S01_SC_R",
+              "r_la_out_swbd/S01_SC"
             ]
           },
           "S02_SC_R_1": {
@@ -2457,22 +2379,34 @@
               "r_la_out_swbd/S02_SC"
             ]
           },
-          "S01_SC_R_1": {
+          "w_la_out_swbd_M02_SC": {
             "interface_ports": [
-              "S01_SC_R",
-              "r_la_out_swbd/S01_SC"
+              "M02_SC_W",
+              "w_la_out_swbd/M02_SC"
             ]
           },
-          "S00_SC_AR_1": {
+          "ar_la_in_swbd_M00_SC": {
             "interface_ports": [
-              "S00_SC_AR",
-              "ar_la_in_swbd/S00_SC"
+              "ar_la_in_swbd/M00_SC",
+              "i_nodes/S_SC_AR"
             ]
           },
-          "S01_SC_AR_1": {
+          "aw_la_in_swbd_M00_SC": {
             "interface_ports": [
-              "S01_SC_AR",
-              "ar_la_in_swbd/S01_SC"
+              "aw_la_in_swbd/M00_SC",
+              "i_nodes/S_SC_AW"
+            ]
+          },
+          "w_la_in_swbd_M00_SC": {
+            "interface_ports": [
+              "w_la_in_swbd/M00_SC",
+              "i_nodes/S_SC_W"
+            ]
+          },
+          "i_nodes_M_SC_R": {
+            "interface_ports": [
+              "r_la_in_swbd/S00_SC",
+              "i_nodes/M_SC_R"
             ]
           },
           "S00_SC_B_1": {
@@ -2481,22 +2415,22 @@
               "b_la_out_swbd/S00_SC"
             ]
           },
-          "r_la_in_swbd_M00_SC": {
+          "S01_SC_AR_1": {
             "interface_ports": [
-              "M00_SC_R",
-              "r_la_in_swbd/M00_SC"
+              "S01_SC_AR",
+              "ar_la_in_swbd/S01_SC"
             ]
           },
-          "b_la_in_swbd_M01_SC": {
+          "S00_SC_AR_1": {
             "interface_ports": [
-              "M01_SC_B",
-              "b_la_in_swbd/M01_SC"
+              "S00_SC_AR",
+              "ar_la_in_swbd/S00_SC"
             ]
           },
-          "b_la_in_swbd_M00_SC": {
+          "S00_SC_AW_1": {
             "interface_ports": [
-              "M00_SC_B",
-              "b_la_in_swbd/M00_SC"
+              "S00_SC_AW",
+              "aw_la_in_swbd/S00_SC"
             ]
           },
           "S01_SC_AW_1": {
@@ -2505,10 +2439,76 @@
               "aw_la_in_swbd/S01_SC"
             ]
           },
-          "S00_SC_AW_1": {
+          "b_la_in_swbd_M00_SC": {
             "interface_ports": [
-              "S00_SC_AW",
-              "aw_la_in_swbd/S00_SC"
+              "M00_SC_B",
+              "b_la_in_swbd/M00_SC"
+            ]
+          },
+          "b_la_in_swbd_M01_SC": {
+            "interface_ports": [
+              "M01_SC_B",
+              "b_la_in_swbd/M01_SC"
+            ]
+          },
+          "r_la_in_swbd_M00_SC": {
+            "interface_ports": [
+              "M00_SC_R",
+              "r_la_in_swbd/M00_SC"
+            ]
+          },
+          "r_la_in_swbd_M01_SC": {
+            "interface_ports": [
+              "M01_SC_R",
+              "r_la_in_swbd/M01_SC"
+            ]
+          },
+          "S00_SC_W_1": {
+            "interface_ports": [
+              "S00_SC_W",
+              "w_la_in_swbd/S00_SC"
+            ]
+          },
+          "S01_SC_W_1": {
+            "interface_ports": [
+              "S01_SC_W",
+              "w_la_in_swbd/S01_SC"
+            ]
+          },
+          "i_nodes_M_SC_B": {
+            "interface_ports": [
+              "b_la_in_swbd/S00_SC",
+              "i_nodes/M_SC_B"
+            ]
+          },
+          "i_nodes_M_SC_AR": {
+            "interface_ports": [
+              "ar_la_out_swbd/S00_SC",
+              "i_nodes/M_SC_AR"
+            ]
+          },
+          "i_nodes_M_SC_AW": {
+            "interface_ports": [
+              "aw_la_out_swbd/S00_SC",
+              "i_nodes/M_SC_AW"
+            ]
+          },
+          "i_nodes_M_SC_W": {
+            "interface_ports": [
+              "w_la_out_swbd/S00_SC",
+              "i_nodes/M_SC_W"
+            ]
+          },
+          "r_la_out_swbd_M00_SC": {
+            "interface_ports": [
+              "r_la_out_swbd/M00_SC",
+              "i_nodes/S_SC_R"
+            ]
+          },
+          "b_la_out_swbd_M00_SC": {
+            "interface_ports": [
+              "b_la_out_swbd/M00_SC",
+              "i_nodes/S_SC_B"
             ]
           }
         },
@@ -2918,16 +2918,16 @@
           }
         },
         "interface_nets": {
+          "s00_mmu_M_AXI": {
+            "interface_ports": [
+              "s00_mmu/M_AXI",
+              "s00_transaction_regulator/S_AXI"
+            ]
+          },
           "s_axi_1": {
             "interface_ports": [
               "s_axi",
               "s00_mmu/S_AXI"
-            ]
-          },
-          "s00_si_converter_M_AXI": {
-            "interface_ports": [
-              "m_axi",
-              "s00_si_converter/M_AXI"
             ]
           },
           "s00_transaction_regulator_M_AXI": {
@@ -2936,10 +2936,10 @@
               "s00_si_converter/S_AXI"
             ]
           },
-          "s00_mmu_M_AXI": {
+          "s00_si_converter_M_AXI": {
             "interface_ports": [
-              "s00_mmu/M_AXI",
-              "s00_transaction_regulator/S_AXI"
+              "m_axi",
+              "s00_si_converter/M_AXI"
             ]
           }
         },
@@ -3852,16 +3852,10 @@
           }
         },
         "interface_nets": {
-          "S_SC_B_1": {
+          "S_SC_W_1": {
             "interface_ports": [
-              "S_SC_B",
-              "s00_b_node/S_SC"
-            ]
-          },
-          "s00_aw_node_M_SC": {
-            "interface_ports": [
-              "M_SC_AW",
-              "s00_aw_node/M_SC"
+              "S_SC_W",
+              "s00_w_node/S_SC"
             ]
           },
           "s00_b_node_M_SC": {
@@ -3870,34 +3864,16 @@
               "s00_b_node/M_SC"
             ]
           },
-          "S_SC_W_1": {
+          "S_SC_B_1": {
             "interface_ports": [
-              "S_SC_W",
-              "s00_w_node/S_SC"
+              "S_SC_B",
+              "s00_b_node/S_SC"
             ]
           },
-          "s00_r_node_M_SC": {
+          "S_SC_AW_1": {
             "interface_ports": [
-              "M_SC_R",
-              "s00_r_node/M_SC"
-            ]
-          },
-          "s00_ar_node_M_SC": {
-            "interface_ports": [
-              "M_SC_AR",
-              "s00_ar_node/M_SC"
-            ]
-          },
-          "S_SC_AR_1": {
-            "interface_ports": [
-              "S_SC_AR",
-              "s00_ar_node/S_SC"
-            ]
-          },
-          "S_SC_R_1": {
-            "interface_ports": [
-              "S_SC_R",
-              "s00_r_node/S_SC"
+              "S_SC_AW",
+              "s00_aw_node/S_SC"
             ]
           },
           "s00_w_node_M_SC": {
@@ -3906,10 +3882,34 @@
               "s00_w_node/M_SC"
             ]
           },
-          "S_SC_AW_1": {
+          "S_SC_AR_1": {
             "interface_ports": [
-              "S_SC_AW",
-              "s00_aw_node/S_SC"
+              "S_SC_AR",
+              "s00_ar_node/S_SC"
+            ]
+          },
+          "s00_ar_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AR",
+              "s00_ar_node/M_SC"
+            ]
+          },
+          "s00_r_node_M_SC": {
+            "interface_ports": [
+              "M_SC_R",
+              "s00_r_node/M_SC"
+            ]
+          },
+          "S_SC_R_1": {
+            "interface_ports": [
+              "S_SC_R",
+              "s00_r_node/S_SC"
+            ]
+          },
+          "s00_aw_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AW",
+              "s00_aw_node/M_SC"
             ]
           }
         },
@@ -4325,18 +4325,6 @@
           }
         },
         "interface_nets": {
-          "s01_si_converter_M_AXI": {
-            "interface_ports": [
-              "m_axi",
-              "s01_si_converter/M_AXI"
-            ]
-          },
-          "s01_transaction_regulator_M_AXI": {
-            "interface_ports": [
-              "s01_transaction_regulator/M_AXI",
-              "s01_si_converter/S_AXI"
-            ]
-          },
           "s01_mmu_M_AXI": {
             "interface_ports": [
               "s01_mmu/M_AXI",
@@ -4347,6 +4335,18 @@
             "interface_ports": [
               "s_axi",
               "s01_mmu/S_AXI"
+            ]
+          },
+          "s01_transaction_regulator_M_AXI": {
+            "interface_ports": [
+              "s01_transaction_regulator/M_AXI",
+              "s01_si_converter/S_AXI"
+            ]
+          },
+          "s01_si_converter_M_AXI": {
+            "interface_ports": [
+              "m_axi",
+              "s01_si_converter/M_AXI"
             ]
           }
         },
@@ -5259,40 +5259,10 @@
           }
         },
         "interface_nets": {
-          "S_SC_B_1": {
+          "S_SC_AR_1": {
             "interface_ports": [
-              "S_SC_B",
-              "s01_b_node/S_SC"
-            ]
-          },
-          "S_SC_W_1": {
-            "interface_ports": [
-              "S_SC_W",
-              "s01_w_node/S_SC"
-            ]
-          },
-          "S_SC_AW_1": {
-            "interface_ports": [
-              "S_SC_AW",
-              "s01_aw_node/S_SC"
-            ]
-          },
-          "s01_aw_node_M_SC": {
-            "interface_ports": [
-              "M_SC_AW",
-              "s01_aw_node/M_SC"
-            ]
-          },
-          "S_SC_R_1": {
-            "interface_ports": [
-              "S_SC_R",
-              "s01_r_node/S_SC"
-            ]
-          },
-          "s01_r_node_M_SC": {
-            "interface_ports": [
-              "M_SC_R",
-              "s01_r_node/M_SC"
+              "S_SC_AR",
+              "s01_ar_node/S_SC"
             ]
           },
           "s01_ar_node_M_SC": {
@@ -5301,10 +5271,40 @@
               "s01_ar_node/M_SC"
             ]
           },
-          "S_SC_AR_1": {
+          "s01_r_node_M_SC": {
             "interface_ports": [
-              "S_SC_AR",
-              "s01_ar_node/S_SC"
+              "M_SC_R",
+              "s01_r_node/M_SC"
+            ]
+          },
+          "S_SC_R_1": {
+            "interface_ports": [
+              "S_SC_R",
+              "s01_r_node/S_SC"
+            ]
+          },
+          "s01_aw_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AW",
+              "s01_aw_node/M_SC"
+            ]
+          },
+          "S_SC_AW_1": {
+            "interface_ports": [
+              "S_SC_AW",
+              "s01_aw_node/S_SC"
+            ]
+          },
+          "s01_w_node_M_SC": {
+            "interface_ports": [
+              "M_SC_W",
+              "s01_w_node/M_SC"
+            ]
+          },
+          "S_SC_W_1": {
+            "interface_ports": [
+              "S_SC_W",
+              "s01_w_node/S_SC"
             ]
           },
           "s01_b_node_M_SC": {
@@ -5313,10 +5313,10 @@
               "s01_b_node/M_SC"
             ]
           },
-          "s01_w_node_M_SC": {
+          "S_SC_B_1": {
             "interface_ports": [
-              "M_SC_W",
-              "s01_w_node/M_SC"
+              "S_SC_B",
+              "s01_b_node/S_SC"
             ]
           }
         },
@@ -6246,34 +6246,10 @@
           }
         },
         "interface_nets": {
-          "m00_b_node_M_SC": {
+          "S_SC_AR_1": {
             "interface_ports": [
-              "M_SC_B",
-              "m00_b_node/M_SC"
-            ]
-          },
-          "m00_aw_node_M_SC": {
-            "interface_ports": [
-              "M_SC_AW",
-              "m00_aw_node/M_SC"
-            ]
-          },
-          "S_SC_R_1": {
-            "interface_ports": [
-              "S_SC_R",
-              "m00_r_node/S_SC"
-            ]
-          },
-          "S_SC_B_1": {
-            "interface_ports": [
-              "S_SC_B",
-              "m00_b_node/S_SC"
-            ]
-          },
-          "m00_r_node_M_SC": {
-            "interface_ports": [
-              "M_SC_R",
-              "m00_r_node/M_SC"
+              "S_SC_AR",
+              "m00_ar_node/S_SC"
             ]
           },
           "m00_ar_node_M_SC": {
@@ -6282,10 +6258,22 @@
               "m00_ar_node/M_SC"
             ]
           },
-          "S_SC_AR_1": {
+          "m00_r_node_M_SC": {
             "interface_ports": [
-              "S_SC_AR",
-              "m00_ar_node/S_SC"
+              "M_SC_R",
+              "m00_r_node/M_SC"
+            ]
+          },
+          "S_SC_R_1": {
+            "interface_ports": [
+              "S_SC_R",
+              "m00_r_node/S_SC"
+            ]
+          },
+          "m00_aw_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AW",
+              "m00_aw_node/M_SC"
             ]
           },
           "S_SC_AW_1": {
@@ -6304,6 +6292,18 @@
             "interface_ports": [
               "S_SC_W",
               "m00_w_node/S_SC"
+            ]
+          },
+          "m00_b_node_M_SC": {
+            "interface_ports": [
+              "M_SC_B",
+              "m00_b_node/M_SC"
+            ]
+          },
+          "S_SC_B_1": {
+            "interface_ports": [
+              "S_SC_B",
+              "m00_b_node/S_SC"
             ]
           }
         },
@@ -7373,10 +7373,28 @@
               "m01_r_node/M_SC"
             ]
           },
-          "S_SC_B_1": {
+          "S_SC_R_1": {
             "interface_ports": [
-              "S_SC_B",
-              "m01_b_node/S_SC"
+              "S_SC_R",
+              "m01_r_node/S_SC"
+            ]
+          },
+          "m01_aw_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AW",
+              "m01_aw_node/M_SC"
+            ]
+          },
+          "S_SC_AW_1": {
+            "interface_ports": [
+              "S_SC_AW",
+              "m01_aw_node/S_SC"
+            ]
+          },
+          "m01_w_node_M_SC": {
+            "interface_ports": [
+              "M_SC_W",
+              "m01_w_node/M_SC"
             ]
           },
           "S_SC_W_1": {
@@ -7391,28 +7409,10 @@
               "m01_b_node/M_SC"
             ]
           },
-          "m01_aw_node_M_SC": {
+          "S_SC_B_1": {
             "interface_ports": [
-              "M_SC_AW",
-              "m01_aw_node/M_SC"
-            ]
-          },
-          "S_SC_R_1": {
-            "interface_ports": [
-              "S_SC_R",
-              "m01_r_node/S_SC"
-            ]
-          },
-          "S_SC_AW_1": {
-            "interface_ports": [
-              "S_SC_AW",
-              "m01_aw_node/S_SC"
-            ]
-          },
-          "m01_w_node_M_SC": {
-            "interface_ports": [
-              "M_SC_W",
-              "m01_w_node/M_SC"
+              "S_SC_B",
+              "m01_b_node/S_SC"
             ]
           }
         },
@@ -8464,16 +8464,34 @@
           }
         },
         "interface_nets": {
+          "S_SC_AR_1": {
+            "interface_ports": [
+              "S_SC_AR",
+              "m02_ar_node/S_SC"
+            ]
+          },
           "m02_ar_node_M_SC": {
             "interface_ports": [
               "M_SC_AR",
               "m02_ar_node/M_SC"
             ]
           },
-          "S_SC_AR_1": {
+          "m02_r_node_M_SC": {
             "interface_ports": [
-              "S_SC_AR",
-              "m02_ar_node/S_SC"
+              "M_SC_R",
+              "m02_r_node/M_SC"
+            ]
+          },
+          "S_SC_R_1": {
+            "interface_ports": [
+              "S_SC_R",
+              "m02_r_node/S_SC"
+            ]
+          },
+          "m02_aw_node_M_SC": {
+            "interface_ports": [
+              "M_SC_AW",
+              "m02_aw_node/M_SC"
             ]
           },
           "S_SC_AW_1": {
@@ -8488,40 +8506,22 @@
               "m02_w_node/M_SC"
             ]
           },
-          "m02_aw_node_M_SC": {
-            "interface_ports": [
-              "M_SC_AW",
-              "m02_aw_node/M_SC"
-            ]
-          },
-          "S_SC_R_1": {
-            "interface_ports": [
-              "S_SC_R",
-              "m02_r_node/S_SC"
-            ]
-          },
-          "m02_r_node_M_SC": {
-            "interface_ports": [
-              "M_SC_R",
-              "m02_r_node/M_SC"
-            ]
-          },
           "S_SC_W_1": {
             "interface_ports": [
               "S_SC_W",
               "m02_w_node/S_SC"
             ]
           },
-          "S_SC_B_1": {
-            "interface_ports": [
-              "S_SC_B",
-              "m02_b_node/S_SC"
-            ]
-          },
           "m02_b_node_M_SC": {
             "interface_ports": [
               "M_SC_B",
               "m02_b_node/M_SC"
+            ]
+          },
+          "S_SC_B_1": {
+            "interface_ports": [
+              "S_SC_B",
+              "m02_b_node/S_SC"
             ]
           }
         },
@@ -8662,16 +8662,16 @@
           }
         },
         "interface_nets": {
-          "s_axi_1": {
-            "interface_ports": [
-              "s_axi",
-              "m02_exit/S_AXI"
-            ]
-          },
           "m02_exit_M_AXI": {
             "interface_ports": [
               "m_axi",
               "m02_exit/M_AXI"
+            ]
+          },
+          "s_axi_1": {
+            "interface_ports": [
+              "s_axi",
+              "m02_exit/S_AXI"
             ]
           }
         },
@@ -8692,148 +8692,154 @@
       }
     },
     "interface_nets": {
-      "m02_exit_pipeline_m_axi": {
+      "s00_nodes_M_SC_R": {
         "interface_ports": [
-          "M02_AXI",
-          "m02_exit_pipeline/m_axi"
+          "s00_nodes/M_SC_R",
+          "s00_axi2sc/S_SC_R"
         ]
       },
-      "S_SC_B_5": {
+      "s00_nodes_M_SC_B": {
         "interface_ports": [
-          "m02_nodes/S_SC_B",
-          "m02_sc2axi/M_SC_B"
+          "s00_nodes/M_SC_B",
+          "s00_axi2sc/S_SC_B"
         ]
       },
-      "m02_nodes_M_SC_R": {
+      "s00_nodes_M_SC_AR": {
         "interface_ports": [
-          "m02_nodes/M_SC_R",
-          "switchboards/S02_SC_R"
+          "s00_nodes/M_SC_AR",
+          "switchboards/S00_SC_AR"
         ]
       },
-      "m02_nodes_M_SC_B": {
+      "s00_nodes_M_SC_AW": {
         "interface_ports": [
-          "m02_nodes/M_SC_B",
-          "switchboards/S02_SC_B"
+          "s00_nodes/M_SC_AW",
+          "switchboards/S00_SC_AW"
         ]
       },
-      "S_SC_W_5": {
+      "s00_nodes_M_SC_W": {
         "interface_ports": [
-          "m02_nodes/S_SC_W",
-          "switchboards/M02_SC_W"
+          "s00_nodes/M_SC_W",
+          "switchboards/S00_SC_W"
         ]
       },
-      "S_SC_AR_5": {
+      "S_SC_R_1": {
         "interface_ports": [
-          "m02_nodes/S_SC_AR",
-          "switchboards/M02_SC_AR"
+          "s00_nodes/S_SC_R",
+          "switchboards/M00_SC_R"
         ]
       },
-      "S_SC_AW_5": {
+      "S_SC_B_1": {
         "interface_ports": [
-          "m02_nodes/S_SC_AW",
-          "switchboards/M02_SC_AW"
+          "s00_nodes/S_SC_B",
+          "switchboards/M00_SC_B"
         ]
       },
-      "m02_sc2axi_M_AXI": {
+      "s00_entry_pipeline_m_axi": {
         "interface_ports": [
-          "m02_sc2axi/M_AXI",
-          "m02_exit_pipeline/s_axi"
+          "s00_entry_pipeline/m_axi",
+          "s00_axi2sc/S_AXI"
         ]
       },
-      "m02_nodes_M_SC_W": {
+      "S00_AXI_1": {
         "interface_ports": [
-          "m02_nodes/M_SC_W",
-          "m02_sc2axi/S_SC_W"
+          "S00_AXI",
+          "s00_entry_pipeline/s_axi"
         ]
       },
-      "m02_nodes_M_SC_AR": {
+      "S_SC_AR_1": {
         "interface_ports": [
-          "m02_nodes/M_SC_AR",
-          "m02_sc2axi/S_SC_AR"
+          "s00_nodes/S_SC_AR",
+          "s00_axi2sc/M_SC_AR"
         ]
       },
-      "m02_nodes_M_SC_AW": {
+      "S_SC_AW_1": {
         "interface_ports": [
-          "m02_nodes/M_SC_AW",
-          "m02_sc2axi/S_SC_AW"
+          "s00_nodes/S_SC_AW",
+          "s00_axi2sc/M_SC_AW"
         ]
       },
-      "S_SC_R_5": {
+      "S_SC_W_1": {
         "interface_ports": [
-          "m02_nodes/S_SC_R",
-          "m02_sc2axi/M_SC_R"
+          "s00_nodes/S_SC_W",
+          "s00_axi2sc/M_SC_W"
         ]
       },
-      "m01_nodes_M_SC_AW": {
+      "s01_entry_pipeline_m_axi": {
         "interface_ports": [
-          "m01_nodes/M_SC_AW",
-          "m01_sc2axi/S_SC_AW"
+          "s01_entry_pipeline/m_axi",
+          "s01_axi2sc/S_AXI"
         ]
       },
-      "m01_nodes_M_SC_W": {
+      "S01_AXI_1": {
         "interface_ports": [
-          "m01_nodes/M_SC_W",
-          "m01_sc2axi/S_SC_W"
+          "S01_AXI",
+          "s01_entry_pipeline/s_axi"
         ]
       },
-      "m01_nodes_M_SC_AR": {
+      "S_SC_AR_2": {
         "interface_ports": [
-          "m01_nodes/M_SC_AR",
-          "m01_sc2axi/S_SC_AR"
+          "s01_nodes/S_SC_AR",
+          "s01_axi2sc/M_SC_AR"
         ]
       },
-      "m01_nodes_M_SC_B": {
+      "S_SC_AW_2": {
         "interface_ports": [
-          "m01_nodes/M_SC_B",
-          "switchboards/S01_SC_B"
+          "s01_nodes/S_SC_AW",
+          "s01_axi2sc/M_SC_AW"
         ]
       },
-      "S_SC_R_4": {
+      "S_SC_W_2": {
         "interface_ports": [
-          "m01_nodes/S_SC_R",
-          "m01_sc2axi/M_SC_R"
+          "s01_nodes/S_SC_W",
+          "s01_axi2sc/M_SC_W"
         ]
       },
-      "S_SC_B_4": {
+      "s01_nodes_M_SC_R": {
         "interface_ports": [
-          "m01_nodes/S_SC_B",
-          "m01_sc2axi/M_SC_B"
+          "s01_nodes/M_SC_R",
+          "s01_axi2sc/S_SC_R"
         ]
       },
-      "m01_exit_pipeline_m_axi": {
+      "s01_nodes_M_SC_B": {
         "interface_ports": [
-          "M01_AXI",
-          "m01_exit_pipeline/m_axi"
+          "s01_nodes/M_SC_B",
+          "s01_axi2sc/S_SC_B"
         ]
       },
-      "m00_nodes_M_SC_AR": {
+      "s01_nodes_M_SC_AR": {
         "interface_ports": [
-          "m00_nodes/M_SC_AR",
-          "m00_sc2axi/S_SC_AR"
+          "s01_nodes/M_SC_AR",
+          "switchboards/S01_SC_AR"
         ]
       },
-      "m00_nodes_M_SC_AW": {
+      "s01_nodes_M_SC_AW": {
         "interface_ports": [
-          "m00_nodes/M_SC_AW",
-          "m00_sc2axi/S_SC_AW"
+          "s01_nodes/M_SC_AW",
+          "switchboards/S01_SC_AW"
         ]
       },
-      "m00_nodes_M_SC_W": {
+      "s01_nodes_M_SC_W": {
         "interface_ports": [
-          "m00_nodes/M_SC_W",
-          "m00_sc2axi/S_SC_W"
+          "s01_nodes/M_SC_W",
+          "switchboards/S01_SC_W"
         ]
       },
-      "S_SC_R_3": {
+      "S_SC_R_2": {
         "interface_ports": [
-          "m00_nodes/S_SC_R",
-          "m00_sc2axi/M_SC_R"
+          "s01_nodes/S_SC_R",
+          "switchboards/M01_SC_R"
         ]
       },
-      "S_SC_B_3": {
+      "S_SC_B_2": {
         "interface_ports": [
-          "m00_nodes/S_SC_B",
-          "m00_sc2axi/M_SC_B"
+          "s01_nodes/S_SC_B",
+          "switchboards/M01_SC_B"
+        ]
+      },
+      "m00_exit_pipeline_m_axi": {
+        "interface_ports": [
+          "M00_AXI",
+          "m00_exit_pipeline/m_axi"
         ]
       },
       "m00_sc2axi_M_AXI": {
@@ -8872,148 +8878,40 @@
           "switchboards/S00_SC_B"
         ]
       },
-      "m00_exit_pipeline_m_axi": {
+      "m00_nodes_M_SC_AR": {
         "interface_ports": [
-          "M00_AXI",
-          "m00_exit_pipeline/m_axi"
+          "m00_nodes/M_SC_AR",
+          "m00_sc2axi/S_SC_AR"
         ]
       },
-      "S_SC_AR_2": {
+      "m00_nodes_M_SC_AW": {
         "interface_ports": [
-          "s01_nodes/S_SC_AR",
-          "s01_axi2sc/M_SC_AR"
+          "m00_nodes/M_SC_AW",
+          "m00_sc2axi/S_SC_AW"
         ]
       },
-      "S01_AXI_1": {
+      "m00_nodes_M_SC_W": {
         "interface_ports": [
-          "S01_AXI",
-          "s01_entry_pipeline/s_axi"
+          "m00_nodes/M_SC_W",
+          "m00_sc2axi/S_SC_W"
         ]
       },
-      "S_SC_W_2": {
+      "S_SC_R_3": {
         "interface_ports": [
-          "s01_nodes/S_SC_W",
-          "s01_axi2sc/M_SC_W"
+          "m00_nodes/S_SC_R",
+          "m00_sc2axi/M_SC_R"
         ]
       },
-      "s01_nodes_M_SC_R": {
+      "S_SC_B_3": {
         "interface_ports": [
-          "s01_nodes/M_SC_R",
-          "s01_axi2sc/S_SC_R"
+          "m00_nodes/S_SC_B",
+          "m00_sc2axi/M_SC_B"
         ]
       },
-      "s01_entry_pipeline_m_axi": {
+      "m01_exit_pipeline_m_axi": {
         "interface_ports": [
-          "s01_entry_pipeline/m_axi",
-          "s01_axi2sc/S_AXI"
-        ]
-      },
-      "s01_nodes_M_SC_AW": {
-        "interface_ports": [
-          "s01_nodes/M_SC_AW",
-          "switchboards/S01_SC_AW"
-        ]
-      },
-      "s01_nodes_M_SC_AR": {
-        "interface_ports": [
-          "s01_nodes/M_SC_AR",
-          "switchboards/S01_SC_AR"
-        ]
-      },
-      "s01_nodes_M_SC_W": {
-        "interface_ports": [
-          "s01_nodes/M_SC_W",
-          "switchboards/S01_SC_W"
-        ]
-      },
-      "S_SC_B_2": {
-        "interface_ports": [
-          "s01_nodes/S_SC_B",
-          "switchboards/M01_SC_B"
-        ]
-      },
-      "S_SC_R_2": {
-        "interface_ports": [
-          "s01_nodes/S_SC_R",
-          "switchboards/M01_SC_R"
-        ]
-      },
-      "S_SC_B_1": {
-        "interface_ports": [
-          "s00_nodes/S_SC_B",
-          "switchboards/M00_SC_B"
-        ]
-      },
-      "S_SC_R_1": {
-        "interface_ports": [
-          "s00_nodes/S_SC_R",
-          "switchboards/M00_SC_R"
-        ]
-      },
-      "s00_nodes_M_SC_W": {
-        "interface_ports": [
-          "s00_nodes/M_SC_W",
-          "switchboards/S00_SC_W"
-        ]
-      },
-      "s00_nodes_M_SC_AW": {
-        "interface_ports": [
-          "s00_nodes/M_SC_AW",
-          "switchboards/S00_SC_AW"
-        ]
-      },
-      "s00_nodes_M_SC_AR": {
-        "interface_ports": [
-          "s00_nodes/M_SC_AR",
-          "switchboards/S00_SC_AR"
-        ]
-      },
-      "s00_nodes_M_SC_B": {
-        "interface_ports": [
-          "s00_nodes/M_SC_B",
-          "s00_axi2sc/S_SC_B"
-        ]
-      },
-      "s00_nodes_M_SC_R": {
-        "interface_ports": [
-          "s00_nodes/M_SC_R",
-          "s00_axi2sc/S_SC_R"
-        ]
-      },
-      "S_SC_W_1": {
-        "interface_ports": [
-          "s00_nodes/S_SC_W",
-          "s00_axi2sc/M_SC_W"
-        ]
-      },
-      "S_SC_AW_1": {
-        "interface_ports": [
-          "s00_nodes/S_SC_AW",
-          "s00_axi2sc/M_SC_AW"
-        ]
-      },
-      "S_SC_AR_1": {
-        "interface_ports": [
-          "s00_nodes/S_SC_AR",
-          "s00_axi2sc/M_SC_AR"
-        ]
-      },
-      "S00_AXI_1": {
-        "interface_ports": [
-          "S00_AXI",
-          "s00_entry_pipeline/s_axi"
-        ]
-      },
-      "s00_entry_pipeline_m_axi": {
-        "interface_ports": [
-          "s00_entry_pipeline/m_axi",
-          "s00_axi2sc/S_AXI"
-        ]
-      },
-      "m01_nodes_M_SC_R": {
-        "interface_ports": [
-          "m01_nodes/M_SC_R",
-          "switchboards/S01_SC_R"
+          "M01_AXI",
+          "m01_exit_pipeline/m_axi"
         ]
       },
       "m01_sc2axi_M_AXI": {
@@ -9040,16 +8938,118 @@
           "switchboards/M01_SC_W"
         ]
       },
-      "S_SC_AW_2": {
+      "m01_nodes_M_SC_R": {
         "interface_ports": [
-          "s01_nodes/S_SC_AW",
-          "s01_axi2sc/M_SC_AW"
+          "m01_nodes/M_SC_R",
+          "switchboards/S01_SC_R"
         ]
       },
-      "s01_nodes_M_SC_B": {
+      "m01_nodes_M_SC_B": {
         "interface_ports": [
-          "s01_nodes/M_SC_B",
-          "s01_axi2sc/S_SC_B"
+          "m01_nodes/M_SC_B",
+          "switchboards/S01_SC_B"
+        ]
+      },
+      "m01_nodes_M_SC_AR": {
+        "interface_ports": [
+          "m01_nodes/M_SC_AR",
+          "m01_sc2axi/S_SC_AR"
+        ]
+      },
+      "m01_nodes_M_SC_AW": {
+        "interface_ports": [
+          "m01_nodes/M_SC_AW",
+          "m01_sc2axi/S_SC_AW"
+        ]
+      },
+      "m01_nodes_M_SC_W": {
+        "interface_ports": [
+          "m01_nodes/M_SC_W",
+          "m01_sc2axi/S_SC_W"
+        ]
+      },
+      "S_SC_R_4": {
+        "interface_ports": [
+          "m01_nodes/S_SC_R",
+          "m01_sc2axi/M_SC_R"
+        ]
+      },
+      "S_SC_B_4": {
+        "interface_ports": [
+          "m01_nodes/S_SC_B",
+          "m01_sc2axi/M_SC_B"
+        ]
+      },
+      "m02_exit_pipeline_m_axi": {
+        "interface_ports": [
+          "M02_AXI",
+          "m02_exit_pipeline/m_axi"
+        ]
+      },
+      "m02_sc2axi_M_AXI": {
+        "interface_ports": [
+          "m02_sc2axi/M_AXI",
+          "m02_exit_pipeline/s_axi"
+        ]
+      },
+      "S_SC_AR_5": {
+        "interface_ports": [
+          "m02_nodes/S_SC_AR",
+          "switchboards/M02_SC_AR"
+        ]
+      },
+      "S_SC_AW_5": {
+        "interface_ports": [
+          "m02_nodes/S_SC_AW",
+          "switchboards/M02_SC_AW"
+        ]
+      },
+      "S_SC_W_5": {
+        "interface_ports": [
+          "m02_nodes/S_SC_W",
+          "switchboards/M02_SC_W"
+        ]
+      },
+      "m02_nodes_M_SC_R": {
+        "interface_ports": [
+          "m02_nodes/M_SC_R",
+          "switchboards/S02_SC_R"
+        ]
+      },
+      "m02_nodes_M_SC_B": {
+        "interface_ports": [
+          "m02_nodes/M_SC_B",
+          "switchboards/S02_SC_B"
+        ]
+      },
+      "m02_nodes_M_SC_AR": {
+        "interface_ports": [
+          "m02_nodes/M_SC_AR",
+          "m02_sc2axi/S_SC_AR"
+        ]
+      },
+      "m02_nodes_M_SC_AW": {
+        "interface_ports": [
+          "m02_nodes/M_SC_AW",
+          "m02_sc2axi/S_SC_AW"
+        ]
+      },
+      "m02_nodes_M_SC_W": {
+        "interface_ports": [
+          "m02_nodes/M_SC_W",
+          "m02_sc2axi/S_SC_W"
+        ]
+      },
+      "S_SC_R_5": {
+        "interface_ports": [
+          "m02_nodes/S_SC_R",
+          "m02_sc2axi/M_SC_R"
+        ]
+      },
+      "S_SC_B_5": {
+        "interface_ports": [
+          "m02_nodes/S_SC_B",
+          "m02_sc2axi/M_SC_B"
         ]
       }
     },
