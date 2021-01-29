@@ -21,7 +21,7 @@ case $1 in
 
   *"ultra96"*)
 #    cd /work/HW/VivadoProjects/avnet/ultra96
-    cd /work/VivadoProjects
+    cd /work/VivadoProjects/Avnet
     BOARD_PART="xczu3eg"
     ;;
 
@@ -42,11 +42,11 @@ case $1 in
 esac
 
 # Delete any old project artifacts folder
-PRJ_DIR_CREATED=./"$1"-holosynthv-petalinux
+PRJ_DIR_CREATED=./"$1"-holosynthv-"$PETALINUX_VER"
 [ -d "$PRJ_DIR_CREATED" ] && rm -rf "$PRJ_DIR_CREATED"
 
-petalinux-create -t project -s "$1"-holosynthv-petalinux.bsp
-cd "$1"-holosynthv-petalinux
+petalinux-create -t project -s "$1"-holosynthv-"$PETALINUX_VER".bsp
+cd "$1"-holosynthv-"$PETALINUX_VER"
 #time petalinux-config --get-hw-description=../"$1"_"$BOARD_PART"_created/"$1"_"$BOARD_PART".sdk --silentconfig
 time petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
 time petalinux-build
