@@ -60,6 +60,7 @@
 #include "genattr.h"
 #include "xilinx_zynqmp.h"
 #include "b_transport_converter.h"
+#include "utils/xtlm_aximm_fifo.h"
 
 /***************************************************************************************
 *
