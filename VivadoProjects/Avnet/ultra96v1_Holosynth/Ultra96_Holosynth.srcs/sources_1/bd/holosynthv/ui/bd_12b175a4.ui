@@ -1,9 +1,9 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.737858",
-   "Default View_TopLeft":"-127,-355",
+   "Default View_ScaleFactor":"0.73625",
+   "Default View_TopLeft":"-128,-266",
    "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:9.0 TLS
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
 preplace port oAUD_DACDAT_0 -pg 1 -lvl 7 -x 2810 -y 900 -defaultsOSRD
 preplace port midi_rxd_0 -pg 1 -lvl 0 -x -20 -y 640 -defaultsOSRD
@@ -24,12 +24,12 @@ preplace inst fifo_generator_1 -pg 1 -lvl 6 -x 2620 -y 610 -defaultsOSRD
 preplace inst audio_i2s_driver_0 -pg 1 -lvl 6 -x 2620 -y 900 -defaultsOSRD
 preplace inst audio_clk_mux_core_0 -pg 1 -lvl 5 -x 2150 -y 820 -defaultsOSRD
 preplace inst audio_mux_0 -pg 1 -lvl 4 -x 1610 -y 300 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 4 -x 1610 -y 510 -defaultsOSRD
+preplace inst holosynth_0 -pg 1 -lvl 5 -x 2150 -y 240 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1610 -y 860 -defaultsOSRD
 preplace inst clk_wiz_1 -pg 1 -lvl 4 -x 1610 -y 750 -defaultsOSRD
-preplace inst xlconstant_0 -pg 1 -lvl 4 -x 1610 -y 510 -defaultsOSRD
-preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 320 -defaultsOSRD
 preplace inst smartconnect_0 -pg 1 -lvl 2 -x 830 -y 290 -defaultsOSRD
-preplace inst holosynth_0 -pg 1 -lvl 5 -x 2150 -y 240 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 320 -defaultsOSRD
 preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 20 460 680 400 1010 400 1400 580 1900 600 2440
 preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 440 650
 preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 5 690 140 980 30 1290J 50 1850 950 2380J
