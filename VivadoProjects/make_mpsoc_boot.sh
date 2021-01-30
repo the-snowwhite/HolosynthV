@@ -51,4 +51,4 @@ cd "$1"-holosynthv-"$PETALINUX_VER"
 time petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
 time petalinux-build
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --u-boot=images/linux/u-boot.elf --pmufw --atf --fpga images/linux/system.bit --force
-tar -zxf ./images/linux/rootfs.tar.gz ./lib/modules  && tar -zcf ../lib.tar.gz ./lib && rm -r lib
+tar -xzf ./images/linux/rootfs.tar.gz ./lib/modules  && tar -czf ../lib.tar.gz ./lib && rm -r lib

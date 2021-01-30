@@ -46,7 +46,7 @@ parameter AUD_BIT_DEPTH = 24
 //    output reg signed [6:0] fifo_diff,
     output wire trig,
     output wire i2s_enable,
-    output reg [31:0] samplerate
+    output reg samplerate_is_48
 );
     
 //    reg read_dly;
@@ -56,6 +56,19 @@ parameter AUD_BIT_DEPTH = 24
     reg [FIFO_WIDTH:0] buffersize;
     reg fill_fifo, run_trig;
     wire jack_cycle_end;
+    wire lrck_synced;
+
+    reg [31:0]  samplerate;
+    (* ASYNC_REG = "TRUE" *) reg sig_buffer0_0;
+    (* ASYNC_REG = "TRUE" *) reg sig_buffer1_0;
+ 
+    always @(posedge clk) begin
+        sig_buffer0_0 <= lrck;
+        sig_buffer1_0 <= sig_buffer0_0;
+    end
+    assign sig1_out = sig_buffer1_0;
+                 
+
  
     assign l_read = (read && (address == 0)) ? 1'b1 : 1'b0;
     assign r_read = (read && (address == 1)) ? 1'b1 : 1'b0;
@@ -63,7 +76,7 @@ parameter AUD_BIT_DEPTH = 24
 //    assign jack_cycle_start = (!jack_read_act_dly && jack_read_act) ? 1'b1 : 1'b0;
     assign jack_cycle_end = (jack_read_act_dly && !jack_read_act) ? 1'b1 : 1'b0;
 
-    assign trig = (buffersize == 0) ? lrck : run_trig;
+    assign trig = (buffersize == 0) ? lrck_synced : run_trig;
     assign i2s_enable = (buffersize == 0) ? 1'b1 : 1'b0;
 
     assign sample_ready = 1'b1;
@@ -86,11 +99,15 @@ parameter AUD_BIT_DEPTH = 24
             else if (address == 3'b100) samplerate <= datain;
         end    
     end
-/*    
+    
     always @(posedge clk)begin
-        if(jack_cycle_start) fifo_diff <= write_cnt - read_cnt;
+        if (samplerate == 32'd48000) begin
+            samplerate_is_48 <= 1'b1;
+        end else begin
+            samplerate_is_48 <= 1'b0;
+        end
     end
-*/   
+   
     always @(posedge clk) begin
         if(jack_cycle_end) counter <= 0;
         else if (counter < buffersize) begin 

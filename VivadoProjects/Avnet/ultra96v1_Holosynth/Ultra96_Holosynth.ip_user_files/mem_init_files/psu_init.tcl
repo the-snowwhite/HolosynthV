@@ -888,6 +888,44 @@ set psu_clock_init_data {
 		# This register controls this reference clock
 		#(OFFSET, MASK, VALUE)      (0XFF5E00C0, 0x013F3F07U ,0x01011E00U)  */
     mask_write 0XFF5E00C0 0x013F3F07 0x01011E00
+		# Register : PL1_REF_CTRL @ 0XFF5E00C4</p>
+
+		# Clock active signal. Switch to 0 to disable the clock
+		# PSU_CRL_APB_PL1_REF_CTRL_CLKACT                                                 0x1
+
+		# 6 bit divider
+		# PSU_CRL_APB_PL1_REF_CTRL_DIVISOR1                                               0x1
+
+		# 6 bit divider
+		# PSU_CRL_APB_PL1_REF_CTRL_DIVISOR0                                               0xf
+
+		# 000 = IOPLL; 010 = RPLL; 011 = DPLL; (This signal may only be toggled af
+    # ter 4 cycles of the old clock and 4 cycles of the new clock. This is not
+    #  usually an issue, but designers must be aware.)
+		# PSU_CRL_APB_PL1_REF_CTRL_SRCSEL                                                 0x0
+
+		# This register controls this reference clock
+		#(OFFSET, MASK, VALUE)      (0XFF5E00C4, 0x013F3F07U ,0x01010F00U)  */
+    mask_write 0XFF5E00C4 0x013F3F07 0x01010F00
+		# Register : PL2_REF_CTRL @ 0XFF5E00C8</p>
+
+		# Clock active signal. Switch to 0 to disable the clock
+		# PSU_CRL_APB_PL2_REF_CTRL_CLKACT                                                 0x1
+
+		# 6 bit divider
+		# PSU_CRL_APB_PL2_REF_CTRL_DIVISOR1                                               0x1
+
+		# 6 bit divider
+		# PSU_CRL_APB_PL2_REF_CTRL_DIVISOR0                                               0x1e
+
+		# 000 = IOPLL; 010 = RPLL; 011 = DPLL; (This signal may only be toggled af
+    # ter 4 cycles of the old clock and 4 cycles of the new clock. This is not
+    #  usually an issue, but designers must be aware.)
+		# PSU_CRL_APB_PL2_REF_CTRL_SRCSEL                                                 0x2
+
+		# This register controls this reference clock
+		#(OFFSET, MASK, VALUE)      (0XFF5E00C8, 0x013F3F07U ,0x01011E02U)  */
+    mask_write 0XFF5E00C8 0x013F3F07 0x01011E02
 		# Register : AMS_REF_CTRL @ 0XFF5E0108</p>
 
 		# 6 bit divider

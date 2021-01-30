@@ -283,11 +283,12 @@ proc create_root_design { parentCell } {
    CONFIG.CLKOUT1_DRIVES {Buffer} \
    CONFIG.CLKOUT1_JITTER {284.314} \
    CONFIG.CLKOUT1_PHASE_ERROR {396.540} \
-   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {33.90625} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {33.90585} \
+   CONFIG.CLKOUT1_USED {true} \
    CONFIG.CLKOUT2_DRIVES {Buffer} \
    CONFIG.CLKOUT2_JITTER {304.898} \
    CONFIG.CLKOUT2_PHASE_ERROR {396.540} \
-   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {24.675} \
+   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {24.67593} \
    CONFIG.CLKOUT2_USED {true} \
    CONFIG.CLKOUT3_DRIVES {Buffer} \
    CONFIG.CLKOUT3_JITTER {304.898} \
@@ -320,19 +321,6 @@ proc create_root_design { parentCell } {
    CONFIG.USE_LOCKED {false} \
    CONFIG.USE_RESET {false} \
  ] $clk_wiz_0
-
-  # Create instance: clk_wiz_1, and set properties
-  set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_1 ]
-  set_property -dict [ list \
-   CONFIG.CLKIN1_JITTER_PS {200.0} \
-   CONFIG.CLKOUT1_JITTER {139.127} \
-   CONFIG.CLKOUT1_PHASE_ERROR {154.678} \
-   CONFIG.MMCM_CLKFBOUT_MULT_F {24.000} \
-   CONFIG.MMCM_CLKIN1_PERIOD {20.000} \
-   CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
-   CONFIG.USE_LOCKED {false} \
-   CONFIG.USE_RESET {false} \
- ] $clk_wiz_1
 
   # Create instance: fifo_generator_0, and set properties
   set fifo_generator_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_0 ]
@@ -1171,15 +1159,15 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {50} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__SRCSEL {IOPLL} \
-   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ {24.999975} \
-   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {4} \
+   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ {100.000000} \
+   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {15} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__FREQMHZ {100} \
-   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__SRCSEL {RPLL} \
-   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ {299.999700} \
-   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0 {4} \
+   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__SRCSEL {IOPLL} \
+   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ {50.000000} \
+   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0 {30} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1 {1} \
-   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__FREQMHZ {100} \
+   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__FREQMHZ {50} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__SRCSEL {RPLL} \
    CONFIG.PSU__CRL_APB__PL3_REF_CTRL__ACT_FREQMHZ {374.999625} \
    CONFIG.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR0 {4} \
@@ -1434,8 +1422,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__FPD_SLCR__WDT1__FREQMHZ {100.000000} \
    CONFIG.PSU__FPD_SLCR__WDT_CLK_SEL__SELECT {APB} \
    CONFIG.PSU__FPGA_PL0_ENABLE {1} \
-   CONFIG.PSU__FPGA_PL1_ENABLE {0} \
-   CONFIG.PSU__FPGA_PL2_ENABLE {0} \
+   CONFIG.PSU__FPGA_PL1_ENABLE {1} \
+   CONFIG.PSU__FPGA_PL2_ENABLE {1} \
    CONFIG.PSU__FPGA_PL3_ENABLE {0} \
    CONFIG.PSU__FP__POWER__ON {1} \
    CONFIG.PSU__FTM__CTI_IN_0 {0} \
@@ -1707,8 +1695,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__PCIE__VENDOR_ID {} \
    CONFIG.PSU__PJTAG__PERIPHERAL__ENABLE {0} \
    CONFIG.PSU__PL_CLK0_BUF {TRUE} \
-   CONFIG.PSU__PL_CLK1_BUF {FALSE} \
-   CONFIG.PSU__PL_CLK2_BUF {FALSE} \
+   CONFIG.PSU__PL_CLK1_BUF {TRUE} \
+   CONFIG.PSU__PL_CLK2_BUF {TRUE} \
    CONFIG.PSU__PL_CLK3_BUF {FALSE} \
    CONFIG.PSU__PL__POWER__ON {1} \
    CONFIG.PSU__PMU_COHERENCY {0} \
@@ -1958,11 +1946,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net audio_mux_0_i2s_enable [get_bd_pins audio_clk_mux_core_0/i2s_enable_i] [get_bd_pins audio_mux_0/i2s_enable]
   connect_bd_net -net audio_mux_0_l_read [get_bd_pins audio_mux_0/l_read] [get_bd_pins fifo_generator_0/rd_en]
   connect_bd_net -net audio_mux_0_r_read [get_bd_pins audio_mux_0/r_read] [get_bd_pins fifo_generator_1/rd_en]
-  connect_bd_net -net audio_mux_0_samplerate [get_bd_pins audio_clk_mux_core_0/samplerate] [get_bd_pins audio_mux_0/samplerate]
+  connect_bd_net -net audio_mux_0_samplerate_is_48 [get_bd_pins audio_clk_mux_core_0/samplerate_is_48] [get_bd_pins audio_mux_0/samplerate_is_48]
   connect_bd_net -net audio_mux_0_trig [get_bd_pins audio_mux_0/trig] [get_bd_pins holosynth_0/trig]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins audio_clk_mux_core_0/aud_44_in_clk] [get_bd_pins clk_wiz_0/clk_out1]
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins audio_clk_mux_core_0/aud_48_in_clk] [get_bd_pins clk_wiz_0/clk_out2]
-  connect_bd_net -net clk_wiz_1_clk_out1 [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins holosynth_0/AUDIO_CLK]
   connect_bd_net -net emio_uart0_ctsn_0_1 [get_bd_ports BT_ctsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_ctsn]
   connect_bd_net -net fifo_generator_0_dout [get_bd_pins audio_mux_0/lsound_in] [get_bd_pins fifo_generator_0/dout]
   connect_bd_net -net fifo_generator_1_dout [get_bd_pins audio_mux_0/rsound_in] [get_bd_pins fifo_generator_1/dout]
@@ -1993,7 +1980,9 @@ proc create_root_design { parentCell } {
   connect_bd_net -net xlconstant_0_dout [get_bd_pins holosynth_0/cpu_chip_sel] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_ports Led_out] [get_bd_pins xlslice_0/Dout]
   connect_bd_net -net zynq_ultra_ps_e_0_emio_uart0_rtsn [get_bd_ports BT_rtsn] [get_bd_pins zynq_ultra_ps_e_0/emio_uart0_rtsn]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_core_0/sync_clk] [get_bd_pins audio_mux_0/clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins clk_wiz_1/clk_in1] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_uio/S_AXI_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_core_0/sync_clk] [get_bd_pins audio_mux_0/clk] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_uio/S_AXI_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk1 [get_bd_pins holosynth_0/AUDIO_CLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk1]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk2 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins zynq_ultra_ps_e_0/pl_clk2]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments

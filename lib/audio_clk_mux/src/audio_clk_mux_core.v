@@ -8,7 +8,7 @@
         // Clock inputs, synthesized in PLL or external TCXOs
         input  wire  run,
         input  wire  i2s_enable_i,
-        input  wire  [31:0] samplerate,
+        input  wire  samplerate_is_48,
         input  wire  sync_clk,
         input  wire  aud_44_in_clk,
         input  wire  aud_48_in_clk,
@@ -32,13 +32,10 @@
     reg [31:0]	slv_reg0;
     reg [31:0]  slv_reg4;
 
-    reg [31:0]  cur_samplerate;
-    
     wire slv_reg_wren;
     reg [2:0] wren_dly;
 
     wire aud_clk_muxed;
-    reg samplerate_is_48;
 
     wire bclk;
 
@@ -49,6 +46,8 @@
     wire capture_lrclk;
     // In slave mode, an external master makes the clocks
     wire master_slave_mode; // 1 = master, 0 (default) = slave
+    
+    wire samplerate_is_48_synced;
     
     assign slv_reg_wren = (wren_dly[1] | wren_dly[2]) ? 1'b1 : 1'b0;
     
@@ -132,47 +131,6 @@
     * lrclk_divisor = 23 (divide by (23*16+15+1)*2=768 => lrclk = 0.0441MHz slv_reg4 --> cmd_reg2[15:8] && cmd_reg2[7:0]
     */
 
-    always @( posedge sync_clk )
-    begin
-        if (samplerate == 32'd48000) begin
-            samplerate_is_48 <= 1'b1;
-        end else begin
-            samplerate_is_48 <= 1'b0;
-        end
-        if ( reset_n == 1'b0 ) begin
-            wren_dly <= 3'b0;
-            if (samplerate_is_48) begin
-                slv_reg0 <= 32'h00030003;
-                slv_reg4 <= 32'h00000F0F;
-            end
-            else begin
-                slv_reg0 <= 32'h00050003;
-                slv_reg4 <= 32'h00001717;
-            end
-        end
-        else begin
-            wren_dly[2] <= wren_dly[1];
-            wren_dly[1] <= wren_dly[0];
-            if(cur_samplerate != samplerate && run == 1'b0 && i2s_enable_i == 1'b1) begin
-                cur_samplerate <= samplerate;
-                wren_dly[0] <= 1'b1; 
-            end
-            else begin
-                wren_dly[0] = 1'b0;
-            end
-            if(wren_dly[0]) begin
-                if (samplerate_is_48) begin
-                    slv_reg0 <= 32'h00030003;
-                    slv_reg4 <= 32'h00000F0F;
-                end
-                else begin
-                    slv_reg0 <= 32'h00050003;
-                    slv_reg4 <= 32'h00001717;
-                end
-            end
-        end 
-    end  
-
 // input mux
 
 // BUFGMUX_CTRL: 2-to-1 General Clock MUX Buffer
@@ -203,28 +161,42 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
 //    assign clk_sel_44_48        = slv_reg4[1]; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
     
 //    assign cmd_reg2_wr          = ( slv_reg_wren ) ? 1'b1 : 1'b0;
+
+    
+    syncro sync_inst_1 (
+        .clka_clkin(sync_clk),
+        .clkb_clkin(aud_clk_muxed),
+        .sig1_in(reset_n),
+        .sig2_in(samplerate_is_48),
+        .sig1_out(reset_synced_n),
+        .sig2_out(samplerate_is_48_synced)
+    );
+
+
+    always @( posedge aud_clk_muxed )
+    begin
+        if (samplerate_is_48_synced) begin
+            slv_reg0 <= 32'h00030003;
+            slv_reg4 <= 32'h00000F0F;
+        end
+        else begin
+            slv_reg0 <= 32'h00050003;
+            slv_reg4 <= 32'h00001717;
+        end
+    end  
     
     audio_clock_generator playback_gen (
         .clk_clkin   (aud_clk_muxed),
-        .reset_n     (~slv_reg_wren),
+        .reset_n     (reset_synced_n),
         .cmd_reg1    (slv_reg0),
         .cmd_reg2    (slv_reg4),
         .mclk        (ext_mclk),
-        .bclk        (bclk48),
-        .lrclk_clear (cmd_reg2_48_wr),
+        .bclk        (bclk),
+        .lrclk_clear (~reset_synced_n),
         .lrclk1      (play_lrclk),
         .lrclk2      (cap_lrclk)
     );
 /*    
-    syncro sync_inst44 (
-        .clka_clkin(sync_clk),
-        .clkb_clkin(ext_clk44_clkin),
-        .sig1_in(reset_n),
-        .sig2_in(slv_reg_wren),
-        .sig1_out(reset_44_n),
-        .sig2_out(cmd_reg2_44_wr)
-    );
-    
     syncro32 sync32_inst44_1 (
         .clka_clkin(sync_clk),
         .clkb_clkin(ext_clk44_clkin),
