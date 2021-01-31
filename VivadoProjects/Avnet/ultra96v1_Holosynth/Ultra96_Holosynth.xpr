@@ -52,13 +52,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="71"/>
-    <Option Name="WTModelSimExportSim" Val="71"/>
-    <Option Name="WTQuestaExportSim" Val="71"/>
-    <Option Name="WTIesExportSim" Val="71"/>
-    <Option Name="WTVcsExportSim" Val="71"/>
-    <Option Name="WTRivieraExportSim" Val="71"/>
-    <Option Name="WTActivehdlExportSim" Val="71"/>
+    <Option Name="WTXSimExportSim" Val="84"/>
+    <Option Name="WTModelSimExportSim" Val="84"/>
+    <Option Name="WTQuestaExportSim" Val="84"/>
+    <Option Name="WTIesExportSim" Val="84"/>
+    <Option Name="WTVcsExportSim" Val="84"/>
+    <Option Name="WTRivieraExportSim" Val="84"/>
+    <Option Name="WTActivehdlExportSim" Val="84"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -361,7 +361,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../lib/audio_clk_mux/src/syncro.v">
+      <File Path="$PPRDIR/../../../lib/audio_clk_mux/src/syncro2_2.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -446,6 +446,13 @@
         <FileInfo>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="synthesis_post"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/constrs_1/new/timing_wiz.xdc">
+        <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
       <Config>

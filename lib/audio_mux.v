@@ -59,14 +59,13 @@ parameter AUD_BIT_DEPTH = 24
     wire lrck_synced;
 
     reg [31:0]  samplerate;
-    (* ASYNC_REG = "TRUE" *) reg sig_buffer0_0;
-    (* ASYNC_REG = "TRUE" *) reg sig_buffer1_0;
+    (* ASYNC_REG = "TRUE" *) reg sig_buffer0_0, sig_buffer1_0;
  
     always @(posedge clk) begin
         sig_buffer0_0 <= lrck;
         sig_buffer1_0 <= sig_buffer0_0;
     end
-    assign sig1_out = sig_buffer1_0;
+    assign lrck_synced = sig_buffer1_0;
                  
 
  

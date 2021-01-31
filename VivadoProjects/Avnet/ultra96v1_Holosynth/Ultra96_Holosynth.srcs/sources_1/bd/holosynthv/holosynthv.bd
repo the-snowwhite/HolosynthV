@@ -3952,9 +3952,6 @@
           "run": {
             "direction": "I"
           },
-          "i2s_enable_i": {
-            "direction": "I"
-          },
           "samplerate_is_48": {
             "direction": "I"
           },
@@ -4033,9 +4030,6 @@
           "ext_shift_remoteclk": {
             "direction": "O"
           },
-          "i2s_enable_o": {
-            "direction": "O"
-          },
           "ext_mclk": {
             "direction": "O"
           },
@@ -4046,10 +4040,10 @@
       }
     },
     "interface_nets": {
-      "smartconnect_0_M00_AXI": {
+      "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
         "interface_ports": [
-          "holosynth_audio/S_AXI",
-          "smartconnect_0/M00_AXI"
+          "zynq_ultra_ps_e_0/M_AXI_HPM1_FPD",
+          "smartconnect_0/S01_AXI"
         ]
       },
       "smartconnect_0_M02_AXI": {
@@ -4058,10 +4052,10 @@
           "smartconnect_0/M02_AXI"
         ]
       },
-      "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
+      "smartconnect_0_M01_AXI": {
         "interface_ports": [
-          "zynq_ultra_ps_e_0/M_AXI_HPM1_FPD",
-          "smartconnect_0/S01_AXI"
+          "holosynth_uio/S_AXI",
+          "smartconnect_0/M01_AXI"
         ]
       },
       "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
@@ -4070,10 +4064,10 @@
           "smartconnect_0/S00_AXI"
         ]
       },
-      "smartconnect_0_M01_AXI": {
+      "smartconnect_0_M00_AXI": {
         "interface_ports": [
-          "holosynth_uio/S_AXI",
-          "smartconnect_0/M01_AXI"
+          "holosynth_audio/S_AXI",
+          "smartconnect_0/M00_AXI"
         ]
       }
     },
@@ -4317,12 +4311,6 @@
           "audio_clk_mux_core_0/run"
         ]
       },
-      "audio_mux_0_i2s_enable": {
-        "ports": [
-          "audio_mux_0/i2s_enable",
-          "audio_clk_mux_core_0/i2s_enable_i"
-        ]
-      },
       "clk_wiz_0_clk_out1": {
         "ports": [
           "clk_wiz_0/clk_out1",
@@ -4346,12 +4334,6 @@
         "ports": [
           "audio_clk_mux_core_0/ext_shift_remoteclk",
           "audio_i2s_driver_0/iAUDB_CLK"
-        ]
-      },
-      "audio_clk_mux_core_0_i2s_enable_o": {
-        "ports": [
-          "audio_clk_mux_core_0/i2s_enable_o",
-          "audio_i2s_driver_0/i2s_enable"
         ]
       },
       "Net": {
@@ -4394,6 +4376,12 @@
         "ports": [
           "zynq_ultra_ps_e_0/pl_clk2",
           "clk_wiz_0/clk_in1"
+        ]
+      },
+      "audio_mux_0_i2s_enable": {
+        "ports": [
+          "audio_mux_0/i2s_enable",
+          "audio_i2s_driver_0/i2s_enable"
         ]
       }
     },

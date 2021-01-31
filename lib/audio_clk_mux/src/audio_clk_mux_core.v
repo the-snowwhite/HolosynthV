@@ -7,7 +7,6 @@
 
         // Clock inputs, synthesized in PLL or external TCXOs
         input  wire  run,
-        input  wire  i2s_enable_i,
         input  wire  samplerate_is_48,
         input  wire  sync_clk,
         input  wire  aud_44_in_clk,
@@ -19,7 +18,6 @@
         inout  tri   ext_AUD_ADCLRCLK,
         output wire  ext_playback_lrclk,
         output wire  ext_shift_remoteclk,
-        output wire  i2s_enable_o,
         output wire  ext_mclk,
         output wire  ext_capture_lrclk
 
@@ -35,7 +33,7 @@
     wire slv_reg_wren;
     reg [2:0] wren_dly;
 
-    wire aud_clk_muxed;
+    wire aud_muxed_clk;
 
     wire bclk;
 
@@ -50,8 +48,7 @@
     wire samplerate_is_48_synced;
     
     assign slv_reg_wren = (wren_dly[1] | wren_dly[2]) ? 1'b1 : 1'b0;
-    
-    assign i2s_enable_o = i2s_enable_i;
+
 /*
     wire cmd_reg2_wr;
     wire mclk44;
@@ -138,10 +135,10 @@
 // Xilinx HDL Language Template, version 2019.2
 
 BUFGMUX_CTRL BUFGMUX_CTRL_inst (
-    .O(aud_clk_muxed),   // 1-bit output: Clock output
+    .O(aud_muxed_clk),   // 1-bit output: Clock output
     .I0(aud_44_in_clk), // 1-bit input: Clock input (S=0)
     .I1(aud_48_in_clk), // 1-bit input: Clock input (S=1)
-    .S(samplerate_is_48)    // 1-bit input: Clock select
+    .S(samplerate_is_48_synced)    // 1-bit input: Clock select
 );
 
 // End of BUFGMUX_CTRL_inst instantiation
@@ -157,15 +154,15 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
 
     // Register access
 
-    assign master_slave_mode    = slv_reg0[0]; // 1 = master, 0 (default) = slave
+//    assign master_slave_mode    = slv_reg0[0]; // 1 = master, 0 (default) = slave
+    assign master_slave_mode    = 1'b1;; // 1 = master, 0 (default) = slave
 //    assign clk_sel_44_48        = slv_reg4[1]; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
     
 //    assign cmd_reg2_wr          = ( slv_reg_wren ) ? 1'b1 : 1'b0;
 
     
-    syncro sync_inst_1 (
-        .clka_clkin(sync_clk),
-        .clkb_clkin(aud_clk_muxed),
+    syncro2_2 sync_inst_1 (
+        .clk(aud_muxed_clk),
         .sig1_in(reset_n),
         .sig2_in(samplerate_is_48),
         .sig1_out(reset_synced_n),
@@ -173,7 +170,7 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
     );
 
 
-    always @( posedge aud_clk_muxed )
+    always @( posedge aud_muxed_clk )
     begin
         if (samplerate_is_48_synced) begin
             slv_reg0 <= 32'h00030003;
@@ -186,13 +183,12 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
     end  
     
     audio_clock_generator playback_gen (
-        .clk_clkin   (aud_clk_muxed),
+        .clk         (aud_muxed_clk),
         .reset_n     (reset_synced_n),
         .cmd_reg1    (slv_reg0),
         .cmd_reg2    (slv_reg4),
         .mclk        (ext_mclk),
         .bclk        (bclk),
-        .lrclk_clear (~reset_synced_n),
         .lrclk1      (play_lrclk),
         .lrclk2      (cap_lrclk)
     );
