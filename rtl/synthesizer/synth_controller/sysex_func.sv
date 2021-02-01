@@ -8,7 +8,7 @@ module sysex_func (
     input wire          is_st_sysex,
     input wire          midi_out_ready,
     input wire  [7:0]   midi_bytes,
-    input wire  [7:0]   databyte,
+    input wire  [7:0]   seq_databyte,
     input wire          trig_seq_f,
     output  reg         syx_cmd,
     output  reg         dec_sysex_data_patch_send,
@@ -45,46 +45,46 @@ module sysex_func (
             syx_cmd <= 1'b0;
             if(is_st_sysex)begin // Sysex
                 if (midi_bytes == 8'd1) begin
-                    Educational_Use <= (databyte == 8'h7D) ? 1'b1 : 1'b0;
+                    Educational_Use <= (seq_databyte == 8'h7D) ? 1'b1 : 1'b0;
                 end
                 else if (Educational_Use) begin
-                    if (midi_bytes == 8'd2)begin // sysex_type <= databyte[7:4]; midi_cha_num <= databyte[3:0]; end
-                        if (databyte[3:0] == midi_ch) begin
-                            case (databyte[7:4])
+                    if (midi_bytes == 8'd2)begin // sysex_type <= seq_databyte[7:4]; midi_cha_num <= seq_databyte[3:0]; end
+                        if (seq_databyte[3:0] == midi_ch) begin
+                            case (seq_databyte[7:4])
                                 4'h1 : sysex_ctrl_data <= 1'b1;
                                 4'h2 : sysex_data_bank_load <= 1'b1;
                                 4'h3 : dec_sysex_data_patch_send <= 1'b1;
-                                4'h7 : begin sysex_data_patch_load <= 1'b1; bank_adr_l <= 3'b0; adr_l <= 7'b0; auto_syx_cmd <= 1'b1; end // sysex_regdata_out <= databyte; end
+                                4'h7 : begin sysex_data_patch_load <= 1'b1; bank_adr_l <= 3'b0; adr_l <= 7'b0; auto_syx_cmd <= 1'b1; end // sysex_regdata_out <= seq_databyte; end
                             endcase
                         end
                     end
                     if(sysex_data_patch_load) begin
-                        if(databyte != 8'hf7)begin
-                            sysex_regdata_out  <= databyte;
-                            if (midi_bytes >= 8'd4 && midi_bytes < 16*4+8'd3) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= databyte; end
-                            if (midi_bytes == (16*4 + 8'd3))begin bank_adr_l <= 1; adr_l <= 7'b0; end //  sysex_regdata_out <= databyte; end
-                            else if (midi_bytes >= (16*4 + 8'd3) && midi_bytes < (16*8 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= databyte; end
-                            if (midi_bytes == (16*8 + 8'd3))begin bank_adr_l <= 2; adr_l <= 7'b0; end // sysex_regdata_out <= databyte; end
-                            else if (midi_bytes >= (16*8 + 8'd3) && midi_bytes < (16*12 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= databyte; end
-                            if (midi_bytes == (16*12 + 8'd3))begin bank_adr_l <= 5; adr_l <= 7'b0; end // sysex_regdata_out <= databyte; end
-                            else if (midi_bytes >= (16*12 + 8'd3) && midi_bytes < (16*14 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= databyte; end
+                        if(seq_databyte != 8'hf7)begin
+                            sysex_regdata_out  <= seq_databyte;
+                            if (midi_bytes >= 8'd4 && midi_bytes < 16*4+8'd3) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= seq_databyte; end
+                            if (midi_bytes == (16*4 + 8'd3))begin bank_adr_l <= 1; adr_l <= 7'b0; end //  sysex_regdata_out <= seq_databyte; end
+                            else if (midi_bytes >= (16*4 + 8'd3) && midi_bytes < (16*8 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= seq_databyte; end
+                            if (midi_bytes == (16*8 + 8'd3))begin bank_adr_l <= 2; adr_l <= 7'b0; end // sysex_regdata_out <= seq_databyte; end
+                            else if (midi_bytes >= (16*8 + 8'd3) && midi_bytes < (16*12 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= seq_databyte; end
+                            if (midi_bytes == (16*12 + 8'd3))begin bank_adr_l <= 5; adr_l <= 7'b0; end // sysex_regdata_out <= seq_databyte; end
+                            else if (midi_bytes >= (16*12 + 8'd3) && midi_bytes < (16*14 + 8'd3)) begin adr_l <= adr_l + 7'b1; end // sysex_regdata_out <= seq_databyte; end
                         end
                         else begin sysex_data_patch_load <= 1'b0; auto_syx_cmd <= 1'b0; end
                     end
                     if(sysex_data_bank_load) begin
-                        if(databyte != 8'hf7)begin
-                            sysex_regdata_out <= databyte;
-                            if (midi_bytes == 8'd3)begin adr_l <= 7'b0; bank_adr_l  <= databyte[2:0]; auto_syx_cmd <= 1'b1; end
+                        if(seq_databyte != 8'hf7)begin
+                            sysex_regdata_out <= seq_databyte;
+                            if (midi_bytes == 8'd3)begin adr_l <= 7'b0; bank_adr_l  <= seq_databyte[2:0]; auto_syx_cmd <= 1'b1; end
                             if (midi_bytes >= 8'd5 )begin adr_l <= adr_l + 7'b1; end
                         end
                         else begin sysex_data_bank_load <= 1'b0; auto_syx_cmd <= 1'b0; end
                     end
                     if(sysex_ctrl_data) begin
                         case (midi_bytes)
-                            8'd3:bank_adr_l  <= databyte[2:0];
-                            8'd4:adr_l  <= databyte[6:0];
-                            8'd5:sysex_regdata_out  <= databyte;
-                            8'd6:if (midi_bytes == 6 && databyte == 8'hf7)begin syx_cmd <= 1'b1; sysex_ctrl_data <= 1'b0; end
+                            8'd3:bank_adr_l  <= seq_databyte[2:0];
+                            8'd4:adr_l  <= seq_databyte[6:0];
+                            8'd5:sysex_regdata_out  <= seq_databyte;
+                            8'd6:if (midi_bytes == 6 && seq_databyte == 8'hf7)begin syx_cmd <= 1'b1; sysex_ctrl_data <= 1'b0; end
                             default:;
                         endcase
                     end

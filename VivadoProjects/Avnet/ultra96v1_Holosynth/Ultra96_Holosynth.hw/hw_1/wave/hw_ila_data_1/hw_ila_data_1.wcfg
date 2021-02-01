@@ -3,44 +3,52 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="/work/VivadoProjects/ultra96v1_Holosynth/Ultra96_Holosynth.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wdb" id="1">
+      <db_ref path="/work/VivadoProjects/Avnet/ultra96v1_Holosynth/Ultra96_Holosynth.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wdb" id="1">
          <top_modules>
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1024fs"></ZoomEndTime>
-      <Cursor1Time time="560fs"></Cursor1Time>
+      <ZoomEndTime time="93501fs"></ZoomEndTime>
+      <Cursor1Time time="44861fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="338"></NameColumnWidth>
-      <ValueColumnWidth column_width="99"></ValueColumnWidth>
+      <NameColumnWidth column_width="261"></NameColumnWidth>
+      <ValueColumnWidth column_width="179"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="5" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="holosynthv_i/audio_mux_0/address">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">holosynthv_i/audio_mux_0/address[2:0]</obj_property>
-      <obj_property name="ObjectShortName">address[2:0]</obj_property>
+   <wvobject type="logic" fp_name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/byteready_u">
+      <obj_property name="ElementShortName">holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/byteready_u</obj_property>
+      <obj_property name="ObjectShortName">byteready_u</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r">
+      <obj_property name="ElementShortName">holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_r[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_r[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="holosynthv_i/audio_mux_0/samplerate">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">holosynthv_i/audio_mux_0/samplerate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">samplerate[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="array" fp_name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_u">
+      <obj_property name="ElementShortName">holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/cur_status_u[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cur_status_u[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="holosynthv_i/audio_mux_0/write">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">holosynthv_i/audio_mux_0/write</obj_property>
-      <obj_property name="ObjectShortName">write</obj_property>
+   <wvobject type="logic" fp_name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/midi_rxd">
+      <obj_property name="ElementShortName">holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/midi_rxd</obj_property>
+      <obj_property name="ObjectShortName">midi_rxd</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/startbit_d">
+      <obj_property name="ElementShortName">holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/startbit_d</obj_property>
+      <obj_property name="ObjectShortName">startbit_d</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

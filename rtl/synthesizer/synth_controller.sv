@@ -112,7 +112,6 @@ cpu_port cpu_port_inst
 	.reg_clk( reg_clk ) ,
 	.socmidi_addr( socmidi_addr ) ,	    // input [2:0] cpu_addr_sig
 	.socmidi_data_in( socmidi_data_in ) ,	// input [7:0] cpu_data_sig
-//	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
 	.socmidi_write( socmidi_write ) ,	    // input  cpu_write_sig
 
 	.byteready_c( byteready_c ) ,	        // output  byteready_sig
@@ -123,7 +122,7 @@ cpu_port cpu_port_inst
 
 
 midi_in_mux midi_in_mux_inst
-(//   .reset_reg_N( reset_reg_N ),
+(
     .reg_clk( reg_clk ),
 
 	.uart_usb_sel( uart_usb_sel ) ,	// input  sel_sig
@@ -181,7 +180,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.is_st_note_off(is_st_note_off) ,	// input  is_st_note_off_sig
 	.is_st_ctrl(is_st_ctrl) ,	// input  is_st_ctrl_sig
 	.trig__note_stack(trig__note_stack) ,	// input  byteready_sig
-	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
+	.seq_databyte(seq_databyte) ,	// input [7:0] databyte_sig
 
 	.active_keys(active_keys) ,	// output [V_WIDTH:0] active_keys_sig
 	.note_on(note_on) ,	// output  note_on_sig
@@ -189,7 +188,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.cur_key_val(cur_key_val) ,	// output [7:0] cur_key_val_sig
 	.cur_vel_on(cur_vel_on) ,	// output [7:0] cur_vel_on_sig
 	.cur_vel_off(cur_vel_off) ,	// output [7:0] cur_vel_off_sig
-	.key_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
+	.keys_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
 );
 
 seq_trigger seq_trigger_inst
@@ -226,7 +225,7 @@ sysex_func sysex_func_inst
 	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
 	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
 	.midi_bytes(midi_bytes) ,	// input [7:0] midi_bytes_sig
-	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
+	.seq_databyte(seq_databyte) ,	// input [7:0] databyte_sig
 	.trig_seq_f(trig_seq_f) ,	// input  seq_trigger_sig
 	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
@@ -239,7 +238,7 @@ sysex_func sysex_func_inst
 
 controller_cmd_inst controller_cmd_inst_inst (
    // Input Ports - Single Bit
-    .reg_clk(reg_clk) ,
+    .reg_clk             (reg_clk) ,
     .trig_seq_f          (trig_seq_f),    
     .is_data_byte        (is_data_byte),   
     .is_st_pitch         (is_st_pitch),    

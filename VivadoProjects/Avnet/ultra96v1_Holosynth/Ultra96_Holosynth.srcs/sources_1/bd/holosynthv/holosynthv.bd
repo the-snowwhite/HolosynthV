@@ -19,12 +19,12 @@
       "fifo_generator_1": "",
       "audio_i2s_driver_0": "",
       "xlconstant_0": "",
-      "holosynth_0": "",
       "clk_wiz_0": "",
       "smartconnect_0": "",
       "zynq_ultra_ps_e_0": "",
       "audio_mux_0": "",
-      "audio_clk_mux_core_0": ""
+      "audio_clk_mux_core_0": "",
+      "holosynth_0": ""
     },
     "ports": {
       "oAUD_DACDAT_0": {
@@ -218,157 +218,6 @@
       "xlconstant_0": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
         "xci_name": "holosynthv_xlconstant_0_0"
-      },
-      "holosynth_0": {
-        "vlnv": "xilinx.com:module_ref:holosynth:1.0",
-        "xci_name": "holosynthv_holosynth_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "holosynth",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "reg_clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "FREQ_HZ": {
-                "value": "50000000",
-                "value_src": "user_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
-              }
-            }
-          },
-          "AUDIO_CLK": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "user_prop"
-              },
-              "PHASE": {
-                "value": "0.000",
-                "value_src": "default_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk1",
-                "value_src": "default_prop"
-              }
-            }
-          },
-          "reset_reg_n": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "reset_data_n": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "trig": {
-            "direction": "I"
-          },
-          "midi_rxd": {
-            "direction": "I"
-          },
-          "midi_txd": {
-            "direction": "O"
-          },
-          "keys_on": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "voice_free": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "active_keys": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "lsound_out": {
-            "direction": "O",
-            "left": "23",
-            "right": "0"
-          },
-          "rsound_out": {
-            "direction": "O",
-            "left": "23",
-            "right": "0"
-          },
-          "xxxx_zero": {
-            "direction": "O"
-          },
-          "xxxx_top": {
-            "direction": "O"
-          },
-          "cpu_read": {
-            "direction": "I"
-          },
-          "cpu_write": {
-            "direction": "I"
-          },
-          "cpu_chip_sel": {
-            "direction": "I"
-          },
-          "cpu_addr": {
-            "direction": "I",
-            "left": "9",
-            "right": "0"
-          },
-          "cpu_readdata": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "cpu_writedata": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "socmidi_read": {
-            "direction": "I"
-          },
-          "socmidi_write": {
-            "direction": "I"
-          },
-          "socmidi_addr": {
-            "direction": "I",
-            "left": "2",
-            "right": "0"
-          },
-          "socmidi_data_in": {
-            "direction": "I",
-            "left": "7",
-            "right": "0"
-          },
-          "socmidi_data_out": {
-            "direction": "O",
-            "left": "7",
-            "right": "0"
-          },
-          "run": {
-            "direction": "O"
-          }
-        }
       },
       "clk_wiz_0": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
@@ -4037,6 +3886,153 @@
             "direction": "O"
           }
         }
+      },
+      "holosynth_0": {
+        "vlnv": "xilinx.com:module_ref:holosynth:1.0",
+        "xci_name": "holosynthv_holosynth_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "holosynth",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "reg_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "AUDIO_CLK": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk1",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "reset_reg_n": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "reset_data_n": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "trig": {
+            "direction": "I"
+          },
+          "midi_rxd": {
+            "direction": "I"
+          },
+          "midi_txd": {
+            "direction": "O"
+          },
+          "keys_on": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "voice_free": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "active_keys": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "lsound_out": {
+            "direction": "O",
+            "left": "23",
+            "right": "0"
+          },
+          "rsound_out": {
+            "direction": "O",
+            "left": "23",
+            "right": "0"
+          },
+          "xxxx_zero": {
+            "direction": "O"
+          },
+          "xxxx_top": {
+            "direction": "O"
+          },
+          "cpu_read": {
+            "direction": "I"
+          },
+          "cpu_write": {
+            "direction": "I"
+          },
+          "cpu_chip_sel": {
+            "direction": "I"
+          },
+          "cpu_addr": {
+            "direction": "I",
+            "left": "9",
+            "right": "0"
+          },
+          "cpu_readdata": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "cpu_writedata": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "socmidi_read": {
+            "direction": "I"
+          },
+          "socmidi_write": {
+            "direction": "I"
+          },
+          "socmidi_addr": {
+            "direction": "I",
+            "left": "2",
+            "right": "0"
+          },
+          "socmidi_data_in": {
+            "direction": "I",
+            "left": "7",
+            "right": "0"
+          },
+          "socmidi_data_out": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          },
+          "run": {
+            "direction": "O"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -4081,12 +4077,12 @@
           "holosynth_audio/S_AXI_ACLK",
           "fifo_generator_1/rd_clk",
           "fifo_generator_0/rd_clk",
-          "holosynth_0/reg_clk",
           "smartconnect_0/aclk",
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "zynq_ultra_ps_e_0/maxihpm1_fpd_aclk",
           "audio_mux_0/clk",
-          "audio_clk_mux_core_0/sync_clk"
+          "audio_clk_mux_core_0/sync_clk",
+          "holosynth_0/reg_clk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
@@ -4102,10 +4098,10 @@
           "holosynth_midi/S_AXI_ARESETN",
           "holosynth_audio/S_AXI_ARESETN",
           "audio_i2s_driver_0/reset_reg_N",
-          "holosynth_0/reset_reg_n",
-          "holosynth_0/reset_data_n",
           "smartconnect_0/aresetn",
-          "audio_clk_mux_core_0/reset_n"
+          "audio_clk_mux_core_0/reset_n",
+          "holosynth_0/reset_reg_n",
+          "holosynth_0/reset_data_n"
         ]
       },
       "audio_i2s_driver_0_oAUD_DACDAT": {
@@ -4398,7 +4394,7 @@
               "SEG_hm2_axilite_int_0_reg01": {
                 "address_block": "/holosynth_audio/S_AXI/reg0",
                 "offset": "0x00A0020000",
-                "range": "128"
+                "range": "4K"
               },
               "SEG_hm2_axilite_int_1_reg0": {
                 "address_block": "/holosynth_midi/S_AXI/reg0",
