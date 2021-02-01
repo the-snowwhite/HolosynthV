@@ -4036,6 +4036,18 @@
       }
     },
     "interface_nets": {
+      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
+        "interface_ports": [
+          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
+          "smartconnect_0/S00_AXI"
+        ]
+      },
+      "smartconnect_0_M00_AXI": {
+        "interface_ports": [
+          "holosynth_audio/S_AXI",
+          "smartconnect_0/M00_AXI"
+        ]
+      },
       "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
         "interface_ports": [
           "zynq_ultra_ps_e_0/M_AXI_HPM1_FPD",
@@ -4052,18 +4064,6 @@
         "interface_ports": [
           "holosynth_uio/S_AXI",
           "smartconnect_0/M01_AXI"
-        ]
-      },
-      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
-        "interface_ports": [
-          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
-          "smartconnect_0/S00_AXI"
-        ]
-      },
-      "smartconnect_0_M00_AXI": {
-        "interface_ports": [
-          "holosynth_audio/S_AXI",
-          "smartconnect_0/M00_AXI"
         ]
       }
     },
