@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 
+#include <dirent.h> 
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
@@ -18,7 +19,7 @@ jack_client_t *client;
 
 #define HW_REGS_SPAN ( 4096 )
 //#define FILE_DEV "/dev/uio0"
-#define FILE_DEV "/dev/uio4"
+#define FILE_DEV "/dev/uio0"
 
 bool m_bInitSuccess;
 int fd;
@@ -33,9 +34,42 @@ bool UioInit()
 {
     bool bSuccess = true;
     // Open /dev/uiox
-    if ( ( fd = open ( FILE_DEV, ( O_RDWR | O_SYNC ) ) ) == -1 ) {
+    char buf[1024],str[32], uio_dev[16];
+    ssize_t len;
+    DIR *d;
+    struct dirent *dir;
+    d = opendir("/sys/class/uio");
+    if (d) {
+            while ((dir = readdir(d)) != NULL) {
+            if( dir->d_type == DT_LNK) {
+                sprintf(str, "/sys/class/uio/%s", dir->d_name);
+//                g_print("%s\n", str);
+//                g_print("\t%d\n", dir->d_type);
+
+                if ((len = readlink(str, buf, sizeof(buf)-1)) != -1){
+                    buf[len] = '\0';
+                }
+//                if(strstr("a0020000.hm2_axilite_int", buf ) != NULL) {
+                if(strstr(buf,"a0020000.hm2_axilite_int") != NULL) {
+                    g_print("\n Found string in %s\n", dir->d_name);
+                    sprintf(uio_dev, "/dev/%s\0", dir->d_name);
+                    g_print("%s\n\n", buf);
+                    g_print("%s\n", uio_dev);
+                }
+            }
+        }
+        closedir(d);
+    }
+
+    
+    if ( ( fd = open ( uio_dev, ( O_RDWR | O_SYNC ) ) ) == -1 ) {
         bSuccess = false;
         close ( fd );
+    }
+    if (!bSuccess) {
+        g_printerr ( "cannot open uio device\n");
+    } else {
+        g_print ("uio open success\n"); 
     }
 
     virtual_base = mmap( NULL, HW_REGS_SPAN, ( PROT_READ | PROT_WRITE ), MAP_SHARED, fd, 0);
@@ -43,6 +77,11 @@ bool UioInit()
     if ( virtual_base == MAP_FAILED ) {
         bSuccess = false;
         close ( fd );
+    }
+    if (!bSuccess) {
+        g_printerr ( "uio mmap failed\n");
+    } else {
+        g_print ("uio mmap success\n"); 
     }
     uio_mem_addr=(uint32_t *)virtual_base;
     return bSuccess;
@@ -130,9 +169,9 @@ jack_client_t*  init_jack_client ()
 
 	if (!m_bInitSuccess) {
 		g_printerr ( "cannot open uio device\n");
+    } else {
+        g_print ("uio init success\n"); 
     }
-    g_print ("uio init success\n"); 
-    
     /* open a client connection to the JACK server */
 
 	client = jack_client_open (client_name, options, &status, server_name);
@@ -274,13 +313,13 @@ static void activate (GtkApplication* app,
     window = gtk_application_window_new (app);
     
     gtk_window_set_title (GTK_WINDOW (window), "Hsynth Audio");
-    gtk_window_set_default_size (GTK_WINDOW (window), 300, 225);
+    gtk_window_set_default_size (GTK_WINDOW (window), 300, 255);
     layout = gtk_layout_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER (window), layout);
     
     gtk_widget_show(layout);
 
-    image = gtk_image_new_from_file("/home/holosynth/example-clients/Hsynth_ed_tiny.jpeg");
+    image = gtk_image_new_from_file("./Hsynth_ed_tiny.jpeg");
     gtk_layout_put(GTK_LAYOUT(layout), image, 0, 0);
     
     client = init_jack_client();
