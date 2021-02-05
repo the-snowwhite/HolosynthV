@@ -43,13 +43,10 @@ bool UioInit()
             while ((dir = readdir(d)) != NULL) {
             if( dir->d_type == DT_LNK) {
                 sprintf(str, "/sys/class/uio/%s", dir->d_name);
-//                g_print("%s\n", str);
-//                g_print("\t%d\n", dir->d_type);
 
                 if ((len = readlink(str, buf, sizeof(buf)-1)) != -1){
                     buf[len] = '\0';
                 }
-//                if(strstr("a0020000.hm2_axilite_int", buf ) != NULL) {
                 if(strstr(buf,"a0020000.hm2_axilite_int") != NULL) {
                     g_print("\n Found string in %s\n", dir->d_name);
                     sprintf(uio_dev, "/dev/%s\0", dir->d_name);
