@@ -18,7 +18,8 @@ parameter V_ENVS = V_OSC * O_ENVS,	// number of envelope generators  pr. voice.
 parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH = utils::clogb2(O_ENVS),
-parameter E_WIDTH = O_WIDTH + OE_WIDTH
+parameter E_WIDTH = O_WIDTH + OE_WIDTH,
+parameter invert_rxd = 0
 ) (
 // Clock
     input wire              reg_clk,
@@ -34,7 +35,7 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     input wire  [4:1]       button,
     output wire [VOICES-1:0] keys_on,
     output wire [VOICES-1:0] voice_free,
-    output wire [V_WIDTH:0]	active_keys,
+    output wire [V_WIDTH-1:0]	active_keys,
 
     output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
     output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
@@ -101,18 +102,16 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
 
 // inputs
 // outputs
-    wire prg_ch_cmd,pitch_cmd;
-    wire[7:0] prg_ch_data;
-//    wire [V_WIDTH:0]	active_keys;
-    wire 	off_note_error;
+    wire        prg_ch_cmd,pitch_cmd;
+    wire [7:0]  prg_ch_data;
+    wire 	    off_note_error;
 
-    wire ictrl_cmd;
-    wire [7:0]ictrl, ictrl_data;
+    wire        ictrl_cmd;
+    wire [7:0]  ictrl, ictrl_data;
 
     wire HC_LCD_CLK, HC_VGA_CLOCK;
 
-//    wire OSC_CLK;
-    wire audio_pll_locked;
+    wire        audio_pll_locked;
 
     wire [63:0] lvoice_out;
     wire [63:0] rvoice_out;
@@ -121,7 +120,6 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire [6:0]	syx_dec_addr;
     wire [2:0]	syx_bank_addr;
     wire [6:0]	adr;
-//    wire [6:0]	dec_sel_bus;
     wire		env_sel	;
     wire		osc_sel;
     wire		m1_sel;
@@ -132,12 +130,11 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire		syx_read;
     wire		syx_write;
     wire		syx_read_select;
-//    wire		dec_read_write;
     wire [7:0]  sysex_data_out;
 
-    wire [3:0] midi_ch;
-    wire uart_usb_sel;
-    reg [7:0] out_data;
+    wire [3:0]  midi_ch;
+    wire        uart_usb_sel;
+    reg  [7:0]  out_data;
 
     wire    write_dataenable;
 
@@ -201,7 +198,7 @@ reset_delay	reset_data_delay_inst  (
 */
     // Sound clk gen //
 
-synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
+synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.invert_rxd(invert_rxd)) synth_controller_inst(
 
     .reset_reg_N(reg_reset_N) ,
     .reg_clk(reg_clk) ,
@@ -223,17 +220,13 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .prg_ch_data(prg_ch_data) ,
 // controller data bus
     .syx_data_ready(syx_data_ready) ,   //output
-//    .read_write (dec_read_write),
-//    .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
     .write_dataenable (write_dataenable),
-//    .dec_addr(dec_addr) ,
     .syx_dec_addr(syx_dec_addr) ,
     .syx_bank_addr(syx_bank_addr) ,
     .syx_read(syx_read) ,
     .syx_write(syx_write) ,
     .sysex_data_out (sysex_data_out) ,
     .synth_data_out (synth_data_out),  // input
-//    .dec_sel_bus( dec_sel_bus) ,
     .active_keys(active_keys) ,
     .uart_usb_sel(uart_usb_sel)
 );

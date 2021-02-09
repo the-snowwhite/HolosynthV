@@ -13,7 +13,7 @@ parameter V_WIDTH = 3
 //    input wire                  auto_syx_cmd,
     input wire                  trig__note_stack,
     input wire  [7:0]           seq_databyte,
-    output reg [V_WIDTH:0]      active_keys,
+    output reg [V_WIDTH-1:0]    active_keys,
     output reg                  note_on,
     output reg [V_WIDTH-1:0]    cur_key_adr,
     output reg [7:0]            cur_key_val,

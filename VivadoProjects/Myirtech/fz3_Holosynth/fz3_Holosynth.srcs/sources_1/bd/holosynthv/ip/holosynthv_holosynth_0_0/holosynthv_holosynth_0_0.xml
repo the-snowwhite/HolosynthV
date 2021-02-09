@@ -363,7 +363,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.V_WIDTH&apos;))">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.V_WIDTH&apos;)) - 1)">4</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -608,7 +608,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>V_WIDTH</spirit:name>
         <spirit:displayName>V Width</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.V_WIDTH">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.V_WIDTH" spirit:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) > 512)) ? 0 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 2) ? 1 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 4) ? 2 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 8) ? 3 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 16) ? 4 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 32) ? 5 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 64) ? 6 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 128) ? 7 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 256) ? 8 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 512) ? 9 : 0))))))))))">5</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>b_NUM_OSCS_PER_VOICE</spirit:name>
@@ -630,6 +630,11 @@
         <spirit:displayName>Aud Bit Depth</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
       </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>invert_rxd</spirit:name>
+        <spirit:displayName>Invert Rxd</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.invert_rxd">0</spirit:value>
+      </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
   <spirit:description>xilinx.com:module_ref:holosynth:1.0</spirit:description>
@@ -642,7 +647,7 @@
     <spirit:parameter>
       <spirit:name>V_WIDTH</spirit:name>
       <spirit:displayName>V Width</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.V_WIDTH">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.V_WIDTH">5</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>b_NUM_OSCS_PER_VOICE</spirit:name>
@@ -663,6 +668,11 @@
       <spirit:name>AUD_BIT_DEPTH</spirit:name>
       <spirit:displayName>Aud Bit Depth</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>invert_rxd</spirit:name>
+      <spirit:displayName>Invert Rxd</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.invert_rxd">0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>

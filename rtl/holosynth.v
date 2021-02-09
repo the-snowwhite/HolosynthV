@@ -1,10 +1,23 @@
-module holosynth #(
+`define CLOG2(x) \
+((x <= 1) || (x > 512)) ? 0 : \
+(x <= 2) ? 1 : \
+(x <= 4) ? 2 : \
+(x <= 8) ? 3 : \
+(x <= 16) ? 4 : \
+(x <= 32) ? 5 : \
+(x <= 64) ? 6 : \
+(x <= 128) ? 7: \
+(x <= 256) ? 8: \
+(x <= 512) ? 9 : 0
+module holosynth 
+#(
 parameter a_NUM_VOICES = 32,
-parameter V_WIDTH = 5-1,
+parameter V_WIDTH = `CLOG2(a_NUM_VOICES),
 parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
 parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
-parameter AUD_BIT_DEPTH = 24
+parameter AUD_BIT_DEPTH = 24,
+parameter invert_rxd = 0
 ) (
 // Clock
     input  wire         reg_clk,
@@ -18,12 +31,12 @@ parameter AUD_BIT_DEPTH = 24
     output wire         midi_txd,
 
 //    input   [3:0]        button,
-    output wire [a_NUM_VOICES-1:0] keys_on,
-    output wire [a_NUM_VOICES-1:0] voice_free,
-    output wire [V_WIDTH:0]	active_keys,
+    output wire [a_NUM_VOICES-1:0]  keys_on,
+    output wire [a_NUM_VOICES-1:0]  voice_free,
+    output wire [V_WIDTH-1:0]       active_keys,
 
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] rsound_out,
 
     output wire          xxxx_zero,
     output wire          xxxx_top,
@@ -43,13 +56,13 @@ parameter AUD_BIT_DEPTH = 24
     output wire          run
 );
     
-    synthesizer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC))  synthesizer_inst(
+    synthesizer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC),.invert_rxd(invert_rxd))  synthesizer_inst(
         .reg_clk                (reg_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_reg_n            (reset_reg_n),
         .reset_data_n           (reset_data_n) ,	// input  io_reset_sig
         .trig                   (trig),
-        .MIDI_Rx_DAT            (~midi_rxd) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
+        .MIDI_Rx_DAT            (midi_rxd) ,    // input  MIDI_DAT_sig
         .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
         .keys_on                (keys_on),				//  LED [7:0]

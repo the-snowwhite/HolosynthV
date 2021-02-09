@@ -1,6 +1,7 @@
 module synth_controller #(
 parameter VOICES = 8,
-parameter V_WIDTH = 3
+parameter V_WIDTH = 3,
+parameter invert_rxd = 0
 ) (
     input wire                  reset_reg_N,
     input wire                  reg_clk,
@@ -37,7 +38,7 @@ parameter V_WIDTH = 3
     input  wire [7:0]           synth_data_out,
 //    output wire [6:0]           dec_sel_bus,
 // status data
-    output wire [V_WIDTH:0]     active_keys,
+    output wire [V_WIDTH-1:0]   active_keys,
     input wire                  uart_usb_sel
 );
 
@@ -90,7 +91,8 @@ parameter V_WIDTH = 3
     wire [7:0]           octrl;
     wire [7:0]           octrl_data;
 
-MIDI_UART MIDI_UART_inst (
+MIDI_UART #(.invert_rxd(invert_rxd)) MIDI_UART_inst
+(
     .reset_reg_N    (reset_reg_N),
     .reg_clk        (reg_clk),
     .midi_rxd       (midi_rxd),         // input  midi serial data in

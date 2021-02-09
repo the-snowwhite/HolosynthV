@@ -209,7 +209,6 @@ mixer_2 #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O
     .active_keys( active_keys ) ,
     .write( write ),
     .read ( read ),
-//    .read_select (syx_read_select),
     .adr( adr ),
     .mixer_regdata_out( mixer_regdata_out ),
     .synth_data_in( synth_data_in ),
