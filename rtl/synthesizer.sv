@@ -133,7 +133,7 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     wire		syx_read_select;
     wire [7:0]  sysex_data_out;
 
-    wire [4:0]  midi_ch;
+    wire [4:0]  cur_midi_ch;
     reg  [7:0]  out_data;
 
     wire    write_dataenable;
