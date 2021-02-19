@@ -17,7 +17,8 @@ parameter b_NUM_OSCS_PER_VOICE = 8, // number of oscilators pr. voice.
 parameter c_NUM_ENVGENS_PER_OSC = 2,			// number of envelope generators pr. oscilator.
 parameter V_ENVS = b_NUM_OSCS_PER_VOICE * c_NUM_ENVGENS_PER_OSC,
 parameter AUD_BIT_DEPTH = 24,
-parameter invert_rxd = 0
+parameter Invert_rxd = 0,
+parameter REG_CLK_FREQUENCY = 50_000_000
 ) (
 // Clock
     input  wire         reg_clk,
@@ -56,7 +57,13 @@ parameter invert_rxd = 0
     output wire          run
 );
     
-    synthesizer #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),.O_ENVS(c_NUM_ENVGENS_PER_OSC),.invert_rxd(invert_rxd))  synthesizer_inst(
+    synthesizer #(
+        .AUD_BIT_DEPTH (AUD_BIT_DEPTH),
+        .VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),
+        .O_ENVS(c_NUM_ENVGENS_PER_OSC),
+        .Invert_rxd(Invert_rxd),
+        .REG_CLK_FREQUENCY(REG_CLK_FREQUENCY)
+    )  synthesizer_inst(
         .reg_clk                (reg_clk) ,
         .AUDIO_CLK              (AUDIO_CLK),             // input
         .reset_reg_n            (reset_reg_n),

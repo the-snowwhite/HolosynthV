@@ -31,22 +31,20 @@ parameter AUD_BIT_DEPTH = 24
     input wire [31:0] datain,
     input wire [AUD_BIT_DEPTH-1:0] lsound_in,
     input wire [AUD_BIT_DEPTH-1:0] rsound_in,
-//    input wire [6:0] read_cnt,
-//    input wire [6:0] write_cnt,
     input wire xxxx_top,
     input wire lrck,
     input wire run,
     output reg [31:0] dataout,
     output wire l_read,
     output wire r_read,
-//    output reg [13:0] buffersize,
     output wire sample_ready,
-//    output wire jack_cycle_start,
-//    output reg jack_read_act,
-//    output reg signed [6:0] fifo_diff,
     output wire trig,
     output wire i2s_enable,
     output reg samplerate_is_48
+//    output wire byteready_cpu,
+//    output wire [7:0] cur_status_cpu,
+//    output wire [7:0] midibyte_nr_cpu,
+//    output wire [7:0] midi_in_data_cpu
 );
     
 //    reg read_dly;
@@ -120,4 +118,19 @@ parameter AUD_BIT_DEPTH = 24
         if(xxxx_top && fill_fifo && !run) run_trig <= 1'b1;
         else run_trig <= 1'b0;
     end
+/*
+cpu_port #(.addr(5))cpu_midi_port_inst
+(
+	.reset_reg_N( 1'b1 ) ,
+	.reg_clk( clk ) ,
+	.socmidi_addr( address ) ,	    // input [2:0] cpu_addr_sig
+	.socmidi_data_in( datain[7:0] ) ,	// input [7:0] cpu_data_sig
+	.socmidi_write( write ) ,	    // input  cpu_write_sig
+
+	.byteready_c( byteready_cpu ) ,	        // output  byteready_sig
+	.cur_status_c( cur_status_cpu ) ,	        // output [7:0] cur_status_sig
+	.midibyte_nr_c( midibyte_nr_cpu ) ,	    // output [7:0] midibyte_nr_sig
+	.midi_in_data_c( midi_in_data_cpu ) 	    // output [7:0] midibyte_sig
+);
+*/
 endmodule

@@ -34,7 +34,7 @@ parameter x_offset = (V_OSC * VOICES ) - 2
 // Outputs -- //
 // osc
     output reg signed [10:0]            modulation,
-    output wire [3:0]                   midi_ch,
+    output wire [4:0]                   cur_midi_ch,
     output wire                         uart_usb_sel,
 // sound data out
     output wire [AUD_BIT_DEPTH-1:0]     lsound_out,
@@ -86,8 +86,7 @@ parameter x_offset = (V_OSC * VOICES ) - 2
     .osc_mod_in( osc_mod_in ),                          // output
     .osc_feedb_in( osc_feedb_in ),                      // output
     .m_vol( m_vol ),                                    // output
-    .midi_ch( midi_ch ),                                // output
-    .uart_usb_sel( uart_usb_sel ),                      // output
+    .cur_midi_ch( cur_midi_ch ),                        // output
     .mat_buf1( mat_buf1 ),                              // output
     .mat_buf2( mat_buf2 ),                              // output
     .patch_name( patch_name )                           // output

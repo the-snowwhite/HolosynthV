@@ -3,7 +3,6 @@ parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
     input wire                  reg_clk,
-    input wire                  reset_reg_N,
     input wire  [VOICES-1:0]    voice_free,
     input wire                  is_data_byte,
     input wire                  is_velocity,
@@ -13,7 +12,7 @@ parameter V_WIDTH = 3
 //    input wire                  auto_syx_cmd,
     input wire                  trig__note_stack,
     input wire  [7:0]           seq_databyte,
-    output reg [V_WIDTH-1:0]    active_keys,
+    output reg [V_WIDTH:0]      active_keys, // has to go upto 32
     output reg                  note_on,
     output reg [V_WIDTH-1:0]    cur_key_adr,
     output reg [7:0]            cur_key_val,
@@ -63,6 +62,8 @@ parameter V_WIDTH = 3
     reg [7:0]cur_note;
     reg [V_WIDTH-1:0]slot_off;
 
+    reg is_data_byte_dly;
+
     wire is_allnotesoff;
     
     initial begin
@@ -83,6 +84,7 @@ parameter V_WIDTH = 3
         cur_note = 0;
         cur_slot = 0;
         note_on = 1'b0;
+        is_data_byte_dly = 1'b0;
     end
     
     assign is_allnotesoff    =   ((seq_databyte==8'h7b)?1'b1:1'b0);
@@ -98,23 +100,26 @@ parameter V_WIDTH = 3
 
 //    assign free_voice_found = (free_voices_found > 0) ? 1'b1: 1'b0;
 
-    always @(posedge is_data_byte)begin
-        for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
-            free_voice_found = 1'b0;
-            if(voice_free_r[i3])begin
-                free_voices_found = free_voices_found +1;
-                first_free_voice = i3;
+    always @(posedge reg_clk)begin
+        is_data_byte_dly <= is_data_byte;
+        if(is_data_byte && ~is_data_byte_dly) begin
+            for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
+                free_voice_found = 1'b0;
+                if(voice_free_r[i3])begin
+                    free_voices_found = free_voices_found +1;
+                    first_free_voice = i3;
+                end
+                if (free_voices_found > 0) free_voice_found = 1'b1;
             end
-            if (free_voices_found > 0) free_voice_found = 1'b1;
         end
     end
 
 
     always @(posedge reg_clk) begin
         if (trig__note_stack)begin
-            note_on <= 1'b0;
             if(is_st_note_on)begin // Note on omni
                 if(is_data_byte)begin
+                    note_on <= 1'b0;
                     if(active_keys >= VOICES) begin
                         active_keys <= active_keys-1'b1;
                         keys_on[on_slot[0]]<=1'b0;
@@ -137,6 +142,7 @@ parameter V_WIDTH = 3
                 end
                 else if(is_velocity)begin
                     if(seq_databyte == 0)begin
+                        note_on <= 1'b0;
                         for(i22=0;i22<VOICES;i22=i22+1)begin
                             if(cur_note==key_val[i22])begin
                                 active_keys <= active_keys-1'b1;
@@ -161,6 +167,7 @@ parameter V_WIDTH = 3
                 end
             end
             else if(is_st_ctrl)begin // Control Change omni
+                note_on <= 1'b0;
                 if(is_data_byte)begin
                     if(is_allnotesoff)begin
                         for(i4=0;i4<VOICES;i4=i4+1)begin
@@ -176,6 +183,7 @@ parameter V_WIDTH = 3
                 end
             end
             else if (is_st_note_off) begin// Note off omni
+                note_on <= 1'b0;
                 if(is_data_byte)begin
                     for(i2=0;i2<VOICES;i2=i2+1)begin
                         if(seq_databyte==key_val[i2])begin
@@ -198,15 +206,13 @@ parameter V_WIDTH = 3
                             end
                         end
                     end
-                    if(active_keys == 0)begin
+                    if(active_keys != 0 && keys_on == 0)begin
+                        active_keys <= 0;
                         for(i8=0;i8<VOICES;i8=i8+1)begin
-                            keys_on[i8]<=1'b0;
-                            cur_key_adr <= i8;
-                            cur_key_val <= 8'hff;
-                            cur_vel_on <= 8'd0;
-                            cur_vel_off <= 8'd0;
                             key_val[i8] <= 8'hff;
                         end
+                        cur_vel_on <= 8'h00;
+                        cur_vel_off <= 8'h00;
                         cur_note <= 8'd0;
                         slot_off <= 0;
                         cur_slot <= 0;

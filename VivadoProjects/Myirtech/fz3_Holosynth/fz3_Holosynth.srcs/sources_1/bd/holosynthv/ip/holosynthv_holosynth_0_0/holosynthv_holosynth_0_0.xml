@@ -631,9 +631,14 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>invert_rxd</spirit:name>
+        <spirit:name>Invert_rxd</spirit:name>
         <spirit:displayName>Invert Rxd</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.invert_rxd">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.Invert_rxd">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+        <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -670,9 +675,14 @@
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
-      <spirit:name>invert_rxd</spirit:name>
+      <spirit:name>Invert_rxd</spirit:name>
       <spirit:displayName>Invert Rxd</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.invert_rxd">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.Invert_rxd">0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+      <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>

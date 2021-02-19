@@ -19,7 +19,8 @@ parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH = utils::clogb2(O_ENVS),
 parameter E_WIDTH = O_WIDTH + OE_WIDTH,
-parameter invert_rxd = 0
+parameter Invert_rxd = 0,
+parameter REG_CLK_FREQUENCY = 50_000_000
 ) (
 // Clock
     input wire              reg_clk,
@@ -132,8 +133,7 @@ parameter invert_rxd = 0
     wire		syx_read_select;
     wire [7:0]  sysex_data_out;
 
-    wire [3:0]  midi_ch;
-    wire        uart_usb_sel;
+    wire [4:0]  midi_ch;
     reg  [7:0]  out_data;
 
     wire    write_dataenable;
@@ -198,9 +198,8 @@ reset_delay	reset_data_delay_inst  (
 */
     // Sound clk gen //
 
-synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.invert_rxd(invert_rxd)) synth_controller_inst(
+synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.Invert_rxd(Invert_rxd),.REG_CLK_FREQUENCY(REG_CLK_FREQUENCY)) synth_controller_inst(
 
-    .reset_reg_N(reg_reset_N) ,
     .reg_clk(reg_clk) ,
     .socmidi_addr(socmidi_addr) ,
     .socmidi_data_in(socmidi_data_in) ,
@@ -208,7 +207,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.invert_rxd(invert_rxd)) sy
     .midi_rxd(midi_rxd) ,
     .midi_txd(midi_txd) ,
     .voice_free(voice_free) ,
-    .midi_ch( midi_ch), 
+    .cur_midi_ch(cur_midi_ch), 
     .note_on(note_on) ,
     .keys_on(keys_on) ,
     .cur_key_adr(cur_key_adr) ,
@@ -227,8 +226,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.invert_rxd(invert_rxd)) sy
     .syx_write(syx_write) ,
     .sysex_data_out (sysex_data_out) ,
     .synth_data_out (synth_data_out),  // input
-    .active_keys(active_keys) ,
-    .uart_usb_sel(uart_usb_sel)
+    .active_keys(active_keys)
 );
 
     //////////// Sound Generation /////////////
@@ -243,10 +241,9 @@ synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.V_E
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
-    .xxxx_zero          ( xxxx_zero ) ,             // output  count complete signal
+    .xxxx_zero              ( xxxx_zero ) ,             // output  count complete signal
     .xxxx_top               ( xxxx_top ) ,              // output  cycle complete signal
-    .midi_ch                ( midi_ch ) ,               // output  
-    .uart_usb_sel           ( uart_usb_sel ) ,          // output  
+    .cur_midi_ch            ( cur_midi_ch ) ,               // output  
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //

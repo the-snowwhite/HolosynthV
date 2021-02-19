@@ -19,8 +19,7 @@ parameter E_WIDTH   = O_WIDTH + OE_WIDTH   // = 4
     output wire                 xxxx_zero,
     output wire                 xxxx_top,
 // from synth_controller
-    output wire [3:0]           midi_ch,
-    output wire                 uart_usb_sel,
+    output wire [4:0]           cur_midi_ch,
 // note events
     input wire  [VOICES-1:0]    keys_on,
     input wire                  note_on,
@@ -204,8 +203,7 @@ mixer_2 #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O
     .level_mul_vel( level_mul_vel ),
     .sine_lut_out( sine_lut_out ),
     .modulation( modulation ),
-    .midi_ch( midi_ch ),
-    .uart_usb_sel( uart_usb_sel ),
+    .cur_midi_ch( cur_midi_ch ),
     .active_keys( active_keys ) ,
     .write( write ),
     .read ( read ),

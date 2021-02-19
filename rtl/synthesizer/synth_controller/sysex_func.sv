@@ -1,10 +1,8 @@
 module sysex_func (
     input wire          reg_clk,
-    input wire          reset_reg_N,
-//    input wire          write_dataenable,
     output wire [7:0]   sysex_data_out,
     input wire  [7:0]   synth_data_out,
-    input wire  [3:0]   midi_ch,
+    input wire  [4:0]   cur_midi_ch,
     input wire          is_st_sysex,
     input wire          midi_out_ready,
     input wire  [7:0]   midi_bytes,
@@ -16,7 +14,6 @@ module sysex_func (
     output reg  [7:0]   midi_out_data,
     output wire [2:0]   syx_bank_addr,
     output wire [6:0]   syx_dec_addr
-//    output wire [9:0]   sysex_addr
 );
 
     reg [6:0]   adr_l,adr_s;
@@ -26,21 +23,30 @@ module sysex_func (
     reg [7:0]addr_cnt;
 
     reg Educational_Use,sysex_data_bank_load,sysex_data_patch_load,sysex_ctrl_data,sysex_data_patch_send_end;
+    reg midi_out_ready_dly;
 
-//    assign sysex_addr = {syx_bank_adr,syx_dec_adr};
+    initial begin
+        syx_cmd = 1'b0;
+        dec_sysex_data_patch_send = 1'b0;
+        sysex_data_bank_load = 1'b0;
+        sysex_data_patch_load = 1'b0;
+        sysex_ctrl_data = 1'b0;
+        auto_syx_cmd = 1'b0;
+        Educational_Use = 1'b0;
+        bank_adr_l = 3'b0;
+        adr_l = 7'b0;
+        sysex_regdata_out = 8'b0;
+        addr_cnt = 8'b0;
+        sysex_data_patch_send_end = 1'b0;
+        midi_out_data = 8'h00;    
+    end
     
     assign syx_bank_addr = (dec_sysex_data_patch_send) ? bank_adr_s : bank_adr_l;
     assign syx_dec_addr = (dec_sysex_data_patch_send) ? adr_s : adr_l;
-//	assign sysex_data_out = write_dataenable ? sysex_regdata_out : 8'bz;
 	assign sysex_data_out = sysex_regdata_out;
 
-    always @(negedge reset_reg_N or posedge reg_clk) begin
-        if (!reset_reg_N) begin // init values
-            syx_cmd <= 1'b0; dec_sysex_data_patch_send <= 1'b0; sysex_data_bank_load <= 1'b0;
-            sysex_data_patch_load <= 1'b0; sysex_ctrl_data <= 1'b0; auto_syx_cmd <= 1'b0; Educational_Use <= 1'b0;
-            bank_adr_l <= 3'b0; adr_l <= 7'b0; sysex_regdata_out  <= 8'b0;
-        end
-        else if (trig_seq_f)begin
+    always @(posedge reg_clk) begin
+        if (trig_seq_f)begin
             if (sysex_data_patch_send_end && addr_cnt == (16*14+4)) begin  dec_sysex_data_patch_send <= 1'b0; end
             syx_cmd <= 1'b0;
             if(is_st_sysex)begin // Sysex
@@ -49,7 +55,7 @@ module sysex_func (
                 end
                 else if (Educational_Use) begin
                     if (midi_bytes == 8'd2)begin // sysex_type <= seq_databyte[7:4]; midi_cha_num <= seq_databyte[3:0]; end
-                        if (seq_databyte[3:0] == midi_ch) begin
+                        if (seq_databyte[3:0] == cur_midi_ch[3:0]) begin
                             case (seq_databyte[7:4])
                                 4'h1 : sysex_ctrl_data <= 1'b1;
                                 4'h2 : sysex_data_bank_load <= 1'b1;
@@ -93,16 +99,14 @@ module sysex_func (
         end
     end
 
-    always @(negedge reset_reg_N or negedge midi_out_ready ) begin
-        if (!reset_reg_N) begin
-            addr_cnt <= 8'b0; sysex_data_patch_send_end <= 1'b0; midi_out_data <= 8'h00;
-        end
-        else if (!midi_out_ready) begin
+    always @(posedge reg_clk ) begin
+        midi_out_ready_dly <= midi_out_ready;
+        if (midi_out_ready_dly && ~midi_out_ready) begin
             if (dec_sysex_data_patch_send) begin
                 addr_cnt <= addr_cnt+8'h01; sysex_data_patch_send_end <= 1'b0;
                 if (addr_cnt == 8'b0) begin    midi_out_data <= 8'hF0;    adr_s <= 6'b0; end
                 else if(addr_cnt == 8'd1) midi_out_data <= 8'h7D;
-                else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,midi_ch}; adr_s <= 6'h0; bank_adr_s <= 3'h0; end
+                else if(addr_cnt == 8'd2)begin midi_out_data <= {4'h7,cur_midi_ch[3:0]}; adr_s <= 6'h0; bank_adr_s <= 3'h0; end
                 else if(addr_cnt >= 8'd3 && addr_cnt < (16*14+3))begin
                     adr_s <= adr_s + 6'h01;    midi_out_data <= synth_data_out;
                     if (addr_cnt == (16*4+2))begin adr_s <= 6'h0; bank_adr_s <= 3'h1; end

@@ -1,6 +1,17 @@
+`define CLOG2(x) \
+((x <= 1) || (x > 512)) ? 0 : \
+(x <= 2) ? 1 : \
+(x <= 4) ? 2 : \
+(x <= 8) ? 3 : \
+(x <= 16) ? 4 : \
+(x <= 32) ? 5 : \
+(x <= 64) ? 6 : \
+(x <= 128) ? 7: \
+(x <= 256) ? 8: \
+(x <= 512) ? 9 : 0
 module synth_controller #(
 parameter VOICES = 32,
-parameter V_WIDTH = utils::clogb2(VOICES),
+parameter V_WIDTH = `CLOG2(VOICES),
 parameter Invert_rxd = 0,
 parameter REG_CLK_FREQUENCY = 50_000_000
 ) (

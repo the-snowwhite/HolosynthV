@@ -81,7 +81,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dbf6ffdb</spirit:value>
+            <spirit:value>18e43e01</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -94,7 +94,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dbf6ffdb</spirit:value>
+            <spirit:value>18e43e01</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -523,9 +523,14 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>invert_rxd</spirit:name>
+        <spirit:name>Invert_rxd</spirit:name>
         <spirit:displayName>Invert Rxd</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.invert_rxd">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.Invert_rxd">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+        <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -535,7 +540,7 @@
       <spirit:file>
         <spirit:name>xgui/holosynth_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_ae207ffe</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_d4d5f955</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -573,9 +578,14 @@
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
-      <spirit:name>invert_rxd</spirit:name>
+      <spirit:name>Invert_rxd</spirit:name>
       <spirit:displayName>Invert Rxd</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.invert_rxd">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.Invert_rxd">0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+      <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
@@ -597,7 +607,7 @@
         <xilinx:designToolContext>IPI</xilinx:designToolContext>
       </xilinx:designToolContexts>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-02-09T05:22:50Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2021-02-18T19:25:31Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
