@@ -26,12 +26,12 @@ case $1 in
     ;;
 
   *"fz3"*)
-    cd /work/HW/VivadoProjects/myirtech/fz3
+    cd /work/VivadoProjects/Myirtech/fz3
     BOARD_PART="xczu3eg"
     ;;
 
   *"ultramyir"*)
-    cd /work/HW/VivadoProjects/myirtech/ultramyir
+    cd /work/VivadoProjects/Myirtech/ultramyir
     BOARD_PART="xczu3eg"
     ;;
 

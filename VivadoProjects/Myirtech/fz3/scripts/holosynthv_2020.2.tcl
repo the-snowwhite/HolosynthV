@@ -390,11 +390,11 @@ proc create_root_design { parentCell } {
    CONFIG.IO_DATA_WIDTH {8} \
  ] $holosynth_midi
 
-  # Create instance: holosynth_uio, and set properties
-  set holosynth_uio [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_axilite_int:1.0 holosynth_uio ]
+  # Create instance: holosynth_sysex, and set properties
+  set holosynth_sysex [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_axilite_int:1.0 holosynth_sysex ]
   set_property -dict [ list \
    CONFIG.C_S_AXI_ADDR_WIDTH {12} \
- ] $holosynth_uio
+ ] $holosynth_sysex
 
   # Create instance: rst_ps8_0_99M, and set properties
   set rst_ps8_0_99M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_99M ]
@@ -1983,7 +1983,7 @@ proc create_root_design { parentCell } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins holosynth_audio/S_AXI] [get_bd_intf_pins smartconnect_0/M00_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins holosynth_uio/S_AXI] [get_bd_intf_pins smartconnect_0/M01_AXI]
+  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins holosynth_sysex/S_AXI] [get_bd_intf_pins smartconnect_0/M01_AXI]
   connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins holosynth_midi/S_AXI] [get_bd_intf_pins smartconnect_0/M02_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins smartconnect_0/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM1_FPD [get_bd_intf_pins smartconnect_0/S01_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM1_FPD]
@@ -2005,16 +2005,16 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins audio_clk_mux_core_0/aud_48_in_clk] [get_bd_pins clk_wiz_0/clk_out2]
   connect_bd_net -net fifo_generator_0_dout [get_bd_pins audio_mux_0/lsound_in] [get_bd_pins fifo_generator_0/dout]
   connect_bd_net -net fifo_generator_1_dout [get_bd_pins audio_mux_0/rsound_in] [get_bd_pins fifo_generator_1/dout]
-  connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins holosynth_uio/ADDR]
-  connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins holosynth_0/cpu_readdata] [get_bd_pins holosynth_uio/IBUS]
-  connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins holosynth_0/cpu_read] [get_bd_pins holosynth_uio/READSTB]
-  connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins holosynth_0/cpu_write] [get_bd_pins holosynth_uio/WRITESTB]
+  connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins holosynth_sysex/ADDR]
+  connect_bd_net -net hm2_axilite_int_0_IBUS [get_bd_pins holosynth_0/cpu_readdata] [get_bd_pins holosynth_sysex/IBUS]
+  connect_bd_net -net hm2_axilite_int_0_READSTB [get_bd_pins holosynth_0/cpu_read] [get_bd_pins holosynth_sysex/READSTB]
+  connect_bd_net -net hm2_axilite_int_0_WRITESTB [get_bd_pins holosynth_0/cpu_write] [get_bd_pins holosynth_sysex/WRITESTB]
   connect_bd_net -net hm2_axilite_int_1_ADDR [get_bd_pins holosynth_0/socmidi_addr] [get_bd_pins holosynth_midi/ADDR]
   connect_bd_net -net hm2_axilite_int_1_IBUS [get_bd_pins holosynth_0/socmidi_data_in] [get_bd_pins holosynth_midi/IBUS]
   connect_bd_net -net hm2_axilite_int_1_READSTB [get_bd_pins holosynth_0/socmidi_read] [get_bd_pins holosynth_midi/READSTB]
   connect_bd_net -net hm2_axilite_int_1_WRITESTB [get_bd_pins holosynth_0/socmidi_write] [get_bd_pins holosynth_midi/WRITESTB]
   connect_bd_net -net holosynth_0_active_keys [get_bd_pins holosynth_0/active_keys] [get_bd_pins xlslice_0/Din]
-  connect_bd_net -net holosynth_0_cpu_writedata [get_bd_pins holosynth_0/cpu_writedata] [get_bd_pins holosynth_uio/OBUS]
+  connect_bd_net -net holosynth_0_cpu_writedata [get_bd_pins holosynth_0/cpu_writedata] [get_bd_pins holosynth_sysex/OBUS]
   connect_bd_net -net holosynth_0_lsound_out [get_bd_pins audio_i2s_driver_0/i_lsound_out] [get_bd_pins fifo_generator_0/din] [get_bd_pins holosynth_0/lsound_out]
   connect_bd_net -net holosynth_0_midi_txd [get_bd_ports midi_txd_0] [get_bd_pins holosynth_0/midi_txd]
   connect_bd_net -net holosynth_0_rsound_out [get_bd_pins audio_i2s_driver_0/i_rsound_out] [get_bd_pins fifo_generator_1/din] [get_bd_pins holosynth_0/rsound_out]
@@ -2028,17 +2028,17 @@ proc create_root_design { parentCell } {
   connect_bd_net -net holosynth_audio_READSTB [get_bd_pins audio_mux_0/read] [get_bd_pins holosynth_audio/READSTB]
   connect_bd_net -net holosynth_audio_WRITESTB [get_bd_pins audio_mux_0/write] [get_bd_pins holosynth_audio/WRITESTB]
   connect_bd_net -net midi_rxd_0_1 [get_bd_ports midi_rxd_0] [get_bd_pins holosynth_0/midi_rxd]
-  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_core_0/reset_n] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_data_n] [get_bd_pins holosynth_0/reset_reg_n] [get_bd_pins holosynth_audio/S_AXI_ARESETN] [get_bd_pins holosynth_midi/S_AXI_ARESETN] [get_bd_pins holosynth_uio/S_AXI_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins smartconnect_0/aresetn]
+  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_core_0/reset_n] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_data_n] [get_bd_pins holosynth_0/reset_reg_n] [get_bd_pins holosynth_audio/S_AXI_ARESETN] [get_bd_pins holosynth_midi/S_AXI_ARESETN] [get_bd_pins holosynth_sysex/S_AXI_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins smartconnect_0/aresetn]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins holosynth_0/cpu_chip_sel] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_ports Led_out] [get_bd_pins xlslice_0/Dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_core_0/sync_clk] [get_bd_pins audio_mux_0/clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_uio/S_AXI_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_core_0/sync_clk] [get_bd_pins audio_mux_0/clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_sysex/S_AXI_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk1 [get_bd_pins holosynth_0/AUDIO_CLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk1]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments
   assign_bd_address -offset 0xA0020000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs holosynth_audio/S_AXI/reg0] -force
   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs holosynth_midi/S_AXI/reg0] -force
-  assign_bd_address -offset 0xA0040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs holosynth_uio/S_AXI/reg0] -force
+  assign_bd_address -offset 0xA0040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs holosynth_sysex/S_AXI/reg0] -force
 
 
   # Restore current instance
