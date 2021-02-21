@@ -34,12 +34,12 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     output wire             midi_txd,
 
     input wire  [4:1]       button,
-    output wire [VOICES-1:0] keys_on,
-    output wire [VOICES-1:0] voice_free,
-    output wire [V_WIDTH-1:0]	active_keys,
+//    output wire [VOICES-1:0] keys_on,
+//    output wire [VOICES-1:0] voice_free,
+    output wire [V_WIDTH:0]	    active_keys,
 
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] rsound_out,
 
     output wire             xxxx_zero,
     output wire             xxxx_top,
@@ -48,8 +48,8 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    input wire  [31:0]      cpu_readdata,
-    output wire [31:0]      cpu_writedata,
+    input wire  [7:0]       cpu_readdata,
+    output wire [7:0]       cpu_writedata,
     input wire  [2:0]       socmidi_addr,
     input wire              socmidi_read,
     input wire              socmidi_write,
@@ -138,12 +138,15 @@ parameter REG_CLK_FREQUENCY = 50_000_000
 
     wire    write_dataenable;
 
+    wire [VOICES-1:0] keys_on;
+    wire [VOICES-1:0] voice_free;
+
     assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 
     assign reg_reset_N = button[1] & reset_reg_n;
 
-    assign cpu_writedata[7:0] = synth_data_out;
-    assign synth_data_in = write_dataenable ? sysex_data_out : cpu_readdata[7:0];
+    assign cpu_writedata = synth_data_out;
+    assign synth_data_in = write_dataenable ? sysex_data_out : cpu_readdata;
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (

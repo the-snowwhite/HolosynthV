@@ -26,7 +26,6 @@ parameter x_offset = (V_OSC * VOICES ) - 2
     input wire [6:0]                    adr,
     input wire                          write,
     input wire                          read,
-//    input wire                          read_select,
     input wire                          osc_sel,
     input wire                          com_sel,
     input wire                          m1_sel,
@@ -35,7 +34,6 @@ parameter x_offset = (V_OSC * VOICES ) - 2
 // osc
     output reg signed [10:0]            modulation,
     output wire [4:0]                   cur_midi_ch,
-    output wire                         uart_usb_sel,
 // sound data out
     output wire [AUD_BIT_DEPTH-1:0]     lsound_out,
     output wire [AUD_BIT_DEPTH-1:0]     rsound_out

@@ -223,17 +223,16 @@ env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_W
     .reg_clk( reg_clk ),
     .sCLK_XVXENVS( sCLK_XVXENVS ),
     .xxxx( xxxx ),
-    .keys_on( reg_keys_on ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-keys_on[7..0]
-    .write( write ),             // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-write
+    .keys_on( reg_keys_on ),
+    .adr( adr ),
+    .env_sel( env_sel ),
+    .write( write ),
     .read ( read ),
-//    .read_select (syx_read_select),
-    .adr( adr ),                 // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-adr[6..0]
-    .env_regdata_out( env_regdata_out ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
-    .synth_data_in( synth_data_in ),               // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-data[7..0]
-    .env_sel( env_sel ),         // ObjectKind=Sheet Entry|PrimaryId=env_gen_indexed.v-env_sel
-    .level_mul( level_mul ),  	         // output
-    .osc_accum_zero( osc_accum_zero ),  // output
-    .voice_free( voice_free )           // output
+    .synth_data_in( synth_data_in ),
+    .env_regdata_out( env_regdata_out ),
+    .level_mul( level_mul ),  	       // output
+    .osc_accum_zero( osc_accum_zero ), // output
+    .voice_free( voice_free )          // output
 );
 
 

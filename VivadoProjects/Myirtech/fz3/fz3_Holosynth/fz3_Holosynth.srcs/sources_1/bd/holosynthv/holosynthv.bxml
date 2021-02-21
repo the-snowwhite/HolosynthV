@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="holosynthv" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1613755183"/>
-    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1613755183"/>
-    <Generation Name="SIMULATION" State="STALE" Timestamp="1613755183"/>
-    <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1613755183"/>
+    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1614262909"/>
+    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1614262909"/>
+    <Generation Name="SIMULATION" State="STALE" Timestamp="1614262909"/>
+    <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1614262909"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/holosynthv_clk_wiz_0_0/holosynthv_clk_wiz_0_0.xci" Type="IP">
         <Instance HierarchyPath="clk_wiz_0"/>
@@ -111,16 +111,31 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/holosynthv_smartconnect_0_0/holosynthv_smartconnect_0_0.xci" Type="IP">
-        <Instance HierarchyPath="smartconnect_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="1612073201" IsTrackable="true" IsStatusTracked="true"/>
+      <File Name="ip/holosynthv_zynq_ultra_ps_e_0_1/holosynthv_zynq_ultra_ps_e_0_1.xci" Type="IP">
+        <Instance HierarchyPath="zynq_ultra_ps_e_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/holosynthv_zynq_ultra_ps_e_0_1/holosynthv_zynq_ultra_ps_e_0_1.xci" Type="IP">
-        <Instance HierarchyPath="zynq_ultra_ps_e_0"/>
+      <File Name="ip/holosynthv_ps8_0_axi_periph_0/holosynthv_ps8_0_axi_periph_0.xci" Type="IP">
+        <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_xbar_0/holosynthv_xbar_0.xci" Type="IP">
+        <Instance HierarchyPath="ps8_0_axi_periph/xbar"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/holosynthv_auto_pc_0/holosynthv_auto_pc_0.xci" Type="IP">
+        <Instance HierarchyPath="ps8_0_axi_periph/s00_couplers/auto_pc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

@@ -8,22 +8,23 @@ module env_gen_indexed #(
 parameter VOICES = 8,
 parameter V_ENVS = 8,
 parameter V_WIDTH = 3,
-parameter E_WIDTH = 3
+parameter E_WIDTH = 3,
+parameter width_numerator = 37
 ) (
-    input wire                      reg_clk,
-    input wire                      sCLK_XVXENVS,
-    output reg      [7:0]           env_regdata_out,
-    input wire      [7:0]           synth_data_in,
-    input wire      [6:0]           adr,
-    input wire                      write,
-    input wire                      read,
+    input wire                        reg_clk,
+    input wire                        sCLK_XVXENVS,
+    output reg  [7:0]                 env_regdata_out,
+    input wire  [7:0]                 synth_data_in,
+    input wire  [6:0]                 adr,
+    input wire                        write,
+    input wire                        read,
 //    input wire                      read_select,
-    input wire                      env_sel,
-    input wire      [VOICES-1:0]    keys_on,
-    input wire [V_WIDTH+E_WIDTH-1:0] xxxx,
-    output wire [7:0]               level_mul,
-    output reg  [V_ENVS-1:0]        osc_accum_zero,
-    output reg  [VOICES-1:0]        voice_free
+    input wire                        env_sel,
+    input wire  [VOICES-1:0]          keys_on,
+    input wire  [V_WIDTH+E_WIDTH-1:0] xxxx,
+    output wire [7:0]                 level_mul,
+    output reg  [V_ENVS-1:0]          osc_accum_zero,
+    output reg  [VOICES-1:0]          voice_free
 );
 
 /**	@brief keys_on -> high triggers for a certain voice bit.
@@ -150,6 +151,31 @@ parameter E_WIDTH = 3
         end
     end
 
+
+    st_reg_ram_div #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH),.width_numerator(width_numerator))st_reg_ram_div_inst
+    (
+        .data_in({next_numer , next_denom }) ,  // input  [16+width_numerator-1:0] d_sig
+        .memdata({cur_numer_m, cur_denom_m}) ,  // output [16+width_numerator-1:0] q_sig
+        .write_address({save_voice,save_env}) ,   // input  write_address_sig
+        .read_address({e_voice_sel,e_env_sel}) ,    // input  read_address_sig
+        .we(1'b1) , // input  we_sig
+        .re(1'b1) , // input  we_sig
+        .clk(sCLK_XVXENVS)     // input  clk_sig
+    );
+
+    st_reg_ram #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH),.width_numerator(width_numerator))st_reg_ram_inst
+    (
+        .data_in({level,  oldlevel,  st}) ,    // input  [width_numerator+8+9-1:0] d_sig
+        .memdata({level_m,oldlevel_m,st_m}) ,  // output [width_numerator+8+9-1:0] q_sig
+        .write_address({save_voice,save_env}) ,   // input  write_address_sig
+        .read_address({e_voice_sel,e_env_sel}) ,  // input  read_address_sig
+        .we(1'b1) , // input  we_sig
+        .re(1'b1) , // input  we_sig
+        .clk(sCLK_XVXENVS)     // input  clk_sig
+    );
+
+
+/*
     st_reg_ram #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))st_reg_ram_inst
 (
     .q({cur_denom_m,cur_numer_m,level_m,oldlevel_m,st_m}) ,  // output [16+37+37+8+9-1:0] q_sig
@@ -160,10 +186,10 @@ parameter E_WIDTH = 3
     .wclk(sCLK_XVXENVS  ),     // input  clk_sig
     .rclk(sCLK_XVXENVS  )     // input  clk_sig
 );
-
+*/
     div_module div_module_inst (
-    .denom ( cur_denom_m ),
     .numer ( cur_numer_m ),
+    .denom ( cur_denom_m ),
     .quotient ( quotient )
     );
 

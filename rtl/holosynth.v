@@ -32,9 +32,9 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     output wire         midi_txd,
 
 //    input   [3:0]        button,
-    output wire [a_NUM_VOICES-1:0]  keys_on,
-    output wire [a_NUM_VOICES-1:0]  voice_free,
-    output wire [V_WIDTH-1:0]       active_keys,
+//    output wire [a_NUM_VOICES-1:0]  keys_on,
+//    output wire [a_NUM_VOICES-1:0]  voice_free,
+    output wire [V_WIDTH:0]       active_keys,
 
     output wire [AUD_BIT_DEPTH-1:0] lsound_out,
     output wire [AUD_BIT_DEPTH-1:0] rsound_out,
@@ -46,8 +46,8 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     input  wire          cpu_write,
     input  wire          cpu_chip_sel,
     input  wire [9:0]    cpu_addr,
-    input  wire [31:0]   cpu_readdata,
-    output wire [31:0]   cpu_writedata,
+    input  wire [7:0]    cpu_readdata,
+    output wire [7:0]    cpu_writedata,
     input  wire          socmidi_read,
     input  wire          socmidi_write,
 //    input                socmidi_cs,
@@ -72,8 +72,8 @@ parameter REG_CLK_FREQUENCY = 50_000_000
         .MIDI_Rx_DAT            (midi_rxd) ,    // input  MIDI_DAT_sig
         .midi_txd               (midi_txd),		// output midi transmit signal (inverted due to inverter in rs232 chip)
         .button                 (4'b1111),            //  Button[3:0]
-        .keys_on                (keys_on),				//  LED [7:0]
-        .voice_free             (voice_free) , 			//  Red LED [4:1]
+//        .keys_on                (keys_on),				//  LED [7:0]
+//        .voice_free             (voice_free) , 			//  Red LED [4:1]
         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
         .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
         .xxxx_zero          (xxxx_zero),                // output  cycle complete signag

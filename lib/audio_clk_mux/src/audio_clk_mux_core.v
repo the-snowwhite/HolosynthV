@@ -15,11 +15,11 @@
         // Clock derived outputs
         inout  tri   ext_AUD_BCLK,
         inout  tri   ext_AUD_DACLRCLK,
-        inout  tri   ext_AUD_ADCLRCLK,
+//        inout  tri   ext_AUD_ADCLRCLK,
         output wire  ext_playback_lrclk,
-        output wire  ext_shift_remoteclk,
-        output wire  ext_mclk,
-        output wire  ext_capture_lrclk
+        output wire  ext_shift_remoteclk
+//        output wire  ext_mclk,
+//        output wire  ext_capture_lrclk
 
         // User ports ends
         // Do not modify the ports beyond this line
@@ -72,7 +72,7 @@
 */    
     wire ext_AUD_BCLK_sig;
     wire ext_AUD_DACLRCLK_sig;
-    wire ext_AUD_ADCLRCLK_sig;
+//    wire ext_AUD_ADCLRCLK_sig;
     
     // IOBUF: Single-ended Bi-directional Buffer
     // All devices
@@ -102,7 +102,7 @@
         .T(~master_slave_mode) // 3-state enable input, high=input, low=output
     );
     // End of IOBUF_inst instantiation
-
+/*
     IOBUF #(
         .DRIVE(4), // Specify the output drive strength
         .IBUF_LOW_PWR("TRUE"), // Low Power - "TRUE", High Performance = "FALSE"
@@ -114,6 +114,7 @@
         .I(capture_lrclk),  // Buffer input
         .T(~master_slave_mode) // 3-state enable input, high=input, low=output
     );
+*/
     // End of IOBUF_inst instantiation
 
     /*
@@ -146,16 +147,16 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
 // Output muxes
 
     assign ext_playback_lrclk   = master_slave_mode ? playback_lrclk    : ext_AUD_DACLRCLK_sig;
-    assign ext_capture_lrclk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLRCLK_sig;
+//    assign ext_capture_lrclk    = master_slave_mode ? capture_lrclk     : ext_AUD_ADCLRCLK_sig;
 
     assign ext_shift_remoteclk = master_slave_mode ? bclk : ext_AUD_BCLK_sig;
     assign playback_lrclk       = master_slave_mode ? play_lrclk : ext_playback_lrclk;
-    assign capture_lrclk        = master_slave_mode ? cap_lrclk : ext_capture_lrclk;
+//    assign capture_lrclk        = master_slave_mode ? cap_lrclk : ext_capture_lrclk;
 
     // Register access
 
 //    assign master_slave_mode    = slv_reg0[0]; // 1 = master, 0 (default) = slave
-    assign master_slave_mode    = 1'b1;; // 1 = master, 0 (default) = slave
+    assign master_slave_mode    = 1'b1; // 1 = master, 0 (default) = slave
 //    assign clk_sel_44_48        = slv_reg4[1]; // 1 = mclk derived from 44, 0 (default) mclk derived from 48
     
 //    assign cmd_reg2_wr          = ( slv_reg_wren ) ? 1'b1 : 1'b0;
@@ -187,10 +188,10 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
         .reset_n     (reset_synced_n),
         .cmd_reg1    (slv_reg0),
         .cmd_reg2    (slv_reg4),
-        .mclk        (ext_mclk),
+        .mclk        (),
         .bclk        (bclk),
         .lrclk1      (play_lrclk),
-        .lrclk2      (cap_lrclk)
+        .lrclk2      ()
     );
 /*    
     syncro32 sync32_inst44_1 (

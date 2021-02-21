@@ -1,6 +1,6 @@
 # Pin num
 # J16 31
-set_property PACKAGE_PIN E14 [get_ports ext_AUD_ADCLRCLK_0]
+#set_property PACKAGE_PIN E14 [get_ports ext_AUD_ADCLRCLK_0]
 # J16 33
 set_property PACKAGE_PIN E13 [get_ports ext_AUD_BCLK_0]
 # J16 35
