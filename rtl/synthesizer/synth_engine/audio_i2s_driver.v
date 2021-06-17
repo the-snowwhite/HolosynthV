@@ -33,16 +33,16 @@ parameter AUD_BIT_DEPTH = 24
         else begin
             reg_lrck_dly <= iAUD_DACLRCK;
 
-            if (reg_edge_detected) begin 	SEL_Cont <= 5'h0; 				end // i2s mode 1 bclk delay
-            else begin 						SEL_Cont <= SEL_Cont + 1'b1;	end
+            if (reg_edge_detected) begin    SEL_Cont <= 5'h0; 				end // i2s mode 1 bclk delay
+            else begin                      SEL_Cont <= SEL_Cont + 1'b1;	end
 
             if (SEL_Cont == 5'h1f) begin
-                if (iAUD_DACLRCK) begin 	sound_out <= i_rsound_out; end
-                else begin 				    sound_out <= i_lsound_out; end
+                if (iAUD_DACLRCK) begin     sound_out <= i_rsound_out; end
+                else begin                  sound_out <= i_lsound_out; end
             end
         end
     end
 
-    assign  oAUD_DACDAT   =  (SEL_Cont <= AUD_BIT_DEPTH-1 && enable) ? sound_out[(~SEL_Cont)-(32-AUD_BIT_DEPTH)] : 1'b0; // 24-bits
+    assign  oAUD_DACDAT =   (SEL_Cont <= AUD_BIT_DEPTH-1 && enable) ? sound_out[(~SEL_Cont)-(32-AUD_BIT_DEPTH)] : 1'b0; // 24-bits
 
 endmodule

@@ -6,11 +6,11 @@
         // Users to add ports here
 
         // Clock inputs, synthesized in PLL or external TCXOs
-        input  wire  run,
-        input  wire  samplerate_is_48,
-        input  wire  sync_clk,
+//        input  wire  run,
+//        input  wire  samplerate_is_48,
+//        input  wire  sync_clk,
         input  wire  aud_44_in_clk,
-        input  wire  aud_48_in_clk,
+//        input  wire  aud_48_in_clk,
         input  wire  reset_n,
         // Clock derived outputs
         inout  tri   ext_AUD_BCLK,
@@ -27,8 +27,8 @@
 
 // Add user logic here
 
-    reg [31:0]	slv_reg0;
-    reg [31:0]  slv_reg4;
+//    reg [31:0]	slv_reg0;
+//    reg [31:0]  slv_reg4;
 
     wire slv_reg_wren;
     reg [2:0] wren_dly;
@@ -162,15 +162,13 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
 //    assign cmd_reg2_wr          = ( slv_reg_wren ) ? 1'b1 : 1'b0;
 
     
-    syncro2_2 sync_inst_1 (
+    syncro2_1 sync_inst_1 (
         .clk(aud_muxed_clk),
         .sig1_in(reset_n),
-        .sig2_in(samplerate_is_48),
-        .sig1_out(reset_synced_n),
-        .sig2_out(samplerate_is_48_synced)
+        .sig1_out(reset_synced_n)
     );
 
-
+/*
     always @( posedge aud_muxed_clk )
     begin
         if (samplerate_is_48_synced) begin
@@ -182,12 +180,12 @@ BUFGMUX_CTRL BUFGMUX_CTRL_inst (
             slv_reg4 <= 32'h00001717;
         end
     end  
-    
+*/    
     audio_clock_generator playback_gen (
         .clk         (aud_muxed_clk),
         .reset_n     (reset_synced_n),
-        .cmd_reg1    (slv_reg0),
-        .cmd_reg2    (slv_reg4),
+        .cmd_reg1    (32'h00050003),
+        .cmd_reg2    (32'h00001717),
         .mclk        (),
         .bclk        (bclk),
         .lrclk1      (play_lrclk),

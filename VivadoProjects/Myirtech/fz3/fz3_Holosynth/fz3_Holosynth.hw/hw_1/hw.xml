@@ -7,8 +7,8 @@
   <device name="xczu3_0" gui_info="dashboard1=hw_ila_1[xczu3_0/hw_ila_1/Waveform=ILA_WAVE_1;xczu3_0/hw_ila_1/Trigger Setup=ILA_TRIGGER_1;xczu3_0/hw_ila_1/Status=ILA_STATUS_1;xczu3_0/hw_ila_1/Settings=ILA_SETTINGS_1;xczu3_0/hw_ila_1/Capture Setup=ILA_CAPTURE_1;]"/>
   <ObjectList object_type="hw_device" gui_info="">
     <Object name="xczu3_0" gui_info="">
-      <Properties Property="FULL_PROBES.FILE" value=""/>
-      <Properties Property="PROBES.FILE" value=""/>
+      <Properties Property="FULL_PROBES.FILE" value="$_project_name_.runs/impl_1/holosynthv_wrapper.ltx"/>
+      <Properties Property="PROBES.FILE" value="$_project_name_.runs/impl_1/holosynthv_wrapper.ltx"/>
       <Properties Property="PROGRAM.HW_BITSTREAM" value="$_project_name_.runs/impl_1/holosynthv_wrapper.bit"/>
       <Properties Property="SLR.COUNT" value="1"/>
     </Object>
@@ -33,6 +33,8 @@
     <Object name="holosynthv_i/Led_out[3:0]" gui_info=""/>
     <Object name="holosynthv_i/audio_mux_0/address[2:0]" gui_info=""/>
     <Object name="holosynthv_i/audio_mux_0/byteready_cpu" gui_info="Trigger Setup=2"/>
+    <Object name="holosynthv_i/audio_mux_0/read" gui_info="Trigger Setup=0"/>
+    <Object name="holosynthv_i/audio_mux_0/trig" gui_info="Trigger Setup=1"/>
     <Object name="holosynthv_i/audio_mux_0/write" gui_info=""/>
     <Object name="holosynthv_i/audio_mux_0_byteready_cpu" gui_info="Trigger Setup=0"/>
     <Object name="holosynthv_i/holosynth_0/inst/synthesizer_inst/synth_controller_inst/MIDI_UART_inst/byteready_u" gui_info="Trigger Setup=1"/>
@@ -221,9 +223,9 @@
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
-        <Option Id="MAP" value="probe3[2:0]"/>
+        <Option Id="MAP" value="probe5[2:0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
-        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="NAME.SELECT" value="Short"/>
         <Option Id="SOURCE" value="netlist"/>
         <Option Id="TRIGGER_COMPARE_VALUE" value="eq3&apos;hX"/>
         <Option Id="WAVEFORM_STYLE" value="Digital"/>
@@ -329,21 +331,80 @@
         <net name="holosynthv_i/audio_mux_0/datain[0]"/>
       </nets>
     </probe>
+    <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/dataout[31]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[30]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[29]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[28]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[27]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[26]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[25]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[24]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[23]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[22]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[21]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[20]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[19]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[18]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[17]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[16]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[15]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[14]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[13]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[12]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[11]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[10]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[9]"/>
+        <net name="holosynthv_i/audio_mux_0/dataout[8]"/>
+      </nets>
+    </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
-        <Option Id="CAPTURE_COMPARE_VALUE" value="eq7&apos;hXX"/>
-        <Option Id="COMPARE_VALUE.0" value="eq7&apos;hXX"/>
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/i2s_enable"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_RADIX" value="UNSIGNED"/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
-        <Option Id="MAP" value="probe2[6:0]"/>
+        <Option Id="MAP" value="probe0[6:0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
-        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="NAME.SELECT" value="Short"/>
         <Option Id="SOURCE" value="netlist"/>
-        <Option Id="TRIGGER_COMPARE_VALUE" value="eq7&apos;hXX"/>
         <Option Id="WAVEFORM_STYLE" value="Digital"/>
       </probeOptions>
       <nets>
@@ -354,6 +415,30 @@
         <net name="holosynthv_i/audio_mux_0/inst/buffersize[2]"/>
         <net name="holosynthv_i/audio_mux_0/inst/buffersize[1]"/>
         <net name="holosynthv_i/audio_mux_0/inst/buffersize[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[6:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[6]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[5]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[4]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[3]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[2]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[1]"/>
+        <net name="holosynthv_i/audio_mux_0/inst/counter_reg[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -387,6 +472,69 @@
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe8[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/inst/jack_cycle_end"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe9[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/inst/jack_read_act_dly"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe10[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/inst/run_synced"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
         <Option Id="MAP" value="probe9[0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
@@ -396,6 +544,68 @@
       </probeOptions>
       <nets>
         <net name="holosynthv_i/audio_mux_0/inst/trig"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe11[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/inst/xxxx_top_synced"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[23]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[22]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[21]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[20]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[19]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[18]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[17]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[16]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[15]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[14]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[13]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[12]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[11]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[10]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[9]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[8]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[7]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[6]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[5]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[4]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[3]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[2]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[1]"/>
+        <net name="holosynthv_i/audio_mux_0/lsound_in[0]"/>
       </nets>
     </probe>
     <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
@@ -449,6 +659,68 @@
         <net name="holosynthv_i/audio_mux_0/midibyte_nr_cpu[2]"/>
         <net name="holosynthv_i/audio_mux_0/midibyte_nr_cpu[1]"/>
         <net name="holosynthv_i/audio_mux_0/midibyte_nr_cpu[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe6[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/read"/>
+      </nets>
+    </probe>
+    <probe type="ila_data" busType="bus" source="netlist" spec="ILA_DATA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[23:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[23]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[22]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[21]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[20]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[19]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[18]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[17]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[16]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[15]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[14]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[13]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[12]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[11]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[10]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[9]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[8]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[7]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[6]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[5]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[4]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[3]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[2]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[1]"/>
+        <net name="holosynthv_i/audio_mux_0/rsound_in[0]"/>
       </nets>
     </probe>
     <probe type="ila_data" busType="net" source="netlist" spec="ILA_DATA_V2_RT">
@@ -510,9 +782,30 @@
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
-        <Option Id="MAP" value="probe10[0]"/>
+        <Option Id="MAP" value="probe7[0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="holosynthv_i/audio_mux_0/trig"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe7[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Short"/>
         <Option Id="SOURCE" value="netlist"/>
         <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="WAVEFORM_STYLE" value="Digital"/>

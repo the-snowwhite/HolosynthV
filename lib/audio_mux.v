@@ -39,8 +39,8 @@ parameter AUD_BIT_DEPTH = 24
     output wire r_read,
     output wire sample_ready,
     output wire trig,
-    output wire i2s_enable,
-    output reg samplerate_is_48
+    output wire i2s_enable
+//    output reg samplerate_is_48
 //    output wire byteready_cpu,
 //    output wire [7:0] cur_status_cpu,
 //    output wire [7:0] midibyte_nr_cpu,
@@ -56,22 +56,13 @@ parameter AUD_BIT_DEPTH = 24
     wire jack_cycle_end;
     wire lrck_synced;
 
-    reg [31:0]  samplerate;
- //   (* ASYNC_REG = "TRUE" *) reg sig_buffer0_0, sig_buffer1_0;
+//    reg [31:0]  samplerate;
  
-    syncro_2 sync_inst (
+    syncro_2 sync_inst_lrck (
         .clk(clk),
         .sig_in(lrck),
         .sig_out(lrck_synced)
     );
-/*
-    always @(posedge clk) begin
-        sig_buffer0_0 <= lrck;
-        sig_buffer1_0 <= sig_buffer0_0;
-    end
-    assign lrck_synced = sig_buffer1_0;
-*/                 
-
  
     assign l_read = (read && (address == 0)) ? 1'b1 : 1'b0;
     assign r_read = (read && (address == 1)) ? 1'b1 : 1'b0;
@@ -87,9 +78,8 @@ parameter AUD_BIT_DEPTH = 24
     initial dataout = 0;
 
     always @(posedge clk) begin
-//        read_dly <= read;
         if (read) begin
-            if (address == 3'b000) dataout[31:8] <= lsound_in;
+            if (address == 3'b000) dataout[31:32-AUD_BIT_DEPTH] <= lsound_in;
             else if (address == 3'b001) dataout[31:32-AUD_BIT_DEPTH] <= rsound_in;
         end    
     end
@@ -99,10 +89,10 @@ parameter AUD_BIT_DEPTH = 24
         if (write) begin
             if (address == 3'b010) jack_read_act <= datain[0];
             else if (address == 3'b011) buffersize <= datain[FIFO_WIDTH:0];
-            else if (address == 3'b100) samplerate <= datain;
+//            else if (address == 3'b100) samplerate <= datain;
         end    
     end
-    
+/*    
     always @(posedge clk)begin
         if (samplerate == 32'd48000) begin
             samplerate_is_48 <= 1'b1;
@@ -110,7 +100,7 @@ parameter AUD_BIT_DEPTH = 24
             samplerate_is_48 <= 1'b0;
         end
     end
-   
+*/   
     always @(posedge clk) begin
         if(jack_cycle_end) counter <= 0;
         else if (counter < buffersize) begin 

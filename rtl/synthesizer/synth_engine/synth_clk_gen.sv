@@ -31,15 +31,12 @@ parameter XVXENVS_WIDTH = utils::clogb2(XVXENVS_DIV)
 reg     [XVXOSC_WIDTH:0]	sCLK_XVXOSC_DIV;
 reg     [XVXENVS_WIDTH:0]	sCLK_XVXENVS_DIV;
 
-reg [1:0]trig_dly;
+reg trig_dly;
 reg xxxx_top_dly;
-
-wire xxxx_top_synced;
-wire trig_rising = (~trig_dly[1] & trig_dly[0]);
-wire xxxx_top_rising = (~xxxx_top_dly && xxxx_top_synced) ? 1'b1 : 1'b0;
-
-//wire trig_rising = (trig_dly == 1'b0 && trig == 1'b1) ? 1'b1 : 1'b0;
-//wire xxxx_top_rising = (xxxx_top_dly == 1'b0 && xxxx_top == 1'b1) ? 1'b1 : 1'b0;
+/*
+wire xxxx_top_synced,trig_synced;
+wire trig_rising = (trig_dly == 1'b0 && trig_synced == 1'b1) ? 1'b1 : 1'b0;
+wire xxxx_top_rising = (xxxx_top_dly == 1'b0 && xxxx_top_synced == 1'b1) ? 1'b1 : 1'b0;
 
     syncro_2 sync_inst (
         .clk(AUDIO_CLK),
@@ -52,10 +49,12 @@ wire xxxx_top_rising = (~xxxx_top_dly && xxxx_top_synced) ? 1'b1 : 1'b0;
         .sig_in(xxxx_top),
         .sig_out(xxxx_top_synced)
     );
-
+*/
+wire trig_rising = (trig_dly == 1'b0 && trig == 1'b1) ? 1'b1 : 1'b0;
+wire xxxx_top_rising = (xxxx_top_dly == 1'b0 && xxxx_top == 1'b1) ? 1'b1 : 1'b0;
+/*
 always_ff @(posedge AUDIO_CLK) begin
-    trig_dly[0] <= trig_synced;
-    trig_dly[1] <= trig_dly[0];
+    trig_dly <= trig_synced;
     xxxx_top_dly <= xxxx_top_synced;
     if (xxxx_top_rising) begin
         run <= 1'b0;
@@ -64,8 +63,8 @@ always_ff @(posedge AUDIO_CLK) begin
         run <= 1'b1;
     end
 end
+*/
 
-/*
 always_ff @(negedge AUDIO_CLK) begin
     trig_dly <= trig;
     xxxx_top_dly <= xxxx_top;
@@ -76,7 +75,7 @@ always_ff @(negedge AUDIO_CLK) begin
         run <= 1'b1;
     end
 end
-*/
+
 //assign DE1_SOC_Linux_FB.GPIO_1[0] = run;
 
 ////////////////////////////////////

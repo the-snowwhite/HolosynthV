@@ -48,7 +48,7 @@ PRJ_DIR_CREATED=./"$1"-holosynthv-"$PETALINUX_VER"
 petalinux-create -t project -s "$1"-holosynthv-"$PETALINUX_VER".bsp
 cd "$1"-holosynthv-"$PETALINUX_VER"
 #time petalinux-config --get-hw-description=../"$1"_"$BOARD_PART"_created/"$1"_"$BOARD_PART".sdk --silentconfig
-time petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
-time petalinux-build
+petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
+petalinux-build
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --u-boot=images/linux/u-boot.elf --pmufw --atf --fpga images/linux/system.bit --force
 tar -xzf ./images/linux/rootfs.tar.gz ./lib/modules  && tar -czf ../lib.tar.gz ./lib && rm -r lib
