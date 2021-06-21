@@ -56,7 +56,7 @@ parameter REG_CLK_FREQUENCY = 50_000_000
     output wire [7:0]    socmidi_data_out,
     output wire          run
 );
-    
+  
     synthesizer #(
         .AUD_BIT_DEPTH (AUD_BIT_DEPTH),
         .VOICES(a_NUM_VOICES),.V_OSC(b_NUM_OSCS_PER_VOICE),

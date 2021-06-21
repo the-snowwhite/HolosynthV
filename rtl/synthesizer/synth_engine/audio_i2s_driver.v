@@ -15,10 +15,13 @@ parameter AUD_BIT_DEPTH = 24
     reg reg_edge_detected;
     reg reg_lrck_dly;
     reg enable,enable_dly;
-    wire edge_detected = reg_lrck_dly ^ iAUD_DACLRCK;
+    wire edge_detected;
 
 ////////////        SoundOut        ///////////////
-    always@(posedge iAUDB_CLK)begin
+
+    assign  edge_detected = (reg_lrck_dly ^ iAUD_DACLRCK == 1'b1) ? 1'b1 : 1'b0;
+
+    always@(negedge iAUDB_CLK)begin
         reg_edge_detected <= edge_detected;
     end
 
@@ -37,8 +40,8 @@ parameter AUD_BIT_DEPTH = 24
             else begin                      SEL_Cont <= SEL_Cont + 1'b1;	end
 
             if (SEL_Cont == 5'h1f) begin
-                if (iAUD_DACLRCK) begin     sound_out <= i_rsound_out; end
-                else begin                  sound_out <= i_lsound_out; end
+                if (iAUD_DACLRCK) begin     sound_out <= i_lsound_out; end
+                else begin                  sound_out <= i_rsound_out; end
             end
         end
     end

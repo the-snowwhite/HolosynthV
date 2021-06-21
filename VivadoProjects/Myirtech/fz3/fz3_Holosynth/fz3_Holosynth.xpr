@@ -52,13 +52,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="132"/>
-    <Option Name="WTModelSimExportSim" Val="132"/>
-    <Option Name="WTQuestaExportSim" Val="132"/>
-    <Option Name="WTIesExportSim" Val="132"/>
-    <Option Name="WTVcsExportSim" Val="132"/>
-    <Option Name="WTRivieraExportSim" Val="132"/>
-    <Option Name="WTActivehdlExportSim" Val="132"/>
+    <Option Name="WTXSimExportSim" Val="142"/>
+    <Option Name="WTModelSimExportSim" Val="142"/>
+    <Option Name="WTQuestaExportSim" Val="142"/>
+    <Option Name="WTIesExportSim" Val="142"/>
+    <Option Name="WTVcsExportSim" Val="142"/>
+    <Option Name="WTRivieraExportSim" Val="142"/>
+    <Option Name="WTActivehdlExportSim" Val="142"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -361,28 +361,28 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../lib/audio_clk_mux/src/audio_clock_generator.v">
+      <File Path="$PPRDIR/../../../../lib/audio_i2s_timing_gen/audio_clock_generator.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../lib/audio_clk_mux/src/clk_divider.v">
+      <File Path="$PPRDIR/../../../../lib/audio_i2s_timing_gen/clk_divider.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../lib/audio_clk_mux/src/syncro2_1.v">
+      <File Path="$PPRDIR/../../../../lib/audio_i2s_timing_gen/syncro2_1.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../lib/audio_clk_mux/src/audio_clk_mux_core.v">
+      <File Path="$PPRDIR/../../../../lib/audio_i2s_timing_gen/audio_i2s_timing_gen.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -400,14 +400,6 @@
       </File>
       <File Path="$PSRCDIR/sources_1/bd/holosynthv/hdl/holosynthv_wrapper.v">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../../../lib/audio_clk_mux/src/syncro2_2.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -442,7 +434,13 @@
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../const/debug.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
       <Config>
+        <Option Name="TargetConstrsFile" Val="$PPRDIR/../const/debug.xdc"/>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Sun Jun 20 18:30:27 2021
+//Date        : Tue Jun 22 01:19:27 2021
 //Host        : kdeneon-ws3 running 64-bit Ubuntu 18.04.5 LTS
 //Command     : generate_target holosynthv_wrapper.bd
 //Design      : holosynthv_wrapper
@@ -17,8 +17,8 @@ module holosynthv_wrapper
     midi_txd_0,
     oAUD_DACDAT_0);
   output [3:0]Led_out;
-  inout ext_AUD_BCLK_0;
-  inout ext_AUD_DACLRCLK_0;
+  output ext_AUD_BCLK_0;
+  output ext_AUD_DACLRCLK_0;
   input midi_rxd_0;
   output midi_txd_0;
   output oAUD_DACDAT_0;

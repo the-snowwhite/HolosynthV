@@ -15,7 +15,7 @@ set_property PACKAGE_PIN F10 [get_ports midi_txd_0]
 
 # J16 21
 set_property PACKAGE_PIN E10 [get_ports {Led_out[0]}]
-# J16 23 
+# J16 23
 set_property PACKAGE_PIN D10 [get_ports {Led_out[1]}]
 # J16 25
 set_property PACKAGE_PIN A12 [get_ports {Led_out[2]}]
@@ -29,6 +29,8 @@ set_property PACKAGE_PIN A11 [get_ports {Led_out[3]}]
 #Set the bank voltage for IO Bank 25,26 to 3.3V
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 25]]
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 26]]
+
+
 
 
 

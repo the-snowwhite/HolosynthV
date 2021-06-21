@@ -12,3 +12,5 @@ set_false_path -to [get_cells -hierarchical *is_metastable_sig*]
 
 #set_false_path -from [get_clocks -of_objects [get_pins holosynthv_i/clk_wiz_0/inst/mmcme4_adv_inst/CLKOUT0]] -to [get_clocks clk_pl_0]
 #set_false_path -from [get_clocks -of_objects [get_pins holosynthv_i/clk_wiz_0/inst/mmcme4_adv_inst/CLKOUT1]] -to [get_clocks clk_pl_0]
+
+

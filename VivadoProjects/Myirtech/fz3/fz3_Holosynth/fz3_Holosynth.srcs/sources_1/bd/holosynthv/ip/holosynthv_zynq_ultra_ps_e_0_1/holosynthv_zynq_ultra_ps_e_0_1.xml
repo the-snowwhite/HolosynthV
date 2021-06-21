@@ -71630,6 +71630,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_6_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 6 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_6_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_6_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_6_INPUT_TYPE</spirit:name>
@@ -71660,6 +71667,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_7_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 7 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_7_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_7_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_7_INPUT_TYPE</spirit:name>
@@ -71690,6 +71704,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_8_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 8 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_8_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_8_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_8_INPUT_TYPE</spirit:name>
@@ -71720,6 +71741,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_9_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 9 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_9_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_9_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_9_INPUT_TYPE</spirit:name>
@@ -71750,6 +71778,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_10_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 10 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_10_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_10_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_10_INPUT_TYPE</spirit:name>
@@ -71780,6 +71815,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_11_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 11 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_11_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_11_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_11_INPUT_TYPE</spirit:name>
@@ -71810,6 +71852,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_12_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 12 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_12_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_12_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_12_INPUT_TYPE</spirit:name>
@@ -72447,6 +72496,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_26_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 26 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_26_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_26_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_26_INPUT_TYPE</spirit:name>
@@ -72462,13 +72518,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_26_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 26 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_26_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_26_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_27_PULLUPDOWN</spirit:name>
@@ -72950,6 +72999,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_36_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 36 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_36_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_36_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_36_INPUT_TYPE</spirit:name>
@@ -72965,13 +73021,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_36_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 36 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_36_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_36_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_37_PULLUPDOWN</spirit:name>
@@ -72987,6 +73036,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_37_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 37 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_37_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_37_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_37_INPUT_TYPE</spirit:name>
@@ -73002,13 +73058,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_37_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 37 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_37_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_37_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_38_PULLUPDOWN</spirit:name>
@@ -73024,6 +73073,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_38_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 38 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_38_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_38_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_38_INPUT_TYPE</spirit:name>
@@ -73039,13 +73095,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_38_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 38 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_38_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_38_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_39_PULLUPDOWN</spirit:name>
@@ -73061,6 +73110,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_39_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 39 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_39_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_39_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_39_INPUT_TYPE</spirit:name>
@@ -73076,13 +73132,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_39_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 39 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_39_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_39_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_40_PULLUPDOWN</spirit:name>
@@ -73098,6 +73147,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_40_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 40 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_40_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_40_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_40_INPUT_TYPE</spirit:name>
@@ -73113,13 +73169,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_40_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 40 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_40_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_40_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_41_PULLUPDOWN</spirit:name>
@@ -73135,6 +73184,13 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_41_POLARITY</spirit:name>
       <spirit:displayName>PSU MIO 41 Polarity</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_41_POLARITY" spirit:choiceRef="choice_list_0dd37800">Default</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_41_POLARITY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_41_INPUT_TYPE</spirit:name>
@@ -73150,13 +73206,6 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
       <spirit:name>PSU_MIO_41_DIRECTION</spirit:name>
       <spirit:displayName>PSU MIO 41 DIRECTION</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU_MIO_41_DIRECTION" spirit:choiceRef="choice_list_95a9da0c">inout</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.PSU_MIO_41_DIRECTION">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU_MIO_42_PULLUPDOWN</spirit:name>
@@ -76999,7 +77048,7 @@ in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ul
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ</spirit:name>
       <spirit:displayName>ACT PL2</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">100.000000</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ" spirit:minimum="-2" spirit:maximum="-1">100</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__CRL_APB__PL3_REF_CTRL__ACT_FREQMHZ</spirit:name>
