@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# audio_clk_mux_core, audio_i2s_driver, audio_mux, holosynth
+# audio_i2s_driver, audio_i2s_timing_gen, audio_mux, holosynth
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -135,7 +135,6 @@ xilinx.com:ip:clk_wiz:6.0\
 xilinx.com:ip:fifo_generator:13.2\
 machinekit.io:user:hm2_axilite_int:1.0\
 xilinx.com:ip:proc_sys_reset:5.0\
-xilinx.com:ip:smartconnect:1.0\
 xilinx.com:ip:xlconstant:1.1\
 xilinx.com:ip:xlslice:1.0\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
@@ -164,8 +163,8 @@ xilinx.com:ip:zynq_ultra_ps_e:3.3\
 set bCheckModules 1
 if { $bCheckModules == 1 } {
    set list_check_mods "\ 
-audio_clk_mux_core\
 audio_i2s_driver\
+audio_i2s_timing_gen\
 audio_mux\
 holosynth\
 "
@@ -233,24 +232,12 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set Led_out [ create_bd_port -dir O -from 3 -to 0 Led_out ]
-  set ext_AUD_ADCLRCLK_0 [ create_bd_port -dir IO ext_AUD_ADCLRCLK_0 ]
-  set ext_AUD_BCLK_0 [ create_bd_port -dir IO ext_AUD_BCLK_0 ]
-  set ext_AUD_DACLRCLK_0 [ create_bd_port -dir IO ext_AUD_DACLRCLK_0 ]
+  set ext_AUD_BCLK_0 [ create_bd_port -dir O ext_AUD_BCLK_0 ]
+  set ext_AUD_DACLRCLK_0 [ create_bd_port -dir O ext_AUD_DACLRCLK_0 ]
   set midi_rxd_0 [ create_bd_port -dir I midi_rxd_0 ]
   set midi_txd_0 [ create_bd_port -dir O midi_txd_0 ]
   set oAUD_DACDAT_0 [ create_bd_port -dir O oAUD_DACDAT_0 ]
 
-  # Create instance: audio_clk_mux_core_0, and set properties
-  set block_name audio_clk_mux_core
-  set block_cell_name audio_clk_mux_core_0
-  if { [catch {set audio_clk_mux_core_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
-     return 1
-   } elseif { $audio_clk_mux_core_0 eq "" } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
-     return 1
-   }
-  
   # Create instance: audio_i2s_driver_0, and set properties
   set block_name audio_i2s_driver
   set block_cell_name audio_i2s_driver_0
@@ -258,6 +245,17 @@ proc create_root_design { parentCell } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    } elseif { $audio_i2s_driver_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
+  # Create instance: audio_i2s_timing_gen_0, and set properties
+  set block_name audio_i2s_timing_gen
+  set block_cell_name audio_i2s_timing_gen_0
+  if { [catch {set audio_i2s_timing_gen_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $audio_i2s_timing_gen_0 eq "" } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
@@ -287,7 +285,7 @@ proc create_root_design { parentCell } {
    CONFIG.CLKOUT2_JITTER {304.898} \
    CONFIG.CLKOUT2_PHASE_ERROR {396.540} \
    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {24.67593} \
-   CONFIG.CLKOUT2_USED {true} \
+   CONFIG.CLKOUT2_USED {false} \
    CONFIG.CLKOUT3_DRIVES {Buffer} \
    CONFIG.CLKOUT3_JITTER {304.898} \
    CONFIG.CLKOUT3_PHASE_ERROR {396.540} \
@@ -306,12 +304,12 @@ proc create_root_design { parentCell } {
    CONFIG.MMCM_CLKIN1_PERIOD {20.000} \
    CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
    CONFIG.MMCM_CLKOUT0_DIVIDE_F {32.750} \
-   CONFIG.MMCM_CLKOUT1_DIVIDE {45} \
+   CONFIG.MMCM_CLKOUT1_DIVIDE {1} \
    CONFIG.MMCM_CLKOUT2_DIVIDE {1} \
    CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
    CONFIG.MMCM_COMPENSATION {AUTO} \
    CONFIG.MMCM_DIVCLK_DIVIDE {3} \
-   CONFIG.NUM_OUT_CLKS {2} \
+   CONFIG.NUM_OUT_CLKS {1} \
    CONFIG.PHASESHIFT_MODE {LATENCY} \
    CONFIG.PRIMITIVE {Auto} \
    CONFIG.PRIM_IN_FREQ {50} \
@@ -394,16 +392,17 @@ proc create_root_design { parentCell } {
   set holosynth_sysex [ create_bd_cell -type ip -vlnv machinekit.io:user:hm2_axilite_int:1.0 holosynth_sysex ]
   set_property -dict [ list \
    CONFIG.C_S_AXI_ADDR_WIDTH {12} \
+   CONFIG.IO_DATA_WIDTH {8} \
  ] $holosynth_sysex
+
+  # Create instance: ps8_0_axi_periph, and set properties
+  set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps8_0_axi_periph ]
+  set_property -dict [ list \
+   CONFIG.NUM_MI {3} \
+ ] $ps8_0_axi_periph
 
   # Create instance: rst_ps8_0_99M, and set properties
   set rst_ps8_0_99M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_99M ]
-
-  # Create instance: smartconnect_0, and set properties
-  set smartconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0 ]
-  set_property -dict [ list \
-   CONFIG.NUM_MI {3} \
- ] $smartconnect_0
 
   # Create instance: xlconstant_0, and set properties
   set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
@@ -412,7 +411,7 @@ proc create_root_design { parentCell } {
   set xlslice_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_0 ]
   set_property -dict [ list \
    CONFIG.DIN_FROM {3} \
-   CONFIG.DIN_WIDTH {5} \
+   CONFIG.DIN_WIDTH {6} \
    CONFIG.DOUT_WIDTH {4} \
  ] $xlslice_0
 
@@ -912,21 +911,20 @@ proc create_root_design { parentCell } {
    CONFIG.PSU_MIO_9_PULLUPDOWN {pullup} \
    CONFIG.PSU_MIO_9_SLEW {slow} \
    CONFIG.PSU_MIO_TREE_PERIPHERALS { \
-     0#CAN 1#CAN \
      0#I2C 0#SD \
-     0#SD 0#SD \
-     0#SD 0#SD \
-     0#SD 0#SD \
-     0#SD 0#SD \
-     0#SD 0#SD \
-     0#UART 0#GPIO1 \
+     0#SD 0#CAN \
+     0#SD 0#CAN \
+     0#SD 0#CAN \
+     0#SD 0#CAN \
+     0#SD 0#CAN \
+     0#UART 0#######I2C \
      0#USB 0#Gem \
      0#USB 0#Gem \
      0#USB 0#Gem \
      0#USB 0#Gem \
      0#USB 0#Gem \
      0#USB 0#Gem \
-     1#GPIO1 MIO#DPAUX#DPAUX#DPAUX#DPAUX#PCIE#I2C \
+     1#CAN 1##DPAUX#DPAUX#DPAUX#DPAUX#PCIE#I2C \
      1#I2C 1#UART \
      1#SD 1#USB \
      1#SD 1#USB \
@@ -939,21 +937,15 @@ proc create_root_design { parentCell } {
      3#Gem 3#MDIO \
      3#Gem 3#MDIO \
      3#MDIO 3 \
-     Flash#GPIO0 MIO#GPIO0 \
+     Flash########SD 0#SD \
      Flash#Quad SPI \
      Flash#Quad SPI \
      Flash#Quad SPI \
      Flash#Quad SPI \
      Flash#Quad SPI \
-     MIO#GPIO0 MIO#SD \
-     MIO#GPIO0 MIO#SD \
-     MIO#GPIO0 MIO#SD \
-     MIO#GPIO1 MIO#I2C \
-     MIO#GPIO1 MIO#I2C \
-     MIO#GPIO1 MIO#I2C \
      Quad SPI \
    } \
-   CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#gpio0[6]#gpio0[7]#gpio0[8]#gpio0[9]#gpio0[10]#gpio0[11]#gpio0[12]#sdio0_data_out[0]#sdio0_data_out[1]#sdio0_data_out[2]#sdio0_data_out[3]#sdio0_data_out[4]#sdio0_data_out[5]#sdio0_data_out[6]#sdio0_data_out[7]#sdio0_cmd_out#sdio0_clk_out#sdio0_bus_pow#phy_tx#phy_rx#gpio1[26]#dp_aux_data_out#dp_hot_plug_detect#dp_aux_data_oe#dp_aux_data_in#reset_n#scl_out#sda_out#rxd#txd#gpio1[36]#gpio1[37]#gpio1[38]#gpio1[39]#gpio1[40]#gpio1[41]#scl_out#sda_out#sdio1_wp#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gem3_mdc#gem3_mdio_out} \
+   CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out########sdio0_data_out[0]#sdio0_data_out[1]#sdio0_data_out[2]#sdio0_data_out[3]#sdio0_data_out[4]#sdio0_data_out[5]#sdio0_data_out[6]#sdio0_data_out[7]#sdio0_cmd_out#sdio0_clk_out#sdio0_bus_pow#phy_tx#phy_rx##dp_aux_data_out#dp_hot_plug_detect#dp_aux_data_oe#dp_aux_data_in#reset_n#scl_out#sda_out#rxd#txd#######scl_out#sda_out#sdio1_wp#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gem3_mdc#gem3_mdio_out} \
    CONFIG.PSU_PERIPHERAL_BOARD_PRESET {} \
    CONFIG.PSU_SD0_INTERNAL_BUS_WIDTH {8} \
    CONFIG.PSU_SD1_INTERNAL_BUS_WIDTH {4} \
@@ -1226,8 +1218,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__FREQMHZ {100} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__SRCSEL {IOPLL} \
-   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ {50.000000} \
-   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0 {30} \
+   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ {100} \
+   CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0 {15} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__FREQMHZ {100} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__SRCSEL {RPLL} \
@@ -1512,14 +1504,14 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__GEN_IPI_7__MASTER {NONE} \
    CONFIG.PSU__GEN_IPI_8__MASTER {NONE} \
    CONFIG.PSU__GEN_IPI_9__MASTER {NONE} \
-   CONFIG.PSU__GPIO0_MIO__IO {MIO 0 .. 25} \
-   CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE {1} \
-   CONFIG.PSU__GPIO1_MIO__IO {MIO 26 .. 51} \
-   CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE {1} \
+   CONFIG.PSU__GPIO0_MIO__IO {<Select>} \
+   CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE {0} \
+   CONFIG.PSU__GPIO1_MIO__IO {<Select>} \
+   CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE {0} \
    CONFIG.PSU__GPIO2_MIO__PERIPHERAL__ENABLE {0} \
    CONFIG.PSU__GPIO_EMIO_WIDTH {95} \
-   CONFIG.PSU__GPIO_EMIO__PERIPHERAL__ENABLE {1} \
-   CONFIG.PSU__GPIO_EMIO__PERIPHERAL__IO {95} \
+   CONFIG.PSU__GPIO_EMIO__PERIPHERAL__ENABLE {0} \
+   CONFIG.PSU__GPIO_EMIO__PERIPHERAL__IO {<Select>} \
    CONFIG.PSU__GPIO_EMIO__WIDTH {[94:0]} \
    CONFIG.PSU__GPU_PP0__POWER__ON {1} \
    CONFIG.PSU__GPU_PP1__POWER__ON {1} \
@@ -1936,7 +1928,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__USE__IRQ0 {1} \
    CONFIG.PSU__USE__IRQ1 {0} \
    CONFIG.PSU__USE__M_AXI_GP0 {1} \
-   CONFIG.PSU__USE__M_AXI_GP1 {1} \
+   CONFIG.PSU__USE__M_AXI_GP1 {0} \
    CONFIG.PSU__USE__M_AXI_GP2 {0} \
    CONFIG.PSU__USE__PROC_EVENT_BUS {0} \
    CONFIG.PSU__USE__RPU_LEGACY_INTERRUPT {0} \
@@ -1982,27 +1974,23 @@ proc create_root_design { parentCell } {
  ] $zynq_ultra_ps_e_0
 
   # Create interface connections
-  connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins holosynth_audio/S_AXI] [get_bd_intf_pins smartconnect_0/M00_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins holosynth_sysex/S_AXI] [get_bd_intf_pins smartconnect_0/M01_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins holosynth_midi/S_AXI] [get_bd_intf_pins smartconnect_0/M02_AXI]
-  connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins smartconnect_0/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
-  connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM1_FPD [get_bd_intf_pins smartconnect_0/S01_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM1_FPD]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins holosynth_audio/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins holosynth_midi/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins holosynth_sysex/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
+  connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
 
   # Create port connections
-  connect_bd_net -net Net [get_bd_ports ext_AUD_BCLK_0] [get_bd_pins audio_clk_mux_core_0/ext_AUD_BCLK]
-  connect_bd_net -net Net1 [get_bd_ports ext_AUD_DACLRCLK_0] [get_bd_pins audio_clk_mux_core_0/ext_AUD_DACLRCLK]
-  connect_bd_net -net Net2 [get_bd_ports ext_AUD_ADCLRCLK_0] [get_bd_pins audio_clk_mux_core_0/ext_AUD_ADCLRCLK]
-  connect_bd_net -net audio_clk_mux_core_0_ext_shift_remote_clk [get_bd_pins audio_clk_mux_core_0/ext_shift_remoteclk] [get_bd_pins audio_i2s_driver_0/iAUDB_CLK]
-  connect_bd_net -net audio_clk_mux_ip_0_ext_playback_lrclk [get_bd_pins audio_clk_mux_core_0/ext_playback_lrclk] [get_bd_pins audio_i2s_driver_0/iAUD_DACLRCK] [get_bd_pins audio_mux_0/lrck]
+  connect_bd_net -net audio_clk_mux_ip_0_ext_playback_lrclk [get_bd_pins audio_i2s_driver_0/iAUD_DACLRCK] [get_bd_pins audio_i2s_timing_gen_0/playback_lrclk] [get_bd_pins audio_mux_0/lrck]
   connect_bd_net -net audio_i2s_driver_0_oAUD_DACDAT [get_bd_ports oAUD_DACDAT_0] [get_bd_pins audio_i2s_driver_0/oAUD_DACDAT]
+  connect_bd_net -net audio_i2s_timing_gen_0_ext_AUD_BCLK [get_bd_ports ext_AUD_BCLK_0] [get_bd_pins audio_i2s_timing_gen_0/ext_AUD_BCLK]
+  connect_bd_net -net audio_i2s_timing_gen_0_ext_AUD_DACLRCLK [get_bd_ports ext_AUD_DACLRCLK_0] [get_bd_pins audio_i2s_timing_gen_0/ext_AUD_DACLRCLK]
+  connect_bd_net -net audio_i2s_timing_gen_0_playback_bclk [get_bd_pins audio_i2s_driver_0/iAUDB_CLK] [get_bd_pins audio_i2s_timing_gen_0/playback_bclk]
   connect_bd_net -net audio_mux_0_dataout [get_bd_pins audio_mux_0/dataout] [get_bd_pins holosynth_audio/OBUS]
   connect_bd_net -net audio_mux_0_i2s_enable [get_bd_pins audio_i2s_driver_0/i2s_enable] [get_bd_pins audio_mux_0/i2s_enable]
   connect_bd_net -net audio_mux_0_l_read [get_bd_pins audio_mux_0/l_read] [get_bd_pins fifo_generator_0/rd_en]
   connect_bd_net -net audio_mux_0_r_read [get_bd_pins audio_mux_0/r_read] [get_bd_pins fifo_generator_1/rd_en]
-  connect_bd_net -net audio_mux_0_samplerate_is_48 [get_bd_pins audio_clk_mux_core_0/samplerate_is_48] [get_bd_pins audio_mux_0/samplerate_is_48]
   connect_bd_net -net audio_mux_0_trig [get_bd_pins audio_mux_0/trig] [get_bd_pins holosynth_0/trig]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins audio_clk_mux_core_0/aud_44_in_clk] [get_bd_pins clk_wiz_0/clk_out1]
-  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins audio_clk_mux_core_0/aud_48_in_clk] [get_bd_pins clk_wiz_0/clk_out2]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins audio_i2s_timing_gen_0/aud_44_in_clk] [get_bd_pins clk_wiz_0/clk_out1]
   connect_bd_net -net fifo_generator_0_dout [get_bd_pins audio_mux_0/lsound_in] [get_bd_pins fifo_generator_0/dout]
   connect_bd_net -net fifo_generator_1_dout [get_bd_pins audio_mux_0/rsound_in] [get_bd_pins fifo_generator_1/dout]
   connect_bd_net -net hm2_axilite_int_0_ADDR [get_bd_pins holosynth_0/cpu_addr] [get_bd_pins holosynth_sysex/ADDR]
@@ -2015,10 +2003,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net hm2_axilite_int_1_WRITESTB [get_bd_pins holosynth_0/socmidi_write] [get_bd_pins holosynth_midi/WRITESTB]
   connect_bd_net -net holosynth_0_active_keys [get_bd_pins holosynth_0/active_keys] [get_bd_pins xlslice_0/Din]
   connect_bd_net -net holosynth_0_cpu_writedata [get_bd_pins holosynth_0/cpu_writedata] [get_bd_pins holosynth_sysex/OBUS]
-  connect_bd_net -net holosynth_0_lsound_out [get_bd_pins audio_i2s_driver_0/i_lsound_out] [get_bd_pins fifo_generator_0/din] [get_bd_pins holosynth_0/lsound_out]
+  connect_bd_net -net holosynth_0_lsound_out_reg [get_bd_pins audio_i2s_driver_0/i_lsound_out] [get_bd_pins fifo_generator_0/din] [get_bd_pins holosynth_0/lsound_out]
   connect_bd_net -net holosynth_0_midi_txd [get_bd_ports midi_txd_0] [get_bd_pins holosynth_0/midi_txd]
-  connect_bd_net -net holosynth_0_rsound_out [get_bd_pins audio_i2s_driver_0/i_rsound_out] [get_bd_pins fifo_generator_1/din] [get_bd_pins holosynth_0/rsound_out]
-  connect_bd_net -net holosynth_0_run [get_bd_pins audio_clk_mux_core_0/run] [get_bd_pins audio_mux_0/run] [get_bd_pins holosynth_0/run]
+  connect_bd_net -net holosynth_0_rsound_out_reg [get_bd_pins audio_i2s_driver_0/i_rsound_out] [get_bd_pins fifo_generator_1/din] [get_bd_pins holosynth_0/rsound_out]
+  connect_bd_net -net holosynth_0_run [get_bd_pins audio_mux_0/run] [get_bd_pins holosynth_0/run]
   connect_bd_net -net holosynth_0_socmidi_data_out [get_bd_pins holosynth_0/socmidi_data_out] [get_bd_pins holosynth_midi/OBUS]
   connect_bd_net -net holosynth_0_xxxx_top [get_bd_pins audio_mux_0/xxxx_top] [get_bd_pins holosynth_0/xxxx_top]
   connect_bd_net -net holosynth_0_xxxx_zero [get_bd_pins audio_mux_0/sample_ready] [get_bd_pins fifo_generator_0/wr_en] [get_bd_pins fifo_generator_1/wr_en]
@@ -2028,10 +2016,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net holosynth_audio_READSTB [get_bd_pins audio_mux_0/read] [get_bd_pins holosynth_audio/READSTB]
   connect_bd_net -net holosynth_audio_WRITESTB [get_bd_pins audio_mux_0/write] [get_bd_pins holosynth_audio/WRITESTB]
   connect_bd_net -net midi_rxd_0_1 [get_bd_ports midi_rxd_0] [get_bd_pins holosynth_0/midi_rxd]
-  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_clk_mux_core_0/reset_n] [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins holosynth_0/reset_data_n] [get_bd_pins holosynth_0/reset_reg_n] [get_bd_pins holosynth_audio/S_AXI_ARESETN] [get_bd_pins holosynth_midi/S_AXI_ARESETN] [get_bd_pins holosynth_sysex/S_AXI_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn] [get_bd_pins smartconnect_0/aresetn]
+  connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins audio_i2s_driver_0/reset_reg_N] [get_bd_pins audio_i2s_timing_gen_0/reset_n] [get_bd_pins holosynth_0/reset_data_n] [get_bd_pins holosynth_0/reset_reg_n] [get_bd_pins holosynth_audio/S_AXI_ARESETN] [get_bd_pins holosynth_midi/S_AXI_ARESETN] [get_bd_pins holosynth_sysex/S_AXI_ARESETN] [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins holosynth_0/cpu_chip_sel] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_ports Led_out] [get_bd_pins xlslice_0/Dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_clk_mux_core_0/sync_clk] [get_bd_pins audio_mux_0/clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_sysex/S_AXI_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_mux_0/clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins fifo_generator_1/rd_clk] [get_bd_pins holosynth_0/reg_clk] [get_bd_pins holosynth_audio/S_AXI_ACLK] [get_bd_pins holosynth_midi/S_AXI_ACLK] [get_bd_pins holosynth_sysex/S_AXI_ACLK] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk1 [get_bd_pins holosynth_0/AUDIO_CLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk1]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
@@ -2044,7 +2032,6 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -2056,4 +2043,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
