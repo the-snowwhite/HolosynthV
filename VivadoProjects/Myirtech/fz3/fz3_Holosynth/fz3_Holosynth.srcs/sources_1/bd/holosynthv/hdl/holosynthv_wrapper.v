@@ -1,7 +1,7 @@
-//Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+//Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Tue Jun 22 01:19:27 2021
+//Tool Version: Vivado v.2020.2.2 (lin64) Build 3118627 Tue Feb  9 05:13:49 MST 2021
+//Date        : Wed Jun 23 02:39:25 2021
 //Host        : kdeneon-ws3 running 64-bit Ubuntu 18.04.5 LTS
 //Command     : generate_target holosynthv_wrapper.bd
 //Design      : holosynthv_wrapper
