@@ -54,4 +54,4 @@ petalinux-build -x distclean
 petalinux-build -x mrproper
 petalinux-package --bsp --force --output ../"$1"-holosynthv-"$PETALINUX_VER".bsp -p ./
 cd ..
-tar xfS "$1"-holosynthv-"$PETALINUX_VER".tar.bz2 -C ./"$1"-holosynthv-"$PETALINUX_VER" --use-compress-program lbzip2
+tar cfS "$1"-holosynthv-"$PETALINUX_VER".tar.bz2 ./"$1"-holosynthv-"$PETALINUX_VER" --use-compress-program lbzip2
