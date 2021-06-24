@@ -1,1 +1,4 @@
 gcc -o hsynth-audio-gtk `pkg-config --cflags --libs gtk+-3.0 jack` hsynth_audio-gtk.c
+
+#gcc version 10.2.1 20210110 (Debian 10.2.1-6):
+gcc -o hsynth-audio-gtk $(pkg-config --cflags gtk+-3.0) hsynth_audio-gtk.c $(pkg-config --libs gtk+-3.0 jack)

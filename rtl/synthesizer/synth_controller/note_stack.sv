@@ -3,7 +3,6 @@ parameter VOICES = 8,
 parameter V_WIDTH = 3
 ) (
     input wire                  reg_clk,
-    input wire                  reset_reg_N,
     input wire  [VOICES-1:0]    voice_free,
     input wire                  is_data_byte,
     input wire                  is_velocity,
@@ -12,15 +11,15 @@ parameter V_WIDTH = 3
     input wire                  is_st_ctrl,
 //    input wire                  auto_syx_cmd,
     input wire                  trig__note_stack,
-    input wire  [7:0]           databyte,
-    output reg [V_WIDTH:0]      active_keys,
+    input wire  [7:0]           seq_databyte,
+    output reg [V_WIDTH:0]      active_keys, // has to go upto 32
     output reg                  note_on,
     output reg [V_WIDTH-1:0]    cur_key_adr,
     output reg [7:0]            cur_key_val,
     output reg [7:0]            cur_vel_on,
     output reg [7:0]            cur_vel_off,
 // outputs to synth_engine
-    output reg  [VOICES-1:0]    key_on
+    output reg  [VOICES-1:0]    keys_on
 
 );
 
@@ -63,6 +62,8 @@ parameter V_WIDTH = 3
     reg [7:0]cur_note;
     reg [V_WIDTH-1:0]slot_off;
 
+    reg is_data_byte_dly;
+
     wire is_allnotesoff;
     
     initial begin
@@ -73,7 +74,7 @@ parameter V_WIDTH = 3
         cur_vel_on = 0;
         cur_vel_off = 0;
        for(i5=0;i5<VOICES-1;i5=i5+1)begin
-            key_on[i5] = 1'b0;
+            keys_on[i5] = 1'b0;
             cur_key_adr = i5;
             key_val[i5] = 8'hff;
             on_slot[i5] = 0;
@@ -83,9 +84,10 @@ parameter V_WIDTH = 3
         cur_note = 0;
         cur_slot = 0;
         note_on = 1'b0;
+        is_data_byte_dly = 1'b0;
     end
     
-    assign is_allnotesoff    =   ((databyte==8'h7b)?1'b1:1'b0);
+    assign is_allnotesoff    =   ((seq_databyte==8'h7b)?1'b1:1'b0);
 
 
 
@@ -98,26 +100,29 @@ parameter V_WIDTH = 3
 
 //    assign free_voice_found = (free_voices_found > 0) ? 1'b1: 1'b0;
 
-    always @(posedge is_data_byte)begin
-        for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
-            free_voice_found = 1'b0;
-            if(voice_free_r[i3])begin
-                free_voices_found = free_voices_found +1;
-                first_free_voice = i3;
+    always @(posedge reg_clk)begin
+        is_data_byte_dly <= is_data_byte;
+        if(is_data_byte && ~is_data_byte_dly) begin
+            for(i3=VOICES-1,free_voices_found=0; i3 >= 0 ; i3=i3-1) begin
+                free_voice_found = 1'b0;
+                if(voice_free_r[i3])begin
+                    free_voices_found = free_voices_found +1;
+                    first_free_voice = i3;
+                end
+                if (free_voices_found > 0) free_voice_found = 1'b1;
             end
-            if (free_voices_found > 0) free_voice_found = 1'b1;
         end
     end
 
 
     always @(posedge reg_clk) begin
         if (trig__note_stack)begin
-            note_on <= 1'b0;
             if(is_st_note_on)begin // Note on omni
                 if(is_data_byte)begin
+                    note_on <= 1'b0;
                     if(active_keys >= VOICES) begin
                         active_keys <= active_keys-1'b1;
-                        key_on[on_slot[0]]<=1'b0;
+                        keys_on[on_slot[0]]<=1'b0;
                         cur_key_adr <= on_slot[0];
                         cur_key_val <=8'hff;
                         key_val[on_slot[0]]<=8'hff;
@@ -133,15 +138,16 @@ parameter V_WIDTH = 3
                     for(i6=VOICES-1;i6>0;i6=i6-1)begin
                         on_slot[i6-1]<=on_slot[i6];
                     end
-                    cur_note<=databyte;
+                    cur_note<=seq_databyte;
                 end
                 else if(is_velocity)begin
-                    if(databyte == 0)begin
+                    if(seq_databyte == 0)begin
+                        note_on <= 1'b0;
                         for(i22=0;i22<VOICES;i22=i22+1)begin
                             if(cur_note==key_val[i22])begin
                                 active_keys <= active_keys-1'b1;
                                 slot_off<=i22;
-                                key_on[i22]<=1'b0;
+                                keys_on[i22]<=1'b0;
                                 cur_key_adr <= i22;
                                 cur_key_val <= 8'hff;
                                 key_val[i22] <= 8'hff;
@@ -150,10 +156,10 @@ parameter V_WIDTH = 3
                     end
                     else begin
                         active_keys <= active_keys+1'b1;
-                        key_on[cur_slot]<=1'b1;
+                        keys_on[cur_slot]<=1'b1;
                         cur_key_adr <= cur_slot;
                         cur_key_val <= cur_note;
-                        cur_vel_on <= databyte;
+                        cur_vel_on <= seq_databyte;
                         note_on <= 1'b1;
                         key_val[cur_slot]<=cur_note;
                         on_slot[VOICES-1] <= cur_slot;
@@ -161,10 +167,11 @@ parameter V_WIDTH = 3
                 end
             end
             else if(is_st_ctrl)begin // Control Change omni
+                note_on <= 1'b0;
                 if(is_data_byte)begin
                     if(is_allnotesoff)begin
                         for(i4=0;i4<VOICES;i4=i4+1)begin
-                            key_on[i4]<=1'b0;
+                            keys_on[i4]<=1'b0;
                             cur_key_adr <= i4;
                             key_val[i4]<=8'hff;
                             cur_key_val<=8'hff;
@@ -176,12 +183,13 @@ parameter V_WIDTH = 3
                 end
             end
             else if (is_st_note_off) begin// Note off omni
+                note_on <= 1'b0;
                 if(is_data_byte)begin
                     for(i2=0;i2<VOICES;i2=i2+1)begin
-                        if(databyte==key_val[i2])begin
+                        if(seq_databyte==key_val[i2])begin
                             active_keys <= active_keys-1'b1;
                             slot_off<=i2;
-                            key_on[i2]<=1'b0;
+                            keys_on[i2]<=1'b0;
                             cur_key_adr <= i2;
                             cur_key_val <= 8'hff;
                             key_val[i2] <= 8'hff;
@@ -190,7 +198,7 @@ parameter V_WIDTH = 3
                 end
                 else if(is_velocity )begin
                     if(key_val[slot_off] == 8'hff)begin
-                        cur_vel_off<=databyte;
+                        cur_vel_off<=seq_databyte;
                         off_slot[VOICES-1]<=slot_off;
                         for(i7=VOICES-1;i7>0;i7=i7-1)begin
                             if(i7>active_keys)begin
@@ -198,15 +206,13 @@ parameter V_WIDTH = 3
                             end
                         end
                     end
-                    if(active_keys == 0)begin
+                    if(active_keys != 0 && keys_on == 0)begin
+                        active_keys <= 0;
                         for(i8=0;i8<VOICES;i8=i8+1)begin
-                            key_on[i8]<=1'b0;
-                            cur_key_adr <= i8;
-                            cur_key_val <= 8'hff;
-                            cur_vel_on <= 8'd0;
-                            cur_vel_off <= 8'd0;
                             key_val[i8] <= 8'hff;
                         end
+                        cur_vel_on <= 8'h00;
+                        cur_vel_off <= 8'h00;
                         cur_note <= 8'd0;
                         slot_off <= 0;
                         cur_slot <= 0;

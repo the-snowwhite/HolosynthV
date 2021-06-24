@@ -19,7 +19,7 @@ parameter V_OSC		= 4 // oscs per Voice
     output reg  signed  [7:0]   osc_mod_in      [V_OSC-1:0],
     output reg  signed  [7:0]   osc_feedb_in    [V_OSC-1:0],
     output reg  signed  [7:0]   m_vol,
-    output wire         [3:0]   midi_ch,
+    output wire         [4:0]   cur_midi_ch,
     output wire                 uart_usb_sel,
     output reg  signed  [7:0]   mat_buf1        [15:0][V_OSC-1:0],
     output reg  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
@@ -32,8 +32,7 @@ parameter V_OSC		= 4 // oscs per Voice
 
     byte unsigned loop,oloop,iloop,inloop;
     
-    assign midi_ch = midi_ch_indata[3:0];
-    assign uart_usb_sel = midi_ch_indata[4] ? 1'b0 : 1'b1;
+    assign cur_midi_ch = midi_ch_indata;
     
     initial begin
         for (loop=0;loop<V_OSC;loop=loop+1)begin

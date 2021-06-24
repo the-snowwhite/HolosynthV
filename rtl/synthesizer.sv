@@ -18,7 +18,9 @@ parameter V_ENVS = V_OSC * O_ENVS,	// number of envelope generators  pr. voice.
 parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH = utils::clogb2(O_ENVS),
-parameter E_WIDTH = O_WIDTH + OE_WIDTH
+parameter E_WIDTH = O_WIDTH + OE_WIDTH,
+parameter Invert_rxd = 0,
+parameter REG_CLK_FREQUENCY = 50_000_000
 ) (
 // Clock
     input wire              reg_clk,
@@ -32,12 +34,12 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     output wire             midi_txd,
 
     input wire  [4:1]       button,
-    output wire [VOICES-1:0] keys_on,
-    output wire [VOICES-1:0] voice_free,
-    output wire [V_WIDTH:0]	active_keys,
+//    output wire [VOICES-1:0] keys_on,
+//    output wire [VOICES-1:0] voice_free,
+    output wire [V_WIDTH:0]	    active_keys,
 
-    output wire [AUD_BIT_DEPTH-1:0]  lsound_out,
-    output wire [AUD_BIT_DEPTH-1:0]  rsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] lsound_out,
+    output wire [AUD_BIT_DEPTH-1:0] rsound_out,
 
     output wire             xxxx_zero,
     output wire             xxxx_top,
@@ -46,8 +48,8 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     input wire              cpu_write,
     input wire              chipselect,
     input wire  [9:0]       address,
-    input wire  [31:0]      cpu_readdata,
-    output wire [31:0]      cpu_writedata,
+    input wire  [7:0]       cpu_readdata,
+    output wire [7:0]       cpu_writedata,
     input wire  [2:0]       socmidi_addr,
     input wire              socmidi_read,
     input wire              socmidi_write,
@@ -101,18 +103,16 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
 
 // inputs
 // outputs
-    wire prg_ch_cmd,pitch_cmd;
-    wire[7:0] prg_ch_data;
-//    wire [V_WIDTH:0]	active_keys;
-    wire 	off_note_error;
+    wire        prg_ch_cmd,pitch_cmd;
+    wire [7:0]  prg_ch_data;
+    wire 	    off_note_error;
 
-    wire ictrl_cmd;
-    wire [7:0]ictrl, ictrl_data;
+    wire        ictrl_cmd;
+    wire [7:0]  ictrl, ictrl_data;
 
     wire HC_LCD_CLK, HC_VGA_CLOCK;
 
-//    wire OSC_CLK;
-    wire audio_pll_locked;
+    wire        audio_pll_locked;
 
     wire [63:0] lvoice_out;
     wire [63:0] rvoice_out;
@@ -121,7 +121,6 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire [6:0]	syx_dec_addr;
     wire [2:0]	syx_bank_addr;
     wire [6:0]	adr;
-//    wire [6:0]	dec_sel_bus;
     wire		env_sel	;
     wire		osc_sel;
     wire		m1_sel;
@@ -132,21 +131,22 @@ parameter E_WIDTH = O_WIDTH + OE_WIDTH
     wire		syx_read;
     wire		syx_write;
     wire		syx_read_select;
-//    wire		dec_read_write;
     wire [7:0]  sysex_data_out;
 
-    wire [3:0] midi_ch;
-    wire uart_usb_sel;
-    reg [7:0] out_data;
+    wire [4:0]  cur_midi_ch;
+    reg  [7:0]  out_data;
 
     wire    write_dataenable;
+
+    wire [VOICES-1:0] keys_on;
+    wire [VOICES-1:0] voice_free;
 
     assign midi_rxd = MIDI_Rx_DAT; // Direct to optocopler RS-232 port (fix it in in topfile)
 
     assign reg_reset_N = button[1] & reset_reg_n;
 
-    assign cpu_writedata[7:0] = synth_data_out;
-    assign synth_data_in = write_dataenable ? sysex_data_out : cpu_readdata[7:0];
+    assign cpu_writedata = synth_data_out;
+    assign synth_data_in = write_dataenable ? sysex_data_out : cpu_readdata;
 
 addr_decoder #(.addr_width(3),.num_lines(6)) addr_decoder_inst
 (
@@ -201,9 +201,8 @@ reset_delay	reset_data_delay_inst  (
 */
     // Sound clk gen //
 
-synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
+synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.Invert_rxd(Invert_rxd),.REG_CLK_FREQUENCY(REG_CLK_FREQUENCY)) synth_controller_inst(
 
-    .reset_reg_N(reg_reset_N) ,
     .reg_clk(reg_clk) ,
     .socmidi_addr(socmidi_addr) ,
     .socmidi_data_in(socmidi_data_in) ,
@@ -211,7 +210,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .midi_rxd(midi_rxd) ,
     .midi_txd(midi_txd) ,
     .voice_free(voice_free) ,
-    .midi_ch( midi_ch), 
+    .cur_midi_ch(cur_midi_ch), 
     .note_on(note_on) ,
     .keys_on(keys_on) ,
     .cur_key_adr(cur_key_adr) ,
@@ -223,19 +222,14 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) synth_controller_inst(
     .prg_ch_data(prg_ch_data) ,
 // controller data bus
     .syx_data_ready(syx_data_ready) ,   //output
-//    .read_write (dec_read_write),
-//    .dec_sysex_data_patch_send (dec_sysex_data_patch_send),
     .write_dataenable (write_dataenable),
-//    .dec_addr(dec_addr) ,
     .syx_dec_addr(syx_dec_addr) ,
     .syx_bank_addr(syx_bank_addr) ,
     .syx_read(syx_read) ,
     .syx_write(syx_write) ,
     .sysex_data_out (sysex_data_out) ,
     .synth_data_out (synth_data_out),  // input
-//    .dec_sel_bus( dec_sel_bus) ,
-    .active_keys(active_keys) ,
-    .uart_usb_sel(uart_usb_sel)
+    .active_keys(active_keys)
 );
 
     //////////// Sound Generation /////////////
@@ -250,10 +244,9 @@ synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.V_E
     .trig                   ( trig ),
     .lsound_out             ( lsound_out ),             //  Audio Raw Dat
     .rsound_out             ( rsound_out ),             //  Audio Raw Data
-    .xxxx_zero          ( xxxx_zero ) ,             // output  count complete signal
+    .xxxx_zero              ( xxxx_zero ) ,             // output  count complete signal
     .xxxx_top               ( xxxx_top ) ,              // output  cycle complete signal
-    .midi_ch                ( midi_ch ) ,               // output  
-    .uart_usb_sel           ( uart_usb_sel ) ,          // output  
+    .cur_midi_ch            ( cur_midi_ch ) ,               // output  
     // KEY //
     // -- Sound Control -- //
     //	to pitch control //

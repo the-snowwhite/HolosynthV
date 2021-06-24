@@ -1,8 +1,9 @@
 module synth_controller #(
-parameter VOICES = 8,
-parameter V_WIDTH = 3
+parameter VOICES = 32,
+parameter V_WIDTH = utils::clogb2(VOICES),
+parameter Invert_rxd = 0,
+parameter REG_CLK_FREQUENCY = 50_000_000
 ) (
-    input wire                  reset_reg_N,
     input wire                  reg_clk,
 // cpu:
     input wire [2:0]            socmidi_addr,
@@ -13,15 +14,15 @@ parameter V_WIDTH = 3
     output wire                 midi_txd,
 // inputs from synth engine
     input wire [VOICES-1:0]     voice_free,
-    input wire [3:0]            midi_ch,
-// outputs to synth_engine
-    output wire [VOICES-1:0]    keys_on,
+    input wire [4:0]            cur_midi_ch,
 // note events
     output wire                 note_on,
     output wire [V_WIDTH-1:0]   cur_key_adr,
     output wire [7:0]           cur_key_val,
     output wire [7:0]           cur_vel_on,
     output wire [7:0]           cur_vel_off,
+// outputs to synth_engine
+    output wire [VOICES-1:0]    keys_on,
 // controller data
     output wire                 prg_ch_cmd,
     output wire [13:0]          pitch_val,
@@ -37,12 +38,10 @@ parameter V_WIDTH = 3
     input  wire [7:0]           synth_data_out,
 //    output wire [6:0]           dec_sel_bus,
 // status data
-    output wire [V_WIDTH:0]     active_keys,
-    input wire                  uart_usb_sel
+    output wire [V_WIDTH:0]   active_keys // has to go upto 32
 );
 
 //////////////key1 & key2 Assign///////////
-    wire [3:0] cur_midi_ch;
     wire [7:0] midi_bytes;
     wire signed [7:0] seq_databyte;
 
@@ -86,12 +85,15 @@ parameter V_WIDTH = 3
     wire [7:0] midi_regdata_to_synth;
     wire dec_sysex_data_patch_send;
 
-    wire                 pitch_cmd;
-    wire [7:0]           octrl;
-    wire [7:0]           octrl_data;
+    wire      pitch_cmd;
+    wire [7:0] octrl;
+    wire [7:0] octrl_data;
 
-MIDI_UART MIDI_UART_inst (
-    .reset_reg_N    (reset_reg_N),
+    wire      trig__note_stack;
+
+MIDI_UART #(.Invert_rxd(Invert_rxd),.REG_CLK_FREQUENCY(REG_CLK_FREQUENCY)) MIDI_UART_inst
+(
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 reg_clk CLK" *)
     .reg_clk        (reg_clk),
     .midi_rxd       (midi_rxd),         // input  midi serial data in
     .midi_txd       (midi_txd),         // output midi serial data output
@@ -108,11 +110,9 @@ MIDI_UART MIDI_UART_inst (
 
 cpu_port cpu_port_inst
 (
-	.reset_reg_N( reset_reg_N ) ,
 	.reg_clk( reg_clk ) ,
 	.socmidi_addr( socmidi_addr ) ,	    // input [2:0] cpu_addr_sig
 	.socmidi_data_in( socmidi_data_in ) ,	// input [7:0] cpu_data_sig
-//	.cpu_com_sel(cpu_com_sel) ,	        // input  cpu_com_sel_sig
 	.socmidi_write( socmidi_write ) ,	    // input  cpu_write_sig
 
 	.byteready_c( byteready_c ) ,	        // output  byteready_sig
@@ -123,10 +123,10 @@ cpu_port cpu_port_inst
 
 
 midi_in_mux midi_in_mux_inst
-(//   .reset_reg_N( reset_reg_N ),
+(
     .reg_clk( reg_clk ),
 
-	.uart_usb_sel( uart_usb_sel ) ,	// input  sel_sig
+	.cur_midi_ch( cur_midi_ch ) ,	// input  sel_sig
 
 	.byteready_u( byteready_u ) ,	// input  byteready_u_sig
 	.cur_status_u( cur_status_u ) ,	// input [7:0] cur_status_u_sig
@@ -158,22 +158,21 @@ address_decoder address_decoder_inst (
 midi_status midi_statusinst
 (
     .reg_clk(reg_clk),
-	.cur_status(cur_status) ,	// input [6:0] cur_status_sig
-	.cur_midi_ch(cur_midi_ch) ,	// input [7:0] cur_midi_ch_sig
-	.is_cur_midi_ch(is_cur_midi_ch) ,	// output  is_cur_midi_ch_sig
-	.is_st_note_on(is_st_note_on) ,	// output  is_st_note_on_sig
-	.is_st_note_off(is_st_note_off) ,	// output  is_st_note_off_sig
-	.is_st_ctrl(is_st_ctrl) ,	// output  is_st_ctrl_sig
-	.is_st_prg_change(is_st_prg_change) ,	// output  is_st_prg_change_sig
-	.is_st_pitch(is_st_pitch) ,	// output  is_st_pitch_sig
-	.is_st_sysex(is_st_sysex) 	// output  is_st_sysex_sig
+    .cur_status(cur_status),            // input [7:0] cur_status_sig
+    .cur_midi_ch(cur_midi_ch),          // input [3:0] cur_midi_ch_sig
+    .is_cur_midi_ch(is_cur_midi_ch),	// output  is_cur_midi_ch_sig
+    .is_st_note_on(is_st_note_on),	    // output  is_st_note_on_sig
+    .is_st_note_off(is_st_note_off),	// output  is_st_note_off_sig
+    .is_st_ctrl(is_st_ctrl),	        // output  is_st_ctrl_sig
+    .is_st_prg_change(is_st_prg_change),// output  is_st_prg_change_sig
+    .is_st_pitch(is_st_pitch),          // output  is_st_pitch_sig
+    .is_st_sysex(is_st_sysex)           // output  is_st_sysex_sig
 );
 
 
 note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 (
 	.reg_clk(reg_clk) ,
-	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
 	.voice_free(voice_free) ,	// input [VOICES-1:0] voice_free_sig
 	.is_data_byte(is_data_byte) ,	// input  is_data_byte_sig
 	.is_velocity(is_velocity) ,	// input  is_velocity_sig
@@ -181,7 +180,7 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.is_st_note_off(is_st_note_off) ,	// input  is_st_note_off_sig
 	.is_st_ctrl(is_st_ctrl) ,	// input  is_st_ctrl_sig
 	.trig__note_stack(trig__note_stack) ,	// input  byteready_sig
-	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
+	.seq_databyte(seq_databyte) ,	// input [7:0] databyte_sig
 
 	.active_keys(active_keys) ,	// output [V_WIDTH:0] active_keys_sig
 	.note_on(note_on) ,	// output  note_on_sig
@@ -189,13 +188,12 @@ note_stack #(.VOICES(VOICES),.V_WIDTH(V_WIDTH)) note_stack_inst
 	.cur_key_val(cur_key_val) ,	// output [7:0] cur_key_val_sig
 	.cur_vel_on(cur_vel_on) ,	// output [7:0] cur_vel_on_sig
 	.cur_vel_off(cur_vel_off) ,	// output [7:0] cur_vel_off_sig
-	.key_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
+	.keys_on(keys_on) 	// output [VOICES-1:0] keys_on_sig
 );
 
 seq_trigger seq_trigger_inst
 (
 	.reg_clk(reg_clk) ,
-	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
 	.midibyte_nr(midibyte_nr) ,	// input [7:0] midibyte_nr_sig
 	.is_cur_midi_ch(is_cur_midi_ch) ,	// input  is_cur_midi_ch_sig
 	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
@@ -204,7 +202,6 @@ seq_trigger seq_trigger_inst
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// input  sysex_data_patch_send_sig
 	.auto_syx_cmd(auto_syx_cmd) ,	// input  auto_syx_cmd_sig
 	.byteready(byteready) ,	// input  byteready_sig
-	.cur_midi_ch(cur_midi_ch) ,	// output [3:0] cur_midi_ch_sig
 	.midi_bytes(midi_bytes) ,	// output [7:0] midi_bytes_sig
 	.midi_send_byte(midi_send_byte) ,	// output  midi_send_byte_sig
 	.syx_data_ready(syx_data_ready) ,	// output  data_ready_sig
@@ -218,15 +215,13 @@ seq_trigger seq_trigger_inst
 sysex_func sysex_func_inst
 (
 	.reg_clk(reg_clk) ,
-	.reset_reg_N(reset_reg_N) ,	// input  reset_reg_N_sig
-//    .write_dataenable ( write_dataenable ), //input
 	.sysex_data_out(sysex_data_out) ,	// output [7:0] data_sig
 	.synth_data_out(synth_data_out) ,	// input [7:0] data_sig
-	.midi_ch(midi_ch) ,	// input [3:0] midi_ch_sig
+	.cur_midi_ch(cur_midi_ch) ,	// input [3:0] midi_ch_sig
 	.is_st_sysex(is_st_sysex) ,	// input  is_st_sysex_sig
 	.midi_out_ready(midi_out_ready) ,	// input  midi_out_ready_sig
 	.midi_bytes(midi_bytes) ,	// input [7:0] midi_bytes_sig
-	.databyte(seq_databyte) ,	// input [7:0] databyte_sig
+	.seq_databyte(seq_databyte) ,	// input [7:0] databyte_sig
 	.trig_seq_f(trig_seq_f) ,	// input  seq_trigger_sig
 	.syx_cmd(syx_cmd) ,	// output  syx_cmd_sig
 	.dec_sysex_data_patch_send(dec_sysex_data_patch_send) ,	// output  sysex_data_patch_send_sig
@@ -234,12 +229,11 @@ sysex_func sysex_func_inst
 	.midi_out_data(midi_out_data) ,	// output [7:0] midi_out_data_sig
 	.syx_bank_addr(syx_bank_addr) ,	// output [2:0] bank_adr_sig
 	.syx_dec_addr(syx_dec_addr) 	// output [6:0] dec_addr_sig
-//	.sysex_addr(sysex_addr) 	// output [6:0] dec_addr_sig
 );
 
 controller_cmd_inst controller_cmd_inst_inst (
    // Input Ports - Single Bit
-    .reg_clk(reg_clk) ,
+    .reg_clk             (reg_clk) ,
     .trig_seq_f          (trig_seq_f),    
     .is_data_byte        (is_data_byte),   
     .is_st_pitch         (is_st_pitch),    

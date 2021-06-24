@@ -60,6 +60,7 @@
 #include "genattr.h"
 #include "xilinx_zynqmp.h"
 #include "b_transport_converter.h"
+#include "utils/xtlm_aximm_fifo.h"
 
 /***************************************************************************************
 *
@@ -142,6 +143,8 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     sc_core::sc_in<sc_dt::sc_bv<1> >  pl_ps_irq0;
     sc_core::sc_out<bool> pl_resetn0;
     sc_core::sc_out<bool> pl_clk0;
+    sc_core::sc_out<bool> pl_clk1;
+    sc_core::sc_out<bool> pl_clk2;
      
     // Xtlm aximm slave sockets are delcared here. these XTLM sockets will hierachically bound with 
     // slave sockets defined in vivado generated wrapper.
@@ -190,11 +193,19 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     // sc_clocks for generating pl clocks
     // output pins pl_clk0..3 are drived by these clocks
     sc_core::sc_clock pl_clk0_clk;
+    sc_core::sc_clock pl_clk1_clk;
+    sc_core::sc_clock pl_clk2_clk;
 
     
     //Method which is sentive to pl_clk0_clk sc_clock object
     //pl_clk0 pin written based on pl_clk0_clk clock value 
     void trigger_pl_clk0_pin();
+    //Method which is sentive to pl_clk1_clk sc_clock object
+    //pl_clk1 pin written based on pl_clk1_clk clock value 
+    void trigger_pl_clk1_pin();
+    //Method which is sentive to pl_clk2_clk sc_clock object
+    //pl_clk2 pin written based on pl_clk2_clk clock value 
+    void trigger_pl_clk2_pin();
 
     void pl_ps_irq0_method();
     //pl_resetn0 output reset pin get toggle when emio bank 2's 31th signal gets toggled
