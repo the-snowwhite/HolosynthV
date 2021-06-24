@@ -22,17 +22,22 @@ case $1 in
   *"ultra96"*)
 #    cd /work/HW/VivadoProjects/avnet/ultra96
     cd /work/VivadoProjects/Avnet
-    BOARD_PART="xczu3eg"
+#    BOARD_PART="xczu3eg"
     ;;
 
   *"fz3"*)
     cd /work/VivadoProjects/Myirtech/fz3
-    BOARD_PART="xczu3eg"
+#    BOARD_PART="xczu3eg"
     ;;
 
   *"ultramyir"*)
     cd /work/VivadoProjects/Myirtech/ultramyir
-    BOARD_PART="xczu3eg"
+#    BOARD_PART="xczu3eg"
+    ;;
+
+  *"k26-stkit"*)
+    cd /work/VivadoProjects/Xilinx/k26-stkit
+#    BOARD_PART="xczu3eg"
     ;;
 
   *)
@@ -47,7 +52,6 @@ PRJ_DIR_CREATED=./"$1"-holosynthv-"$PETALINUX_VER"
 
 petalinux-create -t project -s "$1"-holosynthv-"$PETALINUX_VER".bsp
 cd "$1"-holosynthv-"$PETALINUX_VER"
-#time petalinux-config --get-hw-description=../"$1"_"$BOARD_PART"_created/"$1"_"$BOARD_PART".sdk --silentconfig
 petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
 petalinux-build
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --u-boot=images/linux/u-boot.elf --pmufw --atf --fpga images/linux/system.bit --force
