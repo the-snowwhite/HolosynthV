@@ -680,7 +680,7 @@
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
+      <xilinx:xilinxVersion>2020.2.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="26169568"/>
       <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="af82d8e6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="f2ac9635"/>

@@ -1,4 +1,4 @@
-//Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+//Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Command: generate_target bd_0970_wrapper.bd
 //Design : bd_0970_wrapper
