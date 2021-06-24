@@ -7,3 +7,4 @@ fz3-holosynthv-2020.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
 VivadoProjects/Myirtech/fz3/fz3-holosynthv-2020.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
 k26-stkit-holosynthv-2020.2.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
 ultra96v1-holosynthv-2020.2.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
+fz3-holosynthv-2020.2.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
