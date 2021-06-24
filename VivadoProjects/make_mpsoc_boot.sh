@@ -7,7 +7,8 @@ set -x  # print commands
 # /opt/Xilinx like in the docker image.
 
 usage () {
-    echo "Usage: make_mpsoc_boot.sh boardname"
+    echo "Usage: make_mpsoc_boot.sh boardname [-nobsp]"
+    echo "Usage: use -nobsp to skip deletion and recreation of bsp folder"
     exit 1
 }
 
@@ -48,9 +49,10 @@ esac
 
 # Delete any old project artifacts folder
 PRJ_DIR_CREATED=./"$1"-holosynthv-"$PETALINUX_VER"
-[ -d "$PRJ_DIR_CREATED" ] && rm -rf "$PRJ_DIR_CREATED"
-
-petalinux-create -t project -s "$1"-holosynthv-"$PETALINUX_VER".bsp
+if [ "${2}" != "-nobsp" ]; then
+    [ -d "$PRJ_DIR_CREATED" ] && rm -rf "$PRJ_DIR_CREATED"
+    petalinux-create -t project -s "$1"-holosynthv-"$PETALINUX_VER".bsp
+fi
 cd "$1"-holosynthv-"$PETALINUX_VER"
 petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
 petalinux-build
