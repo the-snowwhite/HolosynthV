@@ -23,22 +23,18 @@ case $1 in
   *"ultra96"*)
 #    cd /work/HW/VivadoProjects/avnet/ultra96
     cd /work/VivadoProjects/Avnet
-#    BOARD_PART="xczu3eg"
     ;;
 
   *"fz3"*)
     cd /work/VivadoProjects/Myirtech/fz3
-#    BOARD_PART="xczu3eg"
     ;;
 
   *"ultramyir"*)
     cd /work/VivadoProjects/Myirtech/ultramyir
-#    BOARD_PART="xczu3eg"
     ;;
 
   *"k26-stkit"*)
     cd /work/VivadoProjects/Xilinx/k26-stkit
-#    BOARD_PART="xczu3eg"
     ;;
 
   *)
