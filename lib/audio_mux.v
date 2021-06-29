@@ -54,7 +54,7 @@ parameter AUD_BIT_DEPTH = 24
     reg [FIFO_WIDTH:0] buffersize;
     reg fill_fifo, run_trig;
     wire jack_cycle_end;
-    wire lrck_synced;
+    wire lrck_synced,run_synced;
 
 //    reg [31:0]  samplerate;
  
@@ -63,7 +63,13 @@ parameter AUD_BIT_DEPTH = 24
         .sig_in(lrck),
         .sig_out(lrck_synced)
     );
- 
+  
+   syncro_2 sync_run (
+       .clk(clk),
+       .sig_in(run),
+       .sig_out(run_synced)
+   );
+
     assign l_read = (read && (address == 0)) ? 1'b1 : 1'b0;
     assign r_read = (read && (address == 1)) ? 1'b1 : 1'b0;
     
@@ -111,7 +117,7 @@ parameter AUD_BIT_DEPTH = 24
     end
     
     always @(posedge clk)begin
-        if(xxxx_top && fill_fifo && !run) run_trig <= 1'b1;
+        if(xxxx_top && fill_fifo && !run_synced) run_trig <= 1'b1;
         else run_trig <= 1'b0;
     end
 /*
