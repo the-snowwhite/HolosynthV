@@ -25,8 +25,8 @@ parameter AUD_BIT_DEPTH = 24
     input wire con_run,
     input wire [AUD_BIT_DEPTH-1:0] con_lsound_in,
     input wire [AUD_BIT_DEPTH-1:0] con_rsound_in,
-	 output wire con_trig,
-	 output wire con_i2s_enable
+    output wire con_trig,
+    output wire con_i2s_enable
 );
 
 // signals to connect to custom con logic

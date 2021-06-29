@@ -94,6 +94,13 @@ module DE10_Nano_FB_HSynth(
 );
 
 
+parameter VOICES = 32;
+parameter V_OSC = 8;	// number of oscilators pr. voice.
+
+parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
+parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
+parameter AUD_BIT_DEPTH = 24;
+
 
 //=======================================================
 //  REG/WIRE declarations
@@ -381,7 +388,7 @@ audio_i2s_driver audio_i2s_driver_inst
 	.reset_reg_N(hps_fpga_reset_n) ,	// input  reset_reg_N_sig
 	.iAUD_DACLRCK(playback_lrclk) ,	// input  iAUD_DACLRCK_sig
 	.iAUDB_CLK(playback_bclk) ,	// input  iAUDB_CLK_sig
-	.i2s_enable(i2s_enable_sig) ,	// input  i2s_enable_sig
+	.i2s_enable(i2s_enable) ,	// input  i2s_enable_sig
 	.i_lsound_out(lsound_out) ,	// input [AUD_BIT_DEPTH-1:0] i_lsound_out_sig
 	.i_rsound_out(rsound_out) ,	// input [AUD_BIT_DEPTH-1:0] i_rsound_out_sig
 	.oAUD_DACDAT(AUD_DACDAT) 	// output  oAUD_DACDAT_sig
@@ -458,13 +465,6 @@ end
 // ----------------------------------------------------------------------//
 // 							Synthesizer:
 // ----------------------------------------------------------------------//
-
-parameter VOICES = 32;
-parameter V_OSC = 8;	// number of oscilators pr. voice.
-
-parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
-parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
-parameter AUD_BIT_DEPTH = 24;
 
 //    assign GPIO_1[9] =	AUD_XCK;        // violet
     assign GPIO_1[7] =	AUD_BCLK;       // orange
