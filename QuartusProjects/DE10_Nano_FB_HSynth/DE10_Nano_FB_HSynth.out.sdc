@@ -81,7 +81,7 @@ derive_pll_clocks
 # Set False Path
 #**************************************************************
 
-
+set_false_path -to [get_cells -hierarchical *is_metastable_sig*]
 
 #**************************************************************
 # Set Multicycle Path

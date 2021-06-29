@@ -220,7 +220,6 @@ soc_system u0 (
         //Clock&Reset
     .clk_clk                                     (FPGA_CLK1_50 ),
     .reset_reset_n                               (hps_fpga_reset_n ),
-//    .alt_vip_cl_cvo_0_clocked_video_vid_clk       (lcd_clk ),
     .alt_vip_cl_cvo_0_clocked_video_vid_data      (HDMI_TX_D ),
     .alt_vip_cl_cvo_0_clocked_video_underflow     ( ),
     .alt_vip_cl_cvo_0_clocked_video_vid_datavalid (HDMI_TX_DE),
@@ -229,6 +228,8 @@ soc_system u0 (
     .alt_vip_cl_cvo_0_clocked_video_vid_f         ( ),
     .alt_vip_cl_cvo_0_clocked_video_vid_h         ( ),
     .alt_vip_cl_cvo_0_clocked_video_vid_v         ( ),
+    .audio_clk                                              (AUDIO_CLK),
+    .button_pio_external_connection_export ( fpga_debounced_buttons	), // button_pio_external_connection.export
     .synthreg_io_uio_dataout                   (cpu_data_out),
     .synthreg_io_uio_address                   (cpu_adr),
     .synthreg_io_uio_read                      (cpu_read),
@@ -243,12 +244,11 @@ soc_system u0 (
     .socmidi_io_socmidi_datain                 (socmidi_data_in),
     .socmidi_io_socmidi_write                  (socmidi_write),
     .socmidi_io_socmidi_int_in                 (socmidi_irq_n),
-    .i2s_clkctrl_api_0_conduit_ext_AUD_DACLRCLK(AUD_DACLRCK),
-    .i2s_clkctrl_api_0_conduit_ext_AUD_BCLK    (AUD_BCLK),
-    .i2s_clkctrl_api_0_conduit_ext_shift_bclk  (i2s_clkctrl_apb_0_conduit_bclk),
-    .i2s_clkctrl_api_0_conduit_ext_AUD_ADCLRCLK(AUD_ADCLRCK),
-    .i2s_clkctrl_api_0_ext_mclk_clk            (AUD_XCK),
-    .i2s_clkctrl_api_0_ext_shift_clk_clk       (i2s_clk),
+    .audio_i2s_timing_gen_0_conduit_ext_aud_daclrclk (AUD_DACLRCK),
+    .audio_i2s_timing_gen_0_conduit_ext_aud_bclk     (AUD_BCLK),
+    .audio_i2s_timing_gen_0_conduit_playback_bclk    (i2s_clkctrl_apb_0_conduit_bclk),
+    .audio_i2s_timing_gen_0_conduit_playback_lrclk   (),
+    .audio_i2s_timing_gen_0_conduit_ext_shift_clk (i2s_clk),
     .i2s_output_apb_0_capture_fifo_data                     ({rsound_out[31:0],lsound_out[31:0]}),
     .i2s_output_apb_0_capture_fifo_write                    (xxxx_zero),
     .i2s_output_apb_0_capture_fifo_full                     (),
@@ -259,7 +259,6 @@ soc_system u0 (
     .i2s_output_apb_0_playback_fifo_empty                   (i2s_output_apb_0_playback_fifo_empty),
     .i2s_output_apb_0_playback_fifo_full                    (),
     .i2s_output_apb_0_playback_fifo_data                    ({i2s_output_apb_0_playback_fifo_data_R,i2s_output_apb_0_playback_fifo_data_L}),
-    .audio_clk                                              (AUDIO_CLK),
     .lcd_clk_clk                               (lcd_clk),
     .pll_stream_locked_export                  (),      // out
     //HPS ddr3
@@ -338,7 +337,6 @@ soc_system u0 (
         //FPGA Partion
     .led_pio_external_connection_export    ( fpga_led_internal 	),    //    led_pio_external_connection.export
     .dipsw_pio_external_connection_export  ( SW	),  //  dipsw_pio_external_connection.export
-    .button_pio_external_connection_export ( fpga_debounced_buttons	), // button_pio_external_connection.export
     .hps_0_h2f_reset_reset_n               ( hps_fpga_reset_n ),                //                hps_0_h2f_reset.reset_n
     .hps_0_f2h_cold_reset_req_reset_n      (~hps_cold_reset ),      //       hps_0_f2h_cold_reset_req.reset_n
     .hps_0_f2h_debug_reset_req_reset_n     (~hps_debug_reset ),     //      hps_0_f2h_debug_reset_req.reset_n
@@ -445,8 +443,9 @@ parameter V_OSC = 8;	// number of oscilators pr. voice.
 
 parameter O_ENVS = 2;	// number of envelope generators pr. oscilator.
 parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
+parameter AUD_BIT_DEPTH = 24;
 
-    assign GPIO_1[9] =	AUD_XCK;        // violet
+//    assign GPIO_1[9] =	AUD_XCK;        // violet
     assign GPIO_1[7] =	AUD_BCLK;       // orange
     assign GPIO_1[5] =	AUD_DACLRCK;    // green
     assign GPIO_1[3] =	AUD_DACDAT;     // white
@@ -456,7 +455,7 @@ parameter V_ENVS = V_OSC * O_ENVS;	// number of envelope generators  pr. voice.
 
 /////// LED Display ////////
 //    assign LED[7:1] = ~voice_free[6:0];
-    wire  [VOICES-1:0]	keys_on;
+//    wire  [VOICES-1:0]	keys_on;
     wire  [VOICES-1:0]	voice_free;
 
     reg [7:0]   delay_1;
@@ -468,18 +467,20 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .reg_clk    				(fpga_clk_50) ,
     .AUDIO_CLK             ( AUDIO_CLK ),             // input
     .reset_reg_n           (hps_fpga_reset_n),
+    .reset_data_n          (hps_fpga_reset_n) ,	// input  io_reset_sig
     .trig                  (AUD_DACLRCK),
     .MIDI_Rx_DAT           ( midi_rxd ) ,    // input  MIDI_DAT_sig (inverted due to inverter in rs232 chip)
     .midi_txd       			( midi_txd ),		// output midi transmit signal (inverted due to inverter in rs232 chip)
-    .button                ( KEY ),            //  Button[3:0]
+    .button                ( KEY ),          //  Button[3:0]
+    .active_keys           (voice_free) , 	//  Red LED [4:1]
 `ifdef _Synth
-    .lsound_out            (lsound_out[31:8] ),      //  Audio Raw Data Low
-    .rsound_out            (rsound_out[31:8] ),      //  Audio Raw Data high
-    .xxxx_zero             (xxxx_zero),                // output  cycle complete signag
+    .lsound_out            (lsound_out[AUD_BIT_DEPTH-1:8] ),      //  Audio Raw Data Low
+    .rsound_out            (rsound_out[AUD_BIT_DEPTH-1:8] ),      //  Audio Raw Data high
+    .xxxx_zero             (xxxx_zero),                // output  cycle complete signal
+    .xxxx_top              (xxxx_top),                 // output  cycle complete signal
 `endif
-    .keys_on               (keys_on),				//  LED [7:0]
-    .voice_free            (voice_free) , 			//  Red LED [4:1]
-    .reset_data_n          (hps_fpga_reset_n) ,	// input  io_reset_sig
+//    .keys_on               (keys_on),				//  LED [7:0]
+//    .voice_free            (voice_free) , 			//  Red LED [4:1]
     .cpu_read              (cpu_read) ,	// input  cpu_read_sig
     .cpu_write             (cpu_write) ,	// input  cpu_write_sig
     .chipselect            (cpu_chip_sel) ,	// input  chipselect_sig
@@ -493,7 +494,6 @@ synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
     .socmidi_data_out      (socmidi_data_in) ,	// input [31:0] writedata_sig
     .socmidi_data_in       (socmidi_data_out), 	// output [31:0] readdata_sig
     .run                   (run)
-//    .uart_usb_sel          (SW[2])
 );
 
 endmodule

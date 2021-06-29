@@ -1,7 +1,7 @@
 #============================================================
 # Build by Terasic System Builder
 #============================================================
-
+set_global_assignment -name POST_FLOW_SCRIPT_FILE "quartus_sh:/work/QuartusProjects/scripts/play_ding.tcl"
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEBA6U23I7
 set_global_assignment -name TOP_LEVEL_ENTITY "DE10_Nano_FB_HSynth"
@@ -661,6 +661,10 @@ set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
 set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
 set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT EXTRA
+
+
+
+
 set_global_assignment -name QIP_FILE ../../cv_ip/i2s/playback_fifo.qip
 set_global_assignment -name QIP_FILE ../../cv_ip/i2s/capture_fifo.qip
 set_global_assignment -name SDC_FILE DE10_Nano_FB_HSynth.out.sdc
@@ -672,7 +676,6 @@ set_global_assignment -name QIP_FILE ../../rtl/holosynth.qip
 set_global_assignment -name VERILOG_FILE I2C_WRITE_WDATA.v
 set_global_assignment -name VERILOG_FILE I2C_HDMI_Config.v
 set_global_assignment -name VERILOG_FILE I2C_Controller.v
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
 
 
 

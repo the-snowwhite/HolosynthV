@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
       }
    }
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
    }
@@ -42,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
       }
    }
@@ -54,11 +54,19 @@
          type = "String";
       }
    }
+   element audio_i2s_timing_gen_0
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
    element button_pio
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -84,7 +92,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
       }
       datum sopceditor_expanded
@@ -97,7 +105,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -131,7 +139,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "9";
          type = "int";
       }
    }
@@ -139,7 +147,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "8";
          type = "int";
       }
       datum sopceditor_expanded
@@ -148,11 +156,43 @@
          type = "boolean";
       }
    }
+   element holosynth_midi
+   {
+      datum _sortIndex
+      {
+         value = "20";
+         type = "int";
+      }
+   }
+   element holosynth_midi.slave
+   {
+      datum baseAddress
+      {
+         value = "327680";
+         type = "String";
+      }
+   }
+   element holosynth_sysex
+   {
+      datum _sortIndex
+      {
+         value = "19";
+         type = "int";
+      }
+   }
+   element holosynth_sysex.slave
+   {
+      datum baseAddress
+      {
+         value = "262144";
+         type = "String";
+      }
+   }
    element hps_0
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -173,7 +213,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -182,7 +222,7 @@
          type = "boolean";
       }
    }
-   element i2s_clkctrl_api_0
+   element i2s_output_apb_0
    {
       datum _sortIndex
       {
@@ -190,27 +230,11 @@
          type = "int";
       }
    }
-   element i2s_clkctrl_api_0.apb_slave
-   {
-      datum baseAddress
-      {
-         value = "32";
-         type = "String";
-      }
-   }
-   element i2s_output_apb_0
-   {
-      datum _sortIndex
-      {
-         value = "0";
-         type = "int";
-      }
-   }
    element jtag_uart
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -236,7 +260,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -262,7 +286,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
       }
    }
@@ -278,7 +302,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "21";
          type = "int";
       }
    }
@@ -290,15 +314,7 @@
          type = "String";
       }
    }
-   element pll_bitclk
-   {
-      datum _sortIndex
-      {
-         value = "2";
-         type = "int";
-      }
-   }
-   element pll_lcd
+   element pll_audio_clk
    {
       datum _sortIndex
       {
@@ -306,131 +322,163 @@
          type = "int";
       }
    }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element socmidi_0
+   element pll_bit_clk
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "0";
          type = "int";
       }
    }
-   element socmidi_0.slave
+   element pll_lcd
    {
-      datum baseAddress
+      datum _sortIndex
       {
-         value = "327680";
+         value = "4";
+         type = "int";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -438,7 +486,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -457,22 +505,6 @@
       datum baseAddress
       {
          value = "4096";
-         type = "String";
-      }
-   }
-   element uioreg_io_0
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-   }
-   element uioreg_io_0.slave
-   {
-      datum baseAddress
-      {
-         value = "262144";
          type = "String";
       }
    }
@@ -502,8 +534,13 @@
    internal="alt_vip_cl_cvo_0.clocked_video"
    type="conduit"
    dir="end" />
- <interface name="audio" internal="pll_bitclk.outclk0" type="clock" dir="start" />
- <interface name="audio_pll_locked" internal="pll_bitclk.locked" />
+ <interface name="audio" internal="pll_bit_clk.outclk0" type="clock" dir="start" />
+ <interface
+   name="audio_i2s_timing_gen_0_conduit"
+   internal="audio_i2s_timing_gen_0.conduit"
+   type="conduit"
+   dir="end" />
+ <interface name="audio_pll_locked" internal="pll_audio_clk.locked" />
  <interface
    name="button_pio_external_connection"
    internal="button_pio.external_connection"
@@ -542,23 +579,6 @@
    dir="start" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface
-   name="i2s_clkctrl_api_0_conduit"
-   internal="i2s_clkctrl_api_0.conduit"
-   type="conduit"
-   dir="end" />
- <interface
-   name="i2s_clkctrl_api_0_ext_mclk"
-   internal="i2s_clkctrl_api_0.ext_mclk"
-   type="clock"
-   dir="start" />
- <interface
-   name="i2s_clkctrl_api_0_ext_shift_clk"
-   internal="i2s_clkctrl_api_0.ext_shift_clk"
-   type="clock"
-   dir="start" />
- <interface name="i2s_clkctrl_api_0_i2s_clk" internal="i2s_clkctrl_api_0.i2s_clk" />
- <interface name="i2s_clkctrl_api_0_mclk" internal="i2s_clkctrl_api_0.mclk" />
- <interface
    name="i2s_output_apb_0_capture_fifo"
    internal="i2s_output_apb_0.capture_fifo"
    type="conduit"
@@ -581,10 +601,14 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
- <interface name="socmidi_io" internal="socmidi_0.pins" type="conduit" dir="end" />
+ <interface
+   name="socmidi_io"
+   internal="holosynth_midi.pins"
+   type="conduit"
+   dir="end" />
  <interface
    name="synthreg_io"
-   internal="uioreg_io_0.pins"
+   internal="holosynth_sysex.pins"
    type="conduit"
    dir="end" />
  <module
@@ -690,6 +714,11 @@
   <parameter name="WRITE_BURST_TARGET" value="64" />
   <parameter name="WRITE_FIFO_DEPTH" value="512" />
  </module>
+ <module
+   name="audio_i2s_timing_gen_0"
+   kind="audio_i2s_timing_gen"
+   version="1.0"
+   enabled="1" />
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -751,6 +780,16 @@
   <parameter name="FIFO_DEPTHS" value="2" />
   <parameter name="PLI_PORT" value="50000" />
   <parameter name="USE_PLI" value="0" />
+ </module>
+ <module name="holosynth_midi" kind="socmidi" version="1.0" enabled="1">
+  <parameter name="ADDRESS_WIDTH" value="3" />
+  <parameter name="DATA_WIDTH" value="8" />
+  <parameter name="IRQ_EN" value="0" />
+ </module>
+ <module name="holosynth_sysex" kind="uioreg_io" version="1.1" enabled="1">
+  <parameter name="ADDRESS_WIDTH" value="10" />
+  <parameter name="DATA_WIDTH" value="32" />
+  <parameter name="IRQ_EN" value="0" />
  </module>
  <module name="hps_0" kind="altera_hps" version="17.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -1297,11 +1336,6 @@
   <parameter name="USE_PLI" value="0" />
  </module>
  <module
-   name="i2s_clkctrl_api_0"
-   kind="i2s_clkctrl_api"
-   version="1.7"
-   enabled="1" />
- <module
    name="i2s_output_apb_0"
    kind="i2s_output_apb"
    version="1.4"
@@ -1389,7 +1423,7 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module name="pll_bitclk" kind="altera_pll" version="17.1" enabled="1">
+ <module name="pll_audio_clk" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEBA6U23I7" />
@@ -1506,9 +1540,212 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="3" />
+  <parameter name="gui_number_of_clocks" value="1" />
   <parameter name="gui_operation_mode" value="direct" />
-  <parameter name="gui_output_clock_frequency0" value="90.416666" />
+  <parameter name="gui_output_clock_frequency0" value="33.8688" />
+  <parameter name="gui_output_clock_frequency1" value="24.675" />
+  <parameter name="gui_output_clock_frequency10" value="100.0" />
+  <parameter name="gui_output_clock_frequency11" value="100.0" />
+  <parameter name="gui_output_clock_frequency12" value="100.0" />
+  <parameter name="gui_output_clock_frequency13" value="100.0" />
+  <parameter name="gui_output_clock_frequency14" value="100.0" />
+  <parameter name="gui_output_clock_frequency15" value="100.0" />
+  <parameter name="gui_output_clock_frequency16" value="100.0" />
+  <parameter name="gui_output_clock_frequency17" value="100.0" />
+  <parameter name="gui_output_clock_frequency2" value="24.675" />
+  <parameter name="gui_output_clock_frequency3" value="100.0" />
+  <parameter name="gui_output_clock_frequency4" value="100.0" />
+  <parameter name="gui_output_clock_frequency5" value="100.0" />
+  <parameter name="gui_output_clock_frequency6" value="100.0" />
+  <parameter name="gui_output_clock_frequency7" value="100.0" />
+  <parameter name="gui_output_clock_frequency8" value="100.0" />
+  <parameter name="gui_output_clock_frequency9" value="100.0" />
+  <parameter name="gui_phase_shift0" value="0" />
+  <parameter name="gui_phase_shift1" value="0" />
+  <parameter name="gui_phase_shift10" value="0" />
+  <parameter name="gui_phase_shift11" value="0" />
+  <parameter name="gui_phase_shift12" value="0" />
+  <parameter name="gui_phase_shift13" value="0" />
+  <parameter name="gui_phase_shift14" value="0" />
+  <parameter name="gui_phase_shift15" value="0" />
+  <parameter name="gui_phase_shift16" value="0" />
+  <parameter name="gui_phase_shift17" value="0" />
+  <parameter name="gui_phase_shift2" value="0" />
+  <parameter name="gui_phase_shift3" value="0" />
+  <parameter name="gui_phase_shift4" value="0" />
+  <parameter name="gui_phase_shift5" value="0" />
+  <parameter name="gui_phase_shift6" value="0" />
+  <parameter name="gui_phase_shift7" value="0" />
+  <parameter name="gui_phase_shift8" value="0" />
+  <parameter name="gui_phase_shift9" value="0" />
+  <parameter name="gui_phase_shift_deg0" value="0.0" />
+  <parameter name="gui_phase_shift_deg1" value="0.0" />
+  <parameter name="gui_phase_shift_deg10" value="0.0" />
+  <parameter name="gui_phase_shift_deg11" value="0.0" />
+  <parameter name="gui_phase_shift_deg12" value="0.0" />
+  <parameter name="gui_phase_shift_deg13" value="0.0" />
+  <parameter name="gui_phase_shift_deg14" value="0.0" />
+  <parameter name="gui_phase_shift_deg15" value="0.0" />
+  <parameter name="gui_phase_shift_deg16" value="0.0" />
+  <parameter name="gui_phase_shift_deg17" value="0.0" />
+  <parameter name="gui_phase_shift_deg2" value="0.0" />
+  <parameter name="gui_phase_shift_deg3" value="0.0" />
+  <parameter name="gui_phase_shift_deg4" value="0.0" />
+  <parameter name="gui_phase_shift_deg5" value="0.0" />
+  <parameter name="gui_phase_shift_deg6" value="0.0" />
+  <parameter name="gui_phase_shift_deg7" value="0.0" />
+  <parameter name="gui_phase_shift_deg8" value="0.0" />
+  <parameter name="gui_phase_shift_deg9" value="0.0" />
+  <parameter name="gui_phout_division" value="1" />
+  <parameter name="gui_pll_auto_reset" value="Off" />
+  <parameter name="gui_pll_bandwidth_preset" value="Auto" />
+  <parameter name="gui_pll_cascading_mode">Create an adjpllin signal to connect with an upstream PLL</parameter>
+  <parameter name="gui_pll_mode" value="Fractional-N PLL" />
+  <parameter name="gui_ps_units0" value="ps" />
+  <parameter name="gui_ps_units1" value="ps" />
+  <parameter name="gui_ps_units10" value="ps" />
+  <parameter name="gui_ps_units11" value="ps" />
+  <parameter name="gui_ps_units12" value="ps" />
+  <parameter name="gui_ps_units13" value="ps" />
+  <parameter name="gui_ps_units14" value="ps" />
+  <parameter name="gui_ps_units15" value="ps" />
+  <parameter name="gui_ps_units16" value="ps" />
+  <parameter name="gui_ps_units17" value="ps" />
+  <parameter name="gui_ps_units2" value="ps" />
+  <parameter name="gui_ps_units3" value="ps" />
+  <parameter name="gui_ps_units4" value="ps" />
+  <parameter name="gui_ps_units5" value="ps" />
+  <parameter name="gui_ps_units6" value="ps" />
+  <parameter name="gui_ps_units7" value="ps" />
+  <parameter name="gui_ps_units8" value="ps" />
+  <parameter name="gui_ps_units9" value="ps" />
+  <parameter name="gui_refclk1_frequency" value="100.0" />
+  <parameter name="gui_refclk_switch" value="false" />
+  <parameter name="gui_reference_clock_frequency" value="50.0" />
+  <parameter name="gui_switchover_delay" value="0" />
+  <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
+  <parameter name="gui_use_locked" value="false" />
+ </module>
+ <module name="pll_bit_clk" kind="altera_pll" version="17.1" enabled="1">
+  <parameter name="debug_print_output" value="false" />
+  <parameter name="debug_use_rbc_taf_method" value="false" />
+  <parameter name="device" value="5CSEBA6U23I7" />
+  <parameter name="device_family" value="Cyclone V" />
+  <parameter name="gui_active_clk" value="false" />
+  <parameter name="gui_actual_output_clock_frequency0" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency1" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency10" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency11" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency12" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency13" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency14" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency15" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency16" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency17" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency2" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency3" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency4" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency5" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency6" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency7" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency8" value="0 MHz" />
+  <parameter name="gui_actual_output_clock_frequency9" value="0 MHz" />
+  <parameter name="gui_actual_phase_shift0" value="0" />
+  <parameter name="gui_actual_phase_shift1" value="0" />
+  <parameter name="gui_actual_phase_shift10" value="0" />
+  <parameter name="gui_actual_phase_shift11" value="0" />
+  <parameter name="gui_actual_phase_shift12" value="0" />
+  <parameter name="gui_actual_phase_shift13" value="0" />
+  <parameter name="gui_actual_phase_shift14" value="0" />
+  <parameter name="gui_actual_phase_shift15" value="0" />
+  <parameter name="gui_actual_phase_shift16" value="0" />
+  <parameter name="gui_actual_phase_shift17" value="0" />
+  <parameter name="gui_actual_phase_shift2" value="0" />
+  <parameter name="gui_actual_phase_shift3" value="0" />
+  <parameter name="gui_actual_phase_shift4" value="0" />
+  <parameter name="gui_actual_phase_shift5" value="0" />
+  <parameter name="gui_actual_phase_shift6" value="0" />
+  <parameter name="gui_actual_phase_shift7" value="0" />
+  <parameter name="gui_actual_phase_shift8" value="0" />
+  <parameter name="gui_actual_phase_shift9" value="0" />
+  <parameter name="gui_cascade_counter0" value="false" />
+  <parameter name="gui_cascade_counter1" value="false" />
+  <parameter name="gui_cascade_counter10" value="false" />
+  <parameter name="gui_cascade_counter11" value="false" />
+  <parameter name="gui_cascade_counter12" value="false" />
+  <parameter name="gui_cascade_counter13" value="false" />
+  <parameter name="gui_cascade_counter14" value="false" />
+  <parameter name="gui_cascade_counter15" value="false" />
+  <parameter name="gui_cascade_counter16" value="false" />
+  <parameter name="gui_cascade_counter17" value="false" />
+  <parameter name="gui_cascade_counter2" value="false" />
+  <parameter name="gui_cascade_counter3" value="false" />
+  <parameter name="gui_cascade_counter4" value="false" />
+  <parameter name="gui_cascade_counter5" value="false" />
+  <parameter name="gui_cascade_counter6" value="false" />
+  <parameter name="gui_cascade_counter7" value="false" />
+  <parameter name="gui_cascade_counter8" value="false" />
+  <parameter name="gui_cascade_counter9" value="false" />
+  <parameter name="gui_cascade_outclk_index" value="0" />
+  <parameter name="gui_channel_spacing" value="0.0" />
+  <parameter name="gui_clk_bad" value="false" />
+  <parameter name="gui_device_speed_grade" value="2" />
+  <parameter name="gui_divide_factor_c0" value="1" />
+  <parameter name="gui_divide_factor_c1" value="1" />
+  <parameter name="gui_divide_factor_c10" value="1" />
+  <parameter name="gui_divide_factor_c11" value="1" />
+  <parameter name="gui_divide_factor_c12" value="1" />
+  <parameter name="gui_divide_factor_c13" value="1" />
+  <parameter name="gui_divide_factor_c14" value="1" />
+  <parameter name="gui_divide_factor_c15" value="1" />
+  <parameter name="gui_divide_factor_c16" value="1" />
+  <parameter name="gui_divide_factor_c17" value="1" />
+  <parameter name="gui_divide_factor_c2" value="1" />
+  <parameter name="gui_divide_factor_c3" value="1" />
+  <parameter name="gui_divide_factor_c4" value="1" />
+  <parameter name="gui_divide_factor_c5" value="1" />
+  <parameter name="gui_divide_factor_c6" value="1" />
+  <parameter name="gui_divide_factor_c7" value="1" />
+  <parameter name="gui_divide_factor_c8" value="1" />
+  <parameter name="gui_divide_factor_c9" value="1" />
+  <parameter name="gui_divide_factor_n" value="1" />
+  <parameter name="gui_dps_cntr" value="C0" />
+  <parameter name="gui_dps_dir" value="Positive" />
+  <parameter name="gui_dps_num" value="1" />
+  <parameter name="gui_dsm_out_sel" value="1st_order" />
+  <parameter name="gui_duty_cycle0" value="50" />
+  <parameter name="gui_duty_cycle1" value="50" />
+  <parameter name="gui_duty_cycle10" value="50" />
+  <parameter name="gui_duty_cycle11" value="50" />
+  <parameter name="gui_duty_cycle12" value="50" />
+  <parameter name="gui_duty_cycle13" value="50" />
+  <parameter name="gui_duty_cycle14" value="50" />
+  <parameter name="gui_duty_cycle15" value="50" />
+  <parameter name="gui_duty_cycle16" value="50" />
+  <parameter name="gui_duty_cycle17" value="50" />
+  <parameter name="gui_duty_cycle2" value="50" />
+  <parameter name="gui_duty_cycle3" value="50" />
+  <parameter name="gui_duty_cycle4" value="50" />
+  <parameter name="gui_duty_cycle5" value="50" />
+  <parameter name="gui_duty_cycle6" value="50" />
+  <parameter name="gui_duty_cycle7" value="50" />
+  <parameter name="gui_duty_cycle8" value="50" />
+  <parameter name="gui_duty_cycle9" value="50" />
+  <parameter name="gui_en_adv_params" value="false" />
+  <parameter name="gui_en_dps_ports" value="false" />
+  <parameter name="gui_en_phout_ports" value="false" />
+  <parameter name="gui_en_reconf" value="false" />
+  <parameter name="gui_enable_cascade_in" value="false" />
+  <parameter name="gui_enable_cascade_out" value="false" />
+  <parameter name="gui_enable_mif_dps" value="false" />
+  <parameter name="gui_feedback_clock" value="Global Clock" />
+  <parameter name="gui_frac_multiply_factor" value="1" />
+  <parameter name="gui_fractional_cout" value="32" />
+  <parameter name="gui_mif_generate" value="false" />
+  <parameter name="gui_multiply_factor" value="1" />
+  <parameter name="gui_number_of_clocks" value="1" />
+  <parameter name="gui_operation_mode" value="direct" />
+  <parameter name="gui_output_clock_frequency0" value="100.0" />
   <parameter name="gui_output_clock_frequency1" value="33.90625" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
@@ -1795,22 +2032,12 @@
   <parameter name="gui_switchover_mode">Automatic Switchover</parameter>
   <parameter name="gui_use_locked" value="true" />
  </module>
- <module name="socmidi_0" kind="socmidi" version="1.0" enabled="1">
-  <parameter name="ADDRESS_WIDTH" value="3" />
-  <parameter name="DATA_WIDTH" value="8" />
-  <parameter name="IRQ_EN" value="0" />
- </module>
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
    version="17.1"
    enabled="1">
   <parameter name="id" value="-1395322108" />
- </module>
- <module name="uioreg_io_0" kind="uioreg_io" version="1.1" enabled="1">
-  <parameter name="ADDRESS_WIDTH" value="10" />
-  <parameter name="DATA_WIDTH" value="32" />
-  <parameter name="IRQ_EN" value="0" />
  </module>
  <connection
    kind="avalon"
@@ -1828,15 +2055,6 @@
    end="mm_bridge_0.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="mm_bridge_0.m0"
-   end="i2s_clkctrl_api_0.apb_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1911,7 +2129,7 @@
    kind="avalon"
    version="17.1"
    start="mm_bridge_0.m0"
-   end="socmidi_0.slave">
+   end="holosynth_midi.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00050000" />
   <parameter name="defaultConnection" value="false" />
@@ -1920,7 +2138,7 @@
    kind="avalon"
    version="17.1"
    start="mm_bridge_0.m0"
-   end="uioreg_io_0.slave">
+   end="holosynth_sysex.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00040000" />
   <parameter name="defaultConnection" value="false" />
@@ -1932,15 +2150,6 @@
    end="i2s_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="fpga_only_master.master"
-   end="i2s_clkctrl_api_0.apb_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2028,7 +2237,7 @@
    kind="avalon"
    version="17.1"
    start="fpga_only_master.master"
-   end="uioreg_io_0.slave">
+   end="holosynth_sysex.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00040000" />
   <parameter name="defaultConnection" value="false" />
@@ -2037,7 +2246,7 @@
    kind="avalon"
    version="17.1"
    start="fpga_only_master.master"
-   end="socmidi_0.slave">
+   end="holosynth_midi.slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00050000" />
   <parameter name="defaultConnection" value="false" />
@@ -2088,13 +2297,16 @@
    version="17.1"
    start="clk_0.clk"
    end="onchip_memory2_0.clk1" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="uioreg_io_0.clock" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="socmidi_0.clock" />
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="i2s_clkctrl_api_0.clock" />
+   end="holosynth_sysex.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="holosynth_midi.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2116,7 +2328,21 @@
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_lcd.refclk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pll_bitclk.refclk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="pll_audio_clk.refclk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="pll_bit_clk.refclk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pll_audio_clk.outclk0"
+   end="audio_i2s_timing_gen_0.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2132,16 +2358,6 @@
    version="17.1"
    start="pll_lcd.outclk0"
    end="alt_vip_cl_cvo_0.main_clock" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="pll_bitclk.outclk1"
-   end="i2s_clkctrl_api_0.ext_clk44_clkin" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="pll_bitclk.outclk2"
-   end="i2s_clkctrl_api_0.ext_clk48_clkin" />
  <connection
    kind="conduit"
    version="17.1"
@@ -2196,14 +2412,14 @@
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
-   end="uioreg_io_0.slv_irq">
+   end="holosynth_sysex.slv_irq">
   <parameter name="irqNumber" value="3" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
-   end="socmidi_0.slv_irq">
+   end="holosynth_midi.slv_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
@@ -2226,14 +2442,14 @@
    kind="interrupt"
    version="17.1"
    start="ILC.irq"
-   end="uioreg_io_0.slv_irq">
+   end="holosynth_sysex.slv_irq">
   <parameter name="irqNumber" value="3" />
  </connection>
  <connection
    kind="interrupt"
    version="17.1"
    start="ILC.irq"
-   end="socmidi_0.slv_irq">
+   end="holosynth_midi.slv_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
@@ -2300,27 +2516,27 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="uioreg_io_0.reset" />
+   end="holosynth_sysex.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="pll_bitclk.reset" />
+   end="pll_audio_clk.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="i2s_clkctrl_api_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
-   end="socmidi_0.reset" />
+   end="holosynth_midi.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
    end="i2s_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="audio_i2s_timing_gen_0.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2376,27 +2592,32 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="uioreg_io_0.reset" />
+   end="holosynth_sysex.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="socmidi_0.reset" />
+   end="holosynth_midi.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="pll_bitclk.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master.master_reset"
-   end="i2s_clkctrl_api_0.reset" />
+   end="pll_audio_clk.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
    end="i2s_output_apb_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master.master_reset"
+   end="pll_bit_clk.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master.master_reset"
+   end="audio_i2s_timing_gen_0.reset" />
  <connection
    kind="reset"
    version="17.1"
