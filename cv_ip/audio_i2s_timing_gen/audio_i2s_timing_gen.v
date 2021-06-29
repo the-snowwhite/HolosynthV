@@ -41,17 +41,17 @@
    // BUFG: General Clock Buffer
    //       Virtex UltraScale+
    // Xilinx HDL Language Template, version 2020.2
-
+/*
    BUFG BUFG_inst (
       .O(aud_buf_clk), // 1-bit output: Clock output.
       .I(clk)  // 1-bit input: Clock input.
    );
-
+*/
    // End of BUFG_inst instantiation
    
 // Output assignments
 
-    assign ext_shift_clk    = aud_buf_clk;
+    assign ext_shift_clk    = clk;
     assign playback_lrclk   = play_lrclk;
     assign ext_AUD_DACLRCLK = play_lrclk;
 
@@ -59,13 +59,13 @@
     assign playback_bclk    = bclk;
     
     syncro2_1 sync_inst_1 (
-        .clk(aud_buf_clk),
+        .clk(clk),
         .sig1_in(reset_n),
         .sig1_out(reset_synced_n)
     );
 
     audio_clock_generator playback_gen (
-        .clk         (aud_buf_clk),
+        .clk         (clk),
         .reset_n     (reset_synced_n),
         .cmd_reg1    (32'h00050003),
         .cmd_reg2    (32'h00001717),

@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
    }
@@ -30,15 +30,7 @@
          type = "String";
       }
    }
-   element alt_vip_cl_cvo_0
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-   }
-   element alt_vip_cl_vfb_0
+   element alt_vip_cl_cvo
    {
       datum _sortIndex
       {
@@ -46,7 +38,15 @@
          type = "int";
       }
    }
-   element alt_vip_cl_vfb_0.control
+   element alt_vip_cl_vfb
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
+   element alt_vip_cl_vfb.control
    {
       datum baseAddress
       {
@@ -54,11 +54,11 @@
          type = "String";
       }
    }
-   element audio_i2s_timing_gen_0
+   element audio_i2s_timing_gen
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -66,7 +66,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -92,7 +92,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
       datum sopceditor_expanded
@@ -105,7 +105,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -139,7 +139,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
    }
@@ -147,7 +147,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -156,11 +156,27 @@
          type = "boolean";
       }
    }
-   element holosynth_midi
+   element holosynth_audio
    {
       datum _sortIndex
       {
          value = "20";
+         type = "int";
+      }
+   }
+   element holosynth_audio.slave
+   {
+      datum baseAddress
+      {
+         value = "393216";
+         type = "String";
+      }
+   }
+   element holosynth_midi
+   {
+      datum _sortIndex
+      {
+         value = "19";
          type = "int";
       }
    }
@@ -176,7 +192,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -192,7 +208,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
       datum sopceditor_expanded
@@ -213,7 +229,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -222,19 +238,11 @@
          type = "boolean";
       }
    }
-   element i2s_output_apb_0
-   {
-      datum _sortIndex
-      {
-         value = "1";
-         type = "int";
-      }
-   }
    element jtag_uart
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -260,7 +268,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -286,7 +294,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
    }
@@ -298,7 +306,7 @@
          type = "boolean";
       }
    }
-   element onchip_memory2_0
+   element onchip_memory2
    {
       datum _sortIndex
       {
@@ -306,7 +314,7 @@
          type = "int";
       }
    }
-   element onchip_memory2_0.s1
+   element onchip_memory2.s1
    {
       datum baseAddress
       {
@@ -318,7 +326,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -334,8 +342,40 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
       }
    }
    element soc_system
@@ -486,7 +526,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -530,26 +570,41 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
-   name="alt_vip_cl_cvo_0_clocked_video"
-   internal="alt_vip_cl_cvo_0.clocked_video"
+   name="alt_vip_cl_cvo"
+   internal="alt_vip_cl_cvo.clocked_video"
    type="conduit"
    dir="end" />
  <interface name="audio" internal="pll_bit_clk.outclk0" type="clock" dir="start" />
  <interface
-   name="audio_i2s_timing_gen_0_conduit"
-   internal="audio_i2s_timing_gen_0.conduit"
+   name="audio_i2s_timing_gen"
+   internal="audio_i2s_timing_gen.conduit"
    type="conduit"
    dir="end" />
  <interface name="audio_pll_locked" internal="pll_audio_clk.locked" />
  <interface
-   name="button_pio_external_connection"
+   name="button_pio"
    internal="button_pio.external_connection"
    type="conduit"
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
-   name="dipsw_pio_external_connection"
+   name="dipsw_pio"
    internal="dipsw_pio.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="holosynth_audio"
+   internal="holosynth_audio.pin"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="holosynth_midi"
+   internal="holosynth_midi.pins"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="holosynth_sysex"
+   internal="holosynth_sysex.pins"
    type="conduit"
    dir="end" />
  <interface
@@ -578,19 +633,9 @@
    type="reset"
    dir="start" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
- <interface
-   name="i2s_output_apb_0_capture_fifo"
-   internal="i2s_output_apb_0.capture_fifo"
-   type="conduit"
-   dir="end" />
- <interface
-   name="i2s_output_apb_0_playback_fifo"
-   internal="i2s_output_apb_0.playback_fifo"
-   type="conduit"
-   dir="end" />
  <interface name="lcd_clk" internal="pll_lcd.outclk1" type="clock" dir="start" />
  <interface
-   name="led_pio_external_connection"
+   name="led_pio"
    internal="led_pio.external_connection"
    type="conduit"
    dir="end" />
@@ -601,16 +646,6 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
- <interface
-   name="socmidi_io"
-   internal="holosynth_midi.pins"
-   type="conduit"
-   dir="end" />
- <interface
-   name="synthreg_io"
-   internal="holosynth_sysex.pins"
-   type="conduit"
-   dir="end" />
  <module
    name="ILC"
    kind="interrupt_latency_counter"
@@ -618,10 +653,10 @@
    enabled="1">
   <parameter name="CLOCK_RATE" value="50000000" />
   <parameter name="INTR_TYPE" value="0" />
-  <parameter name="IRQ_PORT_CNT" value="6" />
+  <parameter name="IRQ_PORT_CNT" value="7" />
  </module>
  <module
-   name="alt_vip_cl_cvo_0"
+   name="alt_vip_cl_cvo"
    kind="alt_vip_cl_cvo"
    version="17.1"
    enabled="1">
@@ -672,7 +707,7 @@
   <parameter name="V_SYNC_LENGTH" value="5" />
  </module>
  <module
-   name="alt_vip_cl_vfb_0"
+   name="alt_vip_cl_vfb"
    kind="alt_vip_cl_vfb"
    version="17.1"
    enabled="1">
@@ -715,7 +750,7 @@
   <parameter name="WRITE_FIFO_DEPTH" value="512" />
  </module>
  <module
-   name="audio_i2s_timing_gen_0"
+   name="audio_i2s_timing_gen"
    kind="audio_i2s_timing_gen"
    version="1.0"
    enabled="1" />
@@ -780,6 +815,17 @@
   <parameter name="FIFO_DEPTHS" value="2" />
   <parameter name="PLI_PORT" value="50000" />
   <parameter name="USE_PLI" value="0" />
+ </module>
+ <module
+   name="holosynth_audio"
+   kind="holosynth_audio"
+   version="1.0"
+   enabled="1">
+  <parameter name="ADDRESS_WIDTH" value="3" />
+  <parameter name="AUD_BIT_DEPTH" value="24" />
+  <parameter name="DATA_WIDTH" value="8" />
+  <parameter name="FIFO_WIDTH" value="6" />
+  <parameter name="IRQ_EN" value="0" />
  </module>
  <module name="holosynth_midi" kind="socmidi" version="1.0" enabled="1">
   <parameter name="ADDRESS_WIDTH" value="3" />
@@ -860,7 +906,7 @@
   <parameter name="DISABLE_CHILD_MESSAGING" value="false" />
   <parameter name="DISCRETE_FLY_BY" value="true" />
   <parameter name="DLL_SHARING_MODE" value="None" />
-  <parameter name="DMA_Enable">Yes,Yes,No,No,No,No,No,No</parameter>
+  <parameter name="DMA_Enable">No,No,No,No,No,No,No,No</parameter>
   <parameter name="DQS_DQSN_MODE" value="DIFFERENTIAL" />
   <parameter name="DQ_INPUT_REG_USE_CLKN" value="false" />
   <parameter name="DUPLICATE_AC" value="false" />
@@ -1336,11 +1382,6 @@
   <parameter name="USE_PLI" value="0" />
  </module>
  <module
-   name="i2s_output_apb_0"
-   kind="i2s_output_apb"
-   version="1.4"
-   enabled="1" />
- <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"
    version="17.1"
@@ -1392,12 +1433,12 @@
   <parameter name="USE_RESPONSE" value="0" />
  </module>
  <module
-   name="onchip_memory2_0"
+   name="onchip_memory2"
    kind="altera_avalon_onchip_memory2"
    version="17.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory2_0</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory2</parameter>
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="64" />
@@ -2043,7 +2084,7 @@
    kind="avalon"
    version="17.1"
    start="hps_0.h2f_axi_master"
-   end="onchip_memory2_0.s1">
+   end="onchip_memory2.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00080000" />
   <parameter name="defaultConnection" value="false" />
@@ -2053,15 +2094,6 @@
    version="17.1"
    start="hps_0.h2f_lw_axi_master"
    end="mm_bridge_0.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="17.1"
-   start="mm_bridge_0.m0"
-   end="i2s_output_apb_0.apb_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -2088,7 +2120,7 @@
    kind="avalon"
    version="17.1"
    start="mm_bridge_0.m0"
-   end="alt_vip_cl_vfb_0.control">
+   end="alt_vip_cl_vfb.control">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00031000" />
   <parameter name="defaultConnection" value="false" />
@@ -2146,10 +2178,10 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="fpga_only_master.master"
-   end="i2s_output_apb_0.apb_slave">
+   start="mm_bridge_0.m0"
+   end="holosynth_audio.slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x00060000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2174,7 +2206,7 @@
    kind="avalon"
    version="17.1"
    start="fpga_only_master.master"
-   end="alt_vip_cl_vfb_0.control">
+   end="alt_vip_cl_vfb.control">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00031000" />
   <parameter name="defaultConnection" value="false" />
@@ -2254,7 +2286,16 @@
  <connection
    kind="avalon"
    version="17.1"
-   start="alt_vip_cl_vfb_0.mem_master_rd"
+   start="fpga_only_master.master"
+   end="holosynth_audio.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00060000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="alt_vip_cl_vfb.mem_master_rd"
    end="hps_0.f2h_sdram1_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -2263,8 +2304,8 @@
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="alt_vip_cl_vfb_0.dout"
-   end="alt_vip_cl_cvo_0.din" />
+   start="alt_vip_cl_vfb.dout"
+   end="alt_vip_cl_cvo.din" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="sysid_qsys.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="led_pio.clk" />
  <connection
@@ -2281,11 +2322,6 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="i2s_output_apb_0.clk" />
- <connection
-   kind="clock"
-   version="17.1"
-   start="clk_0.clk"
    end="hps_only_master.clk" />
  <connection
    kind="clock"
@@ -2296,7 +2332,7 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
-   end="onchip_memory2_0.clk1" />
+   end="onchip_memory2.clk1" />
  <connection
    kind="clock"
    version="17.1"
@@ -2307,6 +2343,11 @@
    version="17.1"
    start="clk_0.clk"
    end="holosynth_midi.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="holosynth_audio.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2342,7 +2383,7 @@
    kind="clock"
    version="17.1"
    start="pll_audio_clk.outclk0"
-   end="audio_i2s_timing_gen_0.clock" />
+   end="audio_i2s_timing_gen.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -2352,39 +2393,17 @@
    kind="clock"
    version="17.1"
    start="pll_lcd.outclk0"
-   end="alt_vip_cl_vfb_0.main_clock" />
+   end="alt_vip_cl_vfb.main_clock" />
  <connection
    kind="clock"
    version="17.1"
    start="pll_lcd.outclk0"
-   end="alt_vip_cl_cvo_0.main_clock" />
- <connection
-   kind="conduit"
-   version="17.1"
-   start="i2s_output_apb_0.capture_dma"
-   end="hps_0.f2h_dma_req1">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="17.1"
-   start="hps_0.f2h_dma_req0"
-   end="i2s_output_apb_0.playback_dma">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
+   end="alt_vip_cl_cvo.main_clock" />
  <connection
    kind="interrupt"
    version="17.1"
    start="hps_0.f2h_irq0"
-   end="alt_vip_cl_vfb_0.control_interrupt">
+   end="alt_vip_cl_vfb.control_interrupt">
   <parameter name="irqNumber" value="5" />
  </connection>
  <connection
@@ -2425,8 +2444,15 @@
  <connection
    kind="interrupt"
    version="17.1"
+   start="hps_0.f2h_irq0"
+   end="holosynth_audio.slv_irq">
+  <parameter name="irqNumber" value="6" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="17.1"
    start="ILC.irq"
-   end="alt_vip_cl_vfb_0.control_interrupt">
+   end="alt_vip_cl_vfb.control_interrupt">
   <parameter name="irqNumber" value="5" />
  </connection>
  <connection kind="interrupt" version="17.1" start="ILC.irq" end="jtag_uart.irq">
@@ -2453,6 +2479,13 @@
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
+   kind="interrupt"
+   version="17.1"
+   start="ILC.irq"
+   end="holosynth_audio.slv_irq">
+  <parameter name="irqNumber" value="6" />
+ </connection>
+ <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
@@ -2471,12 +2504,12 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_cl_cvo_0.main_reset" />
+   end="alt_vip_cl_cvo.main_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="alt_vip_cl_vfb_0.main_reset" />
+   end="alt_vip_cl_vfb.main_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2531,17 +2564,17 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="i2s_output_apb_0.reset" />
+   end="audio_i2s_timing_gen.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="audio_i2s_timing_gen_0.reset" />
+   end="holosynth_audio.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="onchip_memory2_0.reset1" />
+   end="onchip_memory2.reset1" />
  <connection kind="reset" version="17.1" start="clk_0.clk_reset" end="ILC.reset_n" />
  <connection
    kind="reset"
@@ -2557,12 +2590,12 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="alt_vip_cl_cvo_0.main_reset" />
+   end="alt_vip_cl_cvo.main_reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="alt_vip_cl_vfb_0.main_reset" />
+   end="alt_vip_cl_vfb.main_reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -2607,17 +2640,17 @@
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="i2s_output_apb_0.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master.master_reset"
    end="pll_bit_clk.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="fpga_only_master.master_reset"
-   end="audio_i2s_timing_gen_0.reset" />
+   end="audio_i2s_timing_gen.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="fpga_only_master.master_reset"
+   end="holosynth_audio.reset" />
  <connection
    kind="reset"
    version="17.1"
