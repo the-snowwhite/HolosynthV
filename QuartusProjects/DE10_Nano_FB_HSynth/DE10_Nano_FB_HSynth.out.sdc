@@ -40,7 +40,8 @@ set_time_format -unit ns -decimal_places 3
 #**************************************************************
 
 create_clock -name {fpga_clk_1_50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {FPGA_CLK1_50}]
-
+create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXENVS} -period 20.000
+create_clock -name {synthesizer:synthesizer_inst|synth_engine:synth_engine_inst|synth_clk_gen:synth_clk_gen_inst|sCLK_XVXOSC} -period 40.000
 
 #**************************************************************
 # Create Generated Clock
