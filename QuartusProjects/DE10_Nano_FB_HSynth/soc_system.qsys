@@ -821,9 +821,9 @@
    kind="holosynth_audio"
    version="1.0"
    enabled="1">
-  <parameter name="ADDRESS_WIDTH" value="3" />
+  <parameter name="ADDRESS_WIDTH" value="14" />
   <parameter name="AUD_BIT_DEPTH" value="24" />
-  <parameter name="DATA_WIDTH" value="8" />
+  <parameter name="DATA_WIDTH" value="32" />
   <parameter name="FIFO_WIDTH" value="6" />
   <parameter name="IRQ_EN" value="0" />
  </module>
