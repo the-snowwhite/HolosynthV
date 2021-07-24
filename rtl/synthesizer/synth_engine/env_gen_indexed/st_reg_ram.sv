@@ -1,6 +1,8 @@
 module st_reg_ram #(
 parameter VOICES = 8,
-parameter V_ENVS = 8,
+parameter V_OSC = 8;	// number of oscilators pr. voice.
+parameter O_ENVS = 2,
+parameter V_ENVS = O_ENVS*V_OSC,
 parameter V_WIDTH = 3,
 parameter E_WIDTH = 3,
 parameter width_numerator = 37

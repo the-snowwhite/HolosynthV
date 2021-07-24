@@ -215,7 +215,7 @@ parameter AUD_BIT_DEPTH = 24;
 //=======================================================
 
 I2C_HDMI_Config u_I2C_HDMI_Config (
-    .iCLK(FPGA_CLK1_50),
+    .iCLK(fpga_clk_50),
     .iRST_N( 1'b1),
     .I2C_SCLK(HDMI_I2C_SCL),
     .I2C_SDAT(HDMI_I2C_SDA),
@@ -226,7 +226,7 @@ I2C_HDMI_Config u_I2C_HDMI_Config (
 
 soc_system u0 (
         //Clock&Reset
-    .clk_clk                               (FPGA_CLK1_50 ),
+    .clk_clk                               (fpga_clk_50 ),
     .reset_reset_n                         (hps_fpga_reset_n ),
     .alt_vip_cl_cvo_vid_data               (HDMI_TX_D ),
     .alt_vip_cl_cvo_underflow              ( ),
@@ -484,9 +484,9 @@ end
     wire        run;
     assign GPIO_1[0] = run;
 
-synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS))  synthesizer_inst(
+synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))  synthesizer_inst(
     .reg_clk               (fpga_clk_50),
-    .AUDIO_CLK             ( AUDIO_CLK ),     // input
+    .AUDIO_CLK             (AUDIO_CLK),     // input
     .reset_reg_n           (hps_fpga_reset_n),
     .reset_data_n          (hps_fpga_reset_n),// input  io_reset_sig
     .trig                  (trig),

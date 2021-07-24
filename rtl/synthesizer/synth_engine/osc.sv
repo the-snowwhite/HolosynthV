@@ -1,7 +1,8 @@
 module osc #(
 parameter VOICES = 8,
-parameter V_OSC = 4,
-parameter V_ENVS = 8,
+parameter V_OSC = 8,
+parameter O_ENVS = 2,
+parameter V_ENVS = O_ENVS*V_OSC,
 parameter V_WIDTH = 3,
 parameter O_WIDTH = 2,
 parameter OE_WIDTH = 1,
@@ -73,7 +74,7 @@ parameter ox_offset = (V_OSC * VOICES ) - 1
         end
     end
 
-    nco2 #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.V_ENVS(V_ENVS),.O_WIDTH(O_WIDTH))  nco_inst (
+    nco2 #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_ENVS(O_ENVS),.O_WIDTH(O_WIDTH))  nco_inst (
         .sCLK_XVXOSC (sCLK_XVXOSC ),
         .sCLK_XVXENVS (sCLK_XVXENVS ),
         .osc_pitch_val ( osc_pitch_val ),

@@ -108,7 +108,7 @@ wire [7:0]mixer_regdata_out;
     (((pitch_adr_data != 0) && osc_sel) || (com_sel && adr == 0)) ? pitch_regdata_out :
     (((midictrl_adr_data != 0) && osc_sel) || ((com_sel && (adr == 1 || adr == 2 || adr >=10)) || m1_sel || m2_sel)) ? mixer_regdata_out : 8'h00;
 
-synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
+synth_clk_gen #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH))synth_clk_gen_inst
 (
     .AUDIO_CLK      ( AUDIO_CLK ),      // input
     .reset_reg_N    ( reset_data_N ),   // input
@@ -160,7 +160,7 @@ pitch_control #(.VOICES(VOICES),.V_OSC(V_OSC),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH
     .osc_pitch_val          ( osc_pitch_val )
 );
 
-osc #(.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) osc_inst
+osc #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) osc_inst
 (
     .reg_clk                ( reg_clk ),
     .sCLK_XVXENVS           ( sCLK_XVXENVS ),
@@ -218,7 +218,7 @@ mixer_2 #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O
     .rsound_out( rsound_out )
 );
 
-env_gen_indexed #(.VOICES(VOICES),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH)) env_gen_indexed_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_env_gen_indexed
+env_gen_indexed #(.VOICES(VOICES),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.E_WIDTH(E_WIDTH)) env_gen_indexed_inst  // ObjectKind=Sheet Symbol|PrimaryId=U_env_gen_indexed
 (
     .reg_clk( reg_clk ),
     .sCLK_XVXENVS( sCLK_XVXENVS ),

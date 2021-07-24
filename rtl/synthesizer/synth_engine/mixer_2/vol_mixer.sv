@@ -3,11 +3,11 @@ parameter AUD_BIT_DEPTH = 24,
 parameter VOICES	= 8,
 parameter V_OSC		= 4, // oscs per Voice
 parameter O_ENVS	= 2, // envs per Oscilator
+parameter V_ENVS	= V_OSC * O_ENVS, // envs per Voice
 parameter V_WIDTH = utils::clogb2(VOICES),
 parameter O_WIDTH = utils::clogb2(V_OSC),
 parameter OE_WIDTH	= utils::clogb2(O_ENVS),
 parameter E_WIDTH	= O_WIDTH + OE_WIDTH,
-parameter V_ENVS	= V_OSC * O_ENVS, // envs per Voice
 parameter x_offset = (V_OSC * VOICES ) - 2
 ) (
     input wire                          sCLK_XVXENVS,  // clk
