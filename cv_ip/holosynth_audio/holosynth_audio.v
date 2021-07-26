@@ -2,7 +2,7 @@ module holosynth_audio #(
 parameter ADDRESS_WIDTH = 3,
 parameter DATA_WIDTH = 8,
 parameter IRQ_EN = 0,
-parameter FIFO_WIDTH = 6,
+parameter FIFO_WIDTH = 10,
 parameter AUD_BIT_DEPTH = 24
 ) (
 // signals to connect to an Avalon clock source interface
@@ -92,8 +92,8 @@ audio_mux audio_mux_inst
 	.i2s_enable(con_i2s_enable) 	// output  i2s_enable_sig
 );
 
-defparam audio_mux_inst.FIFO_WIDTH = 6;
-defparam audio_mux_inst.AUD_BIT_DEPTH = 24;
+defparam audio_mux_inst.FIFO_WIDTH = FIFO_WIDTH;
+defparam audio_mux_inst.AUD_BIT_DEPTH = AUD_BIT_DEPTH;
 
 audio_fifo	audio_fifo_left (
 	.data ( con_lsound_in ),
