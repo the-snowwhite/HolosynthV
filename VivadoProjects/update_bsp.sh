@@ -44,8 +44,6 @@ esac
 cd "$1"-holosynthv-"$PETALINUX_VER"
 petalinux-package --prebuilt --clean
 petalinux-package --prebuilt
-tar -xzf ./images/linux/rootfs.tar.gz ./lib/modules ./usr/lib/xorg/modules/drivers && \
-tar -czf ./pre-built/linux/images/lib_drv.tar.gz ./lib && rm -r lib usr
 cd ./pre-built/linux/images/
 rm bl31.* config 
 rm *.elf rootfs.* u-boot.bin vmlinux zynqmp-qemu*.* 
