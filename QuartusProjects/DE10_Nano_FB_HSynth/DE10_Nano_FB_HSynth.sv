@@ -208,7 +208,7 @@ parameter AUD_BIT_DEPTH = 24;
 //    logic        i2s_output_apb_0_capture_fifo_full;
 //    logic        i2s_capture_enable;
 //    bit          i2s_clkctrl_apb_0_conduit_bclk;
-    bit          i2s_clk;
+    bit          i2s_audio_clk;
 
 //=======================================================
 //  Structural coding
@@ -252,11 +252,7 @@ soc_system u0 (
     .holosynth_midi_socmidi_datain         (socmidi_data_in),
     .holosynth_midi_socmidi_write          (socmidi_write),
     .holosynth_midi_socmidi_int_in         (socmidi_irq_n),
-    .audio_i2s_timing_gen_ext_aud_daclrclk (AUD_DACLRCK),
-    .audio_i2s_timing_gen_ext_aud_bclk     (AUD_BCLK),
-    .audio_i2s_timing_gen_playback_bclk    (playback_bclk),
-    .audio_i2s_timing_gen_playback_lrclk   (playback_lrclk),
-    .audio_i2s_timing_gen_ext_shift_clk    (i2s_clk),
+    .i2s_audio_clk_clk                     (i2s_audio_clk),
     .holosynth_audio_con_int_in            (),
     .holosynth_audio_con_xxxx_zero         (xxxx_zero),
     .holosynth_audio_con_xxxx_top          (xxxx_top),
@@ -266,17 +262,7 @@ soc_system u0 (
     .holosynth_audio_con_rsound_in         (rsound_out),
     .holosynth_audio_con_trig              (trig),
     .holosynth_audio_con_i2s_enable        (i2s_enable),
-//    .i2s_output_apb_0_capture_fifo_data                     ({rsound_out[31:0],lsound_out[31:0]}),
-//    .i2s_output_apb_0_capture_fifo_write                    (xxxx_zero),
-//    .i2s_output_apb_0_capture_fifo_full                     (),
-//    .i2s_output_apb_0_capture_fifo_i2s_capture_enable       (),
-//    .i2s_output_apb_0_capture_fifo_empty                    (),
-//    .i2s_output_apb_0_playback_fifo_ack                     (i2s_playback_fifo_ack),
-//    .i2s_output_apb_0_playback_fifo_i2s_playback_enable     (i2s_playback_enable),
-//    .i2s_output_apb_0_playback_fifo_empty                   (i2s_output_apb_0_playback_fifo_empty),
-//    .i2s_output_apb_0_playback_fifo_full                    (),
-//    .i2s_output_apb_0_playback_fifo_data                    ({i2s_output_apb_0_playback_fifo_data_R,i2s_output_apb_0_playback_fifo_data_L}),
-    .lcd_clk_clk                           (lcd_clk),
+   .lcd_clk_clk                           (lcd_clk),
     .pll_stream_locked_export              (),      // out
     //HPS ddr3
     .memory_mem_a                          ( HPS_DDR3_ADDR), //                memory.mem_a
@@ -361,27 +347,15 @@ soc_system u0 (
     .hps_0_f2h_warm_reset_req_reset_n      (~hps_warm_reset )      //       hps_0_f2h_warm_reset_req.reset_n
 );
 
-//    assign rsound_mixed_out = SW[3] ? rsound_out : i2s_output_apb_0_playback_fifo_data_R;
-//    assign lsound_mixed_out = SW[3] ? lsound_out : i2s_output_apb_0_playback_fifo_data_L;
-//    assign playback_enable  = SW[3] ? 1'b1 : i2s_playback_enable;
-//    assign fifo_ready       = SW[3] ? 1'b1 : ~i2s_output_apb_0_playback_fifo_empty;
-//    assign fifo_ready       = ~i2s_output_apb_0_playback_fifo_empty;
-/*
-    i2s_shift_out i2s_shift_out(
-        .reset_n            (hps_fpga_reset_n),
-        .clk                (i2s_clk),
-
-        .fifo_right_data    (rsound_mixed_out),
-        .fifo_left_data     (lsound_mixed_out),
-        .fifo_ready         (fifo_ready),
-        .fifo_ack           (i2s_playback_fifo_ack),
-
-        .enable             (playback_enable),
-        .bclk               (i2s_clkctrl_apb_0_conduit_bclk),
-        .lrclk              (AUD_DACLRCK),
-        .data_out           (AUD_DACDAT)
-    );
-*/
+audio_i2s_timing_gen audio_i2s_timing_gen_inst
+(
+	.aud_44_in_clk(i2s_audio_clk) ,	// input  aud_44_in_clk_sig
+	.reset_n(hps_fpga_reset_n) ,	// input  reset_n_sig
+	.ext_AUD_BCLK(AUD_BCLK) ,	// output  ext_AUD_BCLK_sig
+	.ext_AUD_DACLRCLK(AUD_DACLRCK) ,	// output  ext_AUD_DACLRCLK_sig
+	.playback_lrclk(playback_lrclk) ,	// output  playback_lrclk_sig
+	.playback_bclk(playback_bclk) 	// output  playback_bclk_sig
+);
 
 audio_i2s_driver audio_i2s_driver_inst
 (

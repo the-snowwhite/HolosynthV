@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
    }
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
    }
@@ -42,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
    }
@@ -54,19 +54,11 @@
          type = "String";
       }
    }
-   element audio_i2s_timing_gen
-   {
-      datum _sortIndex
-      {
-         value = "1";
-         type = "int";
-      }
-   }
    element button_pio
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -92,7 +84,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
       datum sopceditor_expanded
@@ -105,7 +97,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -139,7 +131,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -147,7 +139,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -160,7 +152,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "19";
          type = "int";
       }
    }
@@ -176,7 +168,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -192,7 +184,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
    }
@@ -208,7 +200,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
       datum sopceditor_expanded
@@ -229,7 +221,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
       datum sopceditor_expanded
@@ -242,7 +234,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -268,7 +260,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -294,7 +286,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
    }
@@ -310,7 +302,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "20";
          type = "int";
       }
    }
@@ -326,7 +318,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -342,7 +334,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -526,7 +518,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
       datum sopceditor_expanded
@@ -575,11 +567,6 @@
    type="conduit"
    dir="end" />
  <interface name="audio" internal="pll_bit_clk.outclk0" type="clock" dir="start" />
- <interface
-   name="audio_i2s_timing_gen"
-   internal="audio_i2s_timing_gen.conduit"
-   type="conduit"
-   dir="end" />
  <interface name="audio_pll_locked" internal="pll_audio_clk.locked" />
  <interface
    name="button_pio"
@@ -633,6 +620,11 @@
    type="reset"
    dir="start" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
+ <interface
+   name="i2s_audio_clk"
+   internal="pll_audio_clk.outclk0"
+   type="clock"
+   dir="start" />
  <interface name="lcd_clk" internal="pll_lcd.outclk1" type="clock" dir="start" />
  <interface
    name="led_pio"
@@ -749,11 +741,6 @@
   <parameter name="WRITE_BURST_TARGET" value="64" />
   <parameter name="WRITE_FIFO_DEPTH" value="512" />
  </module>
- <module
-   name="audio_i2s_timing_gen"
-   kind="audio_i2s_timing_gen"
-   version="1.0"
-   enabled="1" />
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -2382,11 +2369,6 @@
  <connection
    kind="clock"
    version="17.1"
-   start="pll_audio_clk.outclk0"
-   end="audio_i2s_timing_gen.clock" />
- <connection
-   kind="clock"
-   version="17.1"
    start="pll_lcd.outclk0"
    end="hps_0.f2h_sdram1_clock" />
  <connection
@@ -2564,11 +2546,6 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="audio_i2s_timing_gen.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="clk_0.clk_reset"
    end="holosynth_audio.reset" />
  <connection
    kind="reset"
@@ -2641,11 +2618,6 @@
    version="17.1"
    start="fpga_only_master.master_reset"
    end="pll_bit_clk.reset" />
- <connection
-   kind="reset"
-   version="17.1"
-   start="fpga_only_master.master_reset"
-   end="audio_i2s_timing_gen.reset" />
  <connection
    kind="reset"
    version="17.1"
