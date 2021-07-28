@@ -33,12 +33,12 @@ parameter AUD_BIT_DEPTH = 24
     input wire xxxx_top,
     input wire lrck,
     input wire run,
-    output reg [31:0] dataout,
+    output reg  [31:0] dataout,
     output wire l_read,
     output wire r_read,
     output wire sample_ready,
     output wire trig,
-    output wire i2s_enable
+    output reg  i2s_enable
 );
     
 //    reg read_dly;
@@ -68,12 +68,15 @@ parameter AUD_BIT_DEPTH = 24
     assign jack_cycle_end = (jack_read_act_dly && !jack_read_act) ? 1'b1 : 1'b0;
 
     assign trig = (buffersize == 0) ? lrck_synced : run_trig;
-    assign i2s_enable = (buffersize == 0) ? 1'b1 : 1'b0;
-
+ 
     assign sample_ready = 1'b1;
     
     initial dataout = 0;
 
+    always @(posedge clk) begin
+       i2s_enable <= (buffersize == 0) ? 1'b1 : 1'b0;
+    end
+    
     always @(posedge clk) begin
         if (read) begin
             if (address == 3'b000) dataout[31:32-AUD_BIT_DEPTH] <= lsound_fifo;

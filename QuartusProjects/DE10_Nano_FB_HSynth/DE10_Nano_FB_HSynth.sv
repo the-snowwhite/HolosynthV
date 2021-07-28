@@ -115,43 +115,6 @@ parameter AUD_BIT_DEPTH = 24;
     wire [27:0] stm_hw_events;
     wire 		fpga_clk_50;
     wire        lcd_clk;
-//
-//     wire [7:0]         vid_r,vid_g,vid_b;
-//     wire               vid_v_sync ;
-//     wire               vid_h_sync ;
-//     wire               vid_datavalid;
-//
-//     assign {vid_r,vid_g,vid_b} = HDMI_TX_D;
-//     assign vid_datavalid = HDMI_TX_DE;
-//     assign vid_v_sync = HDMI_TX_VS;
-//     assign vid_h_sync = HDMI_TX_HS;
-
-    //////////// GPIO - 15" LCD  //////////
-
-//     wire	[7:0]	LCD_B;
-//     wire			LCD_DCLK;
-//     wire	[7:0]	LCD_G;
-//     wire			LCD_HSD;
-//     wire	[7:0]	LCD_R;
-//     wire			LCD_DE;
-//     wire			LCD_VSD;
-//
-//     assign GPIO_0[28:22]	= LCD_B[7:1];
-//     assign GPIO_0[20]		= LCD_B[0];
-//     assign GPIO_0[21]		= LCD_G[7];
-//     assign GPIO_0[19:18]	= LCD_G[6:5];
-//     assign GPIO_0[15:11]	= LCD_G[4:0];
-//     assign GPIO_0[10:3]		= LCD_R;
-//     assign GPIO_0[1]		= LCD_DCLK;
-//     assign GPIO_0[30]		= LCD_HSD;
-//     assign GPIO_0[35]		= LCD_DE;
-//     assign GPIO_0[31]		= LCD_VSD;
-//
-//     assign {LCD_R,LCD_G,LCD_B}	= {vid_r,vid_g,vid_b};
-//     assign LCD_DCLK 			= lcd_clk;
-//     assign LCD_HSD				= ~vid_h_sync;
-//     assign LCD_VSD				= ~vid_v_sync;
-//     assign LCD_DE				= vid_datavalid;
 
 ////////////      Midi       //////////
 
@@ -163,9 +126,7 @@ parameter AUD_BIT_DEPTH = 24;
 
 
 
-//wire               clk_150;
 // connection of internal logics
-//	assign LED[7:0] = fpga_led_internal | {7'b0000000, led_level};
     assign LED[7:0] = {fpga_led_internal[2:0],~voice_free[3:0],led_level};
     assign fpga_clk_50=FPGA_CLK1_50;
     assign stm_hw_events    = {{15{1'b0}}, SW, fpga_led_internal, fpga_debounced_buttons};
@@ -194,20 +155,8 @@ parameter AUD_BIT_DEPTH = 24;
 
     logic [AUD_BIT_DEPTH-1:0] lsound_out;
     logic [AUD_BIT_DEPTH-1:0] rsound_out;
-//    logic [31:0] lsound_mixed_out;
-//    logic [31:0] rsound_mixed_out;
     logic        xxxx_zero;
-//    logic [31:0] i2s_output_apb_0_playback_fifo_data_R;
-//    logic [31:0] i2s_output_apb_0_playback_fifo_data_L;
-//    logic        i2s_playback_fifo_ack;
-//    logic        i2s_output_apb_0_playback_fifo_empty;
-//    logic        i2s_playback_enable;
-//    logic        playback_enable;
-//    logic        fifo_ready;
     bit          playback_lrclk,playback_bclk,i2s_enable,trig;
-//    logic        i2s_output_apb_0_capture_fifo_full;
-//    logic        i2s_capture_enable;
-//    bit          i2s_clkctrl_apb_0_conduit_bclk;
     bit          i2s_audio_clk;
 
 //=======================================================
@@ -446,11 +395,8 @@ end
     assign GPIO_1[3] =	AUD_DACDAT;     // white
 
 
-//	assign aud_mute = user_dipsw_fpga[2];
 
 /////// LED Display ////////
-//    assign LED[7:1] = ~voice_free[6:0];
-//    wire  [VOICES-1:0]	keys_on;
     wire  [VOICES-1:0]	voice_free;
 
     reg [7:0]   delay_1;
@@ -458,7 +404,7 @@ end
     wire        run;
     assign GPIO_1[0] = run;
 
-synthesizer #(.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))  synthesizer_inst(
+synthesizer #(.AUD_BIT_DEPTH(AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS))  synthesizer_inst(
     .reg_clk               (fpga_clk_50),
     .AUDIO_CLK             (AUDIO_CLK),     // input
     .reset_reg_n           (hps_fpga_reset_n),
