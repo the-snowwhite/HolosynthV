@@ -232,8 +232,8 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set Led_out [ create_bd_port -dir O -from 3 -to 0 Led_out ]
-  set ext_AUD_BCLK_0 [ create_bd_port -dir O ext_AUD_BCLK_0 ]
-  set ext_AUD_DACLRCLK_0 [ create_bd_port -dir O ext_AUD_DACLRCLK_0 ]
+  set ext_AUD_BCLK_0 [ create_bd_port -dir O -from 0 -to 0 ext_AUD_BCLK_0 ]
+  set ext_AUD_DACLRCLK_0 [ create_bd_port -dir O -from 0 -to 0 ext_AUD_DACLRCLK_0 ]
   set midi_rxd_0 [ create_bd_port -dir I midi_rxd_0 ]
   set midi_txd_0 [ create_bd_port -dir O midi_txd_0 ]
   set oAUD_DACDAT_0 [ create_bd_port -dir O oAUD_DACDAT_0 ]

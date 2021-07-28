@@ -22,10 +22,10 @@ preplace inst xlconstant_0 -pg 1 -lvl 4 -x 1560 -y 420 -defaultsOSRD
 preplace inst xlslice_0 -pg 1 -lvl 6 -x 2610 -y 830 -defaultsOSRD
 preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 220 -defaultsOSRD
 preplace inst ps8_0_axi_periph -pg 1 -lvl 2 -x 830 -y 290 -defaultsOSRD
-preplace inst holosynth_0 -pg 1 -lvl 5 -x 2100 -y 260 -defaultsOSRD
 preplace inst audio_mux_0 -pg 1 -lvl 4 -x 1560 -y 170 -defaultsOSRD
 preplace inst audio_i2s_driver_0 -pg 1 -lvl 6 -x 2610 -y 680 -defaultsOSRD
 preplace inst audio_i2s_timing_gen_0 -pg 1 -lvl 5 -x 2100 -y 640 -defaultsOSRD
+preplace inst holosynth_0 -pg 1 -lvl 5 -x 2100 -y 260 -defaultsOSRD
 preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 20 130 670 130 990 90 1330 510 1780 50 2390
 preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 5 680 450 1000 630 1360J 580 1860 550 2350J
 preplace netloc audio_i2s_driver_0_oAUD_DACDAT 1 6 1 NJ 680
