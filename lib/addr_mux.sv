@@ -10,9 +10,9 @@ input   [addr_width-1:0]    dec_addr,
 input   [addr_width-1:0]    cpu_addr,
 input   [num_lines-1:0]     cpu_sel_bus,
 input   [num_lines-1:0]     dec_sel_bus,
-output reg                  syx_read_select,
-output reg [addr_width-1:0] addr_out,
-output reg [num_lines-1:0]  sel_out_bus
+output                      syx_read_select,
+output  [addr_width-1:0]    addr_out,
+output  [num_lines-1:0]     sel_out_bus
 );
 
     logic read_write_act;
@@ -32,9 +32,9 @@ output reg [num_lines-1:0]  sel_out_bus
         reg_dataready[4] <= reg_dataready[3];
     end
     
-    always @(posedge clk) begin
-        addr_out[addr_width-1:0]    <= in_select ? dec_addr[addr_width-1:0] : cpu_addr[addr_width-1:0];
-        sel_out_bus[num_lines-1:0]  <= in_select ? dec_sel_bus[num_lines-1:0] : cpu_sel_bus[num_lines-1:0];
-        syx_read_select             <= in_select ? dec_syx : (cpu_and[1] & cpu_and[0]);
-	 end
+//    always @(posedge clk) begin
+    assign addr_out[addr_width-1:0]    = in_select ? dec_addr[addr_width-1:0] : cpu_addr[addr_width-1:0];
+    assign sel_out_bus[num_lines-1:0]  = in_select ? dec_sel_bus[num_lines-1:0] : cpu_sel_bus[num_lines-1:0];
+    assign syx_read_select             = in_select ? dec_syx : (cpu_and[1] & cpu_and[0]);
+//	 end
 endmodule
