@@ -21,10 +21,10 @@
       "clk_wiz_0": "",
       "smartconnect_0": "",
       "zynq_ultra_ps_e_0": "",
-      "audio_i2s_driver_0": "",
       "audio_i2s_timing_gen_0": "",
-      "audio_mux_0": "",
-      "holosynth_0": ""
+      "audio_i2s_driver_0": "",
+      "holosynth_0": "",
+      "audio_mux_0": ""
     },
     "ports": {
       "oAUD_DACDAT_0": {
@@ -203,7 +203,7 @@
             "value": "24.67593"
           },
           "CLKOUT2_USED": {
-            "value": "true"
+            "value": "false"
           },
           "CLKOUT3_DRIVES": {
             "value": "Buffer"
@@ -260,7 +260,7 @@
             "value": "32.750"
           },
           "MMCM_CLKOUT1_DIVIDE": {
-            "value": "45"
+            "value": "1"
           },
           "MMCM_CLKOUT2_DIVIDE": {
             "value": "1"
@@ -275,7 +275,7 @@
             "value": "3"
           },
           "NUM_OUT_CLKS": {
-            "value": "2"
+            "value": "1"
           },
           "PHASESHIFT_MODE": {
             "value": "LATENCY"
@@ -3652,50 +3652,6 @@
           }
         }
       },
-      "audio_i2s_driver_0": {
-        "vlnv": "xilinx.com:module_ref:audio_i2s_driver:1.0",
-        "xci_name": "holosynthv_audio_i2s_driver_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "audio_i2s_driver",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "reset_reg_N": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "iAUD_DACLRCK": {
-            "direction": "I"
-          },
-          "iAUDB_CLK": {
-            "type": "clk",
-            "direction": "I"
-          },
-          "i2s_enable": {
-            "direction": "I"
-          },
-          "i_lsound_out": {
-            "direction": "I",
-            "left": "23",
-            "right": "0"
-          },
-          "i_rsound_out": {
-            "direction": "I",
-            "left": "23",
-            "right": "0"
-          },
-          "oAUD_DACDAT": {
-            "direction": "O"
-          }
-        }
-      },
       "audio_i2s_timing_gen_0": {
         "vlnv": "xilinx.com:module_ref:audio_i2s_timing_gen:1.0",
         "xci_name": "holosynthv_audio_i2s_timing_gen_0_0",
@@ -3747,82 +3703,46 @@
           }
         }
       },
-      "audio_mux_0": {
-        "vlnv": "xilinx.com:module_ref:audio_mux:1.0",
-        "xci_name": "holosynthv_audio_mux_0_0",
+      "audio_i2s_driver_0": {
+        "vlnv": "xilinx.com:module_ref:audio_i2s_driver:1.0",
+        "xci_name": "holosynthv_audio_i2s_driver_0_0",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "audio_mux",
+          "ref_name": "audio_i2s_driver",
           "boundary_crc": "0x0"
         },
         "ports": {
-          "clk": {
-            "type": "clk",
+          "reset_reg_N": {
+            "type": "rst",
             "direction": "I",
             "parameters": {
-              "FREQ_HZ": {
-                "value": "50000000",
-                "value_src": "user_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
               }
             }
           },
-          "address": {
-            "direction": "I",
-            "left": "2",
-            "right": "0"
-          },
-          "read": {
+          "iAUD_DACLRCK": {
             "direction": "I"
           },
-          "write": {
+          "iAUDB_CLK": {
+            "type": "clk",
             "direction": "I"
-          },
-          "datain": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "lsound_in": {
-            "direction": "I",
-            "left": "23",
-            "right": "0"
-          },
-          "rsound_in": {
-            "direction": "I",
-            "left": "23",
-            "right": "0"
-          },
-          "xxxx_top": {
-            "direction": "I"
-          },
-          "lrck": {
-            "direction": "I"
-          },
-          "run": {
-            "direction": "I"
-          },
-          "dataout": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "l_read": {
-            "direction": "O"
-          },
-          "r_read": {
-            "direction": "O"
-          },
-          "sample_ready": {
-            "direction": "O"
-          },
-          "trig": {
-            "direction": "O"
           },
           "i2s_enable": {
+            "direction": "I"
+          },
+          "i_lsound_out": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
+          },
+          "i_rsound_out": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
+          },
+          "oAUD_DACDAT": {
             "direction": "O"
           }
         }
@@ -3963,19 +3883,93 @@
             "direction": "O"
           }
         }
+      },
+      "audio_mux_0": {
+        "vlnv": "xilinx.com:module_ref:audio_mux:1.0",
+        "xci_name": "holosynthv_audio_mux_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "audio_mux",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "holosynthv_zynq_ultra_ps_e_0_0_pl_clk0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "address": {
+            "direction": "I",
+            "left": "2",
+            "right": "0"
+          },
+          "read": {
+            "direction": "I"
+          },
+          "write": {
+            "direction": "I"
+          },
+          "datain": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "lsound_in": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
+          },
+          "rsound_in": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
+          },
+          "xxxx_top": {
+            "direction": "I"
+          },
+          "lrck": {
+            "direction": "I"
+          },
+          "run": {
+            "direction": "I"
+          },
+          "dataout": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "l_read": {
+            "direction": "O"
+          },
+          "r_read": {
+            "direction": "O"
+          },
+          "sample_ready": {
+            "direction": "O"
+          },
+          "trig": {
+            "direction": "O"
+          },
+          "i2s_enable": {
+            "direction": "O"
+          }
+        }
       }
     },
     "interface_nets": {
-      "smartconnect_0_M02_AXI": {
+      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
         "interface_ports": [
-          "holosynth_midi/S_AXI",
-          "smartconnect_0/M02_AXI"
-        ]
-      },
-      "smartconnect_0_M00_AXI": {
-        "interface_ports": [
-          "holosynth_audio/S_AXI",
-          "smartconnect_0/M00_AXI"
+          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
+          "smartconnect_0/S00_AXI"
         ]
       },
       "zynq_ultra_ps_e_0_M_AXI_HPM1_FPD": {
@@ -3984,16 +3978,22 @@
           "smartconnect_0/S01_AXI"
         ]
       },
+      "smartconnect_0_M00_AXI": {
+        "interface_ports": [
+          "holosynth_audio/S_AXI",
+          "smartconnect_0/M00_AXI"
+        ]
+      },
+      "smartconnect_0_M02_AXI": {
+        "interface_ports": [
+          "holosynth_midi/S_AXI",
+          "smartconnect_0/M02_AXI"
+        ]
+      },
       "smartconnect_0_M01_AXI": {
         "interface_ports": [
           "holosynth_sysex/S_AXI",
           "smartconnect_0/M01_AXI"
-        ]
-      },
-      "zynq_ultra_ps_e_0_M_AXI_HPM0_FPD": {
-        "interface_ports": [
-          "zynq_ultra_ps_e_0/M_AXI_HPM0_FPD",
-          "smartconnect_0/S00_AXI"
         ]
       }
     },
@@ -4010,8 +4010,8 @@
           "smartconnect_0/aclk",
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "zynq_ultra_ps_e_0/maxihpm1_fpd_aclk",
-          "audio_mux_0/clk",
-          "holosynth_0/reg_clk"
+          "holosynth_0/reg_clk",
+          "audio_mux_0/clk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
@@ -4027,8 +4027,8 @@
           "holosynth_midi/S_AXI_ARESETN",
           "holosynth_audio/S_AXI_ARESETN",
           "smartconnect_0/aresetn",
-          "audio_i2s_driver_0/reset_reg_N",
           "audio_i2s_timing_gen_0/reset_n",
+          "audio_i2s_driver_0/reset_reg_N",
           "holosynth_0/reset_reg_n",
           "holosynth_0/reset_data_n"
         ]
