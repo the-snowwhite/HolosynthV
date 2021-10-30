@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e  # Exit immediately if a command exits with a non-zero status
-set -x  # print commands
+#set -x  # print commands
 
 # Builds Boot files for the mpsoc HW using Petalinux. Pass in the board name
 # for the project you want to build. Expects Xilinx tools to be installed in

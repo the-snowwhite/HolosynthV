@@ -20,7 +20,6 @@ parameter V_OSC		= 4 // oscs per Voice
     output reg  signed  [7:0]   osc_feedb_in    [V_OSC-1:0],
     output reg  signed  [7:0]   m_vol,
     output wire         [4:0]   cur_midi_ch,
-    output wire                 uart_usb_sel,
     output reg  signed  [7:0]   mat_buf1        [15:0][V_OSC-1:0],
     output reg  signed  [7:0]   mat_buf2        [15:0][V_OSC-1:0],
     output reg          [7:0]   patch_name      [15:0]
