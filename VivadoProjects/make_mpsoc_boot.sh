@@ -53,7 +53,7 @@ cd "$1"-holosynthv-"$PETALINUX_VER"
 petalinux-config --get-hw-description=../"$1"_Holosynth --silentconfig
 petalinux-build
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --u-boot=images/linux/u-boot.elf --pmufw --atf --fpga images/linux/system.bit --force
-tar -xzf ./images/linux/rootfs.tar.gz ./lib/modules ./usr/lib/xorg/modules/drivers \
+tar -xzf ./images/linux/rootfs.tar.gz ./lib/modules \
 ./usr/lib/libMali.so.9 ./usr/lib/libMali.so.9.0 \
 ./usr/lib/x11/libMali.so.9.0 \
 ./usr/lib/wayland/libMali.so.9.0 \

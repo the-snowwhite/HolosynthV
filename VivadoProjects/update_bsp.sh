@@ -46,7 +46,7 @@ petalinux-package --prebuilt --clean
 petalinux-package --prebuilt
 cd ./pre-built/linux/images/
 rm bl31.* config 
-rm *.elf rootfs.* u-boot.bin vmlinux zynqmp-qemu*.* 
+rm *.elf rootfs.* u-boot.bin u-boot-dtb.bin vmlinux zynqmp-qemu*.* 
 rm -r  pxelinux.cfg ../etc ../implementation
 cd ../../..
 petalinux-build -x distclean

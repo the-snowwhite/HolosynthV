@@ -103,7 +103,7 @@ parameter V_OSC		= 4 // oscs per Voice
 /** @brief read data
 */
 
-    always @(negedge reg_clk) begin
+    always @(posedge reg_clk) begin
         if(osc_sel && read)begin
             for (osc2=0;osc2<V_OSC;osc2=osc2+1)begin
                 case (adr)
