@@ -32,6 +32,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/rt_controll
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/synth_clk_gen.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/timing_gen.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/velocity.sv
+set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/audio_i2s_driver.v
 
 # Synth cores:
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_controller.sv
@@ -51,6 +52,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engin
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed.sv
 set_global_assignment -name VERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed/div_module.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed/st_reg_ram.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/env_gen_indexed/st_reg_ram_div.sv
 
 set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/synthesizer/synth_engine/note_key_vel_sync.sv
 

@@ -1,14 +1,15 @@
 module synth_clk_gen #(
 parameter VOICES            = 32,
-parameter V_OSC             = 4, // oscs per Voice
-parameter V_ENVS            = 2*V_OSC,
+parameter V_OSC             = 8, // oscs per Voice
+parameter O_ENVS            = 2,
+parameter V_ENVS            = O_ENVS*V_OSC,
 parameter V_WIDTH           = 3,
 parameter E_WIDTH           = 3,
 parameter SYNTH_CHANNELS    = 1,
 parameter OVERSAMPLING      = 384,
-parameter   AUDIO_CLK_RATE       =   90416666,  //  90.416666 MHz <<-- use for fast
-parameter   AUDIO_REF_CLK         =   16953125,   //  16.953125   MHz <<<--- use for slow
-parameter   SAMPLE_RATE     =   AUDIO_REF_CLK / OVERSAMPLING, //44100;      //  44.1      KHz
+parameter AUDIO_CLK_RATE    = 90416666,  //  90.416666 MHz <<-- use for fast
+parameter AUDIO_REF_CLK     = 16953125,   //  16.953125   MHz <<<--- use for slow
+parameter SAMPLE_RATE       = AUDIO_REF_CLK / OVERSAMPLING, //44100;      //  44.1      KHz
 //parameter XVOSC_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_OSC*2)-1),
 //parameter XVXENVS_DIV = AUDIO_CLK_RATE/((SAMPLE_RATE*SYNTH_CHANNELS*VOICES*V_ENVS*2)-1),
 parameter XVOSC_DIV = 2,

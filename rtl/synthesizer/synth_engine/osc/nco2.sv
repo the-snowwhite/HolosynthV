@@ -1,7 +1,8 @@
 module nco2 #(
-parameter VOICES = 8,
-parameter V_OSC = 4,
-parameter V_ENVS = 8,
+parameter VOICES = 32,
+parameter V_OSC = 8,
+parameter O_ENVS = 2,
+parameter V_ENVS = O_ENVS*V_OSC,
 parameter V_WIDTH = 3,
 parameter O_WIDTH = 2,
 //parameter x_offset = (V_OSC * VOICES ) - 2;

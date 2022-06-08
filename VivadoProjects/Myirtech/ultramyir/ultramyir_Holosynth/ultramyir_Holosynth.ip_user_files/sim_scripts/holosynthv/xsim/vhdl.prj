@@ -1,0 +1,8 @@
+vhdl xil_defaultlib  \
+"../../../../ultramyir_Holosynth.gen/sources_1/bd/holosynthv/ipshared/431c/src/hm2_axilite_int.vhd" \
+"../../../bd/holosynthv/ip/holosynthv_holosynth_audio_0/sim/holosynthv_holosynth_audio_0.vhd" \
+"../../../bd/holosynthv/ip/holosynthv_holosynth_midi_0/sim/holosynthv_holosynth_midi_0.vhd" \
+"../../../bd/holosynthv/ip/holosynthv_holosynth_sysex_0/sim/holosynthv_holosynth_sysex_0.vhd" \
+"../../../bd/holosynthv/ip/holosynthv_rst_ps8_0_99M_0/sim/holosynthv_rst_ps8_0_99M_0.vhd" \
+
+nosort

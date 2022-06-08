@@ -76,8 +76,8 @@ parameter REG_CLK_FREQUENCY = 50_000_000
 //        .voice_free             (voice_free) , 			//  Red LED [4:1]
         .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
         .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
-        .xxxx_zero          (xxxx_zero),                // output  cycle complete signag
-        .xxxx_top               (xxxx_top),                 // output  cycle complete signag
+        .xxxx_zero              (xxxx_zero),                // output  cycle complete signal
+        .xxxx_top               (xxxx_top),                 // output  cycle complete signal
         .address                (cpu_addr) ,	// input [9:0] address_sig
         .cpu_read               (cpu_read) ,	// input  cpu_read_sig
         .cpu_write              (cpu_write) ,	// input  cpu_write_sig
@@ -91,7 +91,6 @@ parameter REG_CLK_FREQUENCY = 50_000_000
         .socmidi_data_in        (socmidi_data_in) ,	// input [31:0] writedata_sig
         .socmidi_data_out       (socmidi_data_out), 	// output [31:0] readdata_sig
         .run                    (run),
-//        .switch3                (uart_usb_sel)
        .active_keys             (active_keys)
     );
     

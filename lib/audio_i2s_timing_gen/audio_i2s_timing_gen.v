@@ -21,6 +21,7 @@
     wire aud_buf_clk;
     wire bclk;
     wire play_lrclk;
+    wire reset_synced_n;
 
     /*
     * Example: Input clock is 24.5760MHz  (48000) slv_reg0 = h0003 0003,  slv_reg4 = h00000F0F

@@ -81,7 +81,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b0aa3440</spirit:value>
+            <spirit:value>05006c0c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -94,7 +94,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b0aa3440</spirit:value>
+            <spirit:value>05006c0c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -200,45 +200,11 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>keys_on</spirit:name>
-        <spirit:wire>
-          <spirit:direction>out</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) - 1)">31</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>wire</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>voice_free</spirit:name>
-        <spirit:wire>
-          <spirit:direction>out</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) - 1)">31</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>wire</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
         <spirit:name>active_keys</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.V_WIDTH&apos;))">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.V_WIDTH&apos;))">5</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -371,7 +337,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:left spirit:format="long">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -388,7 +354,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:left spirit:format="long">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -500,7 +466,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>V_WIDTH</spirit:name>
         <spirit:displayName>V Width</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.V_WIDTH">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.V_WIDTH" spirit:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) > 512)) ? 0 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 2) ? 1 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 4) ? 2 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 8) ? 3 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 16) ? 4 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 32) ? 5 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 64) ? 6 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 128) ? 7 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 256) ? 8 : ((spirit:decode(id(&apos;MODELPARAM_VALUE.a_NUM_VOICES&apos;)) &lt;= 512) ? 9 : 0))))))))))">5</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>b_NUM_OSCS_PER_VOICE</spirit:name>
@@ -522,6 +488,16 @@
         <spirit:displayName>Aud Bit Depth</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
       </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>Invert_rxd</spirit:name>
+        <spirit:displayName>Invert Rxd</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.Invert_rxd">0</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+        <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
+      </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
   <spirit:fileSets>
@@ -530,7 +506,7 @@
       <spirit:file>
         <spirit:name>xgui/holosynth_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_96cb0d63</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_d4d5f955</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -545,7 +521,7 @@
     <spirit:parameter>
       <spirit:name>V_WIDTH</spirit:name>
       <spirit:displayName>V Width</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.V_WIDTH">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.V_WIDTH">5</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>b_NUM_OSCS_PER_VOICE</spirit:name>
@@ -568,6 +544,16 @@
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.AUD_BIT_DEPTH">24</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
+      <spirit:name>Invert_rxd</spirit:name>
+      <spirit:displayName>Invert Rxd</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.Invert_rxd">0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>REG_CLK_FREQUENCY</spirit:name>
+      <spirit:displayName>Reg Clk Frequency</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.REG_CLK_FREQUENCY">50000000</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">holosynth_v1_0</spirit:value>
     </spirit:parameter>
@@ -587,10 +573,10 @@
         <xilinx:designToolContext>IPI</xilinx:designToolContext>
       </xilinx:designToolContexts>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-02-01T00:39:22Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2021-08-09T11:23:53Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
+      <xilinx:xilinxVersion>2020.2.2</xilinx:xilinxVersion>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

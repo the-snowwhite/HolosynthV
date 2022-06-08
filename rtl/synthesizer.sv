@@ -12,7 +12,7 @@
 module synthesizer #(
 parameter AUD_BIT_DEPTH = 24,
 parameter VOICES = 32,
-parameter V_OSC = 4,				// number of oscilators pr. voice.
+parameter V_OSC = 8,				// number of oscilators pr. voice.
 parameter O_ENVS = 2,				// number of envelope generators pr. oscilator.
 parameter V_ENVS = V_OSC * O_ENVS,	// number of envelope generators  pr. voice.
 parameter V_WIDTH = utils::clogb2(VOICES),
@@ -235,7 +235,7 @@ synth_controller #(.VOICES(VOICES),.V_WIDTH(V_WIDTH),.Invert_rxd(Invert_rxd),.RE
     //////////// Sound Generation /////////////
 
 // 2CH Audio Sound output -- Audio Generater //
-synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.V_ENVS(V_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
+synth_engine #(.AUD_BIT_DEPTH (AUD_BIT_DEPTH),.VOICES(VOICES),.V_OSC(V_OSC),.O_ENVS(O_ENVS),.V_WIDTH(V_WIDTH),.O_WIDTH(O_WIDTH),.OE_WIDTH(OE_WIDTH)) synth_engine_inst	(
 // AUDIO CODEC //
     .AUDIO_CLK              ( AUDIO_CLK ),              // input
     .reg_clk                ( reg_clk ),

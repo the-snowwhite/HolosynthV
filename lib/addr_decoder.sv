@@ -2,10 +2,10 @@ module addr_decoder #(
 parameter addr_width = 3,
 parameter num_lines = 6
 ) (
-input		clk,
-input		reset_n,
-input 		[addr_width-1:0]	address,
-output reg	[num_lines-1:0]	sel
+input   clk,
+input   reset_n,
+input   [addr_width-1:0] address,
+output  reg [num_lines-1:0]  sel
 );
 
 genvar i;
