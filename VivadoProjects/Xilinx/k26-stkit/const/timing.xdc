@@ -3,4 +3,3 @@ create_generated_clock -name holosynthv_i/holosynth_0/inst/synthesizer_inst/synt
 create_clock -period 29.493 -name VIRTUAL_clk_out1_holosynthv_clk_wiz_0_0 -waveform {0.000 14.747}
 
 set_false_path -to [get_cells -hierarchical *is_metastable_sig*]
-
