@@ -13,3 +13,5 @@ VivadoProjects/Myirtech/fz3/fz3-holosynthv-2021.2.tar.bz2 filter=lfs diff=lfs me
 VivadoProjects/Myirtech/fz3/fz3-holosynthv-2021.1.tar.bz2 filter=lfs diff=lfs merge=lfs -text
 VivadoProjects/Xilinx/k26-stkit/k26-stkit-holosynthv-2021.2.tar.bz2 filter=lfs diff=lfs merge=lfs -text
 VivadoProjects/Xilinx/k26-stkit/k26-stkit-holosynthv-2021.2.bsp filter=lfs diff=lfs merge=lfs -text
+VivadoProjects/Xilinx/k26-stkit/k26-stkit-holosynthv-2022.1.bsp filter=lfs diff=lfs merge=lfs -text
+VivadoProjects/Xilinx/k26-stkit/k26-stkit-holosynthv-2022.1.tar.bz2 filter=lfs diff=lfs merge=lfs -text
