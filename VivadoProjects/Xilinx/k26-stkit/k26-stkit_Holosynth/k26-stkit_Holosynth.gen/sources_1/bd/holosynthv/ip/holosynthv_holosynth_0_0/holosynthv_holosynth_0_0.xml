@@ -619,7 +619,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>Invert_rxd</spirit:name>
         <spirit:displayName>Invert Rxd</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.Invert_rxd">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.Invert_rxd">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>REG_CLK_FREQUENCY</spirit:name>
@@ -663,7 +663,7 @@
     <spirit:parameter>
       <spirit:name>Invert_rxd</spirit:name>
       <spirit:displayName>Invert Rxd</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.Invert_rxd">1</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.Invert_rxd">0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>REG_CLK_FREQUENCY</spirit:name>
@@ -697,11 +697,10 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.REG_CLK.PHASE" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RESET_DATA_N.POLARITY" xilinx:valueSource="constant_prop" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RESET_REG_N.POLARITY" xilinx:valueSource="constant_prop" xilinx:valuePermission="bd_and_user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.Invert_rxd" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
+      <xilinx:xilinxVersion>2021.2</xilinx:xilinxVersion>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

@@ -74,8 +74,8 @@ parameter REG_CLK_FREQUENCY = 50_000_000
         .button                 (4'b1111),            //  Button[3:0]
 //        .keys_on                (keys_on),				//  LED [7:0]
 //        .voice_free             (voice_free) , 			//  Red LED [4:1]
-        .lsound_out             (lsound_out ),      //  Audio Raw Data Low
-        .rsound_out             (rsound_out ),      //  Audio Raw Data high
+        .lsound_out             (lsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data Low
+        .rsound_out             (rsound_out[AUD_BIT_DEPTH-1:0] ),      //  Audio Raw Data high
         .xxxx_zero              (xxxx_zero),                // output  cycle complete signal
         .xxxx_top               (xxxx_top),                 // output  cycle complete signal
         .address                (cpu_addr) ,	// input [9:0] address_sig

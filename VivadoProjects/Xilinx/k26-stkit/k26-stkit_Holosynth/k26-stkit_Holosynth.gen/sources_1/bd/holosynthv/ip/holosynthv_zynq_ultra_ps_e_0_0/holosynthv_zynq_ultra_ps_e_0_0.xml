@@ -2946,7 +2946,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PROTOCOL</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.PROTOCOL">ACE4</spirit:value>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.PROTOCOL">ACE</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -3035,96 +3035,6 @@
           </spirit:vendorExtensions>
         </spirit:parameter>
         <spirit:parameter>
-          <spirit:name>HAS_BURST</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_BURST">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_LOCK</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_LOCK">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_PROT</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_PROT">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_CACHE</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_CACHE">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_QOS</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_QOS">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_REGION</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_REGION">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_WSTRB</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_WSTRB">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_BRESP</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_BRESP">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>HAS_RRESP</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.HAS_RRESP">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>SUPPORTS_NARROW_BURST</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.SUPPORTS_NARROW_BURST">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
           <spirit:name>NUM_READ_OUTSTANDING</spirit:name>
           <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.NUM_READ_OUTSTANDING">1</spirit:value>
           <spirit:vendorExtensions>
@@ -3145,60 +3055,6 @@
         <spirit:parameter>
           <spirit:name>MAX_BURST_LENGTH</spirit:name>
           <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.MAX_BURST_LENGTH">256</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>PHASE</spirit:name>
-          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.PHASE">0.0</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.CLK_DOMAIN"/>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>NUM_READ_THREADS</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.NUM_READ_THREADS">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>NUM_WRITE_THREADS</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.NUM_WRITE_THREADS">1</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>RUSER_BITS_PER_BYTE</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.RUSER_BITS_PER_BYTE">0</spirit:value>
-          <spirit:vendorExtensions>
-            <xilinx:parameterInfo>
-              <xilinx:parameterUsage>none</xilinx:parameterUsage>
-            </xilinx:parameterInfo>
-          </spirit:vendorExtensions>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>WUSER_BITS_PER_BYTE</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_ACE_FPD.WUSER_BITS_PER_BYTE">0</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -49793,7 +49649,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD0_INTERNAL_BUS_WIDTH)) - 1)">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD0_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -49819,7 +49675,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD0_INTERNAL_BUS_WIDTH)) - 1)">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD0_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -49842,7 +49698,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD0_INTERNAL_BUS_WIDTH)) - 1)">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD0_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -50071,7 +49927,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -50097,7 +49953,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -50120,7 +49976,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(MODELPARAM_VALUE.C_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(PARAM_VALUE.PSU_SD1_INTERNAL_BUS_WIDTH)) - 1)">7</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -65183,7 +65039,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_SD0_INTERNAL_BUS_WIDTH</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="dependent" spirit:id="MODELPARAM_VALUE.C_SD0_INTERNAL_BUS_WIDTH" spirit:dependency="((spirit:decode(id(PARAM_VALUE.PSU__SD0__SLOT_TYPE))==&quot;SD 2.0&quot;)? 4 : ((spirit:decode(id(PARAM_VALUE.PSU__SD0__SLOT_TYPE))==&quot;SD 3.0&quot;)? 8 : ((spirit:decode(id(PARAM_VALUE.PSU__SD0__SLOT_TYPE))==&quot;eMMC&quot;)? (spirit:decode(id(PARAM_VALUE.PSU_SD0_INTERNAL_BUS_WIDTH))) : 5 )))">5</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="dependent" spirit:id="MODELPARAM_VALUE.C_SD0_INTERNAL_BUS_WIDTH" spirit:dependency="spirit:decode(id(PARAM_VALUE.PSU_SD0_INTERNAL_BUS_WIDTH))">8</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -65194,7 +65050,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_SD1_INTERNAL_BUS_WIDTH</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="dependent" spirit:id="MODELPARAM_VALUE.C_SD1_INTERNAL_BUS_WIDTH" spirit:dependency="((spirit:decode(id(PARAM_VALUE.PSU__SD1__SLOT_TYPE))==&quot;SD 2.0&quot;)? 4 : ((spirit:decode(id(PARAM_VALUE.PSU__SD1__SLOT_TYPE))==&quot;SD 3.0&quot;)? 8 : ((spirit:decode(id(PARAM_VALUE.PSU__SD1__SLOT_TYPE))==&quot;eMMC&quot;)? (spirit:decode(id(PARAM_VALUE.PSU_SD1_INTERNAL_BUS_WIDTH))) : 5 )))">8</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="dependent" spirit:id="MODELPARAM_VALUE.C_SD1_INTERNAL_BUS_WIDTH" spirit:dependency="spirit:decode(id(PARAM_VALUE.PSU_SD1_INTERNAL_BUS_WIDTH))">8</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -65290,13 +65146,6 @@
       <spirit:enumeration>APLL</spirit:enumeration>
       <spirit:enumeration>DPLL</spirit:enumeration>
       <spirit:enumeration>IOPLL</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
-      <spirit:name>choice_list_06ccc409</spirit:name>
-      <spirit:enumeration>SD 2.0</spirit:enumeration>
-      <spirit:enumeration>SD 3.0</spirit:enumeration>
-      <spirit:enumeration>SD 3.0 AUTODIR</spirit:enumeration>
-      <spirit:enumeration>eMMC</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_070fff2f</spirit:name>
@@ -65493,20 +65342,6 @@
       <spirit:enumeration>MIO 70 .. 75</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_list_22015e7b</spirit:name>
-      <spirit:enumeration>&lt;Select></spirit:enumeration>
-      <spirit:enumeration>EMIO</spirit:enumeration>
-      <spirit:enumeration>MIO 13 .. 16 21 22</spirit:enumeration>
-      <spirit:enumeration>MIO 38 .. 44</spirit:enumeration>
-      <spirit:enumeration>MIO 64 .. 70</spirit:enumeration>
-      <spirit:enumeration>MIO 13 .. 17 21 22</spirit:enumeration>
-      <spirit:enumeration>MIO 38 .. 45</spirit:enumeration>
-      <spirit:enumeration>MIO 64 .. 71</spirit:enumeration>
-      <spirit:enumeration>MIO 13 .. 22</spirit:enumeration>
-      <spirit:enumeration>MIO 38 .. 48</spirit:enumeration>
-      <spirit:enumeration>MIO 64 .. 74</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
       <spirit:name>choice_list_22517094</spirit:name>
       <spirit:enumeration>MIO 26</spirit:enumeration>
     </spirit:choice>
@@ -65547,6 +65382,12 @@
       <spirit:enumeration>MIO 51</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_list_2d4ee54d</spirit:name>
+      <spirit:enumeration>SD 2.0</spirit:enumeration>
+      <spirit:enumeration>SD 3.0</spirit:enumeration>
+      <spirit:enumeration>eMMC</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_list_2e355d8b</spirit:name>
       <spirit:enumeration>Normal (0-85)</spirit:enumeration>
       <spirit:enumeration>High (95 Max)</spirit:enumeration>
@@ -65562,6 +65403,13 @@
       <spirit:enumeration>&lt;Select></spirit:enumeration>
       <spirit:enumeration>4Bit</spirit:enumeration>
       <spirit:enumeration>8Bit</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_31c53c32</spirit:name>
+      <spirit:enumeration>&lt;Select></spirit:enumeration>
+      <spirit:enumeration>SD 2.0</spirit:enumeration>
+      <spirit:enumeration>SD 3.0</spirit:enumeration>
+      <spirit:enumeration>eMMC</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_32165be6</spirit:name>
@@ -66427,6 +66275,17 @@
       <spirit:enumeration>512</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_list_b9f7dc15</spirit:name>
+      <spirit:enumeration>&lt;Select></spirit:enumeration>
+      <spirit:enumeration>EMIO</spirit:enumeration>
+      <spirit:enumeration>MIO 13 .. 16 21 22</spirit:enumeration>
+      <spirit:enumeration>MIO 38 .. 44</spirit:enumeration>
+      <spirit:enumeration>MIO 64 .. 70</spirit:enumeration>
+      <spirit:enumeration>MIO 13 .. 22</spirit:enumeration>
+      <spirit:enumeration>MIO 38 .. 48</spirit:enumeration>
+      <spirit:enumeration>MIO 64 .. 74</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_list_ba8e1485</spirit:name>
       <spirit:enumeration>&lt;Select></spirit:enumeration>
       <spirit:enumeration>MIO 7</spirit:enumeration>
@@ -66816,14 +66675,6 @@
     <spirit:choice>
       <spirit:name>choice_list_fa77bc6c</spirit:name>
       <spirit:enumeration>MIO 52 .. 63</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
-      <spirit:name>choice_list_fa956450</spirit:name>
-      <spirit:enumeration>&lt;Select></spirit:enumeration>
-      <spirit:enumeration>SD 2.0</spirit:enumeration>
-      <spirit:enumeration>SD 3.0</spirit:enumeration>
-      <spirit:enumeration>SD 3.0 AUTODIR</spirit:enumeration>
-      <spirit:enumeration>eMMC</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_fc3456a9</spirit:name>
@@ -68921,9 +68772,9 @@ FA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PM
     <spirit:parameter>
       <spirit:name>PSU__PROTECTION__FPD_SEGMENTS</spirit:name>
       <spirit:displayName>PSU__PROTECTION__FPD_SEGMENTS</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__PROTECTION__FPD_SEGMENTS">SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemI
-d:PMU Firmware   |    SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowe
-d:Read/Write; subsystemId:Secure Subsystem</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__PROTECTION__FPD_SEGMENTS">SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |
+  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Sub
+system</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__PROTECTION__DEBUG</spirit:name>
@@ -69445,7 +69296,7 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
     <spirit:parameter>
       <spirit:name>PSU__SD0__PERIPHERAL__IO</spirit:name>
       <spirit:displayName>SD0 IO</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__PERIPHERAL__IO" spirit:choiceRef="choice_list_22015e7b">&lt;Select></spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__PERIPHERAL__IO" spirit:choiceRef="choice_list_b9f7dc15">&lt;Select></spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -69529,7 +69380,7 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
     <spirit:parameter>
       <spirit:name>PSU__SD0__SLOT_TYPE</spirit:name>
       <spirit:displayName>SD0 Slot Type</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__SLOT_TYPE" spirit:choiceRef="choice_list_fa956450">&lt;Select></spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__SLOT_TYPE" spirit:choiceRef="choice_list_31c53c32">&lt;Select></spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -69554,30 +69405,6 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
           </xilinx:enablement>
         </xilinx:parameterInfo>
       </spirit:vendorExtensions>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_50_SDR_ITAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_50_SDR_ITAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x15</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_50_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_50_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x5</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_50_DDR_ITAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_50_DDR_ITAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3D</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_50_DDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_50_DDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x4</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_100_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_100_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD0__CLK_200_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD0__CLK_200_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__SD1__PERIPHERAL__ENABLE</spirit:name>
@@ -69629,7 +69456,7 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
     <spirit:parameter>
       <spirit:name>PSU__SD1__SLOT_TYPE</spirit:name>
       <spirit:displayName>SD1 Slot Type</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__SLOT_TYPE" spirit:choiceRef="choice_list_06ccc409">SD 3.0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__SLOT_TYPE" spirit:choiceRef="choice_list_2d4ee54d">SD 3.0</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__SD1__RESET__ENABLE</spirit:name>
@@ -69647,30 +69474,6 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
       <spirit:name>PSU__SD1__DATA_TRANSFER_MODE</spirit:name>
       <spirit:displayName>Data Transfer Mode</spirit:displayName>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__DATA_TRANSFER_MODE" spirit:choiceRef="choice_list_d882b919">8Bit</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_50_SDR_ITAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_50_SDR_ITAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x15</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_50_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_50_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x5</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_50_DDR_ITAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_50_DDR_ITAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3D</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_50_DDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_50_DDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x4</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_100_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_100_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>PSU__SD1__CLK_200_SDR_OTAP_DLY</spirit:name>
-      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.PSU__SD1__CLK_200_SDR_OTAP_DLY" spirit:bitStringLength="8" spirit:rangeType="long">0x3</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PSU__DEVICE_TYPE</spirit:name>
@@ -80137,7 +79940,7 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
         <xilinx:systemCLibrary>remote_port_sc_v4</xilinx:systemCLibrary>
         <xilinx:systemCLibrary>xtlm</xilinx:systemCLibrary>
       </xilinx:systemCLibraries>
-      <xilinx:coreRevision>0</xilinx:coreRevision>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
       <xilinx:requiresVIP>true</xilinx:requiresVIP>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_HPM0_FPD.ADDR_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
@@ -81558,12 +81361,6 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SAXIGP6__DATA_WIDTH" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0_COHERENCY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0_ROUTE_THROUGH_FPD" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_100_SDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_200_SDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_50_DDR_ITAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_50_DDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_50_SDR_ITAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__CLK_50_SDR_OTAP_DLY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__GRP_CD__ENABLE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__GRP_POW__ENABLE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__GRP_WP__ENABLE" xilinx:valueSource="user"/>
@@ -81571,12 +81368,6 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD0__RESET__ENABLE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1_COHERENCY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1_ROUTE_THROUGH_FPD" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_100_SDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_200_SDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_50_DDR_ITAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_50_DDR_OTAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_50_SDR_ITAP_DLY" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__CLK_50_SDR_OTAP_DLY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__DATA_TRANSFER_MODE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__GRP_CD__ENABLE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.PSU__SD1__GRP_CD__IO" xilinx:valueSource="user"/>
@@ -81738,15 +81529,15 @@ o1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_di
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
+      <xilinx:xilinxVersion>2021.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="b930800c"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="3600021e"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="d1294215"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0cf0857c"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="9b320194"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="212e7a37"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="accdd193"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="e70a94d7"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="5c5bf96e"/>
       <xilinx:checksum xilinx:scope="cpus" xilinx:value="715e4c76"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="867bb9f7"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="bd5b280b"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
